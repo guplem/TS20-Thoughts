@@ -47,9 +47,10 @@ namespace Thoughts.ControlSystems
             newPosition += cameraRig.rotation * (desiredTranslation * (moveSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) );
         }
         
-        public void Rotate(float desiredRotation, bool isFastSpeed)
+        public void Rotate(Vector2 desiredRotation, bool isFastSpeed)
         {
-            newRotation *= Quaternion.Euler(Vector3.up * (desiredRotation * (rotationSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) ) ) ;
+            Debug.Log(desiredRotation);
+            newRotation *= Quaternion.Euler( (desiredRotation * (rotationSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) ) ) ;
         }
 
         public void Zoom(float desiredZoom, bool isFastSpeed)

@@ -41,10 +41,10 @@ namespace Thoughts.ControlSystems
                 mouseCurrentRotation = Input.mousePosition;
                 Vector3 difference = mouseStartRotation - mouseCurrentRotation;
                 mouseStartRotation = mouseCurrentRotation;
-                manualControlSystem.cameraController.Rotate(-difference.x / 5f, false); // isFastSpeed = false because there is no need for boost when the velocity is controlled by the user's mouse speed
+                manualControlSystem.cameraController.Rotate(new Vector2(difference.y, -difference.x) / 5f, false); // isFastSpeed = false because there is no need for boost when the velocity is controlled by the user's mouse speed
             }
             else
-                manualControlSystem.cameraController.Rotate(Input.GetAxis("Rotation"), isFastSpeed);
+                manualControlSystem.cameraController.Rotate(new Vector2(0f, -Input.GetAxis("Rotation")), isFastSpeed);
             
             // Zoom
             manualControlSystem.cameraController.Zoom(Input.GetAxis("Zoom"), isFastSpeed);
