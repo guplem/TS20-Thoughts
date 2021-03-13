@@ -23,11 +23,16 @@ namespace Thoughts.ControlSystems
         {
             bool isFastSpeed = Input.GetButton("Shift");
             
+            // Movement
             float verticalTranslation = 0f;
             Vector3 desiredTranslation = new Vector3(Input.GetAxis("Horizontal"), verticalTranslation, Input.GetAxis("Vertical")).normalized;
             manualControlSystem.cameraController.Move(desiredTranslation, isFastSpeed);
 
+            // Horizontal rotation
             manualControlSystem.cameraController.Rotate(Input.GetAxis("Rotation"), isFastSpeed);
+            
+            // Zoom
+            manualControlSystem.cameraController.Zoom(Input.GetAxis("Zoom"), isFastSpeed);
         }
     }
 }
