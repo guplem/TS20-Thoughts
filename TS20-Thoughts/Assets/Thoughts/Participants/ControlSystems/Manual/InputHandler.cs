@@ -44,10 +44,7 @@ namespace Thoughts.ControlSystems
                 manualControlSystem.cameraController.Rotate(new Vector2(difference.x, difference.y) / 5f, false); // isFastSpeed = false because there is no need for boost when the velocity is controlled by the user's mouse speed
             }
             else
-                manualControlSystem.cameraController.Rotate(new Vector2(0f, -Input.GetAxis("Rotation")), isFastSpeed);
-            
-            // Zoom
-            manualControlSystem.cameraController.Zoom(Input.GetAxis("Zoom"), isFastSpeed);
+                manualControlSystem.cameraController.Rotate(new Vector2(-Input.GetAxis("Rotation"), Input.GetAxis("Zoom")*-100), isFastSpeed);
         }
     }
 }
