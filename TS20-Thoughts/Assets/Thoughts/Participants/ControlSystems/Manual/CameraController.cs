@@ -46,10 +46,12 @@ namespace Thoughts.ControlSystems
         {
             newPosition += cameraRig.rotation * (desiredTranslation * (moveSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) );
         }
+        
         public void Rotate(float desiredRotation, bool isFastSpeed)
         {
             newRotation *= Quaternion.Euler(Vector3.up * (desiredRotation * (rotationSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) ) ) ;
         }
+
         public void Zoom(float desiredZoom, bool isFastSpeed)
         {
             newZoom += desiredZoom * zoomSpeed * new Vector3(0, -1, 1);
