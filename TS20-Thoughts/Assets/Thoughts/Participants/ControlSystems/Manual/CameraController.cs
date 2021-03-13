@@ -10,12 +10,12 @@ namespace Thoughts.ControlSystems
     public class CameraController : MonoBehaviour
     {
 
-        //[SerializeField] private new Camera camera;
+        [SerializeField] private new Camera camera;
         [SerializeField] private Transform cameraRig;
         [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
         private Manual manualControlSystem;
 
-        [SerializeField] private float moveSpeed = 0.1f;
+        [SerializeField] private float moveSpeed = 2f;
         [SerializeField] private float rotationSpeed = 2f;
         //[SerializeField] private float zoomSpeed = 10f;
         [SerializeField] private float fastSpeedMultiplier = 2f;
@@ -67,7 +67,7 @@ namespace Thoughts.ControlSystems
         
         public void Move(Vector3 desiredTranslation, bool isFastSpeed)
         {
-            newPosition += cameraRig.rotation * (desiredTranslation * (moveSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) );
+            newPosition += (camera.transform.rotation * desiredTranslation).WithY(0f).normalized * (isFastSpeed? fastSpeedMultiplier : 1) /50;
         }
         
         public void Rotate(Vector2 desiredRotation, bool isFastSpeed)
