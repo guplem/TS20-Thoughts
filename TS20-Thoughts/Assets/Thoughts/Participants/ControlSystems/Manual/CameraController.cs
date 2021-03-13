@@ -1,3 +1,5 @@
+using System;
+using Cinemachine;
 using Essentials.Scripts.Extensions;
 using UnityEditor.UIElements;
 using UnityEngine;
@@ -10,6 +12,7 @@ namespace Thoughts.ControlSystems
 
         [SerializeField] private new Camera camera;
         [SerializeField] private Transform cameraRig;
+        [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
         private Manual manualControlSystem;
 
         [SerializeField] private float moveSpeed = 0.1f;
@@ -19,15 +22,35 @@ namespace Thoughts.ControlSystems
         [SerializeField] private float movementSmoothing = 5f;
 
         private Vector3 newPosition;
-        private Quaternion newRotation;
+        //private Quaternion newRotation;
         private Vector3 newZoom;
-
+        private Vector2 newRotation;
+        
         private void Awake()
         {
             manualControlSystem = this.GetComponentRequired<Thoughts.ControlSystems.Manual>();
             newPosition = cameraRig.position;
-            newRotation = cameraRig.rotation;
+            //newRotation = cameraRig.rotation;
             newZoom = camera.transform.localPosition;
+        }
+
+        private void Start()
+        {
+            CinemachineCore.GetInputAxis = GetAxisCustom;
+        }
+        
+        public float GetAxisCustom(string axisName)
+        {
+            if(axisName == "Mouse X")
+            {
+                return newRotation.x;
+            }
+            else if (axisName == "Mouse Y")
+            {
+                return newRotation.y;
+            }
+ 
+            return 0;
         }
 
         private void Update()
@@ -38,7 +61,7 @@ namespace Thoughts.ControlSystems
         private void HandleTransformUpdates()
         {
             cameraRig.position = Vector3.Lerp(cameraRig.position, newPosition, Time.deltaTime * movementSmoothing);
-            cameraRig.rotation = Quaternion.Lerp(cameraRig.rotation, newRotation, Time.deltaTime * movementSmoothing);
+            //cameraRig.rotation = Quaternion.Lerp(cameraRig.rotation, newRotation, Time.deltaTime * movementSmoothing);
             camera.transform.localPosition = Vector3.Lerp(camera.transform.localPosition, newZoom, Time.deltaTime * movementSmoothing);
         }
         
@@ -49,8 +72,9 @@ namespace Thoughts.ControlSystems
         
         public void Rotate(Vector2 desiredRotation, bool isFastSpeed)
         {
-            Debug.Log(desiredRotation);
-            newRotation *= Quaternion.Euler( (desiredRotation * (rotationSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) ) ) ;
+            //Debug.Log(desiredRotation);
+            //newRotation *= Quaternion.Euler( (desiredRotation * (rotationSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) ) ) ;
+            newRotation = desiredRotation * (rotationSpeed * (isFastSpeed ? fastSpeedMultiplier : 1));
         }
 
         public void Zoom(float desiredZoom, bool isFastSpeed)
