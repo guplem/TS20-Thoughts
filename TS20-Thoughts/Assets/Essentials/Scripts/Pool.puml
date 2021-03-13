@@ -1,0 +1,25 @@
+@startuml
+class Pool {
+    + baseObjects : GameObject[]
+    + activeIndex : int <<get>>
+    + lastBaseObjectRegisteredIndex : int <<get>>
+    + randomInstantiationSequence : bool = false
+    + size : int = 10
+    + randomEssentialsInstantiation : RandomEssentials
+    + Pool()
+    + Pool(baseObjects:GameObject[], size:int, instantiateAllAtCreation:bool)
+    + Pool(baseObjects:GameObject, size:int, instantiateAllAtCreation:bool)
+    + Pool(baseObjects:GameObject[], size:int, instantiationPosition:Vector3, instantiationRotation:Quaternion, instantiateAllAtCreation:bool, randomInstantiationSequence:bool, intantiationRandomizationSeed:int)
+    + Spawn(position:Vector3, rotation:Quaternion, scale:Vector3, parent:Transform) : GameObject
+    + Load(quantity:int, parent:Transform) : void
+    + Disable(gameObject:GameObject) : GameObject
+    + Disable(gameObjectIndexInPool:int) : GameObject
+}
+class DefaultPositionAndRotation {
+    + instantiationPosition : Vector3
+    + instantiationRotation : Quaternion
+    + DefaultPositionAndRotation()
+    + DefaultPositionAndRotation(instantiationPosition:Vector3, instantiationRotation:Quaternion)
+}
+Pool +-- DefaultPositionAndRotation
+@enduml
