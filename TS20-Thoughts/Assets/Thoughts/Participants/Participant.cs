@@ -1,13 +1,34 @@
+using Essentials.Scripts.Extensions;
 using Thoughts.ControlSystems;
+using UnityEngine;
 
-namespace Thoughts.Participants
+namespace Thoughts
 {
+    [RequireComponent(typeof(ControlSystem))]
     public class Participant
     {
-        private ControlSystem controlSystem;
-        public Participant(ControlSystem controlSystem)
+        public ControlSystem controlSystem
         {
-            this.controlSystem = controlSystem;
+            get
+            {
+                return _controlSystem;
+            }
+            private set
+            {
+                if (_controlSystem != null)
+                    _controlSystem.Disable();
+                
+                _controlSystem = value;
+                
+                if (_controlSystem != null)
+                    _controlSystem.Initialize(this);
+            }
+        }
+        private ControlSystem _controlSystem;
+        
+        public Participant(GameObject controlSystem)
+        {
+            this.controlSystem = controlSystem.GetComponentRequired<ControlSystem>();
         }
     }
 }
