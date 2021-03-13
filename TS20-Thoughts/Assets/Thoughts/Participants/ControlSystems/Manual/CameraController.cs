@@ -67,7 +67,7 @@ namespace Thoughts.ControlSystems
         
         public void Move(Vector3 desiredTranslation, bool isFastSpeed)
         {
-            newPosition += (camera.transform.rotation * desiredTranslation).WithY(0f).normalized * (isFastSpeed? fastSpeedMultiplier : 1) /50;
+            newPosition += ((camera.transform.rotation * desiredTranslation).WithY(0f).normalized * (isFastSpeed? moveSpeed*fastSpeedMultiplier : moveSpeed) ) /50;
         }
         
         public void Rotate(Vector2 desiredRotation, bool isFastSpeed)
