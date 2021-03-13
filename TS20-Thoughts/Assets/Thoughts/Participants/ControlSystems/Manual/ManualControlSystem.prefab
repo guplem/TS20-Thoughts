@@ -215,11 +215,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 8563028607366679179}
-  cameraRig: {fileID: 1511279607144584822}
-  moveSpeed: 0.3
+  cameraRig: {fileID: 2429319596071786832}
+  moveSpeed: 0.1
+  rotationSpeed: 2
   fastSpeedMultiplier: 2
-  translationTime: 5
-  rotationSpeed: 1
+  movementSmoothing: 5
 --- !u!1 &7920776376382676147
 GameObject:
   m_ObjectHideFlags: 0
