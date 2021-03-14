@@ -14,16 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _needs:
   - id: 0
-  - id: 1
   references:
     version: 1
     00000000:
       type: {class: Water, ns: Thoughts.Needs, asm: Assembly-CSharp}
       data:
+        priority: 0
         value: 95
-        priority: 0
-    00000001:
-      type: {class: Water, ns: Thoughts.Needs, asm: Assembly-CSharp}
-      data:
-        value: 100
-        priority: 0
+        lossAmount: 1
+        threshold: 10

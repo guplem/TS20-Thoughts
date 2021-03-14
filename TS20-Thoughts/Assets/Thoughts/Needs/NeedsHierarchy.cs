@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 namespace Thoughts.Needs
 {
-    [Serializable]
     [CreateAssetMenu(fileName = "Needs Hierarchy", menuName = "Thoughts/Needs Hierarchy", order = 1)]
     public class NeedsHierarchy : ScriptableObject
     {

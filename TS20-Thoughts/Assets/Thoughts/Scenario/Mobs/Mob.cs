@@ -15,6 +15,7 @@ namespace Thoughts.Mobs
             {
                 _currentWorkingNeed = value;
                 Debug.Log($"Current working need is {_currentWorkingNeed}");
+                _currentWorkingNeed.StartCare();
             }
         }
         private Need _currentWorkingNeed;

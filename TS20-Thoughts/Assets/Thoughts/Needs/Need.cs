@@ -40,5 +40,6 @@ namespace Thoughts.Needs
             value -= lossAmount;
             
         }
+        public abstract void StartCare();
     }
 }
