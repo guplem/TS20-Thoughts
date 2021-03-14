@@ -12,7 +12,7 @@ namespace Thoughts
         {
             Mob mob = Instantiate(human).GetComponentRequired<Mob>();
             mob.gameObject.name = "HUMAN TEST";
-            Instantiate(human).GetComponentRequired<Mob>();
+            //Instantiate(human).GetComponentRequired<Mob>();
         }
     }
 }

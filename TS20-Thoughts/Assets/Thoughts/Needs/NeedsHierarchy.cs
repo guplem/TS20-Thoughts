@@ -9,7 +9,6 @@ namespace Thoughts.Needs
     [CreateAssetMenu(fileName = "Needs Hierarchy", menuName = "Thoughts/Needs Hierarchy", order = 1)]
     public class NeedsHierarchy : ScriptableObject
     {
-        
         public IReadOnlyList<Need> needs => _needs.Cast<Need>().ToList().AsReadOnly();
         [SerializeReference] private List<INeed> _needs = new List<INeed>();
 
@@ -23,14 +22,6 @@ namespace Thoughts.Needs
         {
             _needs.Sort();
         }
-        /*public NeedsHierarchy Clone()
-        {
-            NeedsHierarchy nh = new NeedsHierarchy();
-            foreach (Need need in needs)
-            {
-                nh.AddNeed(need);
-            }
-            return nh;
-        }*/
+        
     }
 }

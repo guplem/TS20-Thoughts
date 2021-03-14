@@ -1,14 +1,19 @@
 
 using System;
+using UnityEngine;
 
 namespace Thoughts.Needs
 {
     //[CreateAssetMenu(fileName = "Need", menuName = "Thoughts/Need", order = 1)]
     public abstract class Need : INeed, IComparable<Need> // : ScriptableObject
     {
-        public int value = 100;
         public int priority = 0;
-        
+        public int value = 100;
+        public int lossAmount = 1;
+        [NonSerialized] public const float timeBetweenLoss = 0.1f;
+        public int threshold = 10;
+        public bool needsCare => value < threshold;
+
         public int CompareTo(Need other)
         {
             if (ReferenceEquals(this, other))
@@ -26,6 +31,14 @@ namespace Thoughts.Needs
         {
             return $"{this.GetType().Name}: P={priority} - V={value}";
         }
-        
+
+        /// <summary>
+        /// Consumes the loss amount from the value.
+        /// </summary>
+        public void Consume()
+        {
+            value -= lossAmount;
+            
+        }
     }
 }
