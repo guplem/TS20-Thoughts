@@ -11,6 +11,8 @@ namespace Thoughts
         public void BuildNew(List<Participant> participants)
         {
             Mob mob = Instantiate(human).GetComponentRequired<Mob>();
+            mob.gameObject.name = "HUMAN TEST";
+            Instantiate(human).GetComponentRequired<Mob>();
         }
     }
 }

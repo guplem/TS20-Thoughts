@@ -449,6 +449,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Human
       objectReference: {fileID: 0}
+    - target: {fileID: 3847014076817145409, guid: 2292a89e770c16646a6de74b6e8c24f9, type: 3}
+      propertyPath: needsHierarchy
+      value: 
+      objectReference: {fileID: 11400000, guid: d44366cf05d7a4341af1d0e0aca1fbb7, type: 2}
     - target: {fileID: 5996183754549390867, guid: 2292a89e770c16646a6de74b6e8c24f9, type: 3}
       propertyPath: m_RootOrder
       value: 0
