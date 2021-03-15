@@ -1,11 +1,15 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using Thoughts.Needs;
 using UnityEngine;
 
 namespace Thoughts.Mobs
 {
+
     public abstract class Mob : MonoBehaviour
     {
+        
         [SerializeField] protected NeedsHierarchy needsHierarchy;
         private IEnumerator coroutineHolder; // Keeps track of the coroutine
         private Need currentWorkingNeed
@@ -15,10 +19,12 @@ namespace Thoughts.Mobs
             {
                 _currentWorkingNeed = value;
                 Debug.Log($"Current working need is {_currentWorkingNeed}");
-                _currentWorkingNeed.StartCare();
+                actions = _currentWorkingNeed.GetActionsToTakeCare();
+                actions.DebugLog();
             }
         }
         private Need _currentWorkingNeed;
+        private List<MobAction> actions = new List<MobAction>();
 
         private void Awake()
         {

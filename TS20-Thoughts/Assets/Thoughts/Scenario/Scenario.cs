@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Essentials.Scripts.Extensions;
 using Thoughts.MapElements;
 using Thoughts.Mobs;
+using Thoughts.Needs;
 using UnityEngine;
 
 namespace Thoughts
@@ -25,6 +26,18 @@ namespace Thoughts
             mob.gameObject.name = "Guillermo";
             
             mapElements.Add(Instantiate(water, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
+        }
+        public MapElement FindElementToCoverNeed(Need need)
+        {
+            MapElement mapElementFound = null;
+            foreach (MapElement element in mapElements)
+            {
+                //Debug.Log($"Analazing {element} with inventory {map} for the need {need}");
+                if (!element.inventory.ContainsItemToCoverNeed(need))
+                    continue;
+                mapElementFound = element;
+            }
+            return mapElementFound;
         }
     }
 }

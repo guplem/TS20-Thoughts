@@ -1,5 +1,7 @@
 
 using System;
+using System.Collections.Generic;
+using Thoughts.MapElements;
 using UnityEngine;
 
 namespace Thoughts.Needs
@@ -40,6 +42,16 @@ namespace Thoughts.Needs
             value -= lossAmount;
             
         }
-        public abstract void StartCare();
+        public virtual List<MobAction> GetActionsToTakeCare()
+        {
+            List<MobAction> actions = new List<MobAction>();
+            
+            // Where to go
+            MapElement elementToCoverNeed = AppManager.currentGame.scenario.FindElementToCoverNeed(this);
+            actions.Add(new MobAction(elementToCoverNeed.gameObject.name));
+            
+            return actions;
+        }
+        
     }
 }

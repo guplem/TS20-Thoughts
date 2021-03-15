@@ -28,7 +28,7 @@ THE SOFTWARE.
 
 using UnityEngine;
 
-namespace Essentials.Scripts.Extensions.RectTransformExtensions
+namespace UnityEngine
 {
   public static class RectTransformExtensions
   {

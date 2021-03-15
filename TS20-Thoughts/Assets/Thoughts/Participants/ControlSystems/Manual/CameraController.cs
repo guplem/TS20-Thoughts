@@ -1,6 +1,5 @@
 using System;
 using Cinemachine;
-using Essentials.Scripts.Extensions;
 using UnityEditor.UIElements;
 using UnityEngine;
 

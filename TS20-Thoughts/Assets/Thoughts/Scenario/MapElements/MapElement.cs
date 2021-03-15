@@ -4,8 +4,6 @@ namespace Thoughts.MapElements
 {
      public class MapElement : MonoBehaviour
      {
-          [SerializeField] private Inventory inventory = new Inventory();
-     
-          
+          [SerializeField] public Inventory inventory = new Inventory();
      }
 }

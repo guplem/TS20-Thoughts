@@ -1,5 +1,4 @@
 using System;
-using Essentials.Scripts.Extensions;
 using UnityEngine;
 
 namespace Thoughts.ControlSystems

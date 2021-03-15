@@ -4,9 +4,5 @@ namespace Thoughts.Needs
 {
     public class Water : Need
     {
-        public override void StartCare()
-        {
-            
-        }
     }
 }
