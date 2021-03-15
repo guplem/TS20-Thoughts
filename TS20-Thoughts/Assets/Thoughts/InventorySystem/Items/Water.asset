@@ -15,7 +15,14 @@ MonoBehaviour:
   name: Water
   transferible: 0
   consumible: 1
-  needsCovered:
-    list:
-    - Key: Water
-      Value: 0
+  coveredNeeds:
+  - id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: Water, ns: Thoughts.Needs, asm: Assembly-CSharp}
+      data:
+        priority: 0
+        value: 100
+        lossAmount: 1
+        threshold: 10

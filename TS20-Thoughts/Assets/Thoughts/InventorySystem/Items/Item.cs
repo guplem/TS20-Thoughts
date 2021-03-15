@@ -12,19 +12,19 @@ namespace Thoughts
         public new string name;
         public bool transferible = false;
         public bool consumible = false;
-        public SerializableDictionary<string, int> needsCovered = new SerializableDictionary<string, int>();
+        //public SerializableDictionary<string, int> needsCovered = new SerializableDictionary<string, int>();
+        [HideInInspector] [SerializeReference] public List<INeed> coveredNeeds = new List<INeed>();
 
-        public Item()
+        /*public Item()
         {
             Type[] implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
             foreach (Type type in implementations)
             {
                 needsCovered.Add(type.Name, 0);
             }
-        }
+        }*/
         
         
-        //[HideInInspector][SerializeReference] public List<ICoveredNeed> coveredNeeds = new List<ICoveredNeed>();
     }
     
     /*public interface ICoveredNeed { }
