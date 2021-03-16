@@ -13,7 +13,7 @@ namespace Thoughts
         public bool transferible = false;
         public bool consumible = false;
         //public SerializableDictionary<string, int> needsCovered = new SerializableDictionary<string, int>();
-        [HideInInspector] [SerializeReference] public List<INeed> coveredNeeds = new List<INeed>();
+        [HideInInspector] [SerializeReference] public List<TypeSerializable> coveredNeeds = new List<TypeSerializable>();
 
         /*public Item()
         {

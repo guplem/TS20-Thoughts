@@ -1,10 +1,10 @@
-public class MobAction
+public abstract class MobAction
 {
     public string objectiveName;
     
-    public MobAction(string gameObjectName)
+    public MobAction(string ObjectiveName)
     {
-        this.objectiveName = gameObjectName;
+        this.objectiveName = ObjectiveName;
     }
 
     public override string ToString()

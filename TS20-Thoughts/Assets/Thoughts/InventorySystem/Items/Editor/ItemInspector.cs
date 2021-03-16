@@ -75,7 +75,7 @@ namespace Thoughts
                     //add the new need to the needs' list
 //                if (needsHierarchy.needs == null)
 //                    needsHierarchy.CreateNewNeedsList();
-                    item.coveredNeeds.Add(newCoveredNeed);
+                    item.coveredNeeds.Add(new TypeSerializable(newCoveredNeed.GetType()));
                 }
 
                 // Draw horizontal line
@@ -85,13 +85,13 @@ namespace Thoughts
                 {
                     for (int a = 0; a < item.coveredNeeds.Count; a++)
                     {
-                        if (item.coveredNeeds[a] == null || ((Need) item.coveredNeeds[a]) == null)
+                        if (item.coveredNeeds[a] == null)
                             EditorGUILayout.HelpBox("The need with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
 
                         //if (item.coveredNeeds.Count() != item.coveredNeeds.Distinct().Count()) // need to implement hash code override
                         for (int d = a + 1; d < item.coveredNeeds.Count; d++)
                         {
-                            if (item.coveredNeeds[a] != null && ((Need) item.coveredNeeds[a]) != null && ((Need) item.coveredNeeds[a]).GetType() == ((Need) item.coveredNeeds[d]).GetType())
+                            if (item.coveredNeeds[a] != null && item.coveredNeeds[d] != null && item.coveredNeeds[a] == item.coveredNeeds[d])
                                 EditorGUILayout.HelpBox("The elements with index " + a + " and " + d + " are covering the same need.", MessageType.Warning);
                         }
                     }
@@ -133,8 +133,8 @@ namespace Thoughts
                     string itemName = $"NULL covered need {i}";
                     try
                     {
-                        Need coveredNeed = (((Need)item.coveredNeeds[i]));
-                        itemName = $"• {coveredNeed.GetType().Name}";
+                        TypeSerializable coveredNeed = item.coveredNeeds[i];
+                        itemName = $"• {coveredNeed.Name}";
                     }
                     catch (Exception) { }
 

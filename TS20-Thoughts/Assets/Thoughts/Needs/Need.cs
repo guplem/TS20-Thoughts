@@ -48,7 +48,7 @@ namespace Thoughts.Needs
             
             // Where to go
             MapElement elementToCoverNeed = AppManager.currentGame.scenario.FindElementToCoverNeed(this);
-            actions.Add(new MobAction(elementToCoverNeed.gameObject.name));
+            actions.Add(new ConsumeAction(elementToCoverNeed.gameObject.name));
             
             return actions;
         }

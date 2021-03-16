@@ -14,8 +14,7 @@ public class Inventory
     {
         foreach (Item item in items)
         {
-            Debug.LogError("Expected error"); // TODO: It does not contain any bc they are not the same object, type should eb checked insteas
-            if (item.coveredNeeds.Contains(need))
+            if ( item.coveredNeeds.Contains( new TypeSerializable(need.GetType()) ) )
                 return true;
         }
         return false;
