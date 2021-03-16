@@ -3,22 +3,21 @@
 ###
 
 ## Frequent
-/[Bb]uild/
-/[Bb]uilds/
+[Aa]ssets/AssetStoreTools*
+[Bb]uild/
+[Bb]uilds/
+[Ll]ibrary/
+[Ll]ocal[Cc]ache/
+[Oo]bj/
 [Tt]emp/
-
-#Useful
+[Uu]nityGenerated/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
 Assets/_Project/Preferences/Editor/Credentials/**
 Assets/_Project/Preferences/Editor/Credentials.meta
 Assets/Temp/**
 Assets/Temp.meta
 Data/**
-[Aa]ssets/AssetStoreTools*
-[Ll]ocal[Cc]ache/
-[Oo]bj/
-[Ll]ibrary/
-[Uu]nityGenerated/
-
 
 # file on crash reports
 sysinfo.txt

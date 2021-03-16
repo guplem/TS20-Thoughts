@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
-  m_Name: Water
+  m_Name: 
   m_EditorClassIdentifier: 
   name: Water
   transferible: 0
@@ -20,9 +20,9 @@ MonoBehaviour:
   references:
     version: 1
     00000000:
-      type: {class: Water, ns: Thoughts.Needs, asm: Assembly-CSharp}
+      type: {class: TypeSerializable, ns: , asm: Assembly-CSharp}
       data:
-        priority: 0
-        value: 100
-        lossAmount: 1
-        threshold: 10
+        m_Name: Water
+        m_AssemblyQualifiedName: Thoughts.Needs.Water, Assembly-CSharp, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
