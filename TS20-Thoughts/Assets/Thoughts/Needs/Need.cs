@@ -45,10 +45,15 @@ namespace Thoughts.Needs
         public virtual List<MobAction> GetActionsToTakeCare()
         {
             List<MobAction> actions = new List<MobAction>();
+
+            Item itemToCoverNeed;
+            MapElement elementToCoverNeed = AppManager.currentGame.scenario.FindElementToCoverNeed(this, out itemToCoverNeed);
+
+            // 1. Where to go
+            actions.Add(new MoveAction(itemToCoverNeed));
             
-            // Where to go
-            MapElement elementToCoverNeed = AppManager.currentGame.scenario.FindElementToCoverNeed(this);
-            actions.Add(new ConsumeAction(elementToCoverNeed.gameObject.name));
+            // 2. What to consume
+            actions.Add(new ConsumeAction(elementToCoverNeed));
             
             return actions;
         }

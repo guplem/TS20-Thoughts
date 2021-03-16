@@ -1,15 +1,10 @@
 public abstract class MobAction
 {
-    public string objectiveName;
+    public abstract void Execute(); 
     
-    public MobAction(string ObjectiveName)
-    {
-        this.objectiveName = ObjectiveName;
-    }
-
     public override string ToString()
     {
-        return $"MobAction: {objectiveName}";
+        return this.GetType().Name.ToString();
     }
 
 }

@@ -27,17 +27,17 @@ namespace Thoughts
             
             mapElements.Add(Instantiate(water, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
         }
-        public MapElement FindElementToCoverNeed(Need need)
+        public MapElement FindElementToCoverNeed(Need need, out Item itemToCoverNeed)
         {
-            MapElement mapElementFound = null;
             foreach (MapElement element in mapElements)
             {
                 //Debug.Log($"Analazing {element} with inventory {map} for the need {need}");
-                if (!element.inventory.ContainsItemToCoverNeed(need))
-                    continue;
-                mapElementFound = element;
+                if (element.inventory.ContainsItemToCoverNeed(need, out itemToCoverNeed))
+                    return element;
             }
-            return mapElementFound;
+            
+            itemToCoverNeed = null;
+            return null;
         }
     }
 }

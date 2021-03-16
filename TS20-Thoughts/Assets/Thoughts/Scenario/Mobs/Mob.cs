@@ -14,13 +14,13 @@ namespace Thoughts.Mobs
         private IEnumerator coroutineHolder; // Keeps track of the coroutine
         private Need currentWorkingNeed
         {
-            get { return _currentWorkingNeed; }
+            get => _currentWorkingNeed;
             set
             {
                 _currentWorkingNeed = value;
-                Debug.Log($"Current working need is {_currentWorkingNeed}");
-                actions = _currentWorkingNeed.GetActionsToTakeCare();
-                actions.DebugLog();
+                //Debug.Log($"Current working need is '{currentWorkingNeed}'");
+                actions = currentWorkingNeed.GetActionsToTakeCare();
+                actions.DebugLog(", ", $"Actions to cover '{currentWorkingNeed}' need: ", gameObject);
             }
         }
         private Need _currentWorkingNeed;
