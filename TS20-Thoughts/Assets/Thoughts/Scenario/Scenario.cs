@@ -9,40 +9,52 @@ using NavMeshBuilder = UnityEditor.AI.NavMeshBuilder;
 
 namespace Thoughts
 {
-    [RequireComponent(typeof(NavMeshSurface))]
+
     public class Scenario : MonoBehaviour
     {
-        [Header("Map Elements")]
-        [SerializeField] private GameObject water;
 
-        [Header("Mobs")]
-        [SerializeField] private GameObject human;
+        [SerializeField] private List<GameObject> spawnableGameObjects;
 
         private List<MapElement> mapElements = new List<MapElement>();
-        private NavMeshSurface navMeshSurface;
-
-        private void Awake()
-        {
-            navMeshSurface = this.GetComponentRequired<NavMeshSurface>();
-        }
 
         public void BuildNew(List<Participant> participants)
         {
             GenerateScenario();
-            navMeshSurface.BuildNavMesh();
-            GenerateMobs();
+            BuildNavMeshes();
+            List<Mob> generatedMobs = GenerateMobs();
         }
         
+        private void BuildNavMeshes()
+        {
+            // ToDo: Check if any navmesh for the same type of agent already exist
+            foreach (GameObject go in spawnableGameObjects)
+            {
+                Mob mob = go.GetComponent<Mob>();
+                if (mob == null)
+                    continue;
+                NavMeshSurface navMeshSurface = this.gameObject.AddComponent<NavMeshSurface>();
+                navMeshSurface.agentTypeID = mob.navMeshAgent.agentTypeID;
+                navMeshSurface.BuildNavMesh();
+            }
+        }
+
         private void GenerateScenario()
         {
             RandomEssentials random = new RandomEssentials();
-            mapElements.Add(Instantiate(water, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
+            GameObject spawnableGameObject = GetSpawnableGameObject("water");
+            mapElements.Add(Instantiate(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
         }
         
-        private void GenerateMobs()
+        private List<Mob> GenerateMobs()
         {
-            Mob mob = Instantiate(human).GetComponentRequired<Mob>();
+            List<Mob> generatedMobs = new List<Mob>();
+            
+            GameObject spawnableGameObject = GetSpawnableGameObject("human");
+            Mob mob = Instantiate(spawnableGameObject).GetComponentRequired<Mob>();
             mob.gameObject.name = "Guillermo";
+            generatedMobs.Add(mob);
+
+            return generatedMobs;
         }
         
         public MapElement FindElementToCoverNeed(Need need, out Item itemToCoverNeed)
@@ -55,6 +67,19 @@ namespace Thoughts
             }
             
             itemToCoverNeed = null;
+            return null;
+        }
+
+        public GameObject GetSpawnableGameObject(string name)
+        {
+            foreach (GameObject go in spawnableGameObjects)
+            {
+                //Debug.Log($"Looking for '{name}'. Searching now object '{go.name}'. Result = {string.Compare(go.name, name, StringComparison.OrdinalIgnoreCase)}");
+                if (string.Compare(go.name, name, StringComparison.OrdinalIgnoreCase) == 0)
+                    return go;
+            }
+            Debug.LogError($"The GameObject with name '{name}' could not be found in the list of spawnableGameObjects");
+            spawnableGameObjects.DebugLog(", ","Spawnable Game Objects: ");
             return null;
         }
     }

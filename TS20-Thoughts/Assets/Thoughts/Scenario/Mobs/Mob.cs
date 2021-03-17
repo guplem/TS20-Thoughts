@@ -26,7 +26,7 @@ namespace Thoughts.Mobs
         }
         private Need _currentWorkingNeed;
         private List<MobAction> actions = new List<MobAction>();
-        private NavMeshAgent navMeshAgent;
+        public NavMeshAgent navMeshAgent { get; private set; }
 
         private void Awake()
         {
