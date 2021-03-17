@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Thoughts.MapElements;
+using Thoughts.Mobs;
 using UnityEngine;
 
 public class ConsumeAction : MobAction
@@ -10,7 +11,7 @@ public class ConsumeAction : MobAction
         
     }
 
-    public override void Execute()
+    public override void Execute(Mob mob)
     {
         
     }

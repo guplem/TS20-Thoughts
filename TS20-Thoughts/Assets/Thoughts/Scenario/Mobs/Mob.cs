@@ -20,12 +20,14 @@ namespace Thoughts.Mobs
             {
                 _currentWorkingNeed = value;
                 //Debug.Log($"Current working need is '{currentWorkingNeed}'");
-                actions = currentWorkingNeed.GetActionsToTakeCare();
-                actions.DebugLog(", ", $"Actions to cover '{currentWorkingNeed}' need: ", gameObject);
+                queuedActions = currentWorkingNeed.GetActionsToTakeCare();
+                queuedActions.DebugLog(", ", $"Actions to cover '{currentWorkingNeed}' need: ", gameObject);
+                DoNextAction();
             }
         }
+
         private Need _currentWorkingNeed;
-        private List<MobAction> actions = new List<MobAction>();
+        private Queue<MobAction> queuedActions = new Queue<MobAction>();
         public NavMeshAgent navMeshAgent { get; private set; }
 
         private void Awake()
@@ -74,20 +76,20 @@ namespace Thoughts.Mobs
                 }
             }
         }
-
-
-
-        [ContextMenu("Decrease value first need")]
-        public void DecreaseValueFirstNeed()
-        {
-            needsHierarchy.needs[0].value = 50;    
-        }
+        
         
         [ContextMenu("Debug needs hierarchy")]
         public void DebugHierarchyNeeds()
         {
             DebugEssentials.LogEnumerable(needsHierarchy.needs, ", ", $"{this.GetType().Name} Needs Hierarchy:  ", this.gameObject);    
         } 
+        
+        private void DoNextAction()
+        {
+            MobAction action = queuedActions.Dequeue();
+            Debug.Log($"Executing action {action}");
+            action.Execute(this);
+        }
             
             
     }

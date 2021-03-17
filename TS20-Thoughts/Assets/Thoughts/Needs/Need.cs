@@ -42,18 +42,18 @@ namespace Thoughts.Needs
             value -= lossAmount;
             
         }
-        public virtual List<MobAction> GetActionsToTakeCare()
+        public virtual Queue<MobAction> GetActionsToTakeCare()
         {
-            List<MobAction> actions = new List<MobAction>();
+            Queue<MobAction> actions = new Queue<MobAction>();
 
             Item itemToCoverNeed;
             MapElement elementToCoverNeed = AppManager.currentGame.scenario.FindElementToCoverNeed(this, out itemToCoverNeed);
 
             // 1. Where to go
-            actions.Add(new MoveAction(itemToCoverNeed));
+            actions.Enqueue(new MoveAction(elementToCoverNeed.gameObject.transform.position));
             
             // 2. What to consume
-            actions.Add(new ConsumeAction(elementToCoverNeed));
+            actions.Enqueue(new ConsumeAction(elementToCoverNeed));
             
             return actions;
         }
