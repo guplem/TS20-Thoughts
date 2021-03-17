@@ -237,3 +237,4 @@ MonoBehaviour:
   spawnableGameObjects:
   - {fileID: 8302971674054007226, guid: cdb62094c54585d4986423ea69b05db0, type: 3}
   - {fileID: 5883780319720665012, guid: 04bcc2b71a0c01b4189e9c2dfdbf8604, type: 3}
+  - {fileID: 7497294592000933128, guid: f0b16f221d8b8354bb604ddb425e32f0, type: 3}

@@ -54,10 +54,24 @@ namespace Thoughts
         private void GenerateScenario()
         {
             RandomEssentials random = new RandomEssentials();
-            GameObject spawnableGameObject = GetSpawnableGameObject("water");
-            mapElements.Add(Instantiate(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
+            GameObject spawnableGameObject = null;
+            
+            //Water
+            spawnableGameObject = GetSpawnableGameObject("water");
+            SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
+            
+            //Rocks
+            spawnableGameObject = GetSpawnableGameObject("rock");
+            for (int i = 0; i < 30; i++)
+                SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
+            
         }
-        
+        private void SpawnMapElement(GameObject spawnableGameObject, Vector3 position, Quaternion rotation)
+        {
+            GameObject spawnedMapElement = Instantiate(spawnableGameObject, position, rotation, this.transform);
+            mapElements.Add(spawnedMapElement.GetComponentRequired<MapElement>());
+        }
+
         private List<Mob> GenerateMobs()
         {
             List<Mob> generatedMobs = new List<Mob>();
