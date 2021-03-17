@@ -26,15 +26,28 @@ namespace Thoughts
         
         private void BuildNavMeshes()
         {
-            // ToDo: Check if any navmesh for the same type of agent already exist
+            List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
+            
             foreach (GameObject go in spawnableGameObjects)
             {
                 NavMeshAgent mobAgent = go.GetComponent<NavMeshAgent>();
+                
                 if (mobAgent == null)
                     continue;
+                
+                bool repeatedAgent = false;
+                foreach (NavMeshSurface generatedNavMeshSurface in generatedNavMeshSurfaces)
+                    if (generatedNavMeshSurface.agentTypeID == mobAgent.agentTypeID)
+                        repeatedAgent = true;
+                
+                if (repeatedAgent)
+                    continue;
+                
                 NavMeshSurface navMeshSurface = this.gameObject.AddComponent<NavMeshSurface>();
                 navMeshSurface.agentTypeID = mobAgent.agentTypeID;
                 navMeshSurface.BuildNavMesh();
+                generatedNavMeshSurfaces.Add(navMeshSurface);
+
             }
         }
 
