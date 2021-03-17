@@ -4,10 +4,12 @@ using Thoughts.MapElements;
 using Thoughts.Mobs;
 using Thoughts.Needs;
 using UnityEngine;
-using UnityEditor.AI;
+using UnityEngine.AI;
+using NavMeshBuilder = UnityEditor.AI.NavMeshBuilder;
 
 namespace Thoughts
 {
+    [RequireComponent(typeof(NavMeshSurface))]
     public class Scenario : MonoBehaviour
     {
         [Header("Map Elements")]
@@ -17,19 +19,32 @@ namespace Thoughts
         [SerializeField] private GameObject human;
 
         private List<MapElement> mapElements = new List<MapElement>();
+        private NavMeshSurface navMeshSurface;
+
+        private void Awake()
+        {
+            navMeshSurface = this.GetComponentRequired<NavMeshSurface>();
+        }
 
         public void BuildNew(List<Participant> participants)
         {
+            GenerateScenario();
+            navMeshSurface.BuildNavMesh();
+            GenerateMobs();
+        }
+        
+        private void GenerateScenario()
+        {
             RandomEssentials random = new RandomEssentials();
-            
-            
+            mapElements.Add(Instantiate(water, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
+        }
+        
+        private void GenerateMobs()
+        {
             Mob mob = Instantiate(human).GetComponentRequired<Mob>();
             mob.gameObject.name = "Guillermo";
-            
-            mapElements.Add(Instantiate(water, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
-            
-            NavMeshBuilder.BuildNavMesh();
         }
+        
         public MapElement FindElementToCoverNeed(Need need, out Item itemToCoverNeed)
         {
             foreach (MapElement element in mapElements)
