@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using Thoughts.Needs;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Thoughts.Mobs
 {
 
-    public abstract class Mob : MonoBehaviour
+    [RequireComponent(typeof(NavMeshAgent))]
+    public class Mob : MonoBehaviour
     {
         
         [SerializeField] protected NeedsHierarchy needsHierarchy;
@@ -25,11 +26,16 @@ namespace Thoughts.Mobs
         }
         private Need _currentWorkingNeed;
         private List<MobAction> actions = new List<MobAction>();
+        private NavMeshAgent navMeshAgent;
 
         private void Awake()
         {
             // Clone the NeedsHierarchy so each mob has a different one instead of all sharing the same  
-            needsHierarchy = Instantiate(needsHierarchy);
+            if (needsHierarchy != null)
+                needsHierarchy = Instantiate(needsHierarchy);
+            else
+                Debug.LogError($"Mov {gameObject.name} does not have a NeedsHierarchy set.");
+            navMeshAgent = GetComponent<NavMeshAgent>();
             
             StartNeedsConsumption();
         }

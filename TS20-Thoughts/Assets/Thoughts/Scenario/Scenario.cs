@@ -4,6 +4,7 @@ using Thoughts.MapElements;
 using Thoughts.Mobs;
 using Thoughts.Needs;
 using UnityEngine;
+using UnityEditor.AI;
 
 namespace Thoughts
 {
@@ -26,6 +27,8 @@ namespace Thoughts
             mob.gameObject.name = "Guillermo";
             
             mapElements.Add(Instantiate(water, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity, this.transform).GetComponentRequired<MapElement>());
+            
+            NavMeshBuilder.BuildNavMesh();
         }
         public MapElement FindElementToCoverNeed(Need need, out Item itemToCoverNeed)
         {

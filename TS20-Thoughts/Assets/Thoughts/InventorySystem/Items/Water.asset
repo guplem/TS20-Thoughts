@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
-  m_Name: 
+  m_Name: Water
   m_EditorClassIdentifier: 
   name: Water
   transferible: 0

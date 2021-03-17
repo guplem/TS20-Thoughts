@@ -1,4 +1,6 @@
-﻿namespace UnityEngine
+﻿using UnityEngine;
+
+namespace UnityEngine
 {
     public static class ComponentExtensions
     {
