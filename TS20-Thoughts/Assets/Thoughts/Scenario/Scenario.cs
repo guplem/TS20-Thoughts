@@ -29,11 +29,11 @@ namespace Thoughts
             // ToDo: Check if any navmesh for the same type of agent already exist
             foreach (GameObject go in spawnableGameObjects)
             {
-                Mob mob = go.GetComponent<Mob>();
-                if (mob == null)
+                NavMeshAgent mobAgent = go.GetComponent<NavMeshAgent>();
+                if (mobAgent == null)
                     continue;
                 NavMeshSurface navMeshSurface = this.gameObject.AddComponent<NavMeshSurface>();
-                navMeshSurface.agentTypeID = mob.navMeshAgent.agentTypeID;
+                navMeshSurface.agentTypeID = mobAgent.agentTypeID;
                 navMeshSurface.BuildNavMesh();
             }
         }
