@@ -46,6 +46,7 @@ namespace Thoughts
                 NavMeshSurface navMeshSurface = this.gameObject.AddComponent<NavMeshSurface>();
                 navMeshSurface.agentTypeID = mobAgent.agentTypeID;
                 navMeshSurface.BuildNavMesh();
+                //navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData); //To update the whole NavMesh at runtime
                 generatedNavMeshSurfaces.Add(navMeshSurface);
 
             }
