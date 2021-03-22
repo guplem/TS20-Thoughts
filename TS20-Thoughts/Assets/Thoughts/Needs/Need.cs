@@ -12,7 +12,7 @@ namespace Thoughts.Needs
         public int priority = 0;
         public int value = 100;
         public int lossAmount = 1;
-        [NonSerialized] public const float timeBetweenLoss = 0.1f;
+        [NonSerialized] public const float timeBetweenNeedSatisfactionLoss = 0.1f; // Only applicable for inherit needs (probably only mobs´ hierarchy needs)
         public int threshold = 10;
         public bool needsCare => value < threshold;
 
@@ -37,7 +37,7 @@ namespace Thoughts.Needs
         /// <summary>
         /// Consumes the loss amount from the value.
         /// </summary>
-        public void Consume()
+        public void LossSatisfaction()
         {
             value -= lossAmount;
             

@@ -7,12 +7,12 @@ using UnityEngine;
 namespace Thoughts.Needs
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(NeedsHierarchy))]
+    [CustomEditor(typeof(InherentNeedsHierarchy))]
     public class NeedsHierarchyInspector : UnityEditor.Editor
     {
         private Type[] implementations;
         private int selectedImplementationIndex;
-        private NeedsHierarchy needsHierarchy;
+        private InherentNeedsHierarchy inherentNeedsHierarchy;
         
         
         public override void OnInspectorGUI()
@@ -25,8 +25,8 @@ namespace Thoughts.Needs
             
             
             //specify type
-            needsHierarchy = target as NeedsHierarchy;
-            if (needsHierarchy == null) { return; }
+            inherentNeedsHierarchy = target as InherentNeedsHierarchy;
+            if (inherentNeedsHierarchy == null) { return; }
             
             //find all implementations of INeed using System.Reflection.Module
             if (implementations == null)
@@ -53,24 +53,24 @@ namespace Thoughts.Needs
                 //add the new need to the needs' list
 //                if (needsHierarchy.needs == null)
 //                    needsHierarchy.CreateNewNeedsList();
-                needsHierarchy.AddNeed((Need)newNeed);
+                inherentNeedsHierarchy.AddNeed((Need)newNeed);
             }
 
             // Draw horizontal line
             EditorGUILayout.Space(); EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); EditorGUILayout.Space();
 
-            if (needsHierarchy.needs != null)
+            if (inherentNeedsHierarchy.needs != null)
             {
-                for (int a = 0; a < needsHierarchy.needs.Count; a++)
+                for (int a = 0; a < inherentNeedsHierarchy.needs.Count; a++)
                 {
-                    if (needsHierarchy.needs[a] == null)
+                    if (inherentNeedsHierarchy.needs[a] == null)
                         EditorGUILayout.HelpBox("The need with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
                 
-                    if (needsHierarchy.needs.Count() != needsHierarchy.needs.Distinct().Count())
+                    if (inherentNeedsHierarchy.needs.Count() != inherentNeedsHierarchy.needs.Distinct().Count())
                     {
-                        for (int d = a+1; d < needsHierarchy.needs.Count; d++)
+                        for (int d = a+1; d < inherentNeedsHierarchy.needs.Count; d++)
                         {
-                            if (needsHierarchy.needs[a] != null && (needsHierarchy.needs[a] == needsHierarchy.needs[d]) )
+                            if (inherentNeedsHierarchy.needs[a] != null && (inherentNeedsHierarchy.needs[a] == inherentNeedsHierarchy.needs[d]) )
                                 EditorGUILayout.HelpBox("The needs with index " + a + " and " + d + " are the same object.", MessageType.Warning);
                         }
                     }
@@ -83,7 +83,7 @@ namespace Thoughts.Needs
             ShowNeedsArray(serializedObject.FindProperty("_needs"));
             EditorGUI.indentLevel -= 1;
             if (GUILayout.Button("Sort"))
-                needsHierarchy.SortNeeds();
+                inherentNeedsHierarchy.SortNeeds();
             
             // Draw horizontal line
             EditorGUILayout.Space(); EditorGUILayout.Space();  
@@ -117,7 +117,7 @@ namespace Thoughts.Needs
                 {
                     SerializedProperty transformProp = list.GetArrayElementAtIndex(i);
                     
-                    Need need = ((Need) needsHierarchy.needs[i]);
+                    Need need = ((Need) inherentNeedsHierarchy.needs[i]);
                     string itemName = $"{need.GetType().Name} need [{i}]";
 
                     EditorGUILayout.PropertyField(transformProp, new GUIContent(itemName), true);

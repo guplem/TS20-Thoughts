@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Thoughts.Needs;
 using UnityEngine;
 using UnityEngine.AI;
@@ -11,77 +12,80 @@ namespace Thoughts.Mobs
     public class Mob : MonoBehaviour
     {
         
-        [SerializeField] protected NeedsHierarchy needsHierarchy;
-        private IEnumerator coroutineHolder; // Keeps track of the coroutine
-        private Need currentWorkingNeed
+        [SerializeField] protected InherentNeedsHierarchy inherentNeedsInherentNeedsHierarchy;
+        private IEnumerator needsSatisfationLossCoroutineHolder; // Keeps track of the coroutine
+        private Need currentObjectiveNeed
         {
-            get => _currentWorkingNeed;
+            get => _currentObjectiveNeed;
             set
             {
-                _currentWorkingNeed = value;
+                _currentObjectiveNeed = value;
                 //Debug.Log($"Current working need is '{currentWorkingNeed}'");
-                queuedActions = currentWorkingNeed.GetActionsToTakeCare();
-                queuedActions.DebugLog(", ", $"Actions to cover '{currentWorkingNeed}' need: ", gameObject);
+                queuedActions = currentObjectiveNeed.GetActionsToTakeCare();
+                queuedActions.DebugLog(", ", $"Actions to cover '{currentObjectiveNeed}' need: ", gameObject);
                 DoNextAction();
             }
         }
-
-        private Need _currentWorkingNeed;
+        [CanBeNull]
+        private Need _currentObjectiveNeed;
         private Queue<MobAction> queuedActions = new Queue<MobAction>();
         public NavMeshAgent navMeshAgent { get; private set; }
 
         private void Awake()
         {
             // Clone the NeedsHierarchy so each mob has a different one instead of all sharing the same  
-            if (needsHierarchy != null)
-                needsHierarchy = Instantiate(needsHierarchy);
+            if (inherentNeedsInherentNeedsHierarchy != null)
+                inherentNeedsInherentNeedsHierarchy = Instantiate(inherentNeedsInherentNeedsHierarchy);
             else
                 Debug.LogError($"Mov {gameObject.name} does not have a NeedsHierarchy set.");
+            
             navMeshAgent = GetComponent<NavMeshAgent>();
             
-            StartNeedsConsumption();
+            StartNeedsSatisfactionLoss();
         }
-        private void StartNeedsConsumption()
+        private void StartNeedsSatisfactionLoss()
         {
             // Ensure that we are not going to lose the track of a previous coroutine 
             // if we lose it, we'll not be able to stop it.
-            if (coroutineHolder != null)
-                StopCoroutine(coroutineHolder);
+            if (needsSatisfationLossCoroutineHolder != null)
+                StopNeedsSatisfactionLoss();
 
             //Assign the coroutine to the holder
-            coroutineHolder = ConsumeNeeds();
+            needsSatisfationLossCoroutineHolder = LossNeedsSatisfaction();
+            
             //Run the coroutine
-            StartCoroutine(coroutineHolder);
+            StartCoroutine(needsSatisfationLossCoroutineHolder);
         }
 
-        private void StopNeedsConsumption()
+        private void StopNeedsSatisfactionLoss()
         {
-            if (coroutineHolder != null)
-                StopCoroutine(coroutineHolder);
+            if (needsSatisfationLossCoroutineHolder != null)
+                StopCoroutine(needsSatisfationLossCoroutineHolder);
+            needsSatisfationLossCoroutineHolder = null;
         }
 
-        private IEnumerator ConsumeNeeds()
+        private IEnumerator LossNeedsSatisfaction()
         {
             while (true)
             {
-                yield return new WaitForSeconds(Need.timeBetweenLoss);
-                foreach (Need need in needsHierarchy.needs)
+                yield return new WaitForSeconds(Need.timeBetweenNeedSatisfactionLoss);
+                foreach (Need need in inherentNeedsInherentNeedsHierarchy.needs)
                 {
-                    need.Consume();
+                    need.LossSatisfaction();
                     if (!need.needsCare)
                         continue;
                     //If the new one has more priority than the current one
-                    if (currentWorkingNeed == null || currentWorkingNeed.priority < need.priority || !currentWorkingNeed.needsCare)
-                        currentWorkingNeed = need;
+                    if (currentObjectiveNeed == null || currentObjectiveNeed.priority < need.priority || !currentObjectiveNeed.needsCare)
+                        currentObjectiveNeed = need;
                 }
             }
         }
         
         
-        [ContextMenu("Debug needs hierarchy")]
-        public void DebugHierarchyNeeds()
+        [ContextMenu("Debug inherent needs hierarchy")]
+        public void DebugInherentNeedsHierarchy()
         {
-            DebugEssentials.LogEnumerable(needsHierarchy.needs, ", ", $"{this.GetType().Name} Needs Hierarchy:  ", this.gameObject);    
+            DebugEssentials.LogEnumerable(inherentNeedsInherentNeedsHierarchy.needs, ", ", $"{this.GetType().Name} Needs Hierarchy:  ", this.gameObject);    
         } 
         
         private void DoNextAction()
