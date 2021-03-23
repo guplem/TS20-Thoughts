@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 [CustomPropertyDrawer(typeof(NeedSatisfaction))]
-public class NeedSatisfactionEditor : Editor
+public class NeedSatisfactionInspector : Editor
 {
     //private Type[] implementations;
     //private int selectedImplementationIndex;
