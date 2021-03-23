@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Thoughts;
+using Thoughts.MapElements;
 using Thoughts.Needs;
 using UnityEngine;
 
@@ -10,19 +11,19 @@ public class Inventory
    
     [SerializeField] private List<Item> items = new List<Item>();
 
-    public bool ContainsItemToCoverNeed(Need need, out Item itemToCoverNeed)
+    public MobAction GetAvailableActionToCoverNeed(Need need, MapElement mapElement,out Vector3 positionToPerformAction)
     {
         foreach (Item item in items)
         {
-            if (item.coveredNeeds.Contains(new TypeSerializable(need.GetType())))
+            MobAction action = item.GetActionToCoverNeed(need, mapElement,out positionToPerformAction);
+            if (action != null)
             {
-                itemToCoverNeed = item;
-                return true;
-
+                //positionToPerformAction = action.performPosition;
+                return action;
             }
         }
         
-        itemToCoverNeed = null;
-        return false;
+        positionToPerformAction = Vector3.zero;
+        return null;
     }
 }

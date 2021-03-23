@@ -10,11 +10,11 @@ namespace Thoughts.Needs
     public abstract class Need : INeed, IComparable<Need> // : ScriptableObject
     {
         public int priority = 0;
-        public int value = 100;
-        public int lossAmount = 1;
+        public int satisfaction = 100;
+        public int lossSatisfaction = 1;
         [NonSerialized] public const float timeBetweenNeedSatisfactionLoss = 0.1f; // Only applicable for inherit needs (probably only mobs´ hierarchy needs)
         public int threshold = 10;
-        public bool needsCare => value < threshold;
+        public bool needsCare => satisfaction < threshold;
 
         public int CompareTo(Need other)
         {
@@ -31,7 +31,7 @@ namespace Thoughts.Needs
 
         public override string ToString()
         {
-            return $"{this.GetType().Name}: P={priority} - V={value}";
+            return $"{this.GetType().Name}: P={priority} - V={satisfaction}";
         }
 
         /// <summary>
@@ -39,21 +39,27 @@ namespace Thoughts.Needs
         /// </summary>
         public void LossSatisfaction()
         {
-            value -= lossAmount;
+            satisfaction -= lossSatisfaction;
             
         }
-        public virtual Queue<MobAction> GetActionsToTakeCare()
+        public virtual List<MobAction> GetActionsToTakeCare(List<MobAction> actions = null, int iteration = 0)
         {
-            Queue<MobAction> actions = new Queue<MobAction>();
-
-            Item itemToCoverNeed;
-            MapElement elementToCoverNeed = AppManager.currentGame.scenario.FindElementToCoverNeed(this, out itemToCoverNeed);
-
-            // 1. Where to go
-            actions.Enqueue(new MoveAction(elementToCoverNeed.gameObject.transform.position));
+            if (iteration >= 100)
+                return null;
             
-            // 2. What to consume
-            actions.Enqueue(new ConsumeAction(elementToCoverNeed));
+            if(actions == null)
+                actions = new List<MobAction>();
+            
+            Vector3 positionToPerformAction;
+            MobAction actionToCoverNeed = AppManager.currentGame.scenario.FindActionToCoverNeed(this, out positionToPerformAction);
+
+            if (actionToCoverNeed == null)
+                return null;
+            
+            actions.Add(actionToCoverNeed);
+            
+            if (!actionToCoverNeed.CanBeExecuted())
+                return GetActionsToTakeCare(actions, iteration + 1);
             
             return actions;
         }

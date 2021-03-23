@@ -1,7 +1,7 @@
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using Thoughts.Needs;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,135 +22,123 @@ namespace Thoughts
             // Update the serializedProperty - always do this in the beginning of OnInspectorGUI.
             serializedObject.Update ();
             
-            
-            
-            
             //specify type
             item = target as Item;
             if (item == null) { return; }
             
-            
-            base.OnInspectorGUI();
-            
-            
-            
-            //find all implementations of INeed using System.Reflection.Module
+            //find all implementations of IMobAction using System.Reflection.Module
             if (implementations == null)
-                implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
-            
-            EditorGUI.indentLevel += 1;
+                implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMobAction>();
+
             EditorGUILayout.Space();
-            if (serializedObject.FindProperty("consumible").boolValue)
+            
+            //select an implementation from all found using an editor popup
+            selectedImplementationIndex = EditorGUILayout.Popup(new GUIContent("Action type"),
+                selectedImplementationIndex, implementations.Select(impl => impl.Name).ToArray());
+
+            IMobAction newAction = null;
+            if (GUILayout.Button("Create action"))
             {
-                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
+                //Create a new action of the selected type
+                newAction = (IMobAction) Activator.CreateInstance(implementations[selectedImplementationIndex]);
+            }
+
+            //If a new action has been created...
+            if (newAction != null)
+            {
+                //record the gameObject state to enable undo and prevent from exiting the scene without saving
+                Undo.RegisterCompleteObjectUndo(target, "Added new action");
+                //add the new action to the action's list
+                if (item.actions == null)
+                    item.actions = new List<IMobAction>();
+                item.actions.Add(newAction);
+            }
+
+            // Draw horizontal line
+            EditorGUILayout.Space(); EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); EditorGUILayout.Space();
+
+            if (item.actions != null)
+            {
+                for (int a = 0; a < item.actions.Count; a++)
                 {
-                    GUILayout.Label("Covered needs", EditorStyles.boldLabel);
-                    ShowCoveredNeedsArray(serializedObject.FindProperty("coveredNeeds"));
-                }
-
-                EditorGUI.indentLevel -= 1;
-
-                EditorGUILayout.Space();
-
-                EditorGUILayout.BeginHorizontal();
-
-                //select an implementation from all found using an editor popup
-                selectedImplementationIndex = EditorGUILayout.Popup(new GUIContent("Need type"),
-                    selectedImplementationIndex, implementations.Select(impl => impl.Name).ToArray());
-
-                INeed newCoveredNeed = null;
-                if (GUILayout.Button("Add covered need"))
-                {
-                    //Create a new need of the selected type
-                    newCoveredNeed = (INeed) Activator.CreateInstance(implementations[selectedImplementationIndex]);
-                }
-
-                EditorGUILayout.EndHorizontal();
-
-                //If a new need has been created...
-                if (newCoveredNeed != null)
-                {
-                    //record the gameObject state to enable undo and prevent from exiting the scene without saving
-                    Undo.RegisterCompleteObjectUndo(target, "Added new need");
-                    //add the new need to the needs' list
-//                if (needsHierarchy.needs == null)
-//                    needsHierarchy.CreateNewNeedsList();
-                    item.coveredNeeds.Add(new TypeSerializable(newCoveredNeed.GetType()));
-                }
-
-                // Draw horizontal line
-                //EditorGUILayout.Space(); EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); EditorGUILayout.Space();
-
-                if (item.coveredNeeds != null)
-                {
-                    for (int a = 0; a < item.coveredNeeds.Count; a++)
+                    if (item.actions[a] == null)
+                        EditorGUILayout.HelpBox("The action with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
+                
+                    if (item.actions.Count() != item.actions.Distinct().Count())
                     {
-                        if (item.coveredNeeds[a] == null)
-                            EditorGUILayout.HelpBox("The need with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
-
-                        //if (item.coveredNeeds.Count() != item.coveredNeeds.Distinct().Count()) // need to implement hash code override
-                        for (int d = a + 1; d < item.coveredNeeds.Count; d++)
+                        for (int d = a+1; d < item.actions.Count; d++)
                         {
-                            if (item.coveredNeeds[a] != null && item.coveredNeeds[d] != null && item.coveredNeeds[a] == item.coveredNeeds[d])
-                                EditorGUILayout.HelpBox("The elements with index " + a + " and " + d + " are covering the same need.", MessageType.Warning);
+                            if (item.actions[a] != null && (item.actions[a] == item.actions[d]) )
+                                EditorGUILayout.HelpBox("The actions with index " + a + " and " + d + " are the same object.", MessageType.Warning);
                         }
                     }
                 }
-
-
-                // Draw horizontal line
-                EditorGUILayout.Space();
-                EditorGUILayout.Space();
-                EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-
-                // Implementations search
-                EditorGUILayout.BeginHorizontal();
-                if (implementations != null) EditorGUILayout.LabelField($"Found {implementations.Count()} implementations", EditorStyles.helpBox);
-                if (implementations == null || GUILayout.Button("Search implementations"))
-                {
-                    //find all implementations of INeed using System.Reflection.Module
-                    implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
-                }
-                EditorGUILayout.EndHorizontal();
-
             }
+        
+            EditorGUI.indentLevel += 1;
+            EditorGUILayout.Space(); 
+            GUILayout.Label("Actions Configuration", EditorStyles.boldLabel);
+            ShowActionsArray(serializedObject.FindProperty("actions"));
 
-
+            EditorGUI.indentLevel -= 1;
+            
+            // Draw horizontal line
+            EditorGUILayout.Space(); EditorGUILayout.Space();  
+            EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); 
+            
+            // Implementations search
+            EditorGUILayout.BeginHorizontal();
+            if (implementations != null) EditorGUILayout.LabelField($"Found {implementations.Count()} implementations", EditorStyles.helpBox);
+            if (implementations == null || GUILayout.Button("Search implementations"))
+            {
+                //find all implementations of IAction using System.Reflection.Module
+                implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMobAction>();
+            }
+            EditorGUILayout.EndHorizontal();
+            
+            
+            
+            
             // Apply changes to the serializedProperty - always do this in the end of OnInspectorGUI.
             serializedObject.ApplyModifiedProperties ();
         }
+
         
         
-        private void ShowCoveredNeedsArray(UnityEditor.SerializedProperty list)
+        
+        
+        private void ShowActionsArray(UnityEditor.SerializedProperty list)
         {
-            //UnityEditor.EditorGUI.indentLevel += 1;
+            UnityEditor.EditorGUI.indentLevel += 1;
             for (int i = 0; i < list.arraySize; i++)
             {
                 EditorGUILayout.Space();
-                //using (new GUILayout.VerticalScope(EditorStyles.helpBox)) {
+                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
+                {
                     SerializedProperty transformProp = list.GetArrayElementAtIndex(i);
 
-                    string itemName = $"NULL covered need {i}";
-                    try
-                    {
-                        TypeSerializable coveredNeed = item.coveredNeeds[i];
-                        itemName = $"• {coveredNeed.Name}";
-                    }
-                    catch (Exception) { }
-
-                    EditorGUILayout.PropertyField(transformProp, new GUIContent(itemName), false);
+                    MobAction action = ((MobAction) item.actions[i]);
                     
-                   // int oldIndentLevel = UnityEditor.EditorGUI.indentLevel;
+                    string itemName;
+                    if (action.GetActionName().IsNullOrEmpty())
+                        itemName = $"Action [{i}]";
+                    else
+                        itemName = $"'{action.GetActionName()}' action [{i}]";
                     
-                    //EditorGUILayout.Space();
-                //}
-                //EditorGUILayout.Space();
+                    EditorGUILayout.PropertyField(transformProp, new GUIContent(itemName), true);
+                    //EditorGUILayout.LabelField(action.GetType().Name);
+                    
+                    //var childrenProperties = transformProp.GetVisibleChildren();
+                    //foreach (var property in childrenProperties) {
+                    //    Debug.Log($"Action {i}: {property.name}");
+                    //}
+                    EditorGUILayout.Space();
+                }
+                EditorGUILayout.Space();
                 
             }
-            //UnityEditor.EditorGUI.indentLevel -= 1;
+            UnityEditor.EditorGUI.indentLevel -= 1;
         }
-        
-        
     }
 }
 

@@ -6,7 +6,12 @@ using UnityEngine;
 
 public class MoveAction : MobAction
 {
-    private Vector3 destination;
+    public override string GetActionName() { return actionName; }
+    [SerializeField] public string actionName = "Move";
+
+    public MoveAction() : this(Vector3.zero) { } 
+
+    [SerializeField] private Vector3 destination;
     
     public MoveAction(Vector3 destination)
     {
@@ -17,5 +22,9 @@ public class MoveAction : MobAction
     {
         mob.navMeshAgent.SetDestination(destination);
         mob.navMeshAgent.isStopped = false;
+    }
+    public override bool CanBeExecuted()
+    {
+        throw new System.NotImplementedException();
     }
 }

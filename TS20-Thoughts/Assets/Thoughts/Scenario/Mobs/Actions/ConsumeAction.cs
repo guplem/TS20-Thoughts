@@ -6,13 +6,18 @@ using UnityEngine;
 
 public class ConsumeAction : MobAction
 {
-    public ConsumeAction(MapElement elementToCoverNeed)
-    {
-        
-    }
+    public override string GetActionName() { return actionName; }
+    [SerializeField] public string actionName = "Consume";
+    
+    public ConsumeAction() { ;}
 
     public override void Execute(Mob mob)
     {
-        
+        throw new System.NotImplementedException();
+    }
+    
+    public override bool CanBeExecuted()
+    {
+        throw new System.NotImplementedException(); // Check if is in Mobs inventory
     }
 }

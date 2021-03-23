@@ -85,16 +85,17 @@ namespace Thoughts
             return generatedMobs;
         }
         
-        public MapElement FindElementToCoverNeed(Need need, out Item itemToCoverNeed)
+        public MobAction FindActionToCoverNeed(Need need, out Vector3 positionToPerformAction)
         {
-            foreach (MapElement element in mapElements)
+            foreach (MapElement mapElement in mapElements)
             {
                 //Debug.Log($"Analazing {element} with inventory {map} for the need {need}");
-                if (element.inventory.ContainsItemToCoverNeed(need, out itemToCoverNeed))
-                    return element;
+                MobAction availableAction = mapElement.inventory.GetAvailableActionToCoverNeed(need, mapElement, out positionToPerformAction);
+                if (availableAction != null)
+                    return availableAction;
             }
             
-            itemToCoverNeed = null;
+            positionToPerformAction = Vector3.zero;
             return null;
         }
 

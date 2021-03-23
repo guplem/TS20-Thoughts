@@ -1,48 +1,46 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Thoughts.MapElements;
 using Thoughts.Needs;
 using UnityEngine;
 
 namespace Thoughts
 {
-    [CreateAssetMenu(fileName = "Needs Hierarchy", menuName = "Thoughts/Item", order = 2)]
+    [CreateAssetMenu(fileName = "Item", menuName = "Thoughts/Item", order = 1)]
     public class Item : ScriptableObject
     {
         public new string name;
-        public bool transferible = false;
-        public bool consumible = false;
-        //public SerializableDictionary<string, int> needsCovered = new SerializableDictionary<string, int>();
-        [HideInInspector] [SerializeReference] public List<TypeSerializable> coveredNeeds = new List<TypeSerializable>();
-
-        /*public Item()
+        public bool canBePickedUp = false;
+        
+        [SerializeReference] public List<IMobAction> actions;
+        public MobAction GetAction(int index)
         {
-            Type[] implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
-            foreach (Type type in implementations)
+            if (actions.Count > index)
+                return (MobAction) actions[index];
+            
+            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {actions.Count}.");
+            return null;
+        }
+        
+        public MobAction GetActionToCoverNeed(Need need, MapElement mapElement, out Vector3 positionToPerformAction)
+        {
+            foreach (IMobAction iMobAction in actions)
             {
-                needsCovered.Add(type.Name, 0);
+                MobAction mobAction = (MobAction) iMobAction;
+                //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
+                if (mobAction.CoversNeed(need))
+                {
+                    positionToPerformAction = mapElement.transform.position;
+                    return mobAction;
+                }
+
             }
-        }*/
-        
-        
+
+            positionToPerformAction = Vector3.zero;
+            return null;
+        }
     }
     
-    /*public interface ICoveredNeed { }
-
-    public abstract class ACoveredNeed
-    {
-        [SerializeField] public Need need;
-        [SerializeField] public int amount;
-    }
-
-    [Serializable]
-    public class CoveredNeed : ACoveredNeed
-    {
-        public CoveredNeed(Need need, int amount)
-        {
-            this.need = need;
-            this.amount = amount;
-        }
-    }*/
 }
 

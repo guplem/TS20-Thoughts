@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using Thoughts.Needs;
 using UnityEngine;
@@ -21,14 +22,16 @@ namespace Thoughts.Mobs
             {
                 _currentObjectiveNeed = value;
                 //Debug.Log($"Current working need is '{currentWorkingNeed}'");
-                queuedActions = currentObjectiveNeed.GetActionsToTakeCare();
-                queuedActions.DebugLog(", ", $"Actions to cover '{currentObjectiveNeed}' need: ", gameObject);
+                currentActionPath = currentObjectiveNeed.GetActionsToTakeCare();
+                if (currentActionPath == null)
+                    Debug.LogWarning($"An action path to take care of the need '{currentObjectiveNeed}' was not found.");
+                currentActionPath.DebugLog(", ", $"Found action path to cover '{currentObjectiveNeed}' need: ", gameObject);
                 DoNextAction();
             }
         }
         [CanBeNull]
         private Need _currentObjectiveNeed;
-        private Queue<MobAction> queuedActions = new Queue<MobAction>();
+        private List<MobAction> currentActionPath = new List<MobAction>();
         public NavMeshAgent navMeshAgent { get; private set; }
 
         private void Awake()
@@ -90,9 +93,14 @@ namespace Thoughts.Mobs
         
         private void DoNextAction()
         {
-            MobAction action = queuedActions.Dequeue();
+            //Todo: check if is in range to do the action. if not, get closer
+            // new MoveAction(elementToCoverNeed.gameObject.transform.position)
+            Debug.LogWarning("Todo: check if is in range to do the action. if not, get closer");
+            
+            MobAction action = currentActionPath.ElementAt(0);
             Debug.Log($"Executing action {action}");
             action.Execute(this);
+            currentActionPath.RemoveAt(0);
         }
             
             
