@@ -10,16 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83bfe03262d52a74fb7bd7e56631612f, type: 3}
-  m_Name: HumanNeeds
+  m_Name: Human Needs
   m_EditorClassIdentifier: 
-  _needs:
-  - id: 0
+  _needs: []
   references:
     version: 1
-    00000000:
-      type: {class: Water, ns: Thoughts.Needs, asm: Assembly-CSharp}
-      data:
-        priority: 0
-        satisfaction: 100
-        lossSatisfaction: 1
-        threshold: 10
