@@ -33,7 +33,7 @@ namespace Thoughts.Needs
                 implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
 
             EditorGUILayout.Space();
-            
+            EditorGUILayout.BeginHorizontal();
             //select an implementation from all found using an editor popup
             selectedImplementationIndex = EditorGUILayout.Popup(new GUIContent("Need type"),
                 selectedImplementationIndex, implementations.Select(impl => impl.Name).ToArray());
@@ -44,6 +44,7 @@ namespace Thoughts.Needs
                 //Create a new need of the selected type
                 newNeed = (INeed) Activator.CreateInstance(implementations[selectedImplementationIndex]);
             }
+            EditorGUILayout.EndHorizontal();
 
             //If a new need has been created...
             if (newNeed != null)

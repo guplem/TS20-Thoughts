@@ -28,4 +28,10 @@ MonoBehaviour:
               Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
             m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
           satisfactionAmount: 10
+        - needType:
+            m_Name: DummyNeedType
+            m_AssemblyQualifiedName: DummyNeedType, Assembly-CSharp, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          satisfactionAmount: 0
         actionName: Drink

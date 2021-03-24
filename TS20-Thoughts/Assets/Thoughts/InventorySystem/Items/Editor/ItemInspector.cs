@@ -38,13 +38,15 @@ namespace Thoughts
 
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
+            GUILayout.Label("Item's actions", EditorStyles.boldLabel);
+            GUILayout.Label(" ");
             //select an implementation from all found using an editor popup
-            selectedImplementationIndex = EditorGUILayout.Popup(new GUIContent("Action type"),
+            selectedImplementationIndex = EditorGUILayout.Popup(new GUIContent(""),
                 selectedImplementationIndex, implementations.Select(impl => impl.Name).ToArray());
 
             
             IMobAction newAction = null;
-            if (GUILayout.Button("Create action"))
+            if (GUILayout.Button("Add action"))
             {
                 //Create a new action of the selected type
                 newAction = (IMobAction) Activator.CreateInstance(implementations[selectedImplementationIndex]);
@@ -63,8 +65,8 @@ namespace Thoughts
                 UpdateSelectedNeedsImplementationIndex();
             }
 
-            // Draw horizontal line
-            EditorGUILayout.Space(); EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); EditorGUILayout.Space();
+            //// Draw horizontal line
+            //EditorGUILayout.Space(); EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); EditorGUILayout.Space();
 
             if (item.actions != null)
             {
@@ -84,12 +86,12 @@ namespace Thoughts
                 }
             }
         
-            EditorGUI.indentLevel += 1;
-            EditorGUILayout.Space(); 
-            GUILayout.Label("Item's actions", EditorStyles.boldLabel);
+            //EditorGUI.indentLevel += 1;
+            //EditorGUILayout.Space(); 
+            
             ShowActionsArray(serializedObject.FindProperty("actions"));
 
-            EditorGUI.indentLevel -= 1;
+            //EditorGUI.indentLevel -= 1;
             
             // Draw horizontal line
             EditorGUILayout.Space(); EditorGUILayout.Space();  
@@ -171,7 +173,7 @@ namespace Thoughts
             
             // COVERED NEEDS
             EditorGUILayout.Separator();
-            EditorGUILayout.LabelField("Covered Needs: ");
+            EditorGUILayout.LabelField("Covered Needs: ", EditorStyles.boldLabel);
             SerializedProperty needsCoveredList = actionProperty.FindPropertyRelative("needsCovered");
             for (int needIndex = 0; needIndex < action.needsCovered.Count; needIndex++)
             {
