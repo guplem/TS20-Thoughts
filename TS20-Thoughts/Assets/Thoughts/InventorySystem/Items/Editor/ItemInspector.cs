@@ -86,7 +86,7 @@ namespace Thoughts
         
             EditorGUI.indentLevel += 1;
             EditorGUILayout.Space(); 
-            GUILayout.Label("Item's available actions", EditorStyles.boldLabel);
+            GUILayout.Label("Item's actions", EditorStyles.boldLabel);
             ShowActionsArray(serializedObject.FindProperty("actions"));
 
             EditorGUI.indentLevel -= 1;
@@ -206,10 +206,11 @@ namespace Thoughts
             
             EditorGUILayout.BeginHorizontal();
             
-                selectedNeedsImplementationIndex[actionIndex] = EditorGUILayout.Popup(new GUIContent("Need type"), selectedNeedsImplementationIndex[actionIndex], needsImplementations.Select(impl => impl.Name).ToArray());
+                GUILayout.Label(" ");
+                selectedNeedsImplementationIndex[actionIndex] = EditorGUILayout.Popup(new GUIContent(""), selectedNeedsImplementationIndex[actionIndex], needsImplementations.Select(impl => impl.Name).ToArray());
                
                 Need newNeed = null;
-                if (GUILayout.Button("Add need"))
+                if (GUILayout.Button("Add covered need"))
                 {
                     newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedNeedsImplementationIndex[actionIndex]]);
                     action.needsCovered.Add(new NeedSatisfaction(newNeed));
