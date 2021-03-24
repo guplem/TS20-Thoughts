@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Thoughts.Needs;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,8 +13,10 @@ namespace Thoughts
     public class ItemInspector : UnityEditor.Editor
     {
         private Type[] implementations;
-        private int selectedImplementationIndex;
+        private int selectedImplementationIndex = -1;
         private Item item;
+
+        private int[] selectedNeedsImplementationIndex;
         
         
         public override void OnInspectorGUI()
@@ -29,19 +32,24 @@ namespace Thoughts
             //find all implementations of IMobAction using System.Reflection.Module
             if (implementations == null)
                 implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMobAction>();
+            
+            if (selectedNeedsImplementationIndex == null)
+                UpdateSelectedNeedsImplementationIndex();
 
             EditorGUILayout.Space();
-            
+            EditorGUILayout.BeginHorizontal();
             //select an implementation from all found using an editor popup
             selectedImplementationIndex = EditorGUILayout.Popup(new GUIContent("Action type"),
                 selectedImplementationIndex, implementations.Select(impl => impl.Name).ToArray());
 
+            
             IMobAction newAction = null;
             if (GUILayout.Button("Create action"))
             {
                 //Create a new action of the selected type
                 newAction = (IMobAction) Activator.CreateInstance(implementations[selectedImplementationIndex]);
             }
+            EditorGUILayout.EndHorizontal();
 
             //If a new action has been created...
             if (newAction != null)
@@ -52,6 +60,7 @@ namespace Thoughts
                 if (item.actions == null)
                     item.actions = new List<IMobAction>();
                 item.actions.Add(newAction);
+                UpdateSelectedNeedsImplementationIndex();
             }
 
             // Draw horizontal line
@@ -77,7 +86,7 @@ namespace Thoughts
         
             EditorGUI.indentLevel += 1;
             EditorGUILayout.Space(); 
-            GUILayout.Label("Actions Configuration", EditorStyles.boldLabel);
+            GUILayout.Label("Item's available actions", EditorStyles.boldLabel);
             ShowActionsArray(serializedObject.FindProperty("actions"));
 
             EditorGUI.indentLevel -= 1;
@@ -102,42 +111,115 @@ namespace Thoughts
             // Apply changes to the serializedProperty - always do this in the end of OnInspectorGUI.
             serializedObject.ApplyModifiedProperties ();
         }
+        private void UpdateSelectedNeedsImplementationIndex()
+        {
+            Debug.Log("Updating selectedNeedsImplementationIndex");
+            selectedNeedsImplementationIndex = new int[item.actions.Count];
+            for (int i = 0; i < selectedNeedsImplementationIndex.Length; i++)
+                selectedNeedsImplementationIndex[i] = -1;
+        }
 
-        
-        
-        
-        
+
+
+
+
         private void ShowActionsArray(UnityEditor.SerializedProperty list)
         {
             UnityEditor.EditorGUI.indentLevel += 1;
-            for (int i = 0; i < list.arraySize; i++)
+            for (int actionIndex = 0; actionIndex < list.arraySize; actionIndex++)
             {
                 EditorGUILayout.Space();
                 using (new GUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    SerializedProperty transformProp = list.GetArrayElementAtIndex(i);
+                    SerializedProperty actionProperty = list.GetArrayElementAtIndex(actionIndex);
 
-                    MobAction action = ((MobAction) item.actions[i]);
+                    MobAction action = ((MobAction) item.actions[actionIndex]);
                     
                     string itemName;
                     if (action.GetActionName().IsNullOrEmpty())
-                        itemName = $"Action [{i}]";
+                        itemName = $"Action [{actionIndex}]";
                     else
-                        itemName = $"'{action.GetActionName()}' action [{i}]";
+                        itemName = $"'{action.GetActionName()}' action [{actionIndex}]";
                     
-                    EditorGUILayout.PropertyField(transformProp, new GUIContent(itemName), true);
+                    EditorGUILayout.PropertyField(actionProperty, new GUIContent(itemName), true);
                     //EditorGUILayout.LabelField(action.GetType().Name);
                     
                     //var childrenProperties = transformProp.GetVisibleChildren();
                     //foreach (var property in childrenProperties) {
                     //    Debug.Log($"Action {i}: {property.name}");
                     //}
+                    DisplayActionEditor(action, actionIndex, actionProperty);
                     EditorGUILayout.Space();
                 }
+                
                 EditorGUILayout.Space();
                 
             }
             UnityEditor.EditorGUI.indentLevel -= 1;
+        }
+        
+        
+        
+        
+        
+        private void DisplayActionEditor(MobAction action, int actionIndex, SerializedProperty actionProperty)
+        {
+            EditorGUI.indentLevel += 1;
+
+            
+            
+            
+            // COVERED NEEDS
+            EditorGUILayout.Separator();
+            EditorGUILayout.LabelField("Covered Needs: ");
+            SerializedProperty needsCoveredList = actionProperty.FindPropertyRelative("needsCovered");
+            for (int needIndex = 0; needIndex < action.needsCovered.Count; needIndex++)
+            {
+                SerializedProperty needProperty = needsCoveredList.GetArrayElementAtIndex(needIndex);
+                //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"needsCovered.Array.data[{needIndex}]");
+
+                EditorGUILayout.BeginHorizontal();
+                string needName = $" • {needProperty.FindPropertyRelative($"needType.m_Name").stringValue}";
+                EditorGUILayout.PropertyField(needProperty, new GUIContent(needName), true);
+
+                SerializedProperty satisfactionProperty = needProperty.FindPropertyRelative("satisfactionAmount");
+                GUILayout.Label("Satisfaction:");
+                satisfactionProperty.intValue = EditorGUILayout.IntField(satisfactionProperty.intValue);
+                GUILayout.Label(" ");
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            /*foreach (NeedSatisfaction coveredNeed in action.needsCovered)
+            {
+                GUILayout.Label("NEED");
+            }*/
+            
+            
+            
+            
+            
+            
+            //ADD NEED ELEMENTS
+            EditorGUILayout.Space();
+            Type[] needsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();     
+            
+            EditorGUILayout.BeginHorizontal();
+            
+                selectedNeedsImplementationIndex[actionIndex] = EditorGUILayout.Popup(new GUIContent("Need type"), selectedNeedsImplementationIndex[actionIndex], needsImplementations.Select(impl => impl.Name).ToArray());
+               
+                Need newNeed = null;
+                if (GUILayout.Button("Add need"))
+                {
+                    newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedNeedsImplementationIndex[actionIndex]]);
+                    action.needsCovered.Add(new NeedSatisfaction(newNeed));
+                    action.needsCovered.DebugLog();
+                }
+                
+            EditorGUILayout.EndHorizontal();
+            
+            EditorGUI.indentLevel -= 1;
+
         }
     }
 }

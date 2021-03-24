@@ -6,7 +6,7 @@ using UnityEngine;
 
 public abstract class MobAction : IMobAction
 {
-    [SerializeField] private List<NeedSatisfaction> needsCovered = new List<NeedSatisfaction>();
+    [HideInInspector]public List<NeedSatisfaction> needsCovered = new List<NeedSatisfaction>();
     
     //public Vector3 performPosition {}; //Todo: implement a way to configure it
 

@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  name: Water
-  transferible: 0
-  consumible: 1
-  coveredNeeds:
+  name: 
+  canBePickedUp: 0
+  actions:
   - id: 0
   references:
     version: 1
     00000000:
-      type: {class: TypeSerializable, ns: , asm: Assembly-CSharp}
+      type: {class: ConsumeAction, ns: , asm: Assembly-CSharp}
       data:
-        m_Name: Water
-        m_AssemblyQualifiedName: Thoughts.Needs.Water, Assembly-CSharp, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        needsCovered:
+        - needType:
+            m_Name: Hydratation
+            m_AssemblyQualifiedName: Thoughts.Needs.Hydratation, Assembly-CSharp,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+            m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          satisfactionAmount: 10
+        actionName: Drink

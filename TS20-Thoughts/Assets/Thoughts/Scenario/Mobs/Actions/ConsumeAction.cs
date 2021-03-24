@@ -7,7 +7,7 @@ using UnityEngine;
 public class ConsumeAction : MobAction
 {
     public override string GetActionName() { return actionName; }
-    [SerializeField] public string actionName = "Consume";
+    [SerializeField] public string actionName = "Consume"; // To make it visible and editable from the inspector;
     
     public ConsumeAction() { ;}
 

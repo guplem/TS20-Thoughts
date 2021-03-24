@@ -13,7 +13,7 @@ namespace Thoughts.Mobs
     public class Mob : MonoBehaviour
     {
         
-        [SerializeField] protected InherentNeedsHierarchy inherentNeedsInherentNeedsHierarchy;
+        [SerializeField] protected NeedsHierarchy needsNeedsHierarchy;
         private IEnumerator needsSatisfationLossCoroutineHolder; // Keeps track of the coroutine
         private Need currentObjectiveNeed
         {
@@ -37,8 +37,8 @@ namespace Thoughts.Mobs
         private void Awake()
         {
             // Clone the NeedsHierarchy so each mob has a different one instead of all sharing the same  
-            if (inherentNeedsInherentNeedsHierarchy != null)
-                inherentNeedsInherentNeedsHierarchy = Instantiate(inherentNeedsInherentNeedsHierarchy);
+            if (needsNeedsHierarchy != null)
+                needsNeedsHierarchy = Instantiate(needsNeedsHierarchy);
             else
                 Debug.LogError($"Mov {gameObject.name} does not have a NeedsHierarchy set.");
             
@@ -72,13 +72,13 @@ namespace Thoughts.Mobs
             while (true)
             {
                 yield return new WaitForSeconds(Need.timeBetweenNeedSatisfactionLoss);
-                foreach (Need need in inherentNeedsInherentNeedsHierarchy.needs)
+                foreach (Need need in needsNeedsHierarchy.needs)
                 {
                     need.LossSatisfaction();
                     if (!need.needsCare)
                         continue;
                     //If the new one has more priority than the current one
-                    if (currentObjectiveNeed == null || currentObjectiveNeed.priority < need.priority || !currentObjectiveNeed.needsCare)
+                    if (currentObjectiveNeed == null || currentObjectiveNeed.level < need.level || !currentObjectiveNeed.needsCare)
                         currentObjectiveNeed = need;
                 }
             }
@@ -88,7 +88,7 @@ namespace Thoughts.Mobs
         [ContextMenu("Debug inherent needs hierarchy")]
         public void DebugInherentNeedsHierarchy()
         {
-            DebugEssentials.LogEnumerable(inherentNeedsInherentNeedsHierarchy.needs, ", ", $"{this.GetType().Name} Needs Hierarchy:  ", this.gameObject);    
+            DebugEssentials.LogEnumerable(needsNeedsHierarchy.needs, ", ", $"{this.GetType().Name} Needs Hierarchy:  ", this.gameObject);    
         } 
         
         private void DoNextAction()

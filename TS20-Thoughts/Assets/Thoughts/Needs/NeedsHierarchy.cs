@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Thoughts.Needs
 {
     [CreateAssetMenu(fileName = "Inherent Needs Hierarchy", menuName = "Thoughts/Inherent Needs Hierarchy", order = 2)]
-    public class InherentNeedsHierarchy : ScriptableObject
+    public class NeedsHierarchy : ScriptableObject
     {
         public IReadOnlyList<Need> needs => _needs.Cast<Need>().ToList().AsReadOnly();
         [SerializeReference] private List<INeed> _needs = new List<INeed>();

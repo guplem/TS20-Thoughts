@@ -1,7 +1,5 @@
-
 using System;
 using System.Collections.Generic;
-using Thoughts.MapElements;
 using UnityEngine;
 
 namespace Thoughts.Needs
@@ -9,7 +7,7 @@ namespace Thoughts.Needs
     //[CreateAssetMenu(fileName = "Need", menuName = "Thoughts/Need", order = 1)]
     public abstract class Need : INeed, IComparable<Need> // : ScriptableObject
     {
-        public int priority = 0;
+        public int level = 0; //Todo: switch to an enumerator with the levels named
         public int satisfaction = 100;
         public int lossSatisfaction = 1;
         [NonSerialized] public const float timeBetweenNeedSatisfactionLoss = 0.1f; // Only applicable for inherit needs (probably only mobs´ hierarchy needs)
@@ -22,16 +20,18 @@ namespace Thoughts.Needs
                 return 0;
             if (ReferenceEquals(null, other))
                 return 1;
-            return other.priority.CompareTo(priority);
+            return other.level.CompareTo(level);
         }
         public int CompareTo(INeed other)
         {
             return CompareTo((Need) other);
         }
 
+        public virtual string GetName() { return this.GetType().Name; }
+
         public override string ToString()
         {
-            return $"{this.GetType().Name}: P={priority} - V={satisfaction}";
+            return $"{this.GetType().Name}: P={level} - V={satisfaction}";
         }
 
         /// <summary>

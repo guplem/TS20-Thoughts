@@ -20,6 +20,6 @@ MonoBehaviour:
       type: {class: Water, ns: Thoughts.Needs, asm: Assembly-CSharp}
       data:
         priority: 0
-        value: 95
-        lossAmount: 1
+        satisfaction: 100
+        lossSatisfaction: 1
         threshold: 10
