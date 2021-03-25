@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   name: 
-  canBePickedUp: 0
   actions:
   - id: 0
   references:
@@ -21,11 +20,18 @@ MonoBehaviour:
     00000000:
       type: {class: ConsumeAction, ns: , asm: Assembly-CSharp}
       data:
-        needsCovered:
+        satisfiedNeeds:
         - needType:
             m_Name: Hydratation
             m_AssemblyQualifiedName: Thoughts.Needs.Hydratation, Assembly-CSharp,
               Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
             m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
           satisfactionAmount: 10
-        actionName: Drink
+        demandedNeeds:
+        - needType:
+            m_Name: Closeness
+            m_AssemblyQualifiedName: Closeness, Assembly-CSharp, Version=0.0.0.0,
+              Culture=neutral, PublicKeyToken=null
+            m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          demandedAmount: 99
+        actionName: Consume

@@ -8,10 +8,10 @@ namespace Thoughts.Needs
     [System.Serializable]
     public abstract class Need : INeed, IComparable<Need>
     {
-        public int level = 0; //Todo: switch to an enumerator with the levels named
+        [SerializeField] public int level = 0; //Todo: switch to an enumerator with the levels named
         public int satisfaction = 100;
         public int lossSatisfaction = 1;
-        [NonSerialized] public const float timeBetweenNeedSatisfactionLoss = 0.1f; // Only applicable for inherit needs (probably only mobs´ hierarchy needs)
+        // [NonSerialized] public const float timeBetweenNeedSatisfactionLoss = 0.1f; // Only applicable for inherit needs (probably only mobs´ hierarchy needs)
         public int threshold = 10;
         public bool needsCare => satisfaction < threshold;
 
@@ -71,4 +71,5 @@ namespace Thoughts.Needs
 
         public abstract bool IsSatisfiedBy(Mob executer);
     }
+    
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Thoughts.Game.GameMap;
 using Thoughts.Needs;
@@ -5,21 +6,21 @@ using UnityEngine;
 
 namespace Thoughts.Game.GameMap
 {
-    [SerializeField]
+
+    [Serializable]
     public abstract class MobAction : IMobAction
     {
         [HideInInspector] public List<SatisfiedNeed> satisfiedNeeds = new List<SatisfiedNeed>();
-        [HideInInspector] public List<Need> demandedNeeds = new List<Need>();
-        //[HideInInspector] public List<string> stringNeeds = new List<string>();
-
+        [HideInInspector] public List<DemandedNeed> demandedNeeds = new List<DemandedNeed>();
+        //[HideInInspector] public List<Need> demandedNeeds = new List<Need>();
+        
         public abstract void Execute(Mob mob);
 
         public bool NeedsToExecuteAreCovered(Mob executer)
         {
-            foreach (Need need in demandedNeeds)
+            foreach (DemandedNeed need in demandedNeeds)
             {
-                if (!need.IsSatisfiedBy(executer))
-                    return false;
+                throw new NotImplementedException();
             }
             return true;
         }

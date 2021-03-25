@@ -210,24 +210,25 @@ namespace Thoughts
             EditorGUILayout.Separator();
             EditorGUILayout.LabelField("Demanded Needs: ", EditorStyles.boldLabel);
             //Debug.Log($"actionProperty 1 {actionProperty.type}");
-            SerializedProperty satisfiedNeedsList = actionProperty.FindPropertyRelative("satisfiedNeeds");
-            for (int needIndex = 0; needIndex < action.satisfiedNeeds.Count; needIndex++)
+            SerializedProperty demandedNeeds = actionProperty.FindPropertyRelative("demandedNeeds");
+            for (int needIndex = 0; needIndex < action.demandedNeeds.Count; needIndex++)
             {
-                SerializedProperty needProperty = satisfiedNeedsList.GetArrayElementAtIndex(needIndex);
+                SerializedProperty needProperty = demandedNeeds.GetArrayElementAtIndex(needIndex);
                 //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"satisfiedNeeds.Array.data[{needIndex}]");
 
                 EditorGUILayout.BeginHorizontal();
                 string needName = $" • {needProperty.FindPropertyRelative($"needType.m_Name").stringValue}";
                 EditorGUILayout.PropertyField(needProperty, new GUIContent(needName), true);
 
-                /*SerializedProperty satisfactionProperty = needProperty.FindPropertyRelative("satisfactionAmount");
-                GUILayout.Label("Satisfaction:");
+                SerializedProperty satisfactionProperty = needProperty.FindPropertyRelative("demandedAmount");
+                GUILayout.Label("Demanded:");
                 satisfactionProperty.intValue = EditorGUILayout.IntField(satisfactionProperty.intValue);
-                GUILayout.Label("  ");*/
+                GUILayout.Label("  ");
 
                 EditorGUILayout.EndHorizontal();
             }
 
+            
             // END
             EditorGUI.indentLevel -= 1;
         }
@@ -253,9 +254,9 @@ namespace Thoughts
                 if (GUILayout.Button("Add demanded need"))
                 {
                     if (action.demandedNeeds == null)
-                        action.demandedNeeds = new List<Need>();
+                        action.demandedNeeds = new List<DemandedNeed>();
                     Need newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedSatisfiedNeedImplementationIndex[actionIndex]]);
-                    action.demandedNeeds.Add((newNeed));
+                    action.demandedNeeds.Add(new DemandedNeed(newNeed));
                 }
 
             EditorGUILayout.EndHorizontal();
