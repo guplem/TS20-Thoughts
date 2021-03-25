@@ -18,7 +18,8 @@ namespace Thoughts.Needs
     
         public bool Solves(Need need)
         {
-            return (needType.Name == need.GetType().Name);
+            throw new NotImplementedException();
+            //return (needType.Name == need.GetType().Name);
         }
     }
 }

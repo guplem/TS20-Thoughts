@@ -16,9 +16,9 @@ namespace Thoughts.Needs
             this.needType = new TypeSerializable(need.GetType());
         }
     
-        public bool Solves(Need need)
+        /*public bool Solves(Need need)
         {
             return (needType.Name == need.GetType().Name);
-        }
+        }*/
     }
 }

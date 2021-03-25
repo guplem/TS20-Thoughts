@@ -21,7 +21,7 @@ namespace Thoughts.Game.GameMap
             {
                 _currentObjectiveNeed = value;
                 //Debug.Log($"Current working need is '{currentWorkingNeed}'");
-                currentActionPath = currentObjectiveNeed.GetActionsToTakeCare(this);
+                currentActionPath = currentObjectiveNeed.GetActionsSatisfy(this);
                 if (currentActionPath == null)
                     Debug.LogWarning($"An action path to take care of the need '{currentObjectiveNeed}' was not found.");
                 else

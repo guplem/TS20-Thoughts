@@ -43,7 +43,7 @@ namespace Thoughts.Needs
             satisfaction -= lossSatisfaction;
             
         }
-        public virtual List<MobAction> GetActionsToTakeCare(Mob needyMob, List<MobAction> actions = null, int iteration = 0)
+        public virtual List<MobAction> GetActionsSatisfy(Mob needyMob, List<MobAction> actions = null, int iteration = 0)
         {
             if (iteration >= 100)
             {
@@ -64,7 +64,7 @@ namespace Thoughts.Needs
             actions.Add(actionToCoverNeed);
             
             if (!actionToCoverNeed.NeedsToExecuteAreCovered(needyMob))
-                return GetActionsToTakeCare(needyMob, actions, iteration + 1);
+                return GetActionsSatisfy(needyMob, actions, iteration + 1);
             
             return actions;
         }
