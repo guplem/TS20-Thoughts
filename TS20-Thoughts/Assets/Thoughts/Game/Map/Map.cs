@@ -56,7 +56,7 @@ namespace Thoughts.Game.GameMap
             GameObject spawnableGameObject = null;
             
             //Water
-            spawnableGameObject = GetSpawnableGameObject("water");
+            spawnableGameObject = GetSpawnableGameObject("river");
             SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
             
             //Rocks

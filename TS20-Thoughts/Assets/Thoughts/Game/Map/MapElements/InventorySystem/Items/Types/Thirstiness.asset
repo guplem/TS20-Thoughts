@@ -13,6 +13,18 @@ MonoBehaviour:
   m_Name: Thirstiness
   m_EditorClassIdentifier: 
   name: 
-  actions: []
+  actions:
+  - id: 0
   references:
     version: 1
+    00000000:
+      type: {class: ElapseTimeAction, ns: , asm: Assembly-CSharp}
+      data:
+        consequenceNeeds:
+        - needType:
+            m_Name: Hydratation
+            m_AssemblyQualifiedName: Thoughts.Needs.Hydratation, Assembly-CSharp,
+              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+            m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          deltaSatisfactionAmount: -1
+        demandedNeeds: []
