@@ -61,14 +61,16 @@ public class Inventory
     {
         foreach (Item item in items)
         {
-            Debug.Log($"Investigating {mapElement}");
+            Debug.Log($"Investigating '{mapElement}'");
             List<IMapAction> itemActions = item.actions;
             foreach (IMapAction itemIAction in itemActions)
             {
                 MapAction itemAction = (MapAction)itemIAction;
-                Debug.Log($"  - action {itemAction}");
+                Debug.Log($"  - action '{itemAction}'");
                 if (itemAction.GetType() == typeof(ElapseTimeAction))
                     itemAction.Execute(mapElement);
+                else
+                    Debug.Log($"NOT SAME TYPE BETWEEN '{itemAction.GetType()}' AND '{typeof(ElapseTimeAction)}'."); //Todo: delete
             }
         }
     }

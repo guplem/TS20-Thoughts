@@ -10,12 +10,15 @@ public class ElapseTimeAction : MapAction
 {
     public override void Execute(MapElement executer)
     {
-        Debug.Log($"   \\-> Executing ElapseTimeAction by {executer}");
+        Debug.Log($"   \\-> Executing ElapseTimeAction by '{executer}'");
         foreach (ConsequenceNeed consequenceNeed in consequenceNeeds)
         {
+            Debug.Log($"      |-> Evaluating consequenceNeed '{consequenceNeed}'");
             List<DemandedNeed> executerDemandedNeeds = executer.inventory.GetDemandedNeedsOf(consequenceNeed.GetType());
-            foreach (DemandedNeed need in executerDemandedNeeds)
-                need.UpdateSatisfaction(consequenceNeed.deltaSatisfactionAmount);
+            Debug.Log($"      |-> Evaluating executerDemandedNeeds '{executerDemandedNeeds}'");
+            executerDemandedNeeds.DebugLog(",", "      # executerDemandedNeeds: ");
+            foreach (DemandedNeed executerDemandedNeed in executerDemandedNeeds)
+                executerDemandedNeed.UpdateSatisfaction(consequenceNeed.deltaSatisfactionAmount);
         }
     }
     
