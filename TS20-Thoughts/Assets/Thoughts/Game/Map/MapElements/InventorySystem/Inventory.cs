@@ -56,14 +56,16 @@ public class Inventory
         return needs;
     }
     
-    public void ExecuteTimeElapse(MapElement mapElement)
+    public void ExecuteTimeElapseActions(MapElement mapElement)
     {
         foreach (Item item in items)
         {
+            Debug.Log($"Investigating {mapElement}");
             List<IMapAction> itemActions = item.actions;
             foreach (IMapAction itemIAction in itemActions)
             {
                 MapAction itemAction = (MapAction)itemIAction;
+                Debug.Log($"  - action {itemAction}");
                 if (itemAction.GetType() == typeof(ElapseTimeAction))
                     itemAction.Execute(mapElement);
             }

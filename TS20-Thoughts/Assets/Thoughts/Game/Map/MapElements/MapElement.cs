@@ -43,7 +43,7 @@ namespace Thoughts.Game.GameMap
                {
                     // Set the time to wait until continuing the execution
                     yield return new WaitForSeconds(1f);
-                    inventory.ExecuteTimeElapse(this);
+                    inventory.ExecuteTimeElapseActions(this);
                }
                
           }

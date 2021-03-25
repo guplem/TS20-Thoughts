@@ -6,12 +6,12 @@ namespace Thoughts.Needs
     
     
     [System.Serializable]
-    public class DemandedNeed
+    public class RequireddNeed
     {
         [SerializeField] private TypeSerializable needType;
-        [SerializeField] private int demandedAmount;
+        [SerializeField] private int requiredAmount;
     
-        public DemandedNeed(Need need)
+        public RequireddNeed(Need need)
         {
             this.needType = new TypeSerializable(need.GetType());
         }

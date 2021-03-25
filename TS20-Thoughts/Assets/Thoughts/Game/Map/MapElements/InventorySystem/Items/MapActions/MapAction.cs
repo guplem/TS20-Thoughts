@@ -11,14 +11,14 @@ namespace Thoughts.Game.GameMap
     public abstract class MapAction : IMapAction
     {
         [HideInInspector] public List<ConsequenceNeed> consequenceNeeds = new List<ConsequenceNeed>();
-        [HideInInspector] public List<DemandedNeed> demandedNeeds = new List<DemandedNeed>();
+        [HideInInspector] public List<RequireddNeed> requiredNeeds = new List<RequireddNeed>();
         //[HideInInspector] public List<Need> demandedNeeds = new List<Need>();
         
         public abstract void Execute(MapElement executer);
 
         public bool NeedsToExecuteAreCovered(MapElement executer)
         {
-            foreach (DemandedNeed need in demandedNeeds)
+            foreach (RequireddNeed need in requiredNeeds)
             {
                 throw new NotImplementedException();
             }
