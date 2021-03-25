@@ -229,7 +229,7 @@ namespace Thoughts
             EditorGUILayout.LabelField("Needs: ", EditorStyles.boldLabel);
 
             //Debug.Log($"actionProperty {actionProperty.type}");
-            SerializedProperty needsList = actionProperty.FindPropertyRelative("neededNeeds");
+            SerializedProperty needsList = actionProperty.FindPropertyRelative("demandedNeeds");
             //Debug.Log($"needsList {needsList!=null}");
 
             for (int needIndex = 0; needIndex < action.demandedNeeds.Count; needIndex++)
