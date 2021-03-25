@@ -10,6 +10,7 @@ namespace Thoughts.Game.GameMap
     {
         [HideInInspector] public List<SatisfiedNeed> satisfiedNeeds = new List<SatisfiedNeed>();
         [HideInInspector] public List<Need> demandedNeeds = new List<Need>();
+        //[HideInInspector] public List<string> stringNeeds = new List<string>();
 
         public abstract void Execute(Mob mob);
 
