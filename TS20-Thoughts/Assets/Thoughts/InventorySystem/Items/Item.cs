@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Thoughts.Game.GameMap;
 using Thoughts.MapElements;
 using Thoughts.Needs;
 using UnityEngine;
@@ -11,8 +12,7 @@ namespace Thoughts
     public class Item : ScriptableObject
     {
         public new string name;
-        public bool canBePickedUp = false;
-        
+
         [SerializeReference] public List<IMobAction> actions;
         public MobAction GetAction(int index)
         {
@@ -29,7 +29,7 @@ namespace Thoughts
             {
                 MobAction mobAction = (MobAction) iMobAction;
                 //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
-                if (mobAction.CoversNeed(need))
+                if (mobAction.SatisfiesNeed(need))
                 {
                     positionToPerformAction = mapElement.transform.position;
                     return mobAction;

@@ -1,4 +1,4 @@
-using System;
+using Thoughts.Game;
 using UnityEngine;
 
 namespace Thoughts
@@ -7,7 +7,7 @@ namespace Thoughts
     {
         public static AppManager instance { get; private set; }
         [SerializeField] private GameObject gameManagerPrefab;
-        public static GameManager currentGame { get; private set; }
+        public static GameManager gameManager { get; private set; }
 
         private void Awake()
         {
@@ -35,8 +35,8 @@ namespace Thoughts
         
         private void StartNewGame()
         {
-            currentGame = Instantiate(gameManagerPrefab).GetComponentRequired<GameManager>();
-            currentGame.StartNewGame();
+            gameManager = Instantiate(gameManagerPrefab).GetComponentRequired<GameManager>();
+            gameManager.StartNewGame();
         }
 
     }

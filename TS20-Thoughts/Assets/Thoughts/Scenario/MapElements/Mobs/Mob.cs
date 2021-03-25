@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Thoughts.MapElements;
 using Thoughts.Needs;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Thoughts.Mobs
+namespace Thoughts.Game.GameMap
 {
 
     [RequireComponent(typeof(NavMeshAgent))]
-    public class Mob : MonoBehaviour
+    public class Mob : MapElement
     {
         
-        [SerializeField] protected NeedsHierarchy needsNeedsHierarchy;
-        private IEnumerator needsSatisfationLossCoroutineHolder; // Keeps track of the coroutine
         private Need currentObjectiveNeed
         {
             get => _currentObjectiveNeed;
@@ -22,11 +21,14 @@ namespace Thoughts.Mobs
             {
                 _currentObjectiveNeed = value;
                 //Debug.Log($"Current working need is '{currentWorkingNeed}'");
-                currentActionPath = currentObjectiveNeed.GetActionsToTakeCare();
+                currentActionPath = currentObjectiveNeed.GetActionsToTakeCare(this);
                 if (currentActionPath == null)
                     Debug.LogWarning($"An action path to take care of the need '{currentObjectiveNeed}' was not found.");
-                currentActionPath.DebugLog(", ", $"Found action path to cover '{currentObjectiveNeed}' need: ", gameObject);
-                DoNextAction();
+                else
+                {
+                    currentActionPath.DebugLog(", ", $"Found action path to cover need '{currentObjectiveNeed}': ", gameObject);
+                    DoNextAction();    
+                }
             }
         }
         [CanBeNull]
@@ -36,17 +38,12 @@ namespace Thoughts.Mobs
 
         private void Awake()
         {
-            // Clone the NeedsHierarchy so each mob has a different one instead of all sharing the same  
-            if (needsNeedsHierarchy != null)
-                needsNeedsHierarchy = Instantiate(needsNeedsHierarchy);
-            else
-                Debug.LogError($"Mov {gameObject.name} does not have a NeedsHierarchy set.");
-            
+
             navMeshAgent = GetComponent<NavMeshAgent>();
             
-            StartNeedsSatisfactionLoss();
+            //StartNeedsSatisfactionLoss();
         }
-        private void StartNeedsSatisfactionLoss()
+        /*private void StartNeedsSatisfactionLoss()
         {
             // Ensure that we are not going to lose the track of a previous coroutine 
             // if we lose it, we'll not be able to stop it.
@@ -90,19 +87,27 @@ namespace Thoughts.Mobs
         {
             DebugEssentials.LogEnumerable(needsNeedsHierarchy.needs, ", ", $"{this.GetType().Name} Needs Hierarchy:  ", this.gameObject);    
         } 
+        */
         
-        private void DoNextAction()
+        private bool DoNextAction() // false if distance is too big
         {
             //Todo: check if is in range to do the action. if not, get closer
             // new MoveAction(elementToCoverNeed.gameObject.transform.position)
-            Debug.LogWarning("Todo: check if is in range to do the action. if not, get closer");
-            
+            Debug.LogWarning("Possible check needed for the range to be able to do the action. if not, get closer");
+
             MobAction action = currentActionPath.ElementAt(0);
+
             Debug.Log($"Executing action {action}");
             action.Execute(this);
+            
             currentActionPath.RemoveAt(0);
+            return true;
         }
-            
-            
+        private double DistanceToNextAction()
+        {
+            throw new System.NotImplementedException();
+        }
+
+
     }
 }

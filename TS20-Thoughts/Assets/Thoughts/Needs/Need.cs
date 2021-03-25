@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Thoughts.Game.GameMap;
 using UnityEngine;
 
 namespace Thoughts.Needs
 {
-    //[CreateAssetMenu(fileName = "Need", menuName = "Thoughts/Need", order = 1)]
-    public abstract class Need : INeed, IComparable<Need> // : ScriptableObject
+    [System.Serializable]
+    public abstract class Need : INeed, IComparable<Need>
     {
         public int level = 0; //Todo: switch to an enumerator with the levels named
         public int satisfaction = 100;
@@ -31,7 +32,7 @@ namespace Thoughts.Needs
 
         public override string ToString()
         {
-            return $"{this.GetType().Name}: P={level} - V={satisfaction}";
+            return $"{this.GetType().Name}: L={level} - S={satisfaction}";
         }
 
         /// <summary>
@@ -42,27 +43,32 @@ namespace Thoughts.Needs
             satisfaction -= lossSatisfaction;
             
         }
-        public virtual List<MobAction> GetActionsToTakeCare(List<MobAction> actions = null, int iteration = 0)
+        public virtual List<MobAction> GetActionsToTakeCare(Mob needyMob, List<MobAction> actions = null, int iteration = 0)
         {
             if (iteration >= 100)
+            {
+                Debug.LogWarning($"Iteration {iteration}");
                 return null;
+            }
+            
             
             if(actions == null)
                 actions = new List<MobAction>();
             
             Vector3 positionToPerformAction;
-            MobAction actionToCoverNeed = AppManager.currentGame.scenario.FindActionToCoverNeed(this, out positionToPerformAction);
+            MobAction actionToCoverNeed = AppManager.gameManager.map.FindActionToCoverNeed(this, out positionToPerformAction);
 
             if (actionToCoverNeed == null)
                 return null;
             
             actions.Add(actionToCoverNeed);
             
-            if (!actionToCoverNeed.CanBeExecuted())
-                return GetActionsToTakeCare(actions, iteration + 1);
+            if (!actionToCoverNeed.NeedsToExecuteAreCovered(needyMob))
+                return GetActionsToTakeCare(needyMob, actions, iteration + 1);
             
             return actions;
         }
-        
+
+        public abstract bool IsSatisfiedBy(Mob executer);
     }
 }

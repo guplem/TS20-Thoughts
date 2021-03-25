@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Thoughts.MapElements;
-using Thoughts.Mobs;
+using Thoughts.Game.GameMap;
 using UnityEngine;
 
 public class ConsumeAction : MobAction
@@ -16,8 +15,4 @@ public class ConsumeAction : MobAction
         throw new System.NotImplementedException();
     }
     
-    public override bool CanBeExecuted()
-    {
-        throw new System.NotImplementedException(); // Check if is in Mobs inventory
-    }
 }

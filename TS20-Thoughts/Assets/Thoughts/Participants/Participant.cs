@@ -1,7 +1,6 @@
-using Thoughts.ControlSystems;
 using UnityEngine;
 
-namespace Thoughts
+namespace Thoughts.ControlSystems
 {
     [RequireComponent(typeof(ControlSystem))]
     public class Participant

@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
-using Thoughts;
-using Thoughts.Mobs;
+using Thoughts.Game.GameMap;
 using UnityEngine;
 
 public class MoveAction : MobAction
@@ -23,8 +21,5 @@ public class MoveAction : MobAction
         mob.navMeshAgent.SetDestination(destination);
         mob.navMeshAgent.isStopped = false;
     }
-    public override bool CanBeExecuted()
-    {
-        throw new System.NotImplementedException();
-    }
+
 }

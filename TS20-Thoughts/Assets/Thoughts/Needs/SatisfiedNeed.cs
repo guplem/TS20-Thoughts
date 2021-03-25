@@ -3,13 +3,15 @@ using UnityEngine;
 
 namespace Thoughts.Needs
 {
-    [Serializable]
-    public class NeedSatisfaction
+    
+    
+    [System.Serializable]
+    public class SatisfiedNeed
     {
         [SerializeField] private TypeSerializable needType;
         [SerializeField] private int satisfactionAmount;
     
-        public NeedSatisfaction(Need need)
+        public SatisfiedNeed(Need need)
         {
             this.needType = new TypeSerializable(need.GetType());
         }

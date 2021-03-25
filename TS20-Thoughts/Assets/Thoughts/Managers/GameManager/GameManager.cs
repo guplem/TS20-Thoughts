@@ -1,17 +1,17 @@
 using System.Collections.Generic;
+using Thoughts.ControlSystems;
 using UnityEngine;
+using Thoughts.Game.GameMap;
 
-namespace Thoughts
+namespace Thoughts.Game
 {
     public class GameManager : MonoBehaviour
     {
-        
-        
         [Header("Control Systems")]
         [SerializeField] private GameObject manualControlSystemPrefab;
         
         [Header("Game Elements")]
-        [SerializeField] public Scenario scenario;
+        [SerializeField] public Map map;
         
         private readonly List<Participant> participants = new List<Participant>();
 
@@ -24,7 +24,7 @@ namespace Thoughts
             participants.Add(new Participant(controlSystem));
             
             // Build a new scenario
-            scenario.BuildNew(participants);
+            map.BuildNew(participants);
         }
     }
 }

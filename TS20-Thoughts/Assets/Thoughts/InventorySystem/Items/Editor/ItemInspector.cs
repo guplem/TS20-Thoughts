@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Thoughts.Game.GameMap;
 using Thoughts.Needs;
 using UnityEditor;
 using UnityEngine;
@@ -16,7 +17,8 @@ namespace Thoughts
         private Type[] actionsImplementations;
         private int selectedActionImplementationIndex = -1;
         private Type[] needsImplementations;
-        private int[] selectedCoveredNeedImplementationIndex;
+        private int[] selectedSatisfiedNeedImplementationIndex;
+        private int[] selectedNeedImplementationIndex;
 
         public override void OnInspectorGUI()
         {
@@ -27,8 +29,8 @@ namespace Thoughts
             item = target as Item;
             if (item == null) { return; }
 
-            if (selectedCoveredNeedImplementationIndex == null)
-                UpdateSelectedCoveredNeedImplementationIndex();
+            if (selectedSatisfiedNeedImplementationIndex == null || selectedNeedImplementationIndex == null)
+                UpdateAllNeedsImplementationIndexes();
 
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
@@ -79,7 +81,7 @@ namespace Thoughts
                 if (item.actions == null)
                     item.actions = new List<IMobAction>();
                 item.actions.Add(newAction);
-                UpdateSelectedCoveredNeedImplementationIndex();
+                UpdateAllNeedsImplementationIndexes();
             }
         }
         
@@ -121,11 +123,15 @@ namespace Thoughts
             EditorGUILayout.EndHorizontal();
         }
         
-        private void UpdateSelectedCoveredNeedImplementationIndex()
+        private void UpdateAllNeedsImplementationIndexes()
         {
-            selectedCoveredNeedImplementationIndex = new int[item.actions.Count];
-            for (int i = 0; i < selectedCoveredNeedImplementationIndex.Length; i++)
-                selectedCoveredNeedImplementationIndex[i] = -1;
+            selectedSatisfiedNeedImplementationIndex = new int[item.actions.Count];
+            for (int i = 0; i < selectedSatisfiedNeedImplementationIndex.Length; i++)
+                selectedSatisfiedNeedImplementationIndex[i] = -1;
+            
+            selectedNeedImplementationIndex = new int[item.actions.Count];
+            for (int i = 0; i < selectedNeedImplementationIndex.Length; i++)
+                selectedNeedImplementationIndex[i] = -1;
         }
 
         private void ShowActionsArray()
@@ -150,7 +156,8 @@ namespace Thoughts
 
                     EditorGUILayout.PropertyField(actionProperty, new GUIContent(itemName), true);
 
-                    CoveredNeedsSection(action, actionIndex, actionProperty);
+                    SatisfiedNeedsSection(action, actionIndex, actionProperty);
+                    NeedsSection(action, actionIndex, actionProperty);
                     
                     EditorGUILayout.Space();
                 }
@@ -161,19 +168,19 @@ namespace Thoughts
             UnityEditor.EditorGUI.indentLevel -= 1;
         }
         
-        private void CoveredNeedsSection(MobAction action, int actionIndex, SerializedProperty actionProperty)
+        private void SatisfiedNeedsSection(MobAction action, int actionIndex, SerializedProperty actionProperty)
         {
             // START
             EditorGUI.indentLevel += 1;
 
-            // CURRENT COVERED NEEDS
+            // CURRENT SATISFIED NEEDS
             EditorGUILayout.Separator();
-            EditorGUILayout.LabelField("Covered Needs: ", EditorStyles.boldLabel);
-            SerializedProperty needsCoveredList = actionProperty.FindPropertyRelative("needsCovered");
-            for (int needIndex = 0; needIndex < action.needsCovered.Count; needIndex++)
+            EditorGUILayout.LabelField("Satisfied Needs: ", EditorStyles.boldLabel);
+            SerializedProperty satisfiedNeedsList = actionProperty.FindPropertyRelative("satisfiedNeeds");
+            for (int needIndex = 0; needIndex < action.satisfiedNeeds.Count; needIndex++)
             {
-                SerializedProperty needProperty = needsCoveredList.GetArrayElementAtIndex(needIndex);
-                //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"needsCovered.Array.data[{needIndex}]");
+                SerializedProperty needProperty = satisfiedNeedsList.GetArrayElementAtIndex(needIndex);
+                //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"satisfiedNeeds.Array.data[{needIndex}]");
 
                 EditorGUILayout.BeginHorizontal();
                 string needName = $" • {needProperty.FindPropertyRelative($"needType.m_Name").stringValue}";
@@ -196,12 +203,70 @@ namespace Thoughts
             
                 GUILayout.Label("    ");
                 
-                selectedCoveredNeedImplementationIndex[actionIndex] = EditorGUILayout.Popup(new GUIContent(""), selectedCoveredNeedImplementationIndex[actionIndex], needsImplementations.Select(impl => impl.Name).ToArray());
+                selectedSatisfiedNeedImplementationIndex[actionIndex] = EditorGUILayout.Popup(new GUIContent(""), selectedSatisfiedNeedImplementationIndex[actionIndex], needsImplementations.Select(impl => impl.Name).ToArray());
                 
-                if (GUILayout.Button("Add covered need"))
+                if (GUILayout.Button("Add satisfied need"))
                 {
-                    Need newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedCoveredNeedImplementationIndex[actionIndex]]);
-                    action.needsCovered.Add(new NeedSatisfaction(newNeed));
+                    if (action.satisfiedNeeds == null)
+                        action.satisfiedNeeds = new List<SatisfiedNeed>();
+                    Need newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedSatisfiedNeedImplementationIndex[actionIndex]]);
+                    action.satisfiedNeeds.Add(new SatisfiedNeed(newNeed));
+                }
+                
+            EditorGUILayout.EndHorizontal();
+
+            // END
+            EditorGUI.indentLevel -= 1;
+        }
+        
+        private void NeedsSection(MobAction action, int actionIndex, SerializedProperty actionProperty)
+        {
+            // START
+            EditorGUI.indentLevel += 1;
+
+            // CURRENT NEEDS
+            EditorGUILayout.Separator();
+            EditorGUILayout.LabelField("Needs: ", EditorStyles.boldLabel);
+
+            //Debug.Log($"actionProperty {actionProperty.type}");
+            SerializedProperty needsList = actionProperty.FindPropertyRelative("neededNeeds");
+            //Debug.Log($"needsList {needsList!=null}");
+
+            for (int needIndex = 0; needIndex < action.demandedNeeds.Count; needIndex++)
+            {
+                Debug.Log($"actionProperty {needsList != null}");
+                SerializedProperty needProperty = needsList.GetArrayElementAtIndex(needIndex);
+                //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"needs.Array.data[{needIndex}]");
+
+                EditorGUILayout.BeginHorizontal();
+                //string needName = $" • {needProperty.FindPropertyRelative($"needType.m_Name").stringValue}";
+                EditorGUILayout.PropertyField(needProperty, new GUIContent("KKK"), true);
+
+                /*SerializedProperty satisfactionProperty = needProperty.FindPropertyRelative("satisfactionAmount");
+                GUILayout.Label("Satisfaction:");
+                satisfactionProperty.intValue = EditorGUILayout.IntField(satisfactionProperty.intValue);
+                GUILayout.Label("  ");*/
+
+                EditorGUILayout.EndHorizontal();
+            }
+
+            //ADD NEED ELEMENTS
+            EditorGUILayout.Space();
+            if (needsImplementations == null)
+                needsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();     
+            
+            EditorGUILayout.BeginHorizontal();
+            
+                GUILayout.Label("    ");
+                
+                selectedNeedImplementationIndex[actionIndex] = EditorGUILayout.Popup(new GUIContent(""), selectedNeedImplementationIndex[actionIndex], needsImplementations.Select(impl => impl.Name).ToArray());
+                
+                if (GUILayout.Button("Add need"))
+                {
+                    if (action.demandedNeeds == null)
+                        action.demandedNeeds = new List<Need>();
+                    Need newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedNeedImplementationIndex[actionIndex]]);
+                    action.demandedNeeds.Add(newNeed);
                 }
                 
             EditorGUILayout.EndHorizontal();

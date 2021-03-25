@@ -5,15 +5,10 @@ using Thoughts.Mobs;
 using Thoughts.Needs;
 using UnityEngine;
 
-public class DummyNeedType : Need
+public class Closeness : Need
 {
-    public override string GetName()
-    {
-        return "Dummy need";
-    }
     public override bool IsSatisfiedBy(Mob executer)
     {
-        Debug.LogWarning("Trying to satisfy DummyNeed");
-        return false;
+        throw new System.NotImplementedException();
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Thoughts.MapElements
 {
-     public class MapElement : MonoBehaviour
+     public abstract class MapElement : MonoBehaviour
      {
           [SerializeField] public Inventory inventory = new Inventory();
      }

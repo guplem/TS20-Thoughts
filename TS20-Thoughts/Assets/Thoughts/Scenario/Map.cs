@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
+using Thoughts.ControlSystems;
 using Thoughts.MapElements;
-using Thoughts.Mobs;
 using Thoughts.Needs;
 using UnityEngine;
 using UnityEngine.AI;
-using NavMeshBuilder = UnityEditor.AI.NavMeshBuilder;
 
-namespace Thoughts
+namespace Thoughts.Game.GameMap
 {
 
-    public class Scenario : MonoBehaviour
+    public class Map : MonoBehaviour
     {
 
         [SerializeField] private List<GameObject> spawnableGameObjects;
@@ -81,6 +80,7 @@ namespace Thoughts
             Mob mob = Instantiate(spawnableGameObject).GetComponentRequired<Mob>();
             mob.gameObject.name = "Guillermo";
             generatedMobs.Add(mob);
+            //ToDo: add ownership
 
             return generatedMobs;
         }
