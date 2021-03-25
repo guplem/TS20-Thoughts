@@ -44,7 +44,16 @@ public class Inventory
     
     public List<Need> GetNeeds(Type needType)
     {
-        throw new NotImplementedException();
+        List<Need> needs = new List<Need>();
+        foreach (Item item in items)
+        {
+            foreach (Need need in item.attachedNeeds)
+            {
+                if (need.GetType() == needType)
+                    needs.Add(need);
+            }
+        }
+        return needs;
     }
     
     public void ExecuteTimeElapse(MapElement mapElement)

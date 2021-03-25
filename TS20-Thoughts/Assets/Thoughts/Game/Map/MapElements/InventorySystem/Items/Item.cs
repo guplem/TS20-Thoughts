@@ -9,7 +9,7 @@ namespace Thoughts
     public class Item : ScriptableObject
     {
         public new string name;
-
+        [SerializeField] public List<Need> attachedNeeds = new List<Need>();
         [SerializeReference] public List<IMapAction> actions;
         public MapAction GetAction(int index)
         {
