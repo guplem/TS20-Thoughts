@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using Thoughts.Needs;
 using UnityEngine;
 
@@ -9,7 +10,7 @@ namespace Thoughts
     public class Item : ScriptableObject
     {
         public new string name;
-        [SerializeField] public List<Need> attachedNeeds = new List<Need>();
+        [SerializeField] public List<DemandedNeed> demandedNeeds = new List<DemandedNeed>();
         [SerializeReference] public List<IMapAction> actions;
         public MapAction GetAction(int index)
         {

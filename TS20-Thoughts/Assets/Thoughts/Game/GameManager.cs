@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Thoughts.ControlSystems;
 using UnityEngine;
-using Thoughts.Game.GameMap;
 
 namespace Thoughts.Game
 {
@@ -11,7 +10,7 @@ namespace Thoughts.Game
         [SerializeField] private GameObject manualControlSystemPrefab;
         
         [Header("Game Elements")]
-        [SerializeField] public Map map;
+        [SerializeField] public GameMap.Map map;
         
         private readonly List<Participant> participants = new List<Participant>();
 

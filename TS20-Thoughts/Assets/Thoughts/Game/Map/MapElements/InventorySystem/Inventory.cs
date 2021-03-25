@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Thoughts;
 using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using Thoughts.Needs;
 using UnityEngine;
 
@@ -42,18 +43,18 @@ public class Inventory
         }
     }*/
     
-    public List<Need> GetNeeds(Type needType)
+    public List<DemandedNeed> GetDemandedNeedsOf(Type needType)
     {
-        List<Need> needs = new List<Need>();
+        List<DemandedNeed> selectedDemandedNeeds = new List<DemandedNeed>();
         foreach (Item item in items)
         {
-            foreach (Need need in item.attachedNeeds)
+            foreach (DemandedNeed itemDemandedNeed in item.demandedNeeds)
             {
-                if (need.GetType() == needType)
-                    needs.Add(need);
+                if (itemDemandedNeed.needType != null && itemDemandedNeed.needType.GetType() == needType)
+                    selectedDemandedNeeds.Add(itemDemandedNeed);
             }
         }
-        return needs;
+        return selectedDemandedNeeds;
     }
     
     public void ExecuteTimeElapseActions(MapElement mapElement)
