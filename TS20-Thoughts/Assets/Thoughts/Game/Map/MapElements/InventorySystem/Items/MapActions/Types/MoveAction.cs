@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class MoveAction : MapAction
 {
-    public MoveAction() : this(Vector3.zero) { } 
 
-    [SerializeField] private Vector3 destination;
-    
-    public MoveAction(Vector3 destination)
-    {
-        this.destination = destination;
-    }
 
-    public override void Execute(MapElement executer)
+    public override void Execute(MapElement executer, MapActionFromMapElement nextActionFromMapElement)
     {
-        executer.navMeshAgent.SetDestination(destination);
+        if (nextActionFromMapElement == null)
+        {
+            Debug.LogWarning($"Trying to move {executer} to the location of the next action (which does not exist).");
+            return;
+        }
+        
+        Vector3 movePosition = nextActionFromMapElement.mapElement.transform.position;
+        Debug.Log($"Executing MoveAction at {executer} to go to {movePosition}");
+        executer.navMeshAgent.SetDestination(movePosition);
         executer.navMeshAgent.isStopped = false;
     }
-
 }

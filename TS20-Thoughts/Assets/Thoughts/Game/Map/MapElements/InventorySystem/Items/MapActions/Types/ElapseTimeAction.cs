@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ElapseTimeAction : MapAction
 {
-    public override void Execute(MapElement executer)
+    public override void Execute(MapElement executer, MapActionFromMapElement nextActionFromMapElement)
     {
         if (!base.CanBeExecuted())
             return;

@@ -23,23 +23,19 @@ namespace Thoughts
             return null;
         }
         
-        public MapAction GetActionToCoverNeed(Need need, MapElement mapElement, out Vector3 positionToPerformAction)
+        public MapAction GetActionToCoverNeed(Need need, MapElement mapElement)
         {
-            throw new NotImplementedException();
-            /*foreach (IMapAction iMobAction in actions)
+            foreach (IMapAction iMobAction in actions)
             {
                 MapAction mapAction = (MapAction) iMobAction;
                 //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
                 if (mapAction.SatisfiesNeed(need))
                 {
-                    positionToPerformAction = mapElement.transform.position;
                     return mapAction;
                 }
-
             }
 
-            positionToPerformAction = Vector3.zero;
-            return null;*/
+            return null;
         }
         public void Apply(ConsequenceNeed consequenceNeed)
         {

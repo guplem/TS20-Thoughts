@@ -94,17 +94,21 @@ namespace Thoughts.Game.GameMap
             return generatedMobs;
         }
         
-        public MapAction FindActionToCoverNeed(Need need, out Vector3 positionToPerformAction)
+        public MapAction FindActionToCoverNeed(Need need, MapElement needyMapElement, out MapElement mapElementWithActionToCoverNeed)
         {
             foreach (MapElement mapElement in mapElements)
             {
                 //Debug.Log($"Analazing {element} with inventory {map} for the need {need}");
-                MapAction availableAction = mapElement.inventory.GetAvailableActionToCoverNeed(need, mapElement, out positionToPerformAction);
+                MapAction availableAction = mapElement.inventory.GetAvailableActionToCoverNeed(need, needyMapElement);
                 if (availableAction != null)
+                {
+
+                    mapElementWithActionToCoverNeed = mapElement;
                     return availableAction;
+                }
             }
-            
-            positionToPerformAction = Vector3.zero;
+
+            mapElementWithActionToCoverNeed = null;
             return null;
         }
 

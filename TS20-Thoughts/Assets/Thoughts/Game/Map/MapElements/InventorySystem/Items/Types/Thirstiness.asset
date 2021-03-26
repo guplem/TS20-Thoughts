@@ -15,7 +15,7 @@ MonoBehaviour:
   relatedNeeds:
   - need: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
     satisfactionAmount: 50
-    minimumDemandedSatisfactionAmount: 20
+    minimumDemandedSatisfactionAmount: 45
   actions:
   - id: 0
   references:

@@ -15,15 +15,17 @@ namespace Thoughts.Game.GameMap
         [SerializeField] public List<ConsequenceNeed> consequenceNeeds = new List<ConsequenceNeed>();
         [SerializeField] public List<RequiredNeed> requiredNeeds = new List<RequiredNeed>();
 
-        public abstract void Execute(MapElement executer);
+        public abstract void Execute(MapElement executer, MapActionFromMapElement nextActionFromMapElement); //From = executer, To = destination/executionED
 
-        public bool NeedsToExecuteAreCovered(MapElement executer)
+        public List<Need> GetNotSatisfiedRequiredNeedsBy(MapElement executer)
         {
-            foreach (RequiredNeed need in requiredNeeds)
+            List<Need> requiredNeedsForExecuter = new List<Need>();
+            foreach (RequiredNeed requiredNeed in requiredNeeds)
             {
-                throw new NotImplementedException();
+                if (!executer.SatisfiesNeed(requiredNeed))
+                    requiredNeedsForExecuter.Add(requiredNeed.need);
             }
-            return true;
+            return requiredNeedsForExecuter;
         }
 
         public string GetName()
@@ -39,14 +41,12 @@ namespace Thoughts.Game.GameMap
     
         public bool SatisfiesNeed(Need need)
         {
-            /*foreach (ConsequenceNeed consequenceNeed in consequenceNeeds)
+            foreach (ConsequenceNeed consequenceNeed in consequenceNeeds)
             {
-                if (consequenceNeed.Solves(need))
+                if (consequenceNeed.Covers(need))
                     return true;
             }
-            return false;*/
-            Debug.LogWarning("SatisfiesNeed? not implemented");
-            return true;
+            return false;
         }
 
         protected bool CanBeExecuted()

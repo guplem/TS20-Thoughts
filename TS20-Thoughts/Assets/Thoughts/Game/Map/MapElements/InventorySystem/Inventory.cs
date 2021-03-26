@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Thoughts;
 using Thoughts.Game.GameMap;
 using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
@@ -20,33 +21,38 @@ public class Inventory
         }
     }
     
-    public MapAction GetAvailableActionToCoverNeed(Need need, MapElement mapElement,out Vector3 positionToPerformAction)
+    public MapAction GetAvailableActionToCoverNeed(Need need, MapElement mapElement)
     {
         foreach (Item item in items)
         {
-            MapAction action = item.GetActionToCoverNeed(need, mapElement,out positionToPerformAction);
+            MapAction action = item.GetActionToCoverNeed(need, mapElement);
             if (action != null)
             {
                 return action;
             }
         }
         
-        positionToPerformAction = Vector3.zero;
         return null;
     }
     
     public void ExecuteTimeElapseActions(MapElement mapElement)
     {
+        if (items != null && items.Count > 0)
+            Debug.Log($"# Inspecting '{mapElement}' for 'ElapseTimeAction' to execute.");
+
         foreach (Item item in items)
         {
-            Debug.Log($"Inspecting '{mapElement}/{item}' for 'ElapseTimeAction' to execute.");
+            Debug.Log($"    - Checking if '{item}' has an 'ElapseTimeAction'.");
             List<IMapAction> itemActions = item.actions;
             foreach (IMapAction itemIAction in itemActions)
             {
                 MapAction itemAction = (MapAction)itemIAction;
-                Debug.Log($"  - Inspecting action '{itemAction}'");
+
                 if (itemAction.GetType() == typeof(ElapseTimeAction))
-                    itemAction.Execute(mapElement);
+                {
+                    Debug.Log($"        · Executing action '{itemAction}' of '{item}'.");
+                    itemAction.Execute(mapElement, null); // To nobody with no next action in mid in the future (nxt action)
+                }
             }
         }
     }
@@ -56,10 +62,33 @@ public class Inventory
         foreach (Item item in items)
             item.Apply(consequenceNeed);
     }
-
-
-    public void CheckNeedToFulfillRelatedNeeds()
+    
+    public Need GetRelatedNeedToTakeCare()
     {
-        throw new NotImplementedException();
+        List<Need> relatedNeedsToTakeCare = new List<Need>();
+        foreach (Item item in items)
+        {
+            foreach (RelatedNeed itemRelatedNeed in item.relatedNeeds)
+            {
+                if (itemRelatedNeed.needsCare)
+                    relatedNeedsToTakeCare.Add(itemRelatedNeed.need);
+            }
+        }
+        relatedNeedsToTakeCare.Sort();
+        return relatedNeedsToTakeCare.Count >= 1 ? relatedNeedsToTakeCare.ElementAt(0) : null;
     }
+    
+    public bool CanSatisfyNeed(RequiredNeed need)
+    {
+        foreach (Item item in items)
+        {
+            foreach (RelatedNeed itemRelatedNeed in item.relatedNeeds)
+            {
+                if (itemRelatedNeed.Satisfies(need))
+                    return true;
+            }
+        }
+        return false;
+    }
+    
 }

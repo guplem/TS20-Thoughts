@@ -13,5 +13,9 @@ namespace Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs
         {
             return $"{need}: ΔSatisfaction={deltaSatisfactionAmount}";
         }
+        public bool Covers(Need need)
+        {
+            return need == this.need;
+        }
     }
 }

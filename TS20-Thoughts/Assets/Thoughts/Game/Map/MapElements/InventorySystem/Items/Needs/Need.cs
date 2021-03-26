@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 using Object = System.Object;
@@ -7,38 +8,44 @@ using Object = System.Object;
 namespace Thoughts.Needs
 {
     [CreateAssetMenu(fileName = "Item", menuName = "Thoughts/Need", order = 2)]
-    public class Need: ScriptableObject, IEquatable<Need>
+    public class Need: ScriptableObject, IEquatable<Need>, IComparer<Need>
     {
 
-        [SerializeField] public int level = 0; //Todo: switch to an enumerator with the levels named
+        [SerializeField] public int priority = 50; //Todo: switch to an enumerator with the levels named (?)
 
         public override string ToString()
         {
-            return $"{this.name}: L={level}";
+            return $"{this.name}: L={priority}";
         }
         
-        public virtual List<MapAction> GetActionsSatisfy(MapElement needyMapElement, List<MapAction> actions = null, int iteration = 0)
+        public virtual List<MapActionFromMapElement> GetActionsSatisfy(MapElement needyMapElement, List<MapActionFromMapElement> actions = null, int iteration = 0)
         {
             if (iteration >= 100)
             {
-                Debug.LogWarning($"Iteration {iteration}");
+                Debug.LogWarning($"Iteration {iteration} reached to get an action path to take care of the need '{this.name}'.");
+                actions.DebugLog( ",","  \\_Found actions so far: ");
                 return null;
             }
             
             if (actions == null)
-                actions = new List<MapAction>();
+                actions = new List<MapActionFromMapElement>();
 
-            Vector3 positionToPerformAction;
-            MapAction actionToCoverNeed = AppManager.gameManager.map.FindActionToCoverNeed(this, out positionToPerformAction);
+            //Vector3 positionToPerformAction;
+            MapElement mapElementWithActionToCoverNeed = null;
+            MapAction actionToCoverNeed = AppManager.gameManager.map.FindActionToCoverNeed(this, needyMapElement, out mapElementWithActionToCoverNeed);
+            // TODO: Use the latest action's map element to find the closest nect action to the previous one
+            //MapAction actionToCoverNeed = AppManager.gameManager.map.FindActionToCoverNeed(this, actions.Count == 0 ? needyMapElement : actions.ElementAt(actions.Count() - 1).mapElement);
 
-            if (actionToCoverNeed == null)
-                return null;
+            if (actionToCoverNeed != null)
+                actions.Add(new MapActionFromMapElement(actionToCoverNeed, mapElementWithActionToCoverNeed));
 
-            actions.Add(actionToCoverNeed);
-
-            if (!actionToCoverNeed.NeedsToExecuteAreCovered(needyMapElement))
-                return GetActionsSatisfy(needyMapElement, actions, iteration + 1);
-
+            if (actionToCoverNeed != null)
+            {
+                List<Need> needsToPerformAction = actionToCoverNeed.GetNotSatisfiedRequiredNeedsBy(needyMapElement);
+                if (needsToPerformAction != null && needsToPerformAction.Count > 0)
+                    //foreach (Need needToPerformAction in needsToPerformAction) //To-Do: multiple enqueued lists
+                    return needsToPerformAction.ElementAt(0).GetActionsSatisfy(needyMapElement, actions, iteration + 1);
+            }
             return actions;
         }
         
@@ -68,7 +75,16 @@ namespace Thoughts.Needs
         {
             return !Equals(left, right);
         }
-
+        public int Compare(Need x, Need y)
+        {
+            if (ReferenceEquals(x, y))
+                return 0;
+            if (ReferenceEquals(null, y))
+                return 1;
+            if (ReferenceEquals(null, x))
+                return -1;
+            return x.priority.CompareTo(y.priority);
+        }
     }
     
 }
