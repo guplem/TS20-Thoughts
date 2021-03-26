@@ -6,7 +6,7 @@ namespace Thoughts.Needs
     [System.Serializable]
     public class RequiredNeed
     {
-        [SerializeField] private Need need;
-        [SerializeField] private int requiredAmount;
+        [SerializeField] public Need need;
+        [SerializeField] public int requiredAmount;
     }
 }

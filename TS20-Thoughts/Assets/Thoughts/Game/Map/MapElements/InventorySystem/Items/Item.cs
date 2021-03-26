@@ -41,6 +41,13 @@ namespace Thoughts
             positionToPerformAction = Vector3.zero;
             return null;*/
         }
+        public void Apply(ConsequenceNeed consequenceNeed)
+        {
+            foreach (RelatedNeed relatedNeed in relatedNeeds)
+            {
+                relatedNeed.Apply(consequenceNeed);
+            }
+        }
     }
     
 }

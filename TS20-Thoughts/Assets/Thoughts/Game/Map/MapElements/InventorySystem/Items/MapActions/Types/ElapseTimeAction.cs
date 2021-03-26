@@ -1,22 +1,19 @@
 using System;
 using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
+using UnityEngine;
 
 public class ElapseTimeAction : MapAction
 {
     public override void Execute(MapElement executer)
     {
-        throw new NotImplementedException();
-        /*
-        Debug.Log($"   \\-> Executing ElapseTimeAction by '{executer}'");
+        if (!base.CanBeExecuted())
+            return;
+        
         foreach (ConsequenceNeed consequenceNeed in consequenceNeeds)
         {
-            Debug.Log($"      |-> Evaluating consequenceNeed '{consequenceNeed}'");
-            List<DemandedNeed> executerDemandedNeeds = executer.inventory.GetDemandedNeedsOf(consequenceNeed.GetType());
-            Debug.Log($"      |-> Evaluating executerDemandedNeeds '{executerDemandedNeeds}'");
-            executerDemandedNeeds.DebugLog(",", "      # executerDemandedNeeds: ");
-            foreach (DemandedNeed executerDemandedNeed in executerDemandedNeeds)
-                executerDemandedNeed.UpdateSatisfaction(consequenceNeed.deltaSatisfactionAmount);
+            executer.inventory.Apply(consequenceNeed);
+            //Debug.Log($"Executing {consequenceNeed}");
         }
-        */
     }
 }

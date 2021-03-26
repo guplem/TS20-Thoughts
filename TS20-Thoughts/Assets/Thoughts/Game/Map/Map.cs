@@ -11,22 +11,21 @@ namespace Thoughts.Game.GameMap
     public class Map : MonoBehaviour
     {
 
-        [SerializeField] private List<GameObject> spawnableGameObjects;
-
+        [SerializeField] private List<GameObject> spawnableMapElement;
         private List<MapElement> mapElements = new List<MapElement>();
 
         public void BuildNew(List<Participant> participants)
         {
-            GenerateScenario();
+            mapElements.AddRange(GenerateMapObjects());
             BuildNavMeshes();
-            List<MapElement> generatedMobs = GenerateMobs();
+            mapElements.AddRange(GenerateMobs());
         }
         
         private void BuildNavMeshes()
         {
             List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
             
-            foreach (GameObject go in spawnableGameObjects)
+            foreach (GameObject go in spawnableMapElement)
             {
                 NavMeshAgent mobAgent = go.GetComponent<NavMeshAgent>();
                 
@@ -49,36 +48,47 @@ namespace Thoughts.Game.GameMap
 
             }
         }
-
-        private void GenerateScenario()
+        
+        private List<MapElement> GenerateMapObjects()
         {
-            RandomEssentials random = new RandomEssentials();
+            List<MapElement> generatedMapObjects = new List<MapElement>();
             GameObject spawnableGameObject = null;
-            
+            MapElement spawnedElement = null;
+            RandomEssentials random = new RandomEssentials();
+
             //Water
             spawnableGameObject = GetSpawnableGameObject("river");
-            SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
+            spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
+            generatedMapObjects.Add(spawnedElement);
             
             //Rocks
             spawnableGameObject = GetSpawnableGameObject("rock");
             for (int i = 0; i < 30; i++)
-                SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
-            
+            {
+                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
+                generatedMapObjects.Add(spawnedElement);
+            }
+
+            return generatedMapObjects;
         }
-        private void SpawnMapElement(GameObject spawnableGameObject, Vector3 position, Quaternion rotation)
+
+        private MapElement SpawnMapElement(GameObject spawnableGameObject, Vector3 position, Quaternion rotation)
         {
             GameObject spawnedMapElement = Instantiate(spawnableGameObject, position, rotation, this.transform);
-            mapElements.Add(spawnedMapElement.GetComponentRequired<MapElement>());
+            return spawnedMapElement.GetComponentRequired<MapElement>();
         }
 
         private List<MapElement> GenerateMobs()
         {
             List<MapElement> generatedMobs = new List<MapElement>();
-            
-            GameObject spawnableGameObject = GetSpawnableGameObject("human");
-            MapElement mapElement = Instantiate(spawnableGameObject).GetComponentRequired<MapElement>();
-            mapElement.gameObject.name = "Guillermo";
-            generatedMobs.Add(mapElement);
+            GameObject spawnableGameObject = null;
+            MapElement spawnedElement = null;
+
+            // HUMAN
+            spawnableGameObject = GetSpawnableGameObject("human");
+            spawnedElement = SpawnMapElement(spawnableGameObject, Vector3.zero, Quaternion.identity);
+            spawnedElement.gameObject.name = "Guillermo";
+            generatedMobs.Add(spawnedElement);
             //ToDo: add ownership
 
             return generatedMobs;
@@ -100,14 +110,14 @@ namespace Thoughts.Game.GameMap
 
         public GameObject GetSpawnableGameObject(string name)
         {
-            foreach (GameObject go in spawnableGameObjects)
+            foreach (GameObject go in spawnableMapElement)
             {
                 //Debug.Log($"Looking for '{name}'. Searching now object '{go.name}'. Result = {string.Compare(go.name, name, StringComparison.OrdinalIgnoreCase)}");
                 if (string.Compare(go.name, name, StringComparison.OrdinalIgnoreCase) == 0)
                     return go;
             }
             Debug.LogError($"The GameObject with name '{name}' could not be found in the list of spawnableGameObjects");
-            spawnableGameObjects.DebugLog(", ","Spawnable Game Objects: ");
+            spawnableMapElement.DebugLog(", ","Spawnable Game Objects: ");
             return null;
         }
     }

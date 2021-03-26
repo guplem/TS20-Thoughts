@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thirstiness
   m_EditorClassIdentifier: 
   relatedNeeds:
-  - needType: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
+  - need: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
     initialSatisfactionAmount: 50
     minimumDemandedSatisfactionAmount: 20
   actions:

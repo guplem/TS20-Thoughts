@@ -159,9 +159,9 @@ namespace Thoughts
 
                     EditorGUILayout.PropertyField(actionProperty, new GUIContent(itemName), true);
 
-                    //SatisfiedNeedsOfActionSection(action, actionIndex, actionProperty);
+                    /*//SatisfiedNeedsOfActionSection(action, actionIndex, actionProperty);
                     //DemandedNeedsOfActionSection(action, actionIndex, actionProperty);
-                    //AddNeedsSection(action, actionIndex);
+                    //AddNeedsSection(action, actionIndex);*/
                     
                     EditorGUILayout.Space();
                 }

@@ -48,6 +48,14 @@ namespace Thoughts.Game.GameMap
             Debug.LogWarning("SatisfiesNeed? not implemented");
             return true;
         }
-    
+
+        protected bool CanBeExecuted()
+        {
+            foreach (RequiredNeed requiredNeed in requiredNeeds)
+            {
+                throw new NotImplementedException();
+            }
+            return true;
+        }
     }
 }

@@ -15,6 +15,8 @@ namespace Thoughts.Game.GameMap
           
           private void Awake()
           {
+               inventory.Initialize();
+               
                // Ensure that we are not going to lose the track of a previous coroutine 
                // if we lose it, we'll not be able to stop it.
                if (coroutineHolder != null)
