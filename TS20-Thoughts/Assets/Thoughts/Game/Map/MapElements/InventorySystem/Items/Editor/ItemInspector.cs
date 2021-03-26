@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using Thoughts.Needs;
 using UnityEditor;
 using UnityEngine;
@@ -16,9 +17,9 @@ namespace Thoughts
         private Item item;
         private Type[] actionsImplementations;
         private int selectedActionImplementationIndex = -1;
-        private Type[] needsImplementations;
-        private int[] selectedSatisfiedNeedImplementationIndex;
-        private int[] selectedNeedImplementationIndex;
+        //private Type[] needsImplementations;
+        //private int[] selectedSatisfiedNeedImplementationIndex;
+        //private int[] selectedNeedImplementationIndex;
 
         public override void OnInspectorGUI()
         {
@@ -29,9 +30,11 @@ namespace Thoughts
             item = target as Item;
             if (item == null) { return; }
 
-            if (selectedSatisfiedNeedImplementationIndex == null || selectedNeedImplementationIndex == null)
-                UpdateAllNeedsImplementationIndexes();
-
+            /*if (selectedSatisfiedNeedImplementationIndex == null || selectedNeedImplementationIndex == null)
+                UpdateAllNeedsImplementationIndexes();*/
+            
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("relatedNeeds"), new GUIContent("Related Needs"), true);
+            
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             
@@ -81,7 +84,7 @@ namespace Thoughts
                 if (item.actions == null)
                     item.actions = new List<IMapAction>();
                 item.actions.Add(newAction);
-                UpdateAllNeedsImplementationIndexes();
+                //UpdateAllNeedsImplementationIndexes();
             }
         }
         
@@ -115,15 +118,15 @@ namespace Thoughts
                 actionsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapAction>();
             EditorGUILayout.EndHorizontal();
             
-            // NEEDS
+           /* // NEEDS
             EditorGUILayout.BeginHorizontal();
             if (needsImplementations != null) EditorGUILayout.LabelField($"Found {needsImplementations.Count()} needs implementations", EditorStyles.helpBox);
             if (needsImplementations == null || GUILayout.Button(" Search needs implementations "))
                 needsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
-            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.EndHorizontal();*/
         }
         
-        private void UpdateAllNeedsImplementationIndexes()
+        /*private void UpdateAllNeedsImplementationIndexes()
         {
             selectedSatisfiedNeedImplementationIndex = new int[item.actions.Count];
             for (int i = 0; i < selectedSatisfiedNeedImplementationIndex.Length; i++)
@@ -132,7 +135,7 @@ namespace Thoughts
             selectedNeedImplementationIndex = new int[item.actions.Count];
             for (int i = 0; i < selectedNeedImplementationIndex.Length; i++)
                 selectedNeedImplementationIndex[i] = -1;
-        }
+        }*/
 
         private void ShowActionsArray()
         {
@@ -151,14 +154,14 @@ namespace Thoughts
                     
                     // Action name
                     string itemName;
-                    if (action.GetActionName().IsNullOrEmpty()) itemName = $"Action [{actionIndex}] ({action.GetType().Name})";
-                    else itemName = $"'{action.GetActionName()}' action [{actionIndex}] ({action.GetType().Name})";
+                    if (action.GetName().IsNullOrEmpty()) itemName = $"Action [{actionIndex}] ({action.GetType().Name})";
+                    else itemName = $"'{action.GetName()}' action [{actionIndex}] ({action.GetType().Name})";
 
                     EditorGUILayout.PropertyField(actionProperty, new GUIContent(itemName), true);
 
-                    SatisfiedNeedsSection(action, actionIndex, actionProperty);
-                    DemandedNeedsSection(action, actionIndex, actionProperty);
-                    AddNeedsSection(action, actionIndex);
+                    //SatisfiedNeedsOfActionSection(action, actionIndex, actionProperty);
+                    //DemandedNeedsOfActionSection(action, actionIndex, actionProperty);
+                    //AddNeedsSection(action, actionIndex);
                     
                     EditorGUILayout.Space();
                 }
@@ -169,7 +172,7 @@ namespace Thoughts
             UnityEditor.EditorGUI.indentLevel -= 1;
         }
         
-        private void SatisfiedNeedsSection(MapAction action, int actionIndex, SerializedProperty actionProperty)
+        /*private void SatisfiedNeedsOfActionSection(MapAction action, int actionIndex, SerializedProperty actionProperty)
         {
             // START
             EditorGUI.indentLevel += 1;
@@ -178,14 +181,15 @@ namespace Thoughts
             EditorGUILayout.Separator();
             EditorGUILayout.LabelField("Consequence Update of Needs: ", EditorStyles.boldLabel);
             //Debug.Log($"actionProperty 1 {actionProperty.type}");
-            SerializedProperty satisfiedNeedsList = actionProperty.FindPropertyRelative("consequenceNeeds");
+            SerializedProperty consequenceNeedsList = actionProperty.FindPropertyRelative("consequenceNeeds");
             for (int needIndex = 0; needIndex < action.consequenceNeeds.Count; needIndex++)
             {
-                SerializedProperty needProperty = satisfiedNeedsList.GetArrayElementAtIndex(needIndex);
+                SerializedProperty needProperty = consequenceNeedsList.GetArrayElementAtIndex(needIndex);
+                Debug.Log(needProperty != null);
                 //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"satisfiedNeeds.Array.data[{needIndex}]");
 
                 EditorGUILayout.BeginHorizontal();
-                string needName = $" • {needProperty.FindPropertyRelative($"needType.m_Name").stringValue}";
+                string needName = $" • {needProperty.FindPropertyRelative($"need.name").stringValue}";
                 EditorGUILayout.PropertyField(needProperty, new GUIContent(needName), true);
 
                 SerializedProperty satisfactionProperty = needProperty.FindPropertyRelative("deltaSatisfactionAmount");
@@ -199,9 +203,9 @@ namespace Thoughts
             
             // END
             EditorGUI.indentLevel -= 1;
-        }
+        }*/
         
-        private void DemandedNeedsSection(MapAction action, int actionIndex, SerializedProperty actionProperty)
+        /*private void DemandedNeedsOfActionSection(MapAction action, int actionIndex, SerializedProperty actionProperty)
         {
             // START
             EditorGUI.indentLevel += 1;
@@ -231,8 +235,9 @@ namespace Thoughts
             
             // END
             EditorGUI.indentLevel -= 1;
-        }
-        private void AddNeedsSection(MapAction action, int actionIndex)
+        }*/
+        
+        /*private void AddNeedsSection(MapAction action, int actionIndex)
         {
             EditorGUILayout.Space();
             EditorGUI.indentLevel += 1;
@@ -260,14 +265,15 @@ namespace Thoughts
                 if (GUILayout.Button("Add required need"))
                 {
                     if (action.requiredNeeds == null)
-                        action.requiredNeeds = new List<RequireddNeed>();
+                        action.requiredNeeds = new List<RequiredNeed>();
                     Need newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedSatisfiedNeedImplementationIndex[actionIndex]]);
-                    action.requiredNeeds.Add(new RequireddNeed(newNeed));
+                    action.requiredNeeds.Add(new RequiredNeed(newNeed));
                 }
 
             EditorGUI.indentLevel -= 1;
             EditorGUILayout.EndHorizontal();
-        }
+        }*/
+        
     }
 }
 

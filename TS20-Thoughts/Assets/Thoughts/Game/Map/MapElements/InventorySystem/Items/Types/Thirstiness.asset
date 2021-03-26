@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Thirstiness
   m_EditorClassIdentifier: 
-  name: 
+  relatedNeeds:
+  - needType: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
+    initialSatisfactionAmount: 50
+    minimumDemandedSatisfactionAmount: 20
   actions:
   - id: 0
   references:
@@ -20,11 +23,8 @@ MonoBehaviour:
     00000000:
       type: {class: ElapseTimeAction, ns: , asm: Assembly-CSharp}
       data:
+        name: 
         consequenceNeeds:
-        - needType:
-            m_Name: Hydratation
-            m_AssemblyQualifiedName: Thoughts.Needs.Hydratation, Assembly-CSharp,
-              Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-            m_AssemblyName: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        - need: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
           deltaSatisfactionAmount: -1
-        demandedNeeds: []
+        requiredNeeds: []

@@ -296,6 +296,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   favAnimal: {fileID: 0}
+  consequenceNeeds:
+  - need: {fileID: 0}
+    deltaSatisfactionAmount: 0
+  requiredNeeds: []
 --- !u!4 &595597822
 Transform:
   m_ObjectHideFlags: 0

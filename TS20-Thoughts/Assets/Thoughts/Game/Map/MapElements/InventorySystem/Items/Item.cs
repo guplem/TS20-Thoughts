@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Thoughts.Game.GameMap;
 using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
@@ -9,9 +10,10 @@ namespace Thoughts
     [CreateAssetMenu(fileName = "Item", menuName = "Thoughts/Item", order = 1)]
     public class Item : ScriptableObject
     {
-        public new string name;
-        [SerializeField] public List<DemandedNeed> demandedNeeds = new List<DemandedNeed>();
+
+        [SerializeField] public List<RelatedNeed> relatedNeeds = new List<RelatedNeed>();
         [SerializeReference] public List<IMapAction> actions;
+        
         public MapAction GetAction(int index)
         {
             if (actions.Count > index)
@@ -23,7 +25,8 @@ namespace Thoughts
         
         public MapAction GetActionToCoverNeed(Need need, MapElement mapElement, out Vector3 positionToPerformAction)
         {
-            foreach (IMapAction iMobAction in actions)
+            throw new NotImplementedException();
+            /*foreach (IMapAction iMobAction in actions)
             {
                 MapAction mapAction = (MapAction) iMobAction;
                 //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
@@ -36,7 +39,7 @@ namespace Thoughts
             }
 
             positionToPerformAction = Vector3.zero;
-            return null;
+            return null;*/
         }
     }
     

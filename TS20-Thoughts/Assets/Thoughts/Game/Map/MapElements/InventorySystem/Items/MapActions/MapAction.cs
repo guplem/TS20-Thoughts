@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using Thoughts.Needs;
 using UnityEngine;
 
@@ -10,27 +11,30 @@ namespace Thoughts.Game.GameMap
     [Serializable]
     public abstract class MapAction : IMapAction
     {
-        [HideInInspector] public List<ConsequenceNeed> consequenceNeeds = new List<ConsequenceNeed>();
-        [HideInInspector] public List<RequireddNeed> requiredNeeds = new List<RequireddNeed>();
-        //[HideInInspector] public List<Need> demandedNeeds = new List<Need>();
-        
+        [SerializeField] private string name = "";
+        [SerializeField] public List<ConsequenceNeed> consequenceNeeds = new List<ConsequenceNeed>();
+        [SerializeField] public List<RequiredNeed> requiredNeeds = new List<RequiredNeed>();
+
         public abstract void Execute(MapElement executer);
 
         public bool NeedsToExecuteAreCovered(MapElement executer)
         {
-            foreach (RequireddNeed need in requiredNeeds)
+            foreach (RequiredNeed need in requiredNeeds)
             {
                 throw new NotImplementedException();
             }
             return true;
         }
-    
-        public abstract string GetActionName();
+
+        public string GetName()
+        {
+            return name.IsNullEmptyOrWhiteSpace() ? this.GetType().Name : name;
+        }
 
         public override string ToString()
         {
             //return this.GetType().Name;
-            return this.GetActionName();
+            return this.GetName();
         }
     
         public bool SatisfiesNeed(Need need)

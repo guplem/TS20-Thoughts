@@ -43,7 +43,7 @@ public class Inventory
         }
     }*/
     
-    public List<DemandedNeed> GetDemandedNeedsOf(Type needType)
+    /*public List<DemandedNeed> GetDemandedNeedsOf(Type needType)
     {
         List<DemandedNeed> selectedDemandedNeeds = new List<DemandedNeed>();
         foreach (Item item in items)
@@ -55,7 +55,7 @@ public class Inventory
             }
         }
         return selectedDemandedNeeds;
-    }
+    }*/
     
     public void ExecuteTimeElapseActions(MapElement mapElement)
     {

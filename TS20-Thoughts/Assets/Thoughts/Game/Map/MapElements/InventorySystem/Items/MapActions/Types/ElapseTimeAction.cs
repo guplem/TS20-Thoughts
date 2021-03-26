@@ -1,15 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Thoughts.Game.GameMap;
-using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
-using Thoughts.Needs;
-using UnityEngine;
 
 public class ElapseTimeAction : MapAction
 {
     public override void Execute(MapElement executer)
     {
+        throw new NotImplementedException();
+        /*
         Debug.Log($"   \\-> Executing ElapseTimeAction by '{executer}'");
         foreach (ConsequenceNeed consequenceNeed in consequenceNeeds)
         {
@@ -20,10 +17,6 @@ public class ElapseTimeAction : MapAction
             foreach (DemandedNeed executerDemandedNeed in executerDemandedNeeds)
                 executerDemandedNeed.UpdateSatisfaction(consequenceNeed.deltaSatisfactionAmount);
         }
-    }
-    
-    public override string GetActionName()
-    {
-        return "Time elapsing";
+        */
     }
 }

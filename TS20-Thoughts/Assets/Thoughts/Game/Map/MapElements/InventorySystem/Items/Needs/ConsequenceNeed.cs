@@ -1,25 +1,12 @@
-using System;
+using Thoughts.Needs;
 using UnityEngine;
 
-namespace Thoughts.Needs
+namespace Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs
 {
-    
-    
     [System.Serializable]
     public class ConsequenceNeed
     {
-        [SerializeField] private TypeSerializable needType;
-        [SerializeField] public int deltaSatisfactionAmount;
-    
-        public ConsequenceNeed(Need need)
-        {
-            this.needType = new TypeSerializable(need.GetType());
-        }
-    
-        public bool Solves(Need need)
-        {
-            throw new NotImplementedException();
-            //return (needType.Name == need.GetType().Name);
-        }
+        [SerializeField] private Need need;
+        [SerializeField] private int deltaSatisfactionAmount;
     }
 }
