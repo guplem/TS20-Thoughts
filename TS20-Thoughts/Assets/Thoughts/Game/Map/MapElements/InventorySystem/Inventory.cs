@@ -58,4 +58,8 @@ public class Inventory
     }
 
 
+    public void CheckNeedToFulfillRelatedNeeds()
+    {
+        throw new NotImplementedException();
+    }
 }

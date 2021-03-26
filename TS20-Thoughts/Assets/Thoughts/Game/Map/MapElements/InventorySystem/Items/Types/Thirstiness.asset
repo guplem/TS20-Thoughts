@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relatedNeeds:
   - need: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
-    initialSatisfactionAmount: 50
+    satisfactionAmount: 50
     minimumDemandedSatisfactionAmount: 20
   actions:
   - id: 0
