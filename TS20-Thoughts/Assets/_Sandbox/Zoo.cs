@@ -8,7 +8,7 @@ public class Zoo : MonoBehaviour
 {
     [SerializeField] private Animal favAnimal;
     
-    [SerializeField] public List<ConsequenceNeed> consequenceNeeds = new List<ConsequenceNeed>();
-    [SerializeField] public List<RequiredNeed> requiredNeeds = new List<RequiredNeed>();
+    [SerializeField] public List<ConsequenceStat> consequenceNeeds = new List<ConsequenceStat>();
+    [SerializeField] public List<RequiredStat> requiredNeeds = new List<RequiredStat>();
     
 }

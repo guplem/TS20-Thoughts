@@ -8,7 +8,7 @@ using Object = System.Object;
 namespace Thoughts.Needs
 {
     [CreateAssetMenu(fileName = "Item", menuName = "Thoughts/Need", order = 2)]
-    public class Need: ScriptableObject, IEquatable<Need>, IComparer<Need>
+    public class Stat: ScriptableObject, IEquatable<Stat>, IComparer<Stat>
     {
 
         [SerializeField] public int priority = 50; //Todo: switch to an enumerator with the levels named (?)
@@ -41,7 +41,7 @@ namespace Thoughts.Needs
 
             if (actionToCoverNeed != null)
             {
-                List<Need> needsToPerformAction = actionToCoverNeed.GetNotSatisfiedRequiredNeedsBy(needyMapElement);
+                List<Stat> needsToPerformAction = actionToCoverNeed.GetRequiredNeedsNotSatisfiedBy(needyMapElement);
                 if (needsToPerformAction != null && needsToPerformAction.Count > 0)
                     //foreach (Need needToPerformAction in needsToPerformAction) //To-Do: multiple enqueued lists
                     return needsToPerformAction.ElementAt(0).GetActionsSatisfy(needyMapElement, actions, iteration + 1);
@@ -57,9 +57,9 @@ namespace Thoughts.Needs
                 return true;
             if (obj.GetType() != this.GetType())
                 return false;
-            return Equals((Need) obj);
+            return Equals((Stat) obj);
         }
-        public bool Equals(Need other)
+        public bool Equals(Stat other)
         {
             return other != null && other.name.Equals(this.name);
         }
@@ -67,15 +67,15 @@ namespace Thoughts.Needs
         {
             return name.GetHashCode();
         }
-        public static bool operator ==(Need left, Need right)
+        public static bool operator ==(Stat left, Stat right)
         {
             return Equals(left, right);
         }
-        public static bool operator !=(Need left, Need right)
+        public static bool operator !=(Stat left, Stat right)
         {
             return !Equals(left, right);
         }
-        public int Compare(Need x, Need y)
+        public int Compare(Stat x, Stat y)
         {
             if (ReferenceEquals(x, y))
                 return 0;
@@ -85,6 +85,7 @@ namespace Thoughts.Needs
                 return -1;
             return x.priority.CompareTo(y.priority);
         }
+        
     }
     
 }

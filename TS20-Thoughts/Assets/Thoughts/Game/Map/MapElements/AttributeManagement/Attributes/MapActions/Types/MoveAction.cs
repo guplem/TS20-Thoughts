@@ -15,7 +15,7 @@ public class MoveAction : MapAction
         }
         
         Vector3 movePosition = nextActionFromMapElement.mapElement.transform.position;
-        Debug.Log($"Executing MoveAction at {executer} to go to {movePosition}");
+        //Debug.Log($"Executing MoveAction at {executer} to go to {movePosition}");
         executer.navMeshAgent.SetDestination(movePosition);
         executer.navMeshAgent.isStopped = false;
     }

@@ -11,10 +11,10 @@ using UnityEngine;
 namespace Thoughts
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(Item))]
-    public class ItemInspector : UnityEditor.Editor
+    [CustomEditor(typeof(Attribute))]
+    public class AttributeInspector : UnityEditor.Editor
     {
-        private Item item;
+        private Attribute attribute;
         private Type[] actionsImplementations;
         private int selectedActionImplementationIndex = -1;
         //private Type[] needsImplementations;
@@ -27,13 +27,13 @@ namespace Thoughts
             serializedObject.Update ();
             
             //specify target type
-            item = target as Item;
-            if (item == null) { return; }
+            attribute = target as Attribute;
+            if (attribute == null) { return; }
 
             /*if (selectedSatisfiedNeedImplementationIndex == null || selectedNeedImplementationIndex == null)
                 UpdateAllNeedsImplementationIndexes();*/
             
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("relatedNeeds"), new GUIContent("Related Needs"), true);
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("relatedStats"), new GUIContent("Related Stats"), true);
             
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
@@ -81,27 +81,27 @@ namespace Thoughts
                 //record the gameObject state to enable undo and prevent from exiting the scene without saving
                 Undo.RegisterCompleteObjectUndo(target, "Added new action");
                 //add the new action to the action's list
-                if (item.actions == null)
-                    item.actions = new List<IMapAction>();
-                item.actions.Add(newAction);
+                if (attribute.actions == null)
+                    attribute.actions = new List<IMapAction>();
+                attribute.actions.Add(newAction);
                 //UpdateAllNeedsImplementationIndexes();
             }
         }
         
         private void CheckActionsListConfiguration()
         {
-            if (item.actions != null)
+            if (attribute.actions != null)
             {
-                for (int a = 0; a < item.actions.Count; a++)
+                for (int a = 0; a < attribute.actions.Count; a++)
                 {
-                    if (item.actions[a] == null)
+                    if (attribute.actions[a] == null)
                         EditorGUILayout.HelpBox("The action with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
 
-                    if (item.actions.Count() != item.actions.Distinct().Count())
+                    if (attribute.actions.Count() != attribute.actions.Distinct().Count())
                     {
-                        for (int d = a + 1; d < item.actions.Count; d++)
+                        for (int d = a + 1; d < attribute.actions.Count; d++)
                         {
-                            if (item.actions[a] != null && (item.actions[a] == item.actions[d]))
+                            if (attribute.actions[a] != null && (attribute.actions[a] == attribute.actions[d]))
                                 EditorGUILayout.HelpBox("The actions with index " + a + " and " + d + " are the same object.", MessageType.Warning);
                         }
                     }
@@ -150,7 +150,7 @@ namespace Thoughts
                 {
                     SerializedProperty actionProperty = actionsList.GetArrayElementAtIndex(actionIndex);
 
-                    MapAction action = ((MapAction) item.actions[actionIndex]);
+                    MapAction action = ((MapAction) attribute.actions[actionIndex]);
                     
                     // Action name
                     string itemName;

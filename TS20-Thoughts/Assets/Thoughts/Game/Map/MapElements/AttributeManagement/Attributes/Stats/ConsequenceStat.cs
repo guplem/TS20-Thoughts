@@ -4,18 +4,18 @@ using UnityEngine;
 namespace Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs
 {
     [System.Serializable]
-    public class ConsequenceNeed
+    public class ConsequenceStat
     {
-        [SerializeField] public Need need;
+        [SerializeField] public Stat stat;
         [SerializeField] public int deltaSatisfactionAmount;
 
         public override string ToString()
         {
-            return $"{need}: ΔSatisfaction={deltaSatisfactionAmount}";
+            return $"{stat}: ΔSatisfaction={deltaSatisfactionAmount}";
         }
-        public bool Covers(Need need)
+        public bool Covers(Stat stat)
         {
-            return need == this.need;
+            return stat == this.stat;
         }
     }
 }

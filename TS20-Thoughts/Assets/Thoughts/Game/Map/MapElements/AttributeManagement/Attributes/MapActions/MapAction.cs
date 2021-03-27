@@ -12,20 +12,20 @@ namespace Thoughts.Game.GameMap
     public abstract class MapAction : IMapAction
     {
         [SerializeField] private string name = "";
-        [SerializeField] public List<ConsequenceNeed> consequenceNeeds = new List<ConsequenceNeed>();
-        [SerializeField] public List<RequiredNeed> requiredNeeds = new List<RequiredNeed>();
+        [SerializeField] public List<ConsequenceStat> consequenceStats = new List<ConsequenceStat>();
+        [SerializeField] public List<RequiredStat> requiredStats = new List<RequiredStat>();
 
         public abstract void Execute(MapElement executer, MapActionFromMapElement nextActionFromMapElement); //From = executer, To = destination/executionED
 
-        public List<Need> GetNotSatisfiedRequiredNeedsBy(MapElement executer)
+        public List<Stat> GetRequiredNeedsNotSatisfiedBy(MapElement executer)
         {
-            List<Need> requiredNeedsForExecuter = new List<Need>();
-            foreach (RequiredNeed requiredNeed in requiredNeeds)
+            List<Stat> requiredNeedsNotSatisfiedByExecuter = new List<Stat>();
+            foreach (RequiredStat requiredNeed in requiredStats)
             {
-                if (!executer.SatisfiesNeed(requiredNeed))
-                    requiredNeedsForExecuter.Add(requiredNeed.need);
+                if (!requiredNeed.IsSatisfiedBy(executer))
+                        requiredNeedsNotSatisfiedByExecuter.Add(requiredNeed.stat);
             }
-            return requiredNeedsForExecuter;
+            return requiredNeedsNotSatisfiedByExecuter;
         }
 
         public string GetName()
@@ -39,11 +39,11 @@ namespace Thoughts.Game.GameMap
             return this.GetName();
         }
     
-        public bool SatisfiesNeed(Need need)
+        public bool SatisfiesNeed(Stat stat)
         {
-            foreach (ConsequenceNeed consequenceNeed in consequenceNeeds)
+            foreach (ConsequenceStat consequenceNeed in consequenceStats)
             {
-                if (consequenceNeed.Covers(need))
+                if (consequenceNeed.Covers(stat))
                     return true;
             }
             return false;
@@ -51,7 +51,7 @@ namespace Thoughts.Game.GameMap
 
         protected bool CanBeExecuted()
         {
-            foreach (RequiredNeed requiredNeed in requiredNeeds)
+            foreach (RequiredStat requiredNeed in requiredStats)
             {
                 throw new NotImplementedException();
             }

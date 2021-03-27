@@ -11,35 +11,36 @@ namespace Thoughts.Game.GameMap
 {
      public abstract class MapElement : MonoBehaviour
      {
-          [SerializeField] public Inventory inventory = new Inventory();
+          [SerializeField] public AttributeManager attributeManager = new AttributeManager();
           
-          private Need currentObjectiveNeed
+          private Stat currentObjectiveStat
           {
-               get => _currentObjectiveNeed;
+               get => _currentObjectiveStat;
                set
                {
-                    if (_currentObjectiveNeed == value)
+                    /*if (_currentObjectiveNeed == value) {
                          Debug.Log($" >>> Skipping update to switch the current objective need from '{_currentObjectiveNeed}' to '{value}'");
+                         currentActionPath.DebugLog(", ","   |Current action path: ");
+                    }
+                    else
+                    {*/
+                    _currentObjectiveStat = value;
+                    Debug.Log($"Updating current objective need for '{this}' from '{value}'.");
+                    //Debug.Log($"Current working need is '{currentWorkingNeed}'");
+                    currentActionPath = currentObjectiveStat.GetActionsSatisfy(this);
+                    if (currentActionPath == null)
+                         Debug.LogWarning($"An action path to take care of the need '{currentObjectiveStat}' was not found.");
                     else
                     {
-                         _currentObjectiveNeed = value;
-                         Debug.Log($"Updating current objective need for '{this}' from '{value}'.");
-                         //Debug.Log($"Current working need is '{currentWorkingNeed}'");
-                         currentActionPath = currentObjectiveNeed.GetActionsSatisfy(this);
-                         if (currentActionPath == null)
-                              Debug.LogWarning($"An action path to take care of the need '{currentObjectiveNeed}' was not found.");
-                         else
-                         {
-                              currentActionPath.DebugLog(", ", $"Found action path to cover need '{currentObjectiveNeed}': ", gameObject);
-                              currentActionPath.DebugLog(", ","   |Found action path: ");
-                              DoNextAction();    
-                         }
+                         currentActionPath.DebugLog(", ", $"   |Found action path to cover need '{currentObjectiveStat}': ", gameObject);
+                         DoNextAction();    
                     }
+                    //}
 
                }
           }
           [CanBeNull]
-          private Need _currentObjectiveNeed;
+          private Stat _currentObjectiveStat;
           private List<MapActionFromMapElement> currentActionPath = new List<MapActionFromMapElement>();
 
           private IEnumerator coroutineHolder;
@@ -48,7 +49,7 @@ namespace Thoughts.Game.GameMap
           
           private void Awake()
           {
-               inventory.Initialize();
+               attributeManager.Initialize();
                
                // Ensure that we are not going to lose the track of a previous coroutine 
                // if we lose it, we'll not be able to stop it.
@@ -97,18 +98,19 @@ namespace Thoughts.Game.GameMap
                {
                     // Set the time to wait until continuing the execution
                     yield return new WaitForSeconds(1f);
-                    inventory.ExecuteTimeElapseActions(this);
+                    attributeManager.ExecuteTimeElapseActions(this);
 
-                    Need neededNeed = inventory.GetRelatedNeedToTakeCare();
-                    if (neededNeed != null)
-                         currentObjectiveNeed = neededNeed;
+                    Stat neededStat = attributeManager.GetRelatedStateToTakeCare();
+                    if (neededStat != null)
+                         currentObjectiveStat = neededStat;
 
                }
                
           }
-          public bool SatisfiesNeed(RequiredNeed need)
+          
+          public bool SatisfiesNeed(RequiredStat stat)
           {
-               return inventory.CanSatisfyNeed(need);
+               return attributeManager.CanSatisfyStat(stat);
           }
      }
      

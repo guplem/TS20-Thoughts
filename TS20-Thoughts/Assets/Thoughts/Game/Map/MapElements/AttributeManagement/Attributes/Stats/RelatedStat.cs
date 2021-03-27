@@ -4,27 +4,27 @@ using UnityEngine;
 namespace Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs
 {
     [System.Serializable]
-    public class RelatedNeed
+    public class RelatedStat
     {
-        [SerializeField] public Need need;
+        [SerializeField] public Stat stat;
         [SerializeField] public int satisfactionAmount = 50;
         [Tooltip("When the satisfaction amount is lower than the minimum demanded, a way to satisfy this need is searched")]
         [SerializeField] private int minimumDemandedSatisfactionAmount = 10;
         public bool needsCare => satisfactionAmount < minimumDemandedSatisfactionAmount;
-        public void Apply(ConsequenceNeed consequenceNeed)
+        public void Apply(ConsequenceStat consequenceStat)
         {
-            if (need.Equals(consequenceNeed.need))
+            if (stat.Equals(consequenceStat.stat))
             {
-                satisfactionAmount += consequenceNeed.deltaSatisfactionAmount;
+                satisfactionAmount += consequenceStat.deltaSatisfactionAmount;
                 //Debug.Log($"Related need {need} at {satisfactionAmount}");
             }
         }
-        public bool Satisfies(RequiredNeed requiredNeed)
+        public bool Satisfies(RequiredStat requiredStat)
         {
-            if (need != requiredNeed.need)
+            if (stat != requiredStat.stat)
                 return false;
             
-            return satisfactionAmount > requiredNeed.requiredAmount;
+            return satisfactionAmount > requiredStat.requiredAmount;
         }
     }
 }

@@ -8,10 +8,10 @@ using UnityEngine;
 namespace Thoughts
 {
     [CreateAssetMenu(fileName = "Item", menuName = "Thoughts/Item", order = 1)]
-    public class Item : ScriptableObject
+    public class Attribute : ScriptableObject
     {
 
-        [SerializeField] public List<RelatedNeed> relatedNeeds = new List<RelatedNeed>();
+        [SerializeField] public List<RelatedStat> relatedStats = new List<RelatedStat>();
         [SerializeReference] public List<IMapAction> actions;
         
         public MapAction GetAction(int index)
@@ -23,13 +23,13 @@ namespace Thoughts
             return null;
         }
         
-        public MapAction GetActionToCoverNeed(Need need, MapElement mapElement)
+        public MapAction GetActionToCoverNeed(Stat stat, MapElement mapElement)
         {
             foreach (IMapAction iMobAction in actions)
             {
                 MapAction mapAction = (MapAction) iMobAction;
                 //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
-                if (mapAction.SatisfiesNeed(need))
+                if (mapAction.SatisfiesNeed(stat))
                 {
                     return mapAction;
                 }
@@ -37,11 +37,11 @@ namespace Thoughts
 
             return null;
         }
-        public void Apply(ConsequenceNeed consequenceNeed)
+        public void Apply(ConsequenceStat consequenceStat)
         {
-            foreach (RelatedNeed relatedNeed in relatedNeeds)
+            foreach (RelatedStat relatedNeed in relatedStats)
             {
-                relatedNeed.Apply(consequenceNeed);
+                relatedNeed.Apply(consequenceStat);
             }
         }
     }

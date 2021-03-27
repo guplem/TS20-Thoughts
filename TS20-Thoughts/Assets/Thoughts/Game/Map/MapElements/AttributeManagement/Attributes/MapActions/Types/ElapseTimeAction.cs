@@ -10,9 +10,9 @@ public class ElapseTimeAction : MapAction
         if (!base.CanBeExecuted())
             return;
         
-        foreach (ConsequenceNeed consequenceNeed in consequenceNeeds)
+        foreach (ConsequenceStat consequenceNeed in consequenceStats)
         {
-            executer.inventory.Apply(consequenceNeed);
+            executer.attributeManager.Apply(consequenceNeed);
             //Debug.Log($"Executing {consequenceNeed}");
         }
     }
