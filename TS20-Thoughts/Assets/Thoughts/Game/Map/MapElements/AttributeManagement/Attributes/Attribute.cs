@@ -12,7 +12,7 @@ namespace Thoughts
     {
         [SerializeField] public List<RelatedStat> relatedStats = new List<RelatedStat>();
         [SerializeReference] public List<IMapEvent> events;
-        public new string name => name;
+        public new string name => base.name;
         
         public MapEvent GetAction(int index)
         {
@@ -89,6 +89,7 @@ namespace Thoughts
                 if (relatedStat.stat.name == "Quantity")
                 {
                     relatedStat.satisfactionAmount += quantity;
+                    Debug.Log($"     The new quantity is {relatedStat.satisfactionAmount}");
                 }
             }
         }

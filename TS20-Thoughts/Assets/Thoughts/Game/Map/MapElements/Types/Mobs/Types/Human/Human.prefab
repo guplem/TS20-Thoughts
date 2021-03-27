@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributeManager:
     attributes:
-    - {fileID: 0}
+    - {fileID: 11400000, guid: af0bef6d0a926104693d9ba61768d633, type: 2}
+    - {fileID: 11400000, guid: f14221511a8cae749ae9270932b8fac6, type: 2}
 --- !u!1 &3687949500601768678
 GameObject:
   m_ObjectHideFlags: 0

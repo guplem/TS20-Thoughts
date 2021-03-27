@@ -29,4 +29,4 @@ MonoBehaviour:
           deltaSatisfactionAmount: 10
         requiredStats:
         - stat: {fileID: 11400000, guid: a16bfda1f8f280649b6a8fd9f583fc51, type: 2}
-          requiredAmount: 90
+          requiredAmount: 95
