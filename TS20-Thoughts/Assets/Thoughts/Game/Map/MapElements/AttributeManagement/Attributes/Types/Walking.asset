@@ -12,17 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Walking
   m_EditorClassIdentifier: 
-  relatedNeeds: []
-  actions:
+  relatedStats: []
+  events:
   - id: 0
   references:
     version: 1
     00000000:
-      type: {class: MoveAction, ns: , asm: Assembly-CSharp}
+      type: {class: MoveEvent, ns: , asm: Assembly-CSharp}
       data:
         name: 
-        consequenceNeeds:
-        - need: {fileID: 11400000, guid: a16bfda1f8f280649b6a8fd9f583fc51, type: 2}
-          deltaSatisfactionAmount: 0
-        requiredNeeds: []
-        destination: {x: 0, y: 0, z: 0}
+        consequenceStats:
+        - stat: {fileID: 11400000, guid: a16bfda1f8f280649b6a8fd9f583fc51, type: 2}
+          deltaSatisfactionAmount: 1
+        requiredStats: []

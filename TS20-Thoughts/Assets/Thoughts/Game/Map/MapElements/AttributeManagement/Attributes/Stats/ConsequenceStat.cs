@@ -15,7 +15,7 @@ namespace Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs
         }
         public bool Covers(Stat stat)
         {
-            return stat == this.stat;
+            return stat == this.stat && deltaSatisfactionAmount > 0;
         }
     }
 }

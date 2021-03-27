@@ -38,7 +38,7 @@ namespace Thoughts
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             
-                GUILayout.Label("Item's actions", EditorStyles.boldLabel);
+                GUILayout.Label("Attribute's events", EditorStyles.boldLabel);
                 GUILayout.Label(" ");
                 //select an implementation from all found using an editor popup
                 NewActionsSection();
@@ -63,45 +63,45 @@ namespace Thoughts
         {
             //find all implementations of IMobAction using System.Reflection.Module
             if (actionsImplementations == null)
-                actionsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapAction>();
+                actionsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
 
             selectedActionImplementationIndex = EditorGUILayout.Popup(new GUIContent(""),
                 selectedActionImplementationIndex, actionsImplementations.Select(impl => impl.Name).ToArray());
             
-            IMapAction newAction = null;
-            if (GUILayout.Button("Add action"))
+            IMapEvent newEvent = null;
+            if (GUILayout.Button("Add event"))
             {
                 //Create a new action of the selected type
-                newAction = (IMapAction) Activator.CreateInstance(actionsImplementations[selectedActionImplementationIndex]);
+                newEvent = (IMapEvent) Activator.CreateInstance(actionsImplementations[selectedActionImplementationIndex]);
             }
 
             //If a new action has been created...
-            if (newAction != null)
+            if (newEvent != null)
             {
                 //record the gameObject state to enable undo and prevent from exiting the scene without saving
-                Undo.RegisterCompleteObjectUndo(target, "Added new action");
+                Undo.RegisterCompleteObjectUndo(target, "Added new event");
                 //add the new action to the action's list
-                if (attribute.actions == null)
-                    attribute.actions = new List<IMapAction>();
-                attribute.actions.Add(newAction);
+                if (attribute.events == null)
+                    attribute.events = new List<IMapEvent>();
+                attribute.events.Add(newEvent);
                 //UpdateAllNeedsImplementationIndexes();
             }
         }
         
         private void CheckActionsListConfiguration()
         {
-            if (attribute.actions != null)
+            if (attribute.events != null)
             {
-                for (int a = 0; a < attribute.actions.Count; a++)
+                for (int a = 0; a < attribute.events.Count; a++)
                 {
-                    if (attribute.actions[a] == null)
+                    if (attribute.events[a] == null)
                         EditorGUILayout.HelpBox("The action with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
 
-                    if (attribute.actions.Count() != attribute.actions.Distinct().Count())
+                    if (attribute.events.Count() != attribute.events.Distinct().Count())
                     {
-                        for (int d = a + 1; d < attribute.actions.Count; d++)
+                        for (int d = a + 1; d < attribute.events.Count; d++)
                         {
-                            if (attribute.actions[a] != null && (attribute.actions[a] == attribute.actions[d]))
+                            if (attribute.events[a] != null && (attribute.events[a] == attribute.events[d]))
                                 EditorGUILayout.HelpBox("The actions with index " + a + " and " + d + " are the same object.", MessageType.Warning);
                         }
                     }
@@ -115,7 +115,7 @@ namespace Thoughts
             EditorGUILayout.BeginHorizontal();
             if (actionsImplementations != null) EditorGUILayout.LabelField($"Found {actionsImplementations.Count()} actions implementations", EditorStyles.helpBox);
             if (actionsImplementations == null || GUILayout.Button("Search actions implementations"))
-                actionsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapAction>();
+                actionsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
             EditorGUILayout.EndHorizontal();
             
            /* // NEEDS
@@ -139,7 +139,7 @@ namespace Thoughts
 
         private void ShowActionsArray()
         {
-            UnityEditor.SerializedProperty actionsList = serializedObject.FindProperty("actions");
+            UnityEditor.SerializedProperty actionsList = serializedObject.FindProperty("events");
             
             UnityEditor.EditorGUI.indentLevel += 1;
             for (int actionIndex = 0; actionIndex < actionsList.arraySize; actionIndex++)
@@ -150,14 +150,14 @@ namespace Thoughts
                 {
                     SerializedProperty actionProperty = actionsList.GetArrayElementAtIndex(actionIndex);
 
-                    MapAction action = ((MapAction) attribute.actions[actionIndex]);
+                    MapEvent @event = ((MapEvent) attribute.events[actionIndex]);
                     
                     // Action name
-                    string itemName;
-                    if (action.GetName().IsNullOrEmpty()) itemName = $"Action [{actionIndex}] ({action.GetType().Name})";
-                    else itemName = $"'{action.GetName()}' action [{actionIndex}] ({action.GetType().Name})";
+                    string eventName;
+                    if (@event.GetName().IsNullOrEmpty()) eventName = $"Event [{actionIndex}] ({@event.GetType().Name})";
+                    else eventName = $"'{@event.GetName()}' event [{actionIndex}] ({@event.GetType().Name})";
 
-                    EditorGUILayout.PropertyField(actionProperty, new GUIContent(itemName), true);
+                    EditorGUILayout.PropertyField(actionProperty, new GUIContent(eventName), true);
 
                     /*//SatisfiedNeedsOfActionSection(action, actionIndex, actionProperty);
                     //DemandedNeedsOfActionSection(action, actionIndex, actionProperty);

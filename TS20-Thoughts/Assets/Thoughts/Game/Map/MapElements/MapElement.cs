@@ -9,6 +9,7 @@ using UnityEngine.AI;
 
 namespace Thoughts.Game.GameMap
 {
+     [SelectionBase]
      public abstract class MapElement : MonoBehaviour
      {
           [SerializeField] public AttributeManager attributeManager = new AttributeManager();
@@ -25,9 +26,9 @@ namespace Thoughts.Game.GameMap
                     else
                     {*/
                     _currentObjectiveStat = value;
-                    Debug.Log($"Updating current objective need for '{this}' from '{value}'.");
+                    Debug.Log($"Updating current objective need for '{this}' to '{value}'.");
                     //Debug.Log($"Current working need is '{currentWorkingNeed}'");
-                    currentActionPath = currentObjectiveStat.GetActionsSatisfy(this);
+                    currentActionPath = currentObjectiveStat.GetEventsToSatisfyThisStat(this);
                     if (currentActionPath == null)
                          Debug.LogWarning($"An action path to take care of the need '{currentObjectiveStat}' was not found.");
                     else
@@ -41,7 +42,7 @@ namespace Thoughts.Game.GameMap
           }
           [CanBeNull]
           private Stat _currentObjectiveStat;
-          private List<MapActionFromMapElement> currentActionPath = new List<MapActionFromMapElement>();
+          private List<MapEventFromAttributeAtMapElement> currentActionPath = new List<MapEventFromAttributeAtMapElement>();
 
           private IEnumerator coroutineHolder;
           
@@ -75,7 +76,7 @@ namespace Thoughts.Game.GameMap
         
           private void DoNextAction() // false if distance is too big
           {
-               if (currentActionPath == null)
+               if (currentActionPath == null || currentActionPath.Count <=0 )
                {
                     Debug.LogError($"Trying to execute the next action of '{this}' but it does not exist.");
                     return;
@@ -83,10 +84,11 @@ namespace Thoughts.Game.GameMap
                
                // new MoveAction(elementToCoverNeed.gameObject.transform.position)
                int indexNextAction = currentActionPath.Count-1;
-               MapActionFromMapElement mapActionFromMapElement = currentActionPath.ElementAt(indexNextAction);
+               MapEventFromAttributeAtMapElement mapEventFromAttributeAtMapElement = currentActionPath.ElementAt(indexNextAction);
 
-               Debug.Log($"Executing action '{mapActionFromMapElement.mapAction}'");
-               mapActionFromMapElement.mapAction.Execute(this, indexNextAction >= 1 ? currentActionPath.ElementAt(indexNextAction-1) : null);
+               Debug.Log($"Executing action '{mapEventFromAttributeAtMapElement.mapEvent}'");
+               MapEventFromAttributeAtMapElement elementOwnerOfEventFromAttribute = indexNextAction >= 1 ? currentActionPath.ElementAt(indexNextAction - 1) : null;
+               mapEventFromAttributeAtMapElement.mapEvent.Execute(this, mapEventFromAttributeAtMapElement.mapElement, mapEventFromAttributeAtMapElement.attribute, elementOwnerOfEventFromAttribute);
             
                currentActionPath.RemoveAt(0);
           }

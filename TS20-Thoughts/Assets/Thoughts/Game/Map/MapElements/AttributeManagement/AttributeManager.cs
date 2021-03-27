@@ -22,17 +22,19 @@ public class AttributeManager
         }
     }
     
-    public MapAction GetAvailableActionToCoverNeed(Stat stat, MapElement mapElement)
+    public MapEvent GetAvailableActionToCoverNeed(Stat stat, MapElement mapElement, out Attribute attributeWithEventToCoverNeed)
     {
         foreach (Attribute attribute in attributes)
         {
-            MapAction action = attribute.GetActionToCoverNeed(stat, mapElement);
-            if (action != null)
+            MapEvent mapEvent = attribute.GetActionToCoverNeed(stat, mapElement);
+            if (mapEvent != null)
             {
-                return action;
+                attributeWithEventToCoverNeed = attribute;
+                return mapEvent;
             }
         }
-        
+
+        attributeWithEventToCoverNeed = null;
         return null;
     }
     
@@ -45,15 +47,15 @@ public class AttributeManager
             foreach (Attribute attribute in attributes)
             {
                 Debug.Log($"    - Checking if '{attribute}' has an 'ElapseTimeAction'.");
-                List<IMapAction> itemActions = attribute.actions;
-                foreach (IMapAction itemIAction in itemActions)
+                List<IMapEvent> attributeEvents = attribute.events;
+                foreach (IMapEvent iMapEvent in attributeEvents)
                 {
-                    MapAction itemAction = (MapAction) itemIAction;
+                    MapEvent mapEvent = (MapEvent) iMapEvent;
 
-                    if (itemAction.GetType() == typeof(ElapseTimeAction))
+                    if (mapEvent.GetType() == typeof(ElapseTimeEvent))
                     {
-                        Debug.Log($"        · Executing action '{itemAction}' of '{attribute}'.");
-                        itemAction.Execute(mapElement, null); // To nobody with no next action in mid in the future (nxt action)
+                        Debug.Log($"        · Executing action '{mapEvent}' of '{attribute}'.");
+                        mapEvent.Execute(mapElement, mapElement, attribute,null); // To nobody with no next action in mid in the future (nxt action)
                     }
                 }
             }
@@ -92,5 +94,15 @@ public class AttributeManager
         }
         return false;
     }
-    
+
+    public void AlterQuantity(Attribute attribute, int quantity)
+    {
+        foreach (Attribute att in attributes)
+        {
+            if (att.Equals(attribute))
+            {
+                att.AlterQuantity(quantity);
+            }
+        }
+    }
 }

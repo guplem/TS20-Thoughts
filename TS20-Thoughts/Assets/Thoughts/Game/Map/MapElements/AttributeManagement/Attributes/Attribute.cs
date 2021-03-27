@@ -7,31 +7,31 @@ using UnityEngine;
 
 namespace Thoughts
 {
-    [CreateAssetMenu(fileName = "Item", menuName = "Thoughts/Item", order = 1)]
-    public class Attribute : ScriptableObject
+    [CreateAssetMenu(fileName = "Attribute", menuName = "Thoughts/Attribute", order = 1)]
+    public class Attribute : ScriptableObject, IEquatable<Stat>, IComparer<Stat>
     {
-
         [SerializeField] public List<RelatedStat> relatedStats = new List<RelatedStat>();
-        [SerializeReference] public List<IMapAction> actions;
+        [SerializeReference] public List<IMapEvent> events;
+        public new string name => name;
         
-        public MapAction GetAction(int index)
+        public MapEvent GetAction(int index)
         {
-            if (actions.Count > index)
-                return (MapAction) actions[index];
+            if (events.Count > index)
+                return (MapEvent) events[index];
             
-            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {actions.Count}.");
+            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {events.Count}.");
             return null;
         }
         
-        public MapAction GetActionToCoverNeed(Stat stat, MapElement mapElement)
+        public MapEvent GetActionToCoverNeed(Stat stat, MapElement mapElement)
         {
-            foreach (IMapAction iMobAction in actions)
+            foreach (IMapEvent iMobAction in events)
             {
-                MapAction mapAction = (MapAction) iMobAction;
+                MapEvent mapEvent = (MapEvent) iMobAction;
                 //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
-                if (mapAction.SatisfiesNeed(stat))
+                if (mapEvent.SatisfiesNeed(stat))
                 {
-                    return mapAction;
+                    return mapEvent;
                 }
             }
 
@@ -42,6 +42,54 @@ namespace Thoughts
             foreach (RelatedStat relatedNeed in relatedStats)
             {
                 relatedNeed.Apply(consequenceStat);
+            }
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
+            return Equals((Stat) obj);
+        }
+        public bool Equals(Stat other)
+        {
+            return other != null && other.name.Equals(this.name);
+        }
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+        public static bool operator ==(Attribute left, Attribute right)
+        {
+            return Equals(left, right);
+        }
+        public static bool operator !=(Attribute left, Attribute right)
+        {
+            return !Equals(left, right);
+        }
+        public int Compare(Stat x, Stat y)
+        {
+            if (ReferenceEquals(x, y))
+                return 0;
+            if (ReferenceEquals(null, y))
+                return 1;
+            if (ReferenceEquals(null, x))
+                return -1;
+            return x.priority.CompareTo(y.priority);
+        }
+
+        public void AlterQuantity(int quantity)
+        {
+            foreach (RelatedStat relatedStat in relatedStats)
+            {
+                if (relatedStat.stat.name == "Quantity")
+                {
+                    relatedStat.satisfactionAmount += quantity;
+                }
             }
         }
     }

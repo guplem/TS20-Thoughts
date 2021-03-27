@@ -9,21 +9,21 @@ namespace Thoughts.Game.GameMap
 {
 
     [Serializable]
-    public abstract class MapAction : IMapAction
+    public abstract class MapEvent : IMapEvent
     {
         [SerializeField] private string name = "";
         [SerializeField] public List<ConsequenceStat> consequenceStats = new List<ConsequenceStat>();
         [SerializeField] public List<RequiredStat> requiredStats = new List<RequiredStat>();
 
-        public abstract void Execute(MapElement executer, MapActionFromMapElement nextActionFromMapElement); //From = executer, To = destination/executionED
-
-        public List<Stat> GetRequiredNeedsNotSatisfiedBy(MapElement executer)
+        public List<Stat> GetRequiredNeedsNotSatisfiedBy(MapElement executer, MapElement statOwner)
         {
+            Debug.Log($"Checking if '{executer}' satisfies the required stats for '{this}'");
+            
             List<Stat> requiredNeedsNotSatisfiedByExecuter = new List<Stat>();
             foreach (RequiredStat requiredNeed in requiredStats)
             {
-                if (!requiredNeed.IsSatisfiedBy(executer))
-                        requiredNeedsNotSatisfiedByExecuter.Add(requiredNeed.stat);
+                if (!requiredNeed.IsSatisfiedBy(executer, statOwner)) 
+                    requiredNeedsNotSatisfiedByExecuter.Add(requiredNeed.stat);
             }
             return requiredNeedsNotSatisfiedByExecuter;
         }
@@ -57,5 +57,6 @@ namespace Thoughts.Game.GameMap
             }
             return true;
         }
+        public abstract void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventFromAttributeAtMapElement nextEventFromAttributeAtMapElement);
     }
 }

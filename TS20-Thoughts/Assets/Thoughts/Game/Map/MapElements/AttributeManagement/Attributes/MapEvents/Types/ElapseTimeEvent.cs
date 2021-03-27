@@ -2,10 +2,11 @@ using System;
 using Thoughts.Game.GameMap;
 using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using UnityEngine;
+using Attribute = Thoughts.Attribute;
 
-public class ElapseTimeAction : MapAction
+public class ElapseTimeEvent : MapEvent
 {
-    public override void Execute(MapElement executer, MapActionFromMapElement nextActionFromMapElement)
+    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventFromAttributeAtMapElement nextEventFromAttributeAtMapElement)
     {
         if (!base.CanBeExecuted())
             return;

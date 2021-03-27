@@ -10,21 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
-  m_Name: Thirstiness
+  m_Name: Water
   m_EditorClassIdentifier: 
   relatedStats:
-  - stat: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
-    satisfactionAmount: 50
-    minimumDemandedSatisfactionAmount: 45
+  - stat: {fileID: 11400000, guid: 169a4b704da3ce84d995cd02c7f36c28, type: 2}
+    satisfactionAmount: 5
+    minimumDemandedSatisfactionAmount: 0
   events:
   - id: 0
   references:
     version: 1
     00000000:
-      type: {class: ElapseTimeEvent, ns: , asm: Assembly-CSharp}
+      type: {class: ConsumeEvent, ns: , asm: Assembly-CSharp}
       data:
         name: 
         consequenceStats:
         - stat: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
-          deltaSatisfactionAmount: -1
-        requiredStats: []
+          deltaSatisfactionAmount: 10
+        requiredStats:
+        - stat: {fileID: 11400000, guid: a16bfda1f8f280649b6a8fd9f583fc51, type: 2}
+          requiredAmount: 90
