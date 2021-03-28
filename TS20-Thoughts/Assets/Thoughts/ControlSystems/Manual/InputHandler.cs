@@ -1,4 +1,5 @@
 using System;
+using Thoughts.Game.GameMap;
 using UnityEngine;
 
 namespace Thoughts.ControlSystems
@@ -7,6 +8,7 @@ namespace Thoughts.ControlSystems
     public class InputHandler : MonoBehaviour
     {
         private Manual manualControlSystem;
+        
         private void Awake()
         {
             manualControlSystem = this.GetComponentRequired<Thoughts.ControlSystems.Manual>();
@@ -16,12 +18,27 @@ namespace Thoughts.ControlSystems
 
         private void Update()
         {
-            handleCameraInput();
+            HandleSelection();
+            HandleCameraInput();
         }
-
-
+        
+        private void HandleSelection()
+        {
+            if( Input.GetMouseButtonDown(0) )
+            {
+                Ray ray = manualControlSystem.cameraController.camera.ScreenPointToRay( Input.mousePosition );
+                RaycastHit hit;
+         
+                if( Physics.Raycast( ray, out hit, 100 ) )
+                {
+                    Debug.Log( $"Clicked on top of the object '{hit.transform.gameObject.name}'" );
+                    manualControlSystem.selectedMapElement = hit.transform.gameObject.GetComponentInParent<MapElement>();
+                }
+            }
+        }
+        
         private Vector3 mouseStartRotation, mouseCurrentRotation;
-        private void handleCameraInput()
+        private void HandleCameraInput()
         {
             bool isFastSpeed = Input.GetButton("Shift");
             

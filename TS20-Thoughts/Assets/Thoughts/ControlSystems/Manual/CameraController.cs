@@ -9,7 +9,8 @@ namespace Thoughts.ControlSystems
     public class CameraController : MonoBehaviour
     {
 
-        [SerializeField] private new Camera camera;
+        [SerializeField] private Camera _camera;
+        public new Camera camera => _camera;
         [SerializeField] private Transform cameraRig;
         [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
         private Manual manualControlSystem;

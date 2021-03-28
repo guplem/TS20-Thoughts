@@ -1,4 +1,5 @@
 using System;
+using Thoughts.Game.GameMap;
 using UnityEngine;
 
 namespace Thoughts.ControlSystems
@@ -7,6 +8,21 @@ namespace Thoughts.ControlSystems
     [RequireComponent(typeof(InputHandler))]
     public class Manual : ControlSystem
     {
+        public MapElement selectedMapElement
+        {
+            get => _selectedMapElement;
+            set
+            {
+                if (selectedMapElement != value)
+                {
+                    _selectedMapElement = value;
+                    gameUIManager.DisplayUIFor(selectedMapElement);
+                }
+                    
+            }
+        }
+        private MapElement _selectedMapElement;
+        [SerializeField] private GameUIManager gameUIManager;
 
         public CameraController cameraController { get; private set; }
         public InputHandler inputHandler { get; private set; }

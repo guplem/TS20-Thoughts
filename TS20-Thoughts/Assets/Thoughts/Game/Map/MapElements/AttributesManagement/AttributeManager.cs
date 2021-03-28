@@ -12,7 +12,12 @@ using Object = UnityEngine.Object;
 [Serializable]
 public class AttributeManager
 {
-    [SerializeField] private List<Attribute> attributes = new List<Attribute>();
+    public List<Attribute> attributes
+    {
+        get { return _attributes;}
+        private set { _attributes = value; }
+    }
+    [SerializeField] private List<Attribute> _attributes = new List<Attribute>();
 
     public void Initialize()
     {
