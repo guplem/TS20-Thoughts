@@ -34,6 +34,8 @@ namespace Thoughts.ControlSystems
                     Debug.Log( $"Clicked on top of the object '{hit.transform.gameObject.name}'" );
                     manualControlSystem.selectedMapElement = hit.transform.gameObject.GetComponentInParent<MapElement>();
                 }
+                else 
+                    manualControlSystem.selectedMapElement = null;
             }
         }
         

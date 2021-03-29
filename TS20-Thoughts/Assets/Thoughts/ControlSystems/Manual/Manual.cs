@@ -16,7 +16,10 @@ namespace Thoughts.ControlSystems
                 if (selectedMapElement != value)
                 {
                     _selectedMapElement = value;
-                    gameUIManager.DisplayUIFor(selectedMapElement);
+                    //gameUIManager.DisplayUIFor(selectedMapElement);
+                    Debug.Log($"ÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇ Newmapelement{selectedMapElement}");
+                    Mob selectedMob = selectedMapElement != null ? selectedMapElement.GetComponent<Mob>() : null;
+                    cameraController.SwitchCamera(selectedMapElement == null? CameraController.CameraView.overworld : CameraController.CameraView.pov, selectedMob != null ? selectedMob.povCameraPrentTransform.transform : null);
                 }
                     
             }

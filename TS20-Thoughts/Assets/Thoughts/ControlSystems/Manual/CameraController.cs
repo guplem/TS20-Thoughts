@@ -12,7 +12,14 @@ namespace Thoughts.ControlSystems
         [SerializeField] private Camera _camera;
         public new Camera camera => _camera;
         [SerializeField] private Transform cameraRig;
-        [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
+        [SerializeField] private CinemachineVirtualCameraBase overworldCamera;
+        [SerializeField] private CinemachineVirtualCameraBase povCamera;
+        public enum CameraView
+        {
+            overworld,
+            pov
+        }
+        
         private Manual manualControlSystem;
 
         [SerializeField] private float moveSpeed = 2f;
@@ -81,5 +88,20 @@ namespace Thoughts.ControlSystems
         {
             newZoom += desiredZoom * zoomSpeed * new Vector3(0, -1, 1);
         }*/
+
+        public void SwitchCamera(CameraView desiredView, Transform povCameraParent = null)
+        {
+            overworldCamera.Priority = desiredView == CameraView.overworld ? 1 : 0;
+            //povCamera.Priority = desiredView == CameraView.pov ? 1 : 0;
+
+            if (desiredView == CameraView.pov)
+            {
+                povCamera.Priority = 1;
+                povCamera.Follow = povCameraParent;
+            }
+        }
+
+
+
     }
 }
