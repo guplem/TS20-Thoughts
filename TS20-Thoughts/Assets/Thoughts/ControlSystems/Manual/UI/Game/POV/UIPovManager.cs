@@ -11,8 +11,10 @@ public class UIPovManager : MonoBehaviour
 
     public void ShowUIFor(Mob mob)
     {
-        this.transform.parent = mob.povCameraPrentTransform;
+        if (mob != null)
+            this.transform.parent = mob.povCameraPrentTransform;
         this.transform.localPosition = Vector3.zero;
+        this.transform.localRotation = Quaternion.identity;
         uiAttributesManager.ShowUIFor(mob);
     }
 }

@@ -92,3 +92,4 @@ MonoBehaviour:
   locationsPreviewAmount: 3
   attributesSeparation: 1.5
   attributesDistance: 1
+  rotation: {x: 0, y: 0.81345624, z: 0, w: 0.5816261}

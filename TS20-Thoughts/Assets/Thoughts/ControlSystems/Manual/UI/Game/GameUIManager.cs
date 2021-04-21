@@ -9,8 +9,7 @@ public class GameUIManager : MonoBehaviour
     {
         Debug.Log($"DisplayUIFor '{mapElement}'");
         Mob mobMapElement = mapElement as Mob;
-        if (mobMapElement != null)
-            uiPovManager.ShowUIFor(mobMapElement);
+        uiPovManager.ShowUIFor(mobMapElement);
     }
     
 }

@@ -19,9 +19,12 @@ public class UIAttributesManager : MonoBehaviour
 
         for (int attributeIndex = 0; attributeIndex < mapElement.attributeManager.attributes.Count; attributeIndex++)
         {
-                        UIAttributeController attributeController = Instantiate(UIAttributePrefab, GetLocationPosition(attributeIndex),Quaternion.identity , this.transform).GetComponentRequired<UIAttributeController>();
-                        attributeController.Initialize(mapElement.attributeManager.attributes[attributeIndex]);
-                        uiAttributeControllers.Add(attributeController);
+            UIAttributeController attributeController = Instantiate(UIAttributePrefab, GetLocationPosition(attributeIndex),Quaternion.identity , this.transform).GetComponentRequired<UIAttributeController>();
+            Transform visualizer = mapElement.transform;
+            if (mapElement is Mob mobMapElement)
+                visualizer = mobMapElement.povCameraPrentTransform;
+            attributeController.Initialize(mapElement.attributeManager.attributes[attributeIndex], visualizer);
+            uiAttributeControllers.Add(attributeController);
         }
         
         foreach (Attribute attribute in mapElement.attributeManager.attributes)
@@ -56,7 +59,9 @@ public class UIAttributesManager : MonoBehaviour
         int locationGridPosition = -(int)div;
         if (!leftSide)
             locationGridPosition = ((int)Math.Ceiling(div));
-        return transform.position + new Vector3(locationGridPosition*attributesSeparation,0f,attributesDistance);
+        Vector3 temPos = new Vector3(locationGridPosition * attributesSeparation, 0f, attributesDistance);
+        temPos = transform.rotation * temPos;
+        return transform.position + temPos;
     }
-    
+
 }
