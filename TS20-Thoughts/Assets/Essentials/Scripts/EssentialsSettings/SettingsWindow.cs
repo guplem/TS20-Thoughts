@@ -56,7 +56,7 @@ namespace Essentials.EssentialsSettings
             if (implementations != null && implementations.Length != 0)
             {
                 
-                GUILayout.Label("Available modifications:");
+                GUILayout.Label("Recommended modifications:");
                 
                 EditorGUILayout.BeginHorizontal();
                 
@@ -64,20 +64,32 @@ namespace Essentials.EssentialsSettings
                 foreach (var modificationType in implementations)
                 {
                     IModification modification = (IModification) Activator.CreateInstance(modificationType);
-                    GUILayout.Label(modification.title);
+                    if (!modification.showInSettingsWindow)
+                        continue;
+                    GUILayout.Label($" • {modification.title}");
                 }
                 EditorGUILayout.EndVertical();
                 
                 EditorGUILayout.BeginVertical();
                 foreach (var modificationType in implementations)
                 {
+                    
                     IModification modification = (IModification) Activator.CreateInstance(modificationType);
+                    if (!modification.showInSettingsWindow)
+                        continue;
                     
                     EditorGUILayout.BeginHorizontal();
+                    
+                    if (GUILayout.Button(new GUIContent(modification.infoButtonText, $"Open {modification.infoURL}")))
+                        modification.OpenInfoURL();
+                    GUILayout.Label(""); //Separation
+                    GUILayout.Label(""); //Separation
+                    
                     if (GUILayout.Button(new GUIContent(modification.applyButtonText, modification.applyModificationShortEplanation)))
                         modification.Apply();
                     if (GUILayout.Button(new GUIContent(modification.revertButtonText, modification.revertModificationShortEplanation)))
                         modification.Revert();
+
                     EditorGUILayout.EndHorizontal();
                 }
                 EditorGUILayout.EndVertical();

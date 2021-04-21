@@ -11,7 +11,7 @@ namespace UnityEngine
     public class TypeSerializable
     {
     	[SerializeField]
-        private string m_Name;
+    	private string m_Name;
     	public string Name => m_Name;
     
     	[SerializeField]

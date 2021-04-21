@@ -125,52 +125,54 @@ namespace UnityEngine
                     if (animation.name.IsNullOrEmpty())
                         itemName = $"Animation [{i}]";
                     else
-                        itemName = $"{animation.name} animation [{i}]";
+                        itemName = $"'{animation.name}' animation [{i}]";
 
-                    string animType = animation.GetType().Name;
+                    /*string animType = animation.GetType().Name;
                     int charSize = 57;
                     int reaminingChars = charSize - animType.Length - itemName.Length;
                     for (int j = 0; j < reaminingChars; j++)
                         itemName += " ";
-                    itemName += animType;
+                    itemName += animType;*/
                     EditorGUILayout.PropertyField(transformProp, new GUIContent(itemName), true);
-                    //EditorGUILayout.LabelField(animation.GetType().Name);
 
-  
-                    int oldIndentLevel = UnityEditor.EditorGUI.indentLevel;
-                    UnityEditor.EditorGUI.indentLevel = 1;
-                    EditorGUILayout.BeginHorizontal();
-                    float oldLabelWidth = EditorGUIUtility.labelWidth;
-                    EditorGUIUtility.labelWidth = 75;
-                    EditorGUILayout.LabelField("Animation preview");
-                    EditorGUIUtility.labelWidth = oldLabelWidth;
-                    EditorGUI.BeginChangeCheck();
-                    float animProgression = animation.progress;
-                    // Todo: fix bug where the slider is not set to the proper value by default (after opening the scene, all the sliders are at 0, not at the proper value)
-                    animProgression = EditorGUILayout.Slider(animProgression, 0.0f, 1.0f);
-                    if (EditorGUI.EndChangeCheck())
-                    {
-                        UnityEngine.Object animatedObject = animation.GetAnimatedObject();
-                        if (animatedObject != null) {
-                            Undo.RecordObject( animatedObject, "Changed animation progress (Animated Object)" );
-                        }
-                        Undo.RecordObject( simpleAnimationsManager, "Changed animation progress (Simple Animation Manager)" );
-                        animation.SetProgress(animProgression);
-                    }
-                    EditorGUILayout.EndHorizontal();
-                    
-                    UnityEditor.EditorGUI.indentLevel = oldIndentLevel;
-                    
-                    //var childrenProperties = transformProp.GetVisibleChildren();
-                    //foreach (var property in childrenProperties) {
-                    //    Debug.Log($"Animation {i}: {property.name}");
-                    //}
+                    DisplayPreview(animation);
+
                     EditorGUILayout.Space();
                 }
                 EditorGUILayout.Space();
                 
             }
             UnityEditor.EditorGUI.indentLevel -= 1;
+        }
+        private void DisplayPreview(SimpleAnimation animation)
+        {
+
+            UnityEngine.Object animatedObject = animation.GetAnimatedObject(false);
+            if (animatedObject == null)
+                return;
+            int oldIndentLevel = UnityEditor.EditorGUI.indentLevel;
+            UnityEditor.EditorGUI.indentLevel = 1;
+            EditorGUILayout.BeginHorizontal();
+            float oldLabelWidth = EditorGUIUtility.labelWidth;
+            EditorGUIUtility.labelWidth = 75;
+            EditorGUILayout.LabelField("Animation preview");
+            EditorGUIUtility.labelWidth = oldLabelWidth;
+            EditorGUI.BeginChangeCheck();
+            float animProgression = animation.progress;
+            // Todo: fix bug where the slider is not set to the proper value by default (after opening the scene, all the sliders are at 0, not at the proper value)
+            //animProgression = EditorGUILayout.Slider(animProgression, animation.mirror?1f:0f, animation.mirror?0f:1f);
+            animProgression = EditorGUILayout.Slider(animProgression, 0f, 1f);
+            if (EditorGUI.EndChangeCheck())
+            {
+                if (animatedObject != null)
+                {
+                    Undo.RecordObject(animatedObject, "Changed animation progress (Animated Object)");
+                }
+                Undo.RecordObject(simpleAnimationsManager, "Changed animation progress (Simple Animation Manager)");
+                animation.SetProgress(animProgression);
+            }
+            EditorGUILayout.EndHorizontal();
+            UnityEditor.EditorGUI.indentLevel = oldIndentLevel;
         }
     }
 }
