@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class UIStatController : MonoBehaviour
 {
-    [SerializeField] private new TextMeshProUGUI title;
+    [SerializeField] private TextMeshProUGUI title;
     
     public void Initialize(Stat stat)
     {
