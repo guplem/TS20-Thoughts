@@ -11,10 +11,18 @@ namespace Thoughts.Game.GameMap
     [Serializable]
     public abstract class MapEvent : IMapEvent
     {
-        [SerializeField] private string name = "";
+        [SerializeField] private string _name = "";
         [SerializeField] public List<ConsequenceStat> consequenceStats = new List<ConsequenceStat>();
         [SerializeField] public List<RequiredStat> requiredStats = new List<RequiredStat>();
-
+        public string name
+        {
+            get
+            {
+                if (_name.IsNullOrEmpty())
+                    return this.GetType().Name;
+                return _name;
+            }
+        }
         public List<Stat> GetRequiredNeedsNotSatisfiedBy(MapElement executer, MapElement statOwner)
         {
             Debug.Log($"Checking if '{executer}' satisfies the required stats for '{this}'");

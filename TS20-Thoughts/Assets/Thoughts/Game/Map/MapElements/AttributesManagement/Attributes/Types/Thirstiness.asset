@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   relatedStats:
   - stat: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
-    satisfactionAmount: 50
-    minimumDemandedSatisfactionAmount: 45
-  events:
+    satisfactionAmount: 30
+    minimumDemandedSatisfactionAmount: 5
+  mapEvents:
   - id: 0
   references:
     version: 1
     00000000:
       type: {class: ElapseTimeEvent, ns: , asm: Assembly-CSharp}
       data:
-        name: 
+        _name: 
         consequenceStats:
         - stat: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
-          deltaSatisfactionAmount: -1
+          deltaSatisfactionAmount: -5
         requiredStats: []

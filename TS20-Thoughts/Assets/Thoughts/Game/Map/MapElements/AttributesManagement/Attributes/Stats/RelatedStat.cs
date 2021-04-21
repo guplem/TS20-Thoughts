@@ -9,7 +9,7 @@ namespace Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs
         [SerializeField] public Stat stat;
         [SerializeField] public int satisfactionAmount = 50;
         [Tooltip("When the satisfaction amount is lower than the minimum demanded, a way to satisfy this need is searched")]
-        [SerializeField] private int minimumDemandedSatisfactionAmount = 10;
+        [SerializeField] public int minimumDemandedSatisfactionAmount = 10;
         public bool needsCare => satisfactionAmount < minimumDemandedSatisfactionAmount;
         public void Apply(ConsequenceStat consequenceStat)
         {

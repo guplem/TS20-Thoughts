@@ -8,24 +8,24 @@ using UnityEngine;
 namespace Thoughts
 {
     [CreateAssetMenu(fileName = "Attribute", menuName = "Thoughts/Attribute", order = 1)]
-    public class Attribute : ScriptableObject, IEquatable<Stat>, IComparer<Stat>
+    public class Attribute : ScriptableObject, IEquatable<Attribute>
     {
         [SerializeField] public List<RelatedStat> relatedStats = new List<RelatedStat>();
-        [SerializeReference] public List<IMapEvent> events;
+        [SerializeReference] public List<IMapEvent> mapEvents;
         public new string name => base.name;
         
         public MapEvent GetAction(int index)
         {
-            if (events.Count > index)
-                return (MapEvent) events[index];
+            if (mapEvents.Count > index)
+                return (MapEvent) mapEvents[index];
             
-            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {events.Count}.");
+            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {mapEvents.Count}.");
             return null;
         }
         
         public MapEvent GetActionToCoverNeed(Stat stat, MapElement mapElement)
         {
-            foreach (IMapEvent iMobAction in events)
+            foreach (IMapEvent iMobAction in mapEvents)
             {
                 MapEvent mapEvent = (MapEvent) iMobAction;
                 //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
@@ -53,9 +53,9 @@ namespace Thoughts
                 return true;
             if (obj.GetType() != this.GetType())
                 return false;
-            return Equals((Stat) obj);
+            return Equals((Attribute) obj);
         }
-        public bool Equals(Stat other)
+        public bool Equals(Attribute other)
         {
             return other != null && other.name.Equals(this.name);
         }
@@ -71,16 +71,7 @@ namespace Thoughts
         {
             return !Equals(left, right);
         }
-        public int Compare(Stat x, Stat y)
-        {
-            if (ReferenceEquals(x, y))
-                return 0;
-            if (ReferenceEquals(null, y))
-                return 1;
-            if (ReferenceEquals(null, x))
-                return -1;
-            return x.priority.CompareTo(y.priority);
-        }
+
 
         public void AlterQuantity(int quantity)
         {

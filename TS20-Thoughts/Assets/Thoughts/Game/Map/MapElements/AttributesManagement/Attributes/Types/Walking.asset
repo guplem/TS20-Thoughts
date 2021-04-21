@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: Walking
   m_EditorClassIdentifier: 
   relatedStats: []
-  events:
+  mapEvents:
   - id: 0
   references:
     version: 1
     00000000:
       type: {class: MoveEvent, ns: , asm: Assembly-CSharp}
       data:
-        name: 
+        _name: 
         consequenceStats:
         - stat: {fileID: 11400000, guid: a16bfda1f8f280649b6a8fd9f583fc51, type: 2}
           deltaSatisfactionAmount: 1

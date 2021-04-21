@@ -9,6 +9,7 @@ namespace Thoughts.ControlSystems
     public class CameraController : MonoBehaviour
     {
 
+        [Header("Camera Setup")]
         [SerializeField] private Camera _camera;
         public new Camera camera => _camera;
         [SerializeField] private Transform cameraRig;
@@ -21,24 +22,20 @@ namespace Thoughts.ControlSystems
         }
         
         private Manual manualControlSystem;
-
+        
+        [Header("Camera Movement")]
         [SerializeField] private float moveSpeed = 2f;
         [SerializeField] private float rotationSpeed = 2f;
-        //[SerializeField] private float zoomSpeed = 10f;
         [SerializeField] private float fastSpeedMultiplier = 2f;
         [SerializeField] private float movementSmoothing = 5f;
 
         private Vector3 newPosition;
-        //private Quaternion newRotation;
-        private Vector3 newZoom;
         private Vector2 newRotation;
         
         private void Awake()
         {
             manualControlSystem = this.GetComponentRequired<Thoughts.ControlSystems.Manual>();
             newPosition = cameraRig.position;
-            //newRotation = cameraRig.rotation;
-            //newZoom = camera.transform.localPosition;
         }
 
         private void Start()
@@ -48,15 +45,11 @@ namespace Thoughts.ControlSystems
         
         public float GetAxisCustom(string axisName)
         {
-            if(axisName == "Mouse X")
-            {
+            if (axisName == "Mouse X")
                 return newRotation.x;
-            }
-            else if (axisName == "Mouse Y")
-            {
+            if (axisName == "Mouse Y")
                 return newRotation.y;
-            }
- 
+            
             return 0;
         }
 
@@ -68,8 +61,6 @@ namespace Thoughts.ControlSystems
         private void HandleTransformUpdates()
         {
             cameraRig.position = Vector3.Lerp(cameraRig.position, newPosition, Time.deltaTime * movementSmoothing);
-            //cameraRig.rotation = Quaternion.Lerp(cameraRig.rotation, newRotation, Time.deltaTime * movementSmoothing);
-            //camera.transform.localPosition = Vector3.Lerp(camera.transform.localPosition, newZoom, Time.deltaTime * movementSmoothing);
         }
         
         public void Move(Vector3 desiredTranslation, bool isFastSpeed)
@@ -79,20 +70,12 @@ namespace Thoughts.ControlSystems
         
         public void Rotate(Vector2 desiredRotation, bool isFastSpeed)
         {
-            //Debug.Log(desiredRotation);
-            //newRotation *= Quaternion.Euler( (desiredRotation * (rotationSpeed * (isFastSpeed? fastSpeedMultiplier : 1) ) ) ) ;
             newRotation = desiredRotation * (rotationSpeed * (isFastSpeed ? fastSpeedMultiplier : 1));
         }
-
-        /*public void Zoom(float desiredZoom, bool isFastSpeed)
-        {
-            newZoom += desiredZoom * zoomSpeed * new Vector3(0, -1, 1);
-        }*/
 
         public void SwitchCamera(CameraView desiredView, Transform povCameraParent = null)
         {
             overworldCamera.Priority = desiredView == CameraView.overworld ? 1 : 0;
-            //povCamera.Priority = desiredView == CameraView.pov ? 1 : 0;
 
             if (desiredView == CameraView.pov)
             {
@@ -100,8 +83,6 @@ namespace Thoughts.ControlSystems
                 povCamera.Follow = povCameraParent;
             }
         }
-
-
-
+        
     }
 }

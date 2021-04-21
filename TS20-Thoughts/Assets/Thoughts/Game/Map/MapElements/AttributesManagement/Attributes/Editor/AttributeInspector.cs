@@ -81,27 +81,27 @@ namespace Thoughts
                 //record the gameObject state to enable undo and prevent from exiting the scene without saving
                 Undo.RegisterCompleteObjectUndo(target, "Added new event");
                 //add the new action to the action's list
-                if (attribute.events == null)
-                    attribute.events = new List<IMapEvent>();
-                attribute.events.Add(newEvent);
+                if (attribute.mapEvents == null)
+                    attribute.mapEvents = new List<IMapEvent>();
+                attribute.mapEvents.Add(newEvent);
                 //UpdateAllNeedsImplementationIndexes();
             }
         }
         
         private void CheckActionsListConfiguration()
         {
-            if (attribute.events != null)
+            if (attribute.mapEvents != null)
             {
-                for (int a = 0; a < attribute.events.Count; a++)
+                for (int a = 0; a < attribute.mapEvents.Count; a++)
                 {
-                    if (attribute.events[a] == null)
+                    if (attribute.mapEvents[a] == null)
                         EditorGUILayout.HelpBox("The action with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
 
-                    if (attribute.events.Count() != attribute.events.Distinct().Count())
+                    if (attribute.mapEvents.Count() != attribute.mapEvents.Distinct().Count())
                     {
-                        for (int d = a + 1; d < attribute.events.Count; d++)
+                        for (int d = a + 1; d < attribute.mapEvents.Count; d++)
                         {
-                            if (attribute.events[a] != null && (attribute.events[a] == attribute.events[d]))
+                            if (attribute.mapEvents[a] != null && (attribute.mapEvents[a] == attribute.mapEvents[d]))
                                 EditorGUILayout.HelpBox("The actions with index " + a + " and " + d + " are the same object.", MessageType.Warning);
                         }
                     }
@@ -139,7 +139,7 @@ namespace Thoughts
 
         private void ShowActionsArray()
         {
-            UnityEditor.SerializedProperty actionsList = serializedObject.FindProperty("events");
+            UnityEditor.SerializedProperty actionsList = serializedObject.FindProperty("mapEvents");
             
             UnityEditor.EditorGUI.indentLevel += 1;
             for (int actionIndex = 0; actionIndex < actionsList.arraySize; actionIndex++)
@@ -150,7 +150,7 @@ namespace Thoughts
                 {
                     SerializedProperty actionProperty = actionsList.GetArrayElementAtIndex(actionIndex);
 
-                    MapEvent @event = ((MapEvent) attribute.events[actionIndex]);
+                    MapEvent @event = ((MapEvent) attribute.mapEvents[actionIndex]);
                     
                     // Action name
                     string eventName;

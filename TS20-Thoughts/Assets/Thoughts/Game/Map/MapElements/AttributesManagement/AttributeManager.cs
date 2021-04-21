@@ -52,7 +52,7 @@ public class AttributeManager
             foreach (Attribute attribute in attributes)
             {
                 Debug.Log($"    - Checking if '{attribute}' has an 'ElapseTimeAction'.");
-                List<IMapEvent> attributeEvents = attribute.events;
+                List<IMapEvent> attributeEvents = attribute.mapEvents;
                 foreach (IMapEvent iMapEvent in attributeEvents)
                 {
                     MapEvent mapEvent = (MapEvent) iMapEvent;
