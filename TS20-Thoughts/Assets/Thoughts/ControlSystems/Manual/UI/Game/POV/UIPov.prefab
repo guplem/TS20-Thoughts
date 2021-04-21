@@ -90,6 +90,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIAttributePrefab: {fileID: 8857846337051099012, guid: 7ab47e6e14d0b6e46bc89bd090df01ff, type: 3}
   locationsPreviewAmount: 3
-  attributesSeparation: 1.5
-  attributesDistance: 1
-  rotation: {x: 0, y: 0.81345624, z: 0, w: 0.5816261}
+  attributesSeparation: 1.1
+  attributesDistance: 1.75
