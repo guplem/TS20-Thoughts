@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Thoughts.Game.GameMap;
-using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using UnityEngine;
 using Attribute = Thoughts.Attribute;
 

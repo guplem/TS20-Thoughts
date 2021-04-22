@@ -12,7 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  relatedStats: []
-  mapEvents: []
-  references:
-    version: 1
+  value: 5
+  minValue: 0
+  takeCare: 0
+  type: 0
+  mapEvents:
+  - name: Drink
+    consequences:
+    - attribute: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
+      value: 1
+      affected: 1
+    - attribute: {fileID: 11400000}
+      value: -1
+      affected: 0
+    requirements:
+    - attribute: {fileID: 11400000}
+      value: 1
+      affected: 0
+    executeWithTimeElapse: 0
+    maxDistance: 5

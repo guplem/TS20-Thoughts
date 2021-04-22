@@ -1,52 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &385338632369867488
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3644466201163911254}
-  - component: {fileID: 3780897244120631987}
-  m_Layer: 0
-  m_Name: RelatedStats
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &3644466201163911254
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 385338632369867488}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 7862442708098139926}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3780897244120631987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 385338632369867488}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c925ab95d9bef0942bc7e70133c8a18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  locationsPreviewAmount: 6
-  elementsSeparation: 1.1
-  povDistance: 2
-  uiRelatedStatPrefab: {fileID: 2024968989033520069, guid: f6ce7787ed84b0e46a27d8edc6d1e7db, type: 3}
 --- !u!1 &1305802335279542667
 GameObject:
   m_ObjectHideFlags: 0
@@ -76,7 +29,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5146373145104440670}
-  - {fileID: 3644466201163911254}
   - {fileID: 8917703459571281534}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -123,7 +75,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7862442708098139926}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7776109378967086226
 MonoBehaviour:
@@ -188,5 +140,4 @@ MonoBehaviour:
   elementsSeparation: 1.1
   povDistance: 2
   uiAttributePrefab: {fileID: 8857846337051099012, guid: 7ab47e6e14d0b6e46bc89bd090df01ff, type: 3}
-  uiRelatedStatsManager: {fileID: 3780897244120631987}
   uiMapEventsManager: {fileID: 7776109378967086226}

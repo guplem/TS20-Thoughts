@@ -1,9 +1,9 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Thoughts.Needs;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,27 +14,27 @@ namespace Thoughts.Game.GameMap
      {
           [SerializeField] public AttributeManager attributeManager = new AttributeManager();
           
-          private Stat currentObjectiveStat
+          private List<ExecutionPlan> currentExecutionPlans = new List<ExecutionPlan>();
+          
+          private Attribute currentObjectiveAttribute
           {
-               get => _currentObjectiveStat;
+               get => _currentObjectiveAttribute;
                set
                {
-                    _currentObjectiveStat = value;
+                    _currentObjectiveAttribute = value;
                     Debug.Log($"► Updating current objective stat for '{this}' to '{value}'.");
-                    currentActionPath = currentObjectiveStat.GetEventsToSatisfyThisStat(this);
-                    if (currentActionPath == null)
-                         Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveStat}' was not found.");
+                    currentExecutionPlans = currentObjectiveAttribute.GetExecutionPlanToSatisfyThisAttribute(this);
+                    if (currentExecutionPlans == null)
+                         Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute}' was not found.");
                     else
                     {
-                         currentActionPath.DebugLog(", ", $"└> Map Events to perform to cover '{currentObjectiveStat}' stat: ", gameObject);
-                         DoNextAction();    
+                         currentExecutionPlans.DebugLog(", ", $"└> Map Events to perform to cover '{currentObjectiveAttribute}' stat: ", gameObject);
+                         DoNextMapEvent();    
                     }
 
                }
           }
-          [CanBeNull]
-          private Stat _currentObjectiveStat;
-          private List<MapEventInAttributeAtMapElement> currentActionPath = new List<MapEventInAttributeAtMapElement>();
+          [CanBeNull] private Attribute _currentObjectiveAttribute;
 
           private IEnumerator coroutineHolder;
           
@@ -65,27 +65,26 @@ namespace Thoughts.Game.GameMap
                navMeshAgent = GetComponent<NavMeshAgent>();
           }
           
-        
-          private void DoNextAction() // false if distance is too big
+          private void DoNextMapEvent()
           {
-               if (currentActionPath == null || currentActionPath.Count <=0 )
+               throw new NotImplementedException();
+               /*if (currentExecutionPlans == null || currentExecutionPlans.Count <=0 )
                {
-                    Debug.LogError($"Trying to execute the next action of '{this}' but it does not exist.");
+                    Debug.LogError($"Trying to execute the next map event of '{this}' but it does not exist. The action path is null or empty.");
                     return;
                }
                
                // new MoveAction(elementToCoverNeed.gameObject.transform.position)
-               int indexNextAction = currentActionPath.Count-1;
-               MapEventInAttributeAtMapElement mapEventInAttributeAtMapElement = currentActionPath.ElementAt(indexNextAction);
+               int indexNextAction = currentExecutionPlans.Count-1;
+               MapEvent mapEventInAttributeAtMapElement = currentExecutionPlans.ElementAt(indexNextAction).mapEvent;
 
-               Debug.Log($"        ◯ Executing action '{mapEventInAttributeAtMapElement.mapEvent}' by '{this}' in '{mapEventInAttributeAtMapElement.mapElement}' with attribute '{mapEventInAttributeAtMapElement.attribute}'");
-               MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter = indexNextAction >= 1 ? currentActionPath.ElementAt(indexNextAction - 1) : null;
-               mapEventInAttributeAtMapElement.mapEvent.Execute(this, mapEventInAttributeAtMapElement.mapElement, mapEventInAttributeAtMapElement.attribute, nextEnqueuedEventInExecuter);
+               Debug.Log($"        ◯ Executing map event '{mapEventInAttributeAtMapElement}' by '{this}' in '{mapEventInAttributeAtMapElement.mapElement}' with attribute '{mapEventInAttributeAtMapElement.attribute}'");
+               MapEvent nextEnqueuedEventInExecuter = indexNextAction >= 1 ? currentExecutionPlans.ElementAt(indexNextAction - 1) : null;
+               mapEventInAttributeAtMapElement.Execute(this, mapEventInAttributeAtMapElement, mapEventInAttributeAtMapElement.attribute, nextEnqueuedEventInExecuter);
             
-               currentActionPath.RemoveAt(0);
+               currentExecutionPlans.RemoveAt(0);*/
           }
           
-          // Method/Corroutine used as example
           private IEnumerator InventoryTimeElapse()
           {
                while (true)
@@ -93,19 +92,10 @@ namespace Thoughts.Game.GameMap
                     // Set the time to wait until continuing the execution
                     yield return new WaitForSeconds(1f);
                     attributeManager.ExecuteTimeElapseActions(this);
-
-                    Stat neededStat = attributeManager.GetRelatedStateToTakeCare();
-                    if (neededStat != null)
-                         currentObjectiveStat = neededStat;
-
                }
                
           }
           
-          public bool SatisfiesNeed(RequiredStat stat)
-          {
-               return attributeManager.CanSatisfyStat(stat);
-          }
      }
      
      

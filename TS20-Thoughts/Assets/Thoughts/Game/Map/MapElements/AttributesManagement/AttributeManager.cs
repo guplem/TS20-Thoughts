@@ -1,10 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Thoughts;
 using Thoughts.Game.GameMap;
-using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
-using Thoughts.Needs;
 using UnityEngine;
 using Attribute = Thoughts.Attribute;
 using Object = UnityEngine.Object;
@@ -27,87 +23,54 @@ public class AttributeManager
         }
     }
     
-    public MapEvent GetAvailableActionToCoverNeed(Stat stat, MapElement mapElement, out Attribute attributeWithEventToCoverNeed)
+    /*public MapEvent GetAvailableActionToCoverAttribute(Attribute attributeToCover, MapElement mapElement, out Attribute attributeWithEventToCoverNeed, out MapEvent mapEventToCoverAttribute)
     {
         foreach (Attribute attribute in attributes)
         {
-            MapEvent mapEvent = attribute.GetActionToCoverNeed(stat, mapElement);
+            MapEvent mapEvent = attribute.GetMapEventToCoverAttribute(attributeToCover, mapElement);
             if (mapEvent != null)
             {
                 attributeWithEventToCoverNeed = attribute;
+                mapEventToCoverAttribute = mapEvent;
                 return mapEvent;
             }
         }
 
         attributeWithEventToCoverNeed = null;
+        mapEventToCoverAttribute = null;
         return null;
-    }
+    }*/
     
     public void ExecuteTimeElapseActions(MapElement mapElement)
     {
-        //if (attributes != null && attributes.Count > 0)
-        //    Debug.Log($"# Inspecting '{mapElement}' for 'ElapseTimeAction' to execute.");
-
         if (attributes != null)
             foreach (Attribute attribute in attributes)
             {
-                // Debug.Log($"    - Checking if '{attribute}' has an 'ElapseTimeAction'.");
-                List<IMapEvent> attributeEvents = attribute.mapEvents;
-                foreach (IMapEvent iMapEvent in attributeEvents)
+                foreach (MapEvent attributeMapEvent in attribute.mapEvents)
                 {
-                    MapEvent mapEvent = (MapEvent) iMapEvent;
-
-                    if (mapEvent.GetType() == typeof(ElapseTimeEvent))
+                    if (attributeMapEvent.executeWithTimeElapse)
                     {
-                        Debug.Log($"        · Executing mapEvent '{mapEvent}' of '{attribute}' in '{mapElement}'.");
-                        mapEvent.Execute(mapElement, mapElement, attribute,null); // To nobody with no next action in mid in the future (nxt action)
+                        Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
+                        attributeMapEvent.Execute(mapElement, mapElement, mapElement);
                     }
                 }
             }
     }
     
-    public void ApplyConsequence(ConsequenceStat consequenceStat)
+    /*public void ApplyConsequence(Attribute attribute)
     {
-        foreach (Attribute attribute in attributes)
-            attribute.Apply(consequenceStat);
-    }
-    
-    public Stat GetRelatedStateToTakeCare()
-    {
-        List<Stat> relatedNeedsToTakeCare = new List<Stat>();
-        foreach (Attribute item in attributes)
-        {
-            foreach (RelatedStat itemRelatedNeed in item.relatedStats)
-            {
-                if (itemRelatedNeed.needsCare)
-                    relatedNeedsToTakeCare.Add(itemRelatedNeed.stat);
-            }
-        }
-        relatedNeedsToTakeCare.Sort();
-        return relatedNeedsToTakeCare.Count >= 1 ? relatedNeedsToTakeCare.ElementAt(0) : null;
-    }
-    
-    public bool CanSatisfyStat(RequiredStat stat)
+        foreach (MapEvent mapEvent in attribute.mapEvents)
+            foreach (AttributeUpdate attributeUpdate in mapEvent.consequenceAttributes)
+                attributeUpdate.Apply();
+    }*/
+
+    /*public bool CanCoverAttribute(Attribute attributeToCover)
     {
         foreach (Attribute attribute in attributes)
         {
-            foreach (RelatedStat attributeRelatedNeed in attribute.relatedStats)
-            {
-                if (attributeRelatedNeed.Satisfies(stat))
-                    return true;
-            }
+            throw new NotImplementedException();
         }
         return false;
-    }
-
-    /*public void AlterQuantity(Attribute attribute, int quantity)
-    {
-        foreach (Attribute att in attributes)
-        {
-            if (att.Equals(attribute))
-            {
-                att.AlterQuantity(quantity);
-            }
-        }
     }*/
+
 }

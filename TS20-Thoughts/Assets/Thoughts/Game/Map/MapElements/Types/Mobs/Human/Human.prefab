@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attributeManager:
     _attributes:
-    - {fileID: 11400000, guid: af0bef6d0a926104693d9ba61768d633, type: 2}
-    - {fileID: 11400000, guid: f14221511a8cae749ae9270932b8fac6, type: 2}
+    - {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
   povCameraPrentTransform: {fileID: 5385195016694065520}
 --- !u!1 &3687949500601768678
 GameObject:

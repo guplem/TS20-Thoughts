@@ -3,9 +3,9 @@ using Thoughts;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 
-public class MoveEvent : MapEvent
+public class MoveEvent
 {
-    public override void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
+    /*public override void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
     {
         if (!base.CanBeExecuted(executer, owner))
         {
@@ -23,5 +23,5 @@ public class MoveEvent : MapEvent
         //Debug.Log($"Executing MoveAction at {executer} to go to {movePosition}");
         executer.navMeshAgent.SetDestination(movePosition);
         executer.navMeshAgent.isStopped = false;
-    }
+    }*/
 }

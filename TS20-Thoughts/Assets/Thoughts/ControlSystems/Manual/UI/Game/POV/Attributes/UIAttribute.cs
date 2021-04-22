@@ -1,5 +1,3 @@
-using System;
-using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using TMPro;
 using UnityEngine;
 using Attribute = Thoughts.Attribute;

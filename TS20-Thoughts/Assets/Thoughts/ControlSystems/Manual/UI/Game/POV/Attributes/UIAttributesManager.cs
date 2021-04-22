@@ -1,16 +1,12 @@
-using System;
 using System.Collections.Generic;
 using Thoughts.Game.GameMap;
-using UnityEditor;
 using UnityEngine;
-using Attribute = Thoughts.Attribute;
 
 
 public class UIAttributesManager : UIPovRow
 {
     [SerializeField] private GameObject uiAttributePrefab;
     private List<UIAttribute> uiAttributes = new List<UIAttribute>();
-    [SerializeField] private UIRelatedStatsManager uiRelatedStatsManager;
     [SerializeField] private UIMapEventsManager uiMapEventsManager;
     
     public UIAttribute selectedAttribute
@@ -22,7 +18,6 @@ public class UIAttributesManager : UIPovRow
             {
                 _selectedAttribute = value;
                 Debug.Log($"Attribute Selected: {selectedAttribute}");
-                uiRelatedStatsManager.ShowUIFor(currentMapElement, selectedAttribute != null? selectedAttribute.attribute : null);
                 uiMapEventsManager.ShowUIFor(currentMapElement, selectedAttribute != null? selectedAttribute.attribute : null);
             }
                     

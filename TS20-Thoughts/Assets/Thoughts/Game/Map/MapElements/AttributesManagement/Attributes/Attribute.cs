@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Thoughts.Game.GameMap;
-using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
-using Thoughts.Needs;
 using UnityEngine;
 
 namespace Thoughts
@@ -10,69 +8,25 @@ namespace Thoughts
     [CreateAssetMenu(fileName = "Attribute", menuName = "Thoughts/Attribute", order = 1)]
     public class Attribute : ScriptableObject, IEquatable<Attribute>
     {
-        [SerializeField] public List<RelatedStat> relatedStats = new List<RelatedStat>();
-        [SerializeReference] public List<IMapEvent> mapEvents;
+        
+    #region Funtionallity
+
+        [SerializeField] public float value;
+        [SerializeField] public float minValue;
+        [SerializeField] public bool takeCare;
+        [SerializeField] public AttributeType type = AttributeType.obj;
+        [Space(20)]
+        [SerializeField] public List<MapEvent> mapEvents;
+        
         public new string name => base.name;
         
-        public MapEvent GetAction(int index)
+        public List<ExecutionPlan> GetExecutionPlanToSatisfyThisAttribute(MapElement mapElement)
         {
-            if (mapEvents.Count > index)
-                return (MapEvent) mapEvents[index];
-            
-            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {mapEvents.Count}.");
-            return null;
+            // Look for all MapEvents that, as consequence of the event, they make the attribute value increase.
+                //Be aware that the event consequence can be in 'mode' target, owner or executer 
+            throw new NotImplementedException();
         }
         
-        public MapEvent GetActionToCoverNeed(Stat stat, MapElement mapElement)
-        {
-            foreach (IMapEvent iMobAction in mapEvents)
-            {
-                MapEvent mapEvent = (MapEvent) iMobAction;
-                //MobAction action = (MobAction) Activator.CreateInstance(actionType.GetType());
-                if (mapEvent.SatisfiesNeed(stat))
-                {
-                    return mapEvent;
-                }
-            }
-
-            return null;
-        }
-        public void Apply(ConsequenceStat consequenceStat)
-        {
-            foreach (RelatedStat relatedNeed in relatedStats)
-            {
-                relatedNeed.Apply(consequenceStat);
-            }
-        }
-        
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-                return false;
-            if (ReferenceEquals(this, obj))
-                return true;
-            if (obj.GetType() != this.GetType())
-                return false;
-            return Equals((Attribute) obj);
-        }
-        public bool Equals(Attribute other)
-        {
-            return other != null && other.name.Equals(this.name);
-        }
-        public override int GetHashCode()
-        {
-            return name.GetHashCode();
-        }
-        public static bool operator ==(Attribute left, Attribute right)
-        {
-            return Equals(left, right);
-        }
-        public static bool operator !=(Attribute left, Attribute right)
-        {
-            return !Equals(left, right);
-        }
-
-
         /*public void AlterQuantity(int quantity)
         {
             foreach (RelatedStat relatedStat in relatedStats)
@@ -84,6 +38,64 @@ namespace Thoughts
                 }
             }
         }*/
+
+        /*public MapEvent GetAction(int index)
+        {
+            if (mapEvents.Count > index)
+                return (MapEvent) mapEvents[index];
+            
+            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {mapEvents.Count}.");
+            return null;
+        }*/
+        
+        /*public MapEvent GetMapEventToCoverAttribute(Attribute attribute, MapElement mapElement)
+        {
+            throw new NotImplementedException();
+            return null;
+        }*/
+    
+    #endregion
+        
+    #region Comparasions
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
+            return Equals((Attribute) obj);
+        }
+        
+        public bool Equals(Attribute other)
+        {
+            return other != null && other.name.Equals(this.name);
+        }
+        
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+        
+        public static bool operator ==(Attribute left, Attribute right)
+        {
+            return Equals(left, right);
+        }
+        
+        public static bool operator !=(Attribute left, Attribute right)
+        {
+            return !Equals(left, right);
+        }
+    #endregion
+
+        
+        public enum AttributeType
+        {
+            obj, // 'object' is taken
+            feature,
+            posession
+        }
     }
     
 }

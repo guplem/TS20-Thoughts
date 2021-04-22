@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Thoughts;
 using Thoughts.Game.GameMap;
-using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
-using Thoughts.Needs;
 using TMPro;
 using UnityEngine;
 
@@ -24,15 +22,15 @@ public class UIMapEvent : UIPovRowElement
         string ret = mapEvent.name;
         ret += '\n';
         
-        if (mapEvent.requiredStats.Count > 0)
+        if (mapEvent.requirements.Count > 0)
             ret += "Requirements:\n";
-        foreach (RequiredStat requirement in mapEvent.requiredStats)
-            ret += $" - {requirement.stat}: {requirement.requiredAmount}\n";
+        foreach (AttributeUpdate requirement in mapEvent.requirements)
+            ret += $" - {requirement.attribute}: {requirement.value}\n";
         
-        if (mapEvent.consequenceStats.Count > 0)
+        if (mapEvent.consequences.Count > 0)
             ret += "Consequences:\n";
-        foreach (ConsequenceStat consequence in mapEvent.consequenceStats)
-            ret += $" - {consequence.stat} ({consequence.deltaSatisfactionAmount})\n";
+        foreach (AttributeUpdate consequence in mapEvent.consequences)
+            ret += $" - {consequence.attribute} ({consequence.value})\n";
         
         return ret;
     }

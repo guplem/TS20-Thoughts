@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Thoughts.Game.GameMap;
-using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
-using Thoughts.Needs;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +12,56 @@ namespace Thoughts
     [CustomEditor(typeof(Attribute))]
     public class AttributeInspector : UnityEditor.Editor
     {
+        private Attribute attribute;
+        
+        public override void OnInspectorGUI()
+        {
+            // Update the serializedProperty - always do this in the beginning of OnInspectorGUI.
+            serializedObject.Update ();
+            
+            attribute = target as Attribute;
+            base.OnInspectorGUI();
+            ShowMapEventsArray();
+            
+            // Apply changes to the serializedProperty - always do this in the end of OnInspectorGUI.
+            serializedObject.ApplyModifiedProperties ();
+        }
+        
+        private void ShowMapEventsArray()
+        {
+            UnityEditor.SerializedProperty mapEventsList = serializedObject.FindProperty("mapEvents");
+            
+            UnityEditor.EditorGUI.indentLevel += 1;
+            for (int mapEventIndex = 0; mapEventIndex < mapEventsList.arraySize; mapEventIndex++)
+            {
+                EditorGUILayout.Space();
+                
+                using (new GUILayout.VerticalScope(EditorStyles.helpBox))
+                {
+                    SerializedProperty mapEventProperty = mapEventsList.GetArrayElementAtIndex(mapEventIndex);
+
+                    MapEvent mapEvent = attribute.mapEvents[mapEventIndex];
+                    
+                    // MapEvent name
+                    string eventName = "";
+                    if (mapEvent.name.IsNullOrEmpty()) 
+                        eventName = $"MapEvent [{mapEventIndex}]";
+                    else 
+                        eventName = $"'{@mapEvent.name}' MapEvent [{mapEventIndex}]";
+
+                    EditorGUILayout.PropertyField(mapEventProperty, new GUIContent(eventName), true);
+
+                    EditorGUILayout.Space();
+                }
+                
+                EditorGUILayout.Space();
+                
+            }
+            UnityEditor.EditorGUI.indentLevel -= 1;
+        }
+
+
+        /*
         private Attribute attribute;
         private Type[] mapEventsImplementations;
         private int selectedMapEventImplementationIndex = -1;
@@ -57,16 +105,16 @@ namespace Thoughts
         {
             //find all implementations of IMapEvent using System.Reflection.Module
             if (mapEventsImplementations == null)
-                mapEventsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
+                mapEventsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<MapEvent>();
 
             selectedMapEventImplementationIndex = EditorGUILayout.Popup(new GUIContent(""),
                 selectedMapEventImplementationIndex, mapEventsImplementations.Select(impl => impl.Name).ToArray());
             
-            IMapEvent newEvent = null;
+            MapEvent newEvent = null;
             if (GUILayout.Button("Add event"))
             {
                 //Create a new MapEvent of the selected type
-                newEvent = (IMapEvent) Activator.CreateInstance(mapEventsImplementations[selectedMapEventImplementationIndex]);
+                newEvent = (MapEvent) Activator.CreateInstance(mapEventsImplementations[selectedMapEventImplementationIndex]);
             }
 
             //If a new MapEvent has been created...
@@ -76,7 +124,7 @@ namespace Thoughts
                 Undo.RegisterCompleteObjectUndo(target, "Added new event");
                 //add the new mapEvent to the mapEvents' list
                 if (attribute.mapEvents == null)
-                    attribute.mapEvents = new List<IMapEvent>();
+                    attribute.mapEvents = new List<MapEvent>();
                 attribute.mapEvents.Add(newEvent);
                 //UpdateAllNeedsImplementationIndexes();
             }
@@ -109,7 +157,7 @@ namespace Thoughts
             EditorGUILayout.BeginHorizontal();
             if (mapEventsImplementations != null) EditorGUILayout.LabelField($"Found {mapEventsImplementations.Count()} MapEvents implementations", EditorStyles.helpBox);
             if (mapEventsImplementations == null || GUILayout.Button("Search MapEvent implementations"))
-                mapEventsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
+                mapEventsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<MapEvent>();
             EditorGUILayout.EndHorizontal();
             
         }
@@ -132,8 +180,8 @@ namespace Thoughts
                     
                     // MapEvent name
                     string eventName;
-                    if (@event.GetName().IsNullOrEmpty()) eventName = $"Event [{mapEventIndex}] ({@event.GetType().Name})";
-                    else eventName = $"'{@event.GetName()}' event [{mapEventIndex}] ({@event.GetType().Name})";
+                    if (@event.name.IsNullOrEmpty()) eventName = $"Event [{mapEventIndex}] ({@event.GetType().Name})";
+                    else eventName = $"'{@event.name}' event [{mapEventIndex}] ({@event.GetType().Name})";
 
                     EditorGUILayout.PropertyField(mapEventProperty, new GUIContent(eventName), true);
 
@@ -145,7 +193,7 @@ namespace Thoughts
             }
             UnityEditor.EditorGUI.indentLevel -= 1;
         }
-
+        */
     }
 }
 
