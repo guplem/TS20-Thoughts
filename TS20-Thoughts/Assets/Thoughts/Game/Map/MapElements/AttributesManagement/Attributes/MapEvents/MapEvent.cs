@@ -72,6 +72,6 @@ namespace Thoughts.Game.GameMap
             }
             return true;
         }
-        public abstract void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter);
+        public abstract void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter);
     }
 }

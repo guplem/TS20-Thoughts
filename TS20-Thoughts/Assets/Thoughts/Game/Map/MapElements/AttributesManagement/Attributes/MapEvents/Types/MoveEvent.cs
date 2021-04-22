@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MoveEvent : MapEvent
 {
-    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
+    public override void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
     {
         if (nextEnqueuedEventInExecuter == null)
         {

@@ -4,9 +4,8 @@ using UnityEngine;
 namespace Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs
 {
     [System.Serializable]
-    public class ConsequenceStat
+    public class ConsequenceStat : MapEventStat
     {
-        [SerializeField] public Stat stat;
         [SerializeField] public int deltaSatisfactionAmount;
 
         public override string ToString()

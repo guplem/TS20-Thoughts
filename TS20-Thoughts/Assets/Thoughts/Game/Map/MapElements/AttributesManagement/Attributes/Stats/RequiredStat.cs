@@ -1,13 +1,13 @@
 using System;
 using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using UnityEngine;
 
 namespace Thoughts.Needs
 {
     [System.Serializable]
-    public class RequiredStat
+    public class RequiredStat : MapEventStat
     {
-        [SerializeField] public Stat stat;
         [SerializeField] public int requiredAmount;
         
         public bool IsSatisfiedBy(MapElement executer, MapElement statOwner)

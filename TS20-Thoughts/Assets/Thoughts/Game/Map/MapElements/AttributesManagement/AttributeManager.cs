@@ -66,7 +66,7 @@ public class AttributeManager
             }
     }
     
-    public void Apply(ConsequenceStat consequenceStat)
+    public void ApplyConsequence(ConsequenceStat consequenceStat)
     {
         foreach (Attribute attribute in attributes)
             attribute.Apply(consequenceStat);
@@ -100,7 +100,7 @@ public class AttributeManager
         return false;
     }
 
-    public void AlterQuantity(Attribute attribute, int quantity)
+    /*public void AlterQuantity(Attribute attribute, int quantity)
     {
         foreach (Attribute att in attributes)
         {
@@ -109,5 +109,5 @@ public class AttributeManager
                 att.AlterQuantity(quantity);
             }
         }
-    }
+    }*/
 }

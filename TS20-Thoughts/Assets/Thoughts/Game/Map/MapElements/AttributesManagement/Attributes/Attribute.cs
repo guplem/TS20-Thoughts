@@ -73,7 +73,7 @@ namespace Thoughts
         }
 
 
-        public void AlterQuantity(int quantity)
+        /*public void AlterQuantity(int quantity)
         {
             foreach (RelatedStat relatedStat in relatedStats)
             {
@@ -83,7 +83,7 @@ namespace Thoughts
                     Debug.Log($"     The new quantity is {relatedStat.satisfactionAmount}");
                 }
             }
-        }
+        }*/
     }
     
 }

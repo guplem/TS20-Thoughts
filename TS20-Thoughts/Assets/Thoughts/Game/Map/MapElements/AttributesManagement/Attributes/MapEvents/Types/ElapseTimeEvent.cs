@@ -6,14 +6,14 @@ using Attribute = Thoughts.Attribute;
 
 public class ElapseTimeEvent : MapEvent
 {
-    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
+    public override void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
     {
         if (!base.CanBeExecuted())
             return;
         
         foreach (ConsequenceStat consequenceNeed in consequenceStats)
         {
-            executer.attributeManager.Apply(consequenceNeed);
+            executer.attributeManager.ApplyConsequence(consequenceNeed);
             //Debug.Log($"Executing {consequenceNeed}");
         }
     }
