@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.InventorySystem.Items.Needs;
 using UnityEngine;
 using Object = System.Object;
 
@@ -19,43 +20,49 @@ namespace Thoughts.Needs
             return this.name;
         }
         
-        public virtual List<MapEventInAttributeAtMapElement> GetEventsToSatisfyThisStat(MapElement needyMapElement, List<MapEventInAttributeAtMapElement> mapEventsFromMapElements = null, int iteration = 0)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="satisfyer">The MapElement that wants to satisfy the stat</param>
+        /// <param name="mapEventInAttributeAtMapElementsToCoverRequiredStats">List of all events needed (in backwards order) in order to make the 'satisfyer' increase the stat's satisfaction.</param>
+        /// <param name="iteration"></param>
+        /// <returns></returns>
+        public virtual List<MapEventInAttributeAtMapElement> GetEventsToSatisfyThisStat(MapElement satisfyer, List<MapEventInAttributeAtMapElement> mapEventInAttributeAtMapElementsToCoverRequiredStats = null, int iteration = 0)
         {
             // Check if infinite loop
             if (iteration >= 50)
             {
                 Debug.LogWarning($"Iteration {iteration} reached to get an action path to take care of the need '{this.name}'.");
-                mapEventsFromMapElements.DebugLog( ",","  \\_Events found so far: ");
+                mapEventInAttributeAtMapElementsToCoverRequiredStats.DebugLog( ",","  \\_Events found so far: ");
                 return null;
             }
             
-            
             // Get the event to cover the stat and were to perform it (MapElement)
-            MapElement mapElementWithEventToCoverNeed = null;
-            Attribute attributeWithEventToCoverNeed = null;
-            MapEvent eventToCoverNeedyStat = AppManager.gameManager.map.FindEventToCoverStat(this, needyMapElement, out mapElementWithEventToCoverNeed, out attributeWithEventToCoverNeed); // TODO: Use the latest event's map element to find the closest next event to the previous one
+            MapElement mapElementWithEventToCoverRequiredStat = null;
+            Attribute attributeWithEventToCoverRequiredStat = null;
+            MapEvent eventToCoverRequiredStat = AppManager.gameManager.map.FindEventToCoverStat(this, satisfyer, out mapElementWithEventToCoverRequiredStat, out attributeWithEventToCoverRequiredStat); // TODO: Use the latest event's map element to find the closest next event to the previous one
             
-            // An event to cover the needed stat has been found
-            if (eventToCoverNeedyStat != null)
+            // An event to cover the Required Stat has been found
+            if (eventToCoverRequiredStat != null)
             {
                 // Create returned list
-                if (mapEventsFromMapElements == null)
-                    mapEventsFromMapElements = new List<MapEventInAttributeAtMapElement>();
+                if (mapEventInAttributeAtMapElementsToCoverRequiredStats == null)
+                    mapEventInAttributeAtMapElementsToCoverRequiredStats = new List<MapEventInAttributeAtMapElement>();
                 
                 // Add the found event to the returned list
-                mapEventsFromMapElements.Add(new MapEventInAttributeAtMapElement(eventToCoverNeedyStat, attributeWithEventToCoverNeed, mapElementWithEventToCoverNeed));
+                mapEventInAttributeAtMapElementsToCoverRequiredStats.Add(new MapEventInAttributeAtMapElement(eventToCoverRequiredStat, attributeWithEventToCoverRequiredStat, mapElementWithEventToCoverRequiredStat));
                 
                 // Check if the event can be executed, if not, search how to solve the needed stat
-                List<Stat> statsToPerformEvent = eventToCoverNeedyStat.GetRequiredNeedsNotSatisfiedBy(needyMapElement, mapElementWithEventToCoverNeed);
+                List<Stat> statsToPerformEvent = eventToCoverRequiredStat.GetRequiredStatsNotSatisfiedBy(MapEventStat.Affectation.executer, satisfyer, mapElementWithEventToCoverRequiredStat);
                 if (statsToPerformEvent != null && statsToPerformEvent.Count > 0)
                 {
                     //foreach (Need needToPerformAction in needsToPerformAction) //ToDo: multiple enqueued lists - More than one stat might need to be covered
-                    List<MapEventInAttributeAtMapElement> mapEventsToCoverRequiredStats =  statsToPerformEvent.ElementAt(0).GetEventsToSatisfyThisStat(needyMapElement, mapEventsFromMapElements, iteration + 1);
+                    List<MapEventInAttributeAtMapElement> mapEventsToCoverRequiredStats =  statsToPerformEvent.ElementAt(0).GetEventsToSatisfyThisStat(satisfyer, mapEventInAttributeAtMapElementsToCoverRequiredStats, iteration + 1);
                     return mapEventsToCoverRequiredStats;
                 }
             }
             
-            return mapEventsFromMapElements;
+            return mapEventInAttributeAtMapElementsToCoverRequiredStats;
         }
         
         public override bool Equals(object obj)

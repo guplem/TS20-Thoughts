@@ -7,6 +7,12 @@ public class MoveEvent : MapEvent
 {
     public override void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
     {
+        if (!base.CanBeExecuted(executer, owner))
+        {
+            Debug.LogWarning($"Trying to execute event '{this}' but it can not be executed.");
+            return;
+        }
+        
         if (nextEnqueuedEventInExecuter == null)
         {
             Debug.LogWarning($"Trying to move {executer} to the location of the next action (which does not exist).");

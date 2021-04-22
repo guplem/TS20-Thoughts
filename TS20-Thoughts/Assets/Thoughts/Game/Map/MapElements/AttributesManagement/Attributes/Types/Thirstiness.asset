@@ -26,5 +26,6 @@ MonoBehaviour:
         _name: 
         consequenceStats:
         - stat: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
+          affected: 0
           deltaSatisfactionAmount: -5
         requiredStats: []

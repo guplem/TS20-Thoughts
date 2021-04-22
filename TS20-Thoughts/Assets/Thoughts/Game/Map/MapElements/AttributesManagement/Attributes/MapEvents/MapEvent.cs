@@ -23,25 +23,59 @@ namespace Thoughts.Game.GameMap
                 return _name;
             }
         }
-        public List<Stat> GetRequiredNeedsNotSatisfiedBy(MapElement executer, MapElement statOwner)
+        
+        
+        
+        public List<Stat> GetRequiredStatsNotSatisfiedBy(MapEventStat.Affectation satisfyer, MapElement executer, MapElement owner)
         {
-            Debug.Log($"    Checking if '{executer}' satisfies the required stats for '{this}' in '{statOwner}'");
+            //Debug.Log($"    Checking if '{executer}' satisfies the required stats for '{this}' in '{owner}'");
             
-            List<Stat> requiredNeedsNotSatisfiedByExecuter = new List<Stat>();
+            List<Stat> requiredNeedsNotSatisfied = new List<Stat>();
             
-            if (requiredStats == null || requiredStats.Count <= 0)
-                Debug.Log($"        - No required stats exist for '{this}' in '{statOwner}'.");
-            else
+            /*if (requiredStats == null || requiredStats.Count <= 0)
+                Debug.Log($"        - No required stats exist for '{this}' in '{owner}'.");
+            else*/
                 foreach (RequiredStat requiredNeed in requiredStats)
                 {
-                    if (!requiredNeed.IsSatisfiedBy(executer, statOwner)) 
-                        requiredNeedsNotSatisfiedByExecuter.Add(requiredNeed.stat);
+                    switch (satisfyer)
+                    {
+                        case MapEventStat.Affectation.owner:
+                            if (requiredNeed.affected == MapEventStat.Affectation.owner)
+                                if (!requiredNeed.IsSatisfiedBy(owner, owner))   
+                                    requiredNeedsNotSatisfied.Add(requiredNeed.stat);
+                            break;
+                        case MapEventStat.Affectation.executer:
+                            if (requiredNeed.affected == MapEventStat.Affectation.executer)
+                                if (!requiredNeed.IsSatisfiedBy(executer, owner))   
+                                    requiredNeedsNotSatisfied.Add(requiredNeed.stat);
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException(nameof(satisfyer), satisfyer, null);
+                    }
+
                 }
             
-
-            
-            return requiredNeedsNotSatisfiedByExecuter;
+            return requiredNeedsNotSatisfied;
         }
+        
+        public bool CanBeExecuted(MapElement executer, MapElement owner)
+        {
+            List<Stat> notSatisfiedByExecuter = GetRequiredStatsNotSatisfiedBy(MapEventStat.Affectation.executer, executer, owner);
+            List<Stat> notSatisfiedByOwner = GetRequiredStatsNotSatisfiedBy(MapEventStat.Affectation.owner, executer, owner);
+
+            bool result = true;
+            
+            if (notSatisfiedByExecuter != null && notSatisfiedByExecuter.Count > 0)
+                result = false;
+            
+            if (notSatisfiedByOwner != null && notSatisfiedByOwner.Count > 0)
+                result = false;
+
+            return result;
+        }
+        
+        
+        
 
         public string GetName()
         {
@@ -63,15 +97,32 @@ namespace Thoughts.Game.GameMap
             }
             return false;
         }
-
-        protected bool CanBeExecuted()
+        
+        //public abstract void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter);
+        
+        public virtual void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
         {
-            foreach (RequiredStat requiredNeed in requiredStats)
+            if (!CanBeExecuted(executer, owner))
             {
-                throw new NotImplementedException();
+                Debug.LogWarning($"Trying to execute event '{this}' but it can not be executed.");
+                return;
             }
-            return true;
+            
+            foreach (ConsequenceStat consequenceStat in consequenceStats)
+            {
+                switch (consequenceStat.affected)
+                {
+                    case MapEventStat.Affectation.owner:
+                        owner.attributeManager.ApplyConsequence(consequenceStat);
+                        break;
+                    case MapEventStat.Affectation.executer:
+                        executer.attributeManager.ApplyConsequence(consequenceStat);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            
+            }
         }
-        public abstract void Execute(MapElement executer, MapElement owner, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter);
     }
 }

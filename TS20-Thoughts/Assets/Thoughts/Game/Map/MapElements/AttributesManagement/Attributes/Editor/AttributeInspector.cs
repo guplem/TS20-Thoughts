@@ -15,11 +15,8 @@ namespace Thoughts
     public class AttributeInspector : UnityEditor.Editor
     {
         private Attribute attribute;
-        private Type[] actionsImplementations;
-        private int selectedActionImplementationIndex = -1;
-        //private Type[] needsImplementations;
-        //private int[] selectedSatisfiedNeedImplementationIndex;
-        //private int[] selectedNeedImplementationIndex;
+        private Type[] mapEventsImplementations;
+        private int selectedMapEventImplementationIndex = -1;
 
         public override void OnInspectorGUI()
         {
@@ -29,9 +26,6 @@ namespace Thoughts
             //specify target type
             attribute = target as Attribute;
             if (attribute == null) { return; }
-
-            /*if (selectedSatisfiedNeedImplementationIndex == null || selectedNeedImplementationIndex == null)
-                UpdateAllNeedsImplementationIndexes();*/
             
             EditorGUILayout.PropertyField(serializedObject.FindProperty("relatedStats"), new GUIContent("Related Stats"), true);
             
@@ -41,13 +35,13 @@ namespace Thoughts
                 GUILayout.Label("Attribute's events", EditorStyles.boldLabel);
                 GUILayout.Label(" ");
                 //select an implementation from all found using an editor popup
-                NewActionsSection();
+                NewMapEventSection();
                 
             EditorGUILayout.EndHorizontal();
             
-            CheckActionsListConfiguration();
+            CheckMapEventsListConfiguration();
 
-            ShowActionsArray();
+            ShowMapEventsArray();
 
             EditorGUILayout.Space();  
             EditorGUILayout.Space(); 
@@ -59,28 +53,28 @@ namespace Thoughts
             // Apply changes to the serializedProperty - always do this in the end of OnInspectorGUI.
             serializedObject.ApplyModifiedProperties ();
         }
-        private void NewActionsSection()
+        private void NewMapEventSection()
         {
-            //find all implementations of IMobAction using System.Reflection.Module
-            if (actionsImplementations == null)
-                actionsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
+            //find all implementations of IMapEvent using System.Reflection.Module
+            if (mapEventsImplementations == null)
+                mapEventsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
 
-            selectedActionImplementationIndex = EditorGUILayout.Popup(new GUIContent(""),
-                selectedActionImplementationIndex, actionsImplementations.Select(impl => impl.Name).ToArray());
+            selectedMapEventImplementationIndex = EditorGUILayout.Popup(new GUIContent(""),
+                selectedMapEventImplementationIndex, mapEventsImplementations.Select(impl => impl.Name).ToArray());
             
             IMapEvent newEvent = null;
             if (GUILayout.Button("Add event"))
             {
-                //Create a new action of the selected type
-                newEvent = (IMapEvent) Activator.CreateInstance(actionsImplementations[selectedActionImplementationIndex]);
+                //Create a new MapEvent of the selected type
+                newEvent = (IMapEvent) Activator.CreateInstance(mapEventsImplementations[selectedMapEventImplementationIndex]);
             }
 
-            //If a new action has been created...
+            //If a new MapEvent has been created...
             if (newEvent != null)
             {
                 //record the gameObject state to enable undo and prevent from exiting the scene without saving
                 Undo.RegisterCompleteObjectUndo(target, "Added new event");
-                //add the new action to the action's list
+                //add the new mapEvent to the mapEvents' list
                 if (attribute.mapEvents == null)
                     attribute.mapEvents = new List<IMapEvent>();
                 attribute.mapEvents.Add(newEvent);
@@ -88,21 +82,21 @@ namespace Thoughts
             }
         }
         
-        private void CheckActionsListConfiguration()
+        private void CheckMapEventsListConfiguration()
         {
             if (attribute.mapEvents != null)
             {
                 for (int a = 0; a < attribute.mapEvents.Count; a++)
                 {
                     if (attribute.mapEvents[a] == null)
-                        EditorGUILayout.HelpBox("The action with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
+                        EditorGUILayout.HelpBox("The MapEvent with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
 
                     if (attribute.mapEvents.Count() != attribute.mapEvents.Distinct().Count())
                     {
                         for (int d = a + 1; d < attribute.mapEvents.Count; d++)
                         {
                             if (attribute.mapEvents[a] != null && (attribute.mapEvents[a] == attribute.mapEvents[d]))
-                                EditorGUILayout.HelpBox("The actions with index " + a + " and " + d + " are the same object.", MessageType.Warning);
+                                EditorGUILayout.HelpBox("The mapEvents with index " + a + " and " + d + " are the same object.", MessageType.Warning);
                         }
                     }
                 }
@@ -111,58 +105,38 @@ namespace Thoughts
         
         private void ImplementationsSearchSection()
         {
-            // ACTIONS
+            // MapEvents
             EditorGUILayout.BeginHorizontal();
-            if (actionsImplementations != null) EditorGUILayout.LabelField($"Found {actionsImplementations.Count()} actions implementations", EditorStyles.helpBox);
-            if (actionsImplementations == null || GUILayout.Button("Search actions implementations"))
-                actionsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
+            if (mapEventsImplementations != null) EditorGUILayout.LabelField($"Found {mapEventsImplementations.Count()} MapEvents implementations", EditorStyles.helpBox);
+            if (mapEventsImplementations == null || GUILayout.Button("Search MapEvent implementations"))
+                mapEventsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IMapEvent>();
             EditorGUILayout.EndHorizontal();
             
-           /* // NEEDS
-            EditorGUILayout.BeginHorizontal();
-            if (needsImplementations != null) EditorGUILayout.LabelField($"Found {needsImplementations.Count()} needs implementations", EditorStyles.helpBox);
-            if (needsImplementations == null || GUILayout.Button(" Search needs implementations "))
-                needsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
-            EditorGUILayout.EndHorizontal();*/
         }
         
-        /*private void UpdateAllNeedsImplementationIndexes()
-        {
-            selectedSatisfiedNeedImplementationIndex = new int[item.actions.Count];
-            for (int i = 0; i < selectedSatisfiedNeedImplementationIndex.Length; i++)
-                selectedSatisfiedNeedImplementationIndex[i] = -1;
-            
-            selectedNeedImplementationIndex = new int[item.actions.Count];
-            for (int i = 0; i < selectedNeedImplementationIndex.Length; i++)
-                selectedNeedImplementationIndex[i] = -1;
-        }*/
 
-        private void ShowActionsArray()
+        private void ShowMapEventsArray()
         {
-            UnityEditor.SerializedProperty actionsList = serializedObject.FindProperty("mapEvents");
+            UnityEditor.SerializedProperty mapEventsList = serializedObject.FindProperty("mapEvents");
             
             UnityEditor.EditorGUI.indentLevel += 1;
-            for (int actionIndex = 0; actionIndex < actionsList.arraySize; actionIndex++)
+            for (int mapEventIndex = 0; mapEventIndex < mapEventsList.arraySize; mapEventIndex++)
             {
                 EditorGUILayout.Space();
                 
                 using (new GUILayout.VerticalScope(EditorStyles.helpBox))
                 {
-                    SerializedProperty actionProperty = actionsList.GetArrayElementAtIndex(actionIndex);
+                    SerializedProperty mapEventProperty = mapEventsList.GetArrayElementAtIndex(mapEventIndex);
 
-                    MapEvent @event = ((MapEvent) attribute.mapEvents[actionIndex]);
+                    MapEvent @event = ((MapEvent) attribute.mapEvents[mapEventIndex]);
                     
-                    // Action name
+                    // MapEvent name
                     string eventName;
-                    if (@event.GetName().IsNullOrEmpty()) eventName = $"Event [{actionIndex}] ({@event.GetType().Name})";
-                    else eventName = $"'{@event.GetName()}' event [{actionIndex}] ({@event.GetType().Name})";
+                    if (@event.GetName().IsNullOrEmpty()) eventName = $"Event [{mapEventIndex}] ({@event.GetType().Name})";
+                    else eventName = $"'{@event.GetName()}' event [{mapEventIndex}] ({@event.GetType().Name})";
 
-                    EditorGUILayout.PropertyField(actionProperty, new GUIContent(eventName), true);
+                    EditorGUILayout.PropertyField(mapEventProperty, new GUIContent(eventName), true);
 
-                    /*//SatisfiedNeedsOfActionSection(action, actionIndex, actionProperty);
-                    //DemandedNeedsOfActionSection(action, actionIndex, actionProperty);
-                    //AddNeedsSection(action, actionIndex);*/
-                    
                     EditorGUILayout.Space();
                 }
                 
@@ -171,109 +145,7 @@ namespace Thoughts
             }
             UnityEditor.EditorGUI.indentLevel -= 1;
         }
-        
-        /*private void SatisfiedNeedsOfActionSection(MapAction action, int actionIndex, SerializedProperty actionProperty)
-        {
-            // START
-            EditorGUI.indentLevel += 1;
 
-            // CURRENT CONSEQUENCE NEEDS UPDATE
-            EditorGUILayout.Separator();
-            EditorGUILayout.LabelField("Consequence Update of Needs: ", EditorStyles.boldLabel);
-            //Debug.Log($"actionProperty 1 {actionProperty.type}");
-            SerializedProperty consequenceNeedsList = actionProperty.FindPropertyRelative("consequenceNeeds");
-            for (int needIndex = 0; needIndex < action.consequenceNeeds.Count; needIndex++)
-            {
-                SerializedProperty needProperty = consequenceNeedsList.GetArrayElementAtIndex(needIndex);
-                Debug.Log(needProperty != null);
-                //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"satisfiedNeeds.Array.data[{needIndex}]");
-
-                EditorGUILayout.BeginHorizontal();
-                string needName = $" • {needProperty.FindPropertyRelative($"need.name").stringValue}";
-                EditorGUILayout.PropertyField(needProperty, new GUIContent(needName), true);
-
-                SerializedProperty satisfactionProperty = needProperty.FindPropertyRelative("deltaSatisfactionAmount");
-                GUILayout.Label("Delta satisfaction:");
-                satisfactionProperty.intValue = EditorGUILayout.IntField(satisfactionProperty.intValue);
-                GUILayout.Label("  ");
-
-                EditorGUILayout.EndHorizontal();
-            }
-
-            
-            // END
-            EditorGUI.indentLevel -= 1;
-        }*/
-        
-        /*private void DemandedNeedsOfActionSection(MapAction action, int actionIndex, SerializedProperty actionProperty)
-        {
-            // START
-            EditorGUI.indentLevel += 1;
-
-            // CURRENT DEMANDED NEEDS
-            EditorGUILayout.Separator();
-            EditorGUILayout.LabelField("Required Needs: ", EditorStyles.boldLabel);
-            //Debug.Log($"actionProperty 1 {actionProperty.type}");
-            SerializedProperty demandedNeeds = actionProperty.FindPropertyRelative("requiredNeeds");
-            for (int needIndex = 0; needIndex < action.requiredNeeds.Count; needIndex++)
-            {
-                SerializedProperty needProperty = demandedNeeds.GetArrayElementAtIndex(needIndex);
-                //SerializedProperty needProperty = actionProperty.FindPropertyRelative($"satisfiedNeeds.Array.data[{needIndex}]");
-
-                EditorGUILayout.BeginHorizontal();
-                string needName = $" • {needProperty.FindPropertyRelative($"needType.m_Name").stringValue}";
-                EditorGUILayout.PropertyField(needProperty, new GUIContent(needName), true);
-
-                SerializedProperty satisfactionProperty = needProperty.FindPropertyRelative("requiredAmount");
-                GUILayout.Label("Demanded:");
-                satisfactionProperty.intValue = EditorGUILayout.IntField(satisfactionProperty.intValue);
-                GUILayout.Label("  ");
-
-                EditorGUILayout.EndHorizontal();
-            }
-
-            
-            // END
-            EditorGUI.indentLevel -= 1;
-        }*/
-        
-        /*private void AddNeedsSection(MapAction action, int actionIndex)
-        {
-            EditorGUILayout.Space();
-            EditorGUI.indentLevel += 1;
-            
-            if (needsImplementations == null)
-                needsImplementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<INeed>();
-
-            EditorGUILayout.BeginHorizontal();                
-            GUILayout.Label(" ");
-            selectedSatisfiedNeedImplementationIndex[actionIndex] = EditorGUILayout.Popup(new GUIContent(""), selectedSatisfiedNeedImplementationIndex[actionIndex], needsImplementations.Select(impl => impl.Name).ToArray());
-            EditorGUILayout.EndHorizontal();
-            
-            EditorGUILayout.BeginHorizontal();
-
-                GUILayout.Label("     ");
-
-                if (GUILayout.Button("Add consequence need"))
-                {
-                    if (action.consequenceNeeds == null)
-                        action.consequenceNeeds = new List<ConsequenceNeed>();
-                    Need newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedSatisfiedNeedImplementationIndex[actionIndex]]);
-                    action.consequenceNeeds.Add(new ConsequenceNeed(newNeed));
-                }
-
-                if (GUILayout.Button("Add required need"))
-                {
-                    if (action.requiredNeeds == null)
-                        action.requiredNeeds = new List<RequiredNeed>();
-                    Need newNeed = (Need) Activator.CreateInstance(needsImplementations[selectedSatisfiedNeedImplementationIndex[actionIndex]]);
-                    action.requiredNeeds.Add(new RequiredNeed(newNeed));
-                }
-
-            EditorGUI.indentLevel -= 1;
-            EditorGUILayout.EndHorizontal();
-        }*/
-        
     }
 }
 

@@ -12,23 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  relatedStats:
-  - stat: {fileID: 11400000, guid: 169a4b704da3ce84d995cd02c7f36c28, type: 2}
-    satisfactionAmount: 10
-    minimumDemandedSatisfactionAmount: 0
-  mapEvents:
-  - id: 0
+  relatedStats: []
+  mapEvents: []
   references:
     version: 1
-    00000000:
-      type: {class: ConsumeEvent, ns: , asm: Assembly-CSharp}
-      data:
-        _name: 
-        consequenceStats:
-        - stat: {fileID: 11400000, guid: 77faa6b295e2a1c4f8146f65b8c1d8ee, type: 2}
-          deltaSatisfactionAmount: 50
-        - stat: {fileID: 11400000, guid: 169a4b704da3ce84d995cd02c7f36c28, type: 2}
-          deltaSatisfactionAmount: -1
-        requiredStats:
-        - stat: {fileID: 11400000, guid: a16bfda1f8f280649b6a8fd9f583fc51, type: 2}
-          requiredAmount: 95

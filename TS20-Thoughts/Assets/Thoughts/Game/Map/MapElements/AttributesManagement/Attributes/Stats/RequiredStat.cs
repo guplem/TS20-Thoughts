@@ -10,25 +10,25 @@ namespace Thoughts.Needs
     {
         [SerializeField] public int requiredAmount;
         
-        public bool IsSatisfiedBy(MapElement executer, MapElement statOwner)
+        public bool IsSatisfiedBy(MapElement satisfyer, MapElement owner)
         {
             bool result = false;
             
             switch (stat.name)
             {
                 case "Closeness":
-                    result = Vector3.Distance(executer.transform.position,statOwner.transform.position) <= 100 - requiredAmount;
+                    result = Vector3.Distance(satisfyer.transform.position,owner.transform.position) <= 100 - requiredAmount;
                     //Debug.Log($"        -> Closeness is satisfied? : {result}");
                     break;
                 
                 
                 default:
-                    result = executer.attributeManager.CanSatisfyStat(this);
+                    result = satisfyer.attributeManager.CanSatisfyStat(this);
                     break;
             }
             
             
-            Debug.Log($"        - {executer} does " + (result?"":"not ") + $"satisfy stat {stat}. Required amount = {requiredAmount}.");
+            Debug.Log($"        - {satisfyer} does " + (result?"":"not ") + $"satisfy stat {stat}. Required amount = {requiredAmount}.");
             return result;
 
         }
