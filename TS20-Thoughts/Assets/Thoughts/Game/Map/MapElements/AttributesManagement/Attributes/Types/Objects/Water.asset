@@ -30,5 +30,5 @@ MonoBehaviour:
         - stat: {fileID: 11400000, guid: 169a4b704da3ce84d995cd02c7f36c28, type: 2}
           deltaSatisfactionAmount: -1
         requiredStats:
-        - stat: {fileID: 11400000, guid: 169a4b704da3ce84d995cd02c7f36c28, type: 2}
-          requiredAmount: 1
+        - stat: {fileID: 11400000, guid: a16bfda1f8f280649b6a8fd9f583fc51, type: 2}
+          requiredAmount: 95

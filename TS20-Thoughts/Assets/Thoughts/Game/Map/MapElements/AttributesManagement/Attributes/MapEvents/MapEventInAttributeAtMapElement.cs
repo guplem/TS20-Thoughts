@@ -4,13 +4,13 @@ using Thoughts;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 
-public class MapEventFromAttributeAtMapElement
+public class MapEventInAttributeAtMapElement
 {
     public MapEvent mapEvent;
     public Attribute attribute;
     public MapElement mapElement;
 
-    public MapEventFromAttributeAtMapElement(MapEvent mapEvent, Attribute attribute, MapElement mapElement)
+    public MapEventInAttributeAtMapElement(MapEvent mapEvent, Attribute attribute, MapElement mapElement)
     {
         this.mapElement = mapElement;
         this.mapEvent = mapEvent;

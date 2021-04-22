@@ -25,14 +25,21 @@ namespace Thoughts.Game.GameMap
         }
         public List<Stat> GetRequiredNeedsNotSatisfiedBy(MapElement executer, MapElement statOwner)
         {
-            Debug.Log($"Checking if '{executer}' satisfies the required stats for '{this}'");
+            Debug.Log($"    Checking if '{executer}' satisfies the required stats for '{this}' in '{statOwner}'");
             
             List<Stat> requiredNeedsNotSatisfiedByExecuter = new List<Stat>();
-            foreach (RequiredStat requiredNeed in requiredStats)
-            {
-                if (!requiredNeed.IsSatisfiedBy(executer, statOwner)) 
-                    requiredNeedsNotSatisfiedByExecuter.Add(requiredNeed.stat);
-            }
+            
+            if (requiredStats == null || requiredStats.Count <= 0)
+                Debug.Log($"        - No required stats exist for '{this}' in '{statOwner}'.");
+            else
+                foreach (RequiredStat requiredNeed in requiredStats)
+                {
+                    if (!requiredNeed.IsSatisfiedBy(executer, statOwner)) 
+                        requiredNeedsNotSatisfiedByExecuter.Add(requiredNeed.stat);
+                }
+            
+
+            
             return requiredNeedsNotSatisfiedByExecuter;
         }
 
@@ -65,6 +72,6 @@ namespace Thoughts.Game.GameMap
             }
             return true;
         }
-        public abstract void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventFromAttributeAtMapElement nextEventFromAttributeAtMapElement);
+        public abstract void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter);
     }
 }

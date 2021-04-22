@@ -19,7 +19,7 @@ namespace Thoughts.Needs
             return this.name;
         }
         
-        public virtual List<MapEventFromAttributeAtMapElement> GetEventsToSatisfyThisStat(MapElement needyMapElement, List<MapEventFromAttributeAtMapElement> mapEventsFromMapElements = null, int iteration = 0)
+        public virtual List<MapEventInAttributeAtMapElement> GetEventsToSatisfyThisStat(MapElement needyMapElement, List<MapEventInAttributeAtMapElement> mapEventsFromMapElements = null, int iteration = 0)
         {
             // Check if infinite loop
             if (iteration >= 50)
@@ -40,16 +40,19 @@ namespace Thoughts.Needs
             {
                 // Create returned list
                 if (mapEventsFromMapElements == null)
-                    mapEventsFromMapElements = new List<MapEventFromAttributeAtMapElement>();
+                    mapEventsFromMapElements = new List<MapEventInAttributeAtMapElement>();
                 
                 // Add the found event to the returned list
-                mapEventsFromMapElements.Add(new MapEventFromAttributeAtMapElement(eventToCoverNeedyStat, attributeWithEventToCoverNeed, mapElementWithEventToCoverNeed));
+                mapEventsFromMapElements.Add(new MapEventInAttributeAtMapElement(eventToCoverNeedyStat, attributeWithEventToCoverNeed, mapElementWithEventToCoverNeed));
                 
                 // Check if the event can be executed, if not, search how to solve the needed stat
-                List<Stat> needsToPerformAction = eventToCoverNeedyStat.GetRequiredNeedsNotSatisfiedBy(needyMapElement, mapElementWithEventToCoverNeed);
-                if (needsToPerformAction != null && needsToPerformAction.Count > 0)
+                List<Stat> statsToPerformEvent = eventToCoverNeedyStat.GetRequiredNeedsNotSatisfiedBy(needyMapElement, mapElementWithEventToCoverNeed);
+                if (statsToPerformEvent != null && statsToPerformEvent.Count > 0)
+                {
                     //foreach (Need needToPerformAction in needsToPerformAction) //ToDo: multiple enqueued lists - More than one stat might need to be covered
-                    return needsToPerformAction.ElementAt(0).GetEventsToSatisfyThisStat(needyMapElement, mapEventsFromMapElements, iteration + 1);
+                    List<MapEventInAttributeAtMapElement> mapEventsToCoverRequiredStats =  statsToPerformEvent.ElementAt(0).GetEventsToSatisfyThisStat(needyMapElement, mapEventsFromMapElements, iteration + 1);
+                    return mapEventsToCoverRequiredStats;
+                }
             }
             
             return mapEventsFromMapElements;

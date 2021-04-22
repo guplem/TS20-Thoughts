@@ -6,7 +6,7 @@ using Attribute = Thoughts.Attribute;
 
 public class ElapseTimeEvent : MapEvent
 {
-    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventFromAttributeAtMapElement nextEventFromAttributeAtMapElement)
+    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
     {
         if (!base.CanBeExecuted())
             return;

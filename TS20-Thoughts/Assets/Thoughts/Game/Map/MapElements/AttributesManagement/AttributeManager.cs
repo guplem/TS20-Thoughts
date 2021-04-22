@@ -45,13 +45,13 @@ public class AttributeManager
     
     public void ExecuteTimeElapseActions(MapElement mapElement)
     {
-        if (attributes != null && attributes.Count > 0)
-            Debug.Log($"# Inspecting '{mapElement}' for 'ElapseTimeAction' to execute.");
+        //if (attributes != null && attributes.Count > 0)
+        //    Debug.Log($"# Inspecting '{mapElement}' for 'ElapseTimeAction' to execute.");
 
         if (attributes != null)
             foreach (Attribute attribute in attributes)
             {
-                Debug.Log($"    - Checking if '{attribute}' has an 'ElapseTimeAction'.");
+                // Debug.Log($"    - Checking if '{attribute}' has an 'ElapseTimeAction'.");
                 List<IMapEvent> attributeEvents = attribute.mapEvents;
                 foreach (IMapEvent iMapEvent in attributeEvents)
                 {
@@ -59,7 +59,7 @@ public class AttributeManager
 
                     if (mapEvent.GetType() == typeof(ElapseTimeEvent))
                     {
-                        Debug.Log($"        · Executing action '{mapEvent}' of '{attribute}'.");
+                        Debug.Log($"        · Executing mapEvent '{mapEvent}' of '{attribute}' in '{mapElement}'.");
                         mapEvent.Execute(mapElement, mapElement, attribute,null); // To nobody with no next action in mid in the future (nxt action)
                     }
                 }

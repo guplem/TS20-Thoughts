@@ -19,30 +19,22 @@ namespace Thoughts.Game.GameMap
                get => _currentObjectiveStat;
                set
                {
-                    /*if (_currentObjectiveNeed == value) {
-                         Debug.Log($" >>> Skipping update to switch the current objective need from '{_currentObjectiveNeed}' to '{value}'");
-                         currentActionPath.DebugLog(", ","   |Current action path: ");
-                    }
-                    else
-                    {*/
                     _currentObjectiveStat = value;
-                    Debug.Log($"Updating current objective need for '{this}' to '{value}'.");
-                    //Debug.Log($"Current working need is '{currentWorkingNeed}'");
+                    Debug.Log($"► Updating current objective stat for '{this}' to '{value}'.");
                     currentActionPath = currentObjectiveStat.GetEventsToSatisfyThisStat(this);
                     if (currentActionPath == null)
-                         Debug.LogWarning($"An action path to take care of the need '{currentObjectiveStat}' was not found.");
+                         Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveStat}' was not found.");
                     else
                     {
-                         currentActionPath.DebugLog(", ", $"   |Found action path to cover need '{currentObjectiveStat}': ", gameObject);
+                         currentActionPath.DebugLog(", ", $"└> Map Events to perform to cover '{currentObjectiveStat}' stat: ", gameObject);
                          DoNextAction();    
                     }
-                    //}
 
                }
           }
           [CanBeNull]
           private Stat _currentObjectiveStat;
-          private List<MapEventFromAttributeAtMapElement> currentActionPath = new List<MapEventFromAttributeAtMapElement>();
+          private List<MapEventInAttributeAtMapElement> currentActionPath = new List<MapEventInAttributeAtMapElement>();
 
           private IEnumerator coroutineHolder;
           
@@ -84,11 +76,11 @@ namespace Thoughts.Game.GameMap
                
                // new MoveAction(elementToCoverNeed.gameObject.transform.position)
                int indexNextAction = currentActionPath.Count-1;
-               MapEventFromAttributeAtMapElement mapEventFromAttributeAtMapElement = currentActionPath.ElementAt(indexNextAction);
+               MapEventInAttributeAtMapElement mapEventInAttributeAtMapElement = currentActionPath.ElementAt(indexNextAction);
 
-               Debug.Log($"Executing action '{mapEventFromAttributeAtMapElement.mapEvent}'");
-               MapEventFromAttributeAtMapElement elementOwnerOfEventFromAttribute = indexNextAction >= 1 ? currentActionPath.ElementAt(indexNextAction - 1) : null;
-               mapEventFromAttributeAtMapElement.mapEvent.Execute(this, mapEventFromAttributeAtMapElement.mapElement, mapEventFromAttributeAtMapElement.attribute, elementOwnerOfEventFromAttribute);
+               Debug.Log($"        ◯ Executing action '{mapEventInAttributeAtMapElement.mapEvent}' by '{this}' in '{mapEventInAttributeAtMapElement.mapElement}' with attribute '{mapEventInAttributeAtMapElement.attribute}'");
+               MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter = indexNextAction >= 1 ? currentActionPath.ElementAt(indexNextAction - 1) : null;
+               mapEventInAttributeAtMapElement.mapEvent.Execute(this, mapEventInAttributeAtMapElement.mapElement, mapEventInAttributeAtMapElement.attribute, nextEnqueuedEventInExecuter);
             
                currentActionPath.RemoveAt(0);
           }

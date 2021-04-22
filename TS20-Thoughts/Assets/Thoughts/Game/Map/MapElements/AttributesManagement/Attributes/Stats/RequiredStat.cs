@@ -18,6 +18,7 @@ namespace Thoughts.Needs
             {
                 case "Closeness":
                     result = Vector3.Distance(executer.transform.position,statOwner.transform.position) <= 100 - requiredAmount;
+                    //Debug.Log($"        -> Closeness is satisfied? : {result}");
                     break;
                 
                 
@@ -27,7 +28,7 @@ namespace Thoughts.Needs
             }
             
             
-            Debug.Log($"{executer} does " + (result?"":"not ") + $"satisfy stat {stat}. Required amount = {requiredAmount}.");
+            Debug.Log($"        - {executer} does " + (result?"":"not ") + $"satisfy stat {stat}. Required amount = {requiredAmount}.");
             return result;
 
         }

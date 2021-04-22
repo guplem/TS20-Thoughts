@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class MoveEvent : MapEvent
 {
-    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventFromAttributeAtMapElement nextEventFromAttributeAtMapElement)
+    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
     {
-        if (nextEventFromAttributeAtMapElement == null)
+        if (nextEnqueuedEventInExecuter == null)
         {
             Debug.LogWarning($"Trying to move {executer} to the location of the next action (which does not exist).");
             return;
         }
         
-        Vector3 movePosition = nextEventFromAttributeAtMapElement.mapElement.transform.position;
+        Vector3 movePosition = nextEnqueuedEventInExecuter.mapElement.transform.position;
         //Debug.Log($"Executing MoveAction at {executer} to go to {movePosition}");
         executer.navMeshAgent.SetDestination(movePosition);
         executer.navMeshAgent.isStopped = false;

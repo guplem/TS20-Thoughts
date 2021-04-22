@@ -8,7 +8,7 @@ public class ConsumeEvent : MapEvent
 {
     public ConsumeEvent() { ;}
 
-    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventFromAttributeAtMapElement nextEventFromAttributeAtMapElement)
+    public override void Execute(MapElement executer, MapElement elementOwnerOfEvent, Attribute attributeOwnerOfEvent, MapEventInAttributeAtMapElement nextEnqueuedEventInExecuter)
     {
         elementOwnerOfEvent.attributeManager.AlterQuantity(attributeOwnerOfEvent, -1);
     }
