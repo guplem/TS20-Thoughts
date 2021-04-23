@@ -73,4 +73,24 @@ public class AttributeManager
         return false;
     }*/
 
+    public void UpdateAttribute(Attribute attributeToUpdate, int deltaValue)
+    {
+        foreach (Attribute managerAttribute in attributes)
+        {
+            if (managerAttribute == attributeToUpdate)
+                managerAttribute.value += deltaValue;
+            Debug.Log($"         > The new value for the attribute '{managerAttribute}' is = {managerAttribute.value}");
+        }
+    }
+    public List<Attribute> GetAttributesThatNeedCare()
+    {
+        List<Attribute> attributesThatNeedCare = new List<Attribute>();
+        foreach (Attribute attribute in attributes)
+        {
+            if (attribute.takeCare)
+                if (attribute.value < attribute.minValue)
+                    attributesThatNeedCare.Add(attribute);
+        }
+        return attributesThatNeedCare;
+    }
 }

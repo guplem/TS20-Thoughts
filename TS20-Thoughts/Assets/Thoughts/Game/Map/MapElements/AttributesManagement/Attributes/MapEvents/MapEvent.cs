@@ -48,14 +48,33 @@ namespace Thoughts.Game.GameMap
         public void Execute(MapElement executer, MapElement owner, MapElement target)
         {
             Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{owner}' with target '{target}'.");
-            throw new NotImplementedException();
+
+            foreach (AttributeUpdate attributeUpdate in consequences)
+            {
+                switch (attributeUpdate.affected)
+                {
+                    case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                        owner.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        break;
+                    case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                        executer.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        break;
+                    case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                        target.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            
+
             /*if (!CanBeExecuted(executer, owner))
             {
                 Debug.LogWarning($"Trying to execute event '{this}' but it can not be executed.");
                 return;
-            }
+            }*/
             
-            foreach (ConsequenceStat consequenceStat in consequenceStats)
+            /*foreach (ConsequenceStat consequenceStat in consequenceStats)
             {
                 switch (consequenceStat.affected)
                 {

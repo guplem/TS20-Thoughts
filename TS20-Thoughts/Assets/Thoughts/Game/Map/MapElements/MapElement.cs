@@ -21,15 +21,25 @@ namespace Thoughts.Game.GameMap
                get => _currentObjectiveAttribute;
                set
                {
+                    if (_currentObjectiveAttribute == value)
+                         return;
+                    
                     _currentObjectiveAttribute = value;
                     Debug.Log($"► Updating current objective stat for '{this}' to '{value}'.");
-                    currentExecutionPlans = currentObjectiveAttribute.GetExecutionPlanToSatisfyThisAttribute(this);
-                    if (currentExecutionPlans == null)
-                         Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute}' was not found.");
+                    if (value != null)
+                    {
+                         currentExecutionPlans = currentObjectiveAttribute.GetExecutionPlanToCoverThisAttribute(this);
+                         if (currentExecutionPlans == null)
+                              Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute}' was not found.");
+                         else
+                         {
+                              currentExecutionPlans.DebugLog(", ", $"└> Map Events to perform to cover '{currentObjectiveAttribute}' stat: ", gameObject);
+                              DoNextMapEvent();    
+                         }
+                    }
                     else
                     {
-                         currentExecutionPlans.DebugLog(", ", $"└> Map Events to perform to cover '{currentObjectiveAttribute}' stat: ", gameObject);
-                         DoNextMapEvent();    
+                         currentExecutionPlans = null;
                     }
 
                }
@@ -92,10 +102,23 @@ namespace Thoughts.Game.GameMap
                     // Set the time to wait until continuing the execution
                     yield return new WaitForSeconds(1f);
                     attributeManager.ExecuteTimeElapseActions(this);
+                    SetObjectiveAttribute();
                }
                
           }
-          
+          private void SetObjectiveAttribute()
+          {
+               List<Attribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
+               if (attributesThatNeedCare == null || attributesThatNeedCare.Count <= 0)
+                    currentObjectiveAttribute = null;
+               else
+                    currentObjectiveAttribute = attributesThatNeedCare.ElementAt(0);
+          }
+
+          public void UpdateAttribute(Attribute attribute, int deltaValue)
+          {
+               attributeManager.UpdateAttribute(attribute, deltaValue);
+          }
      }
      
      

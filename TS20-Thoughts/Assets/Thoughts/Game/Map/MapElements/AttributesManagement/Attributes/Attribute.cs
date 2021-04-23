@@ -20,7 +20,7 @@ namespace Thoughts
         
         public new string name => base.name;
         
-        public List<ExecutionPlan> GetExecutionPlanToSatisfyThisAttribute(MapElement mapElement)
+        public List<ExecutionPlan> GetExecutionPlanToCoverThisAttribute(MapElement attributeOwnergi)
         {
             // Look for all MapEvents that, as consequence of the event, they make the attribute value increase.
                 //Be aware that the event consequence can be in 'mode' target, owner or executer 
