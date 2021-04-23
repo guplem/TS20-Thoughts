@@ -11,6 +11,21 @@ public class UIAttribute : UIPovRowElement
     {
         Initialize(visualizer);
         this.attribute = attribute;
-        name.text = attribute.name;
+        UpdateVisuals();
+    }
+    
+    
+    private string GetText()
+    {
+        string ret =attribute.name;
+        ret += '\n';
+
+        ret += $"{attribute.value}/{attribute.minValue}";
+        
+        return ret;
+    }
+    protected override void UpdateVisuals()
+    {
+        name.text = GetText();
     }
 }

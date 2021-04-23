@@ -14,7 +14,7 @@ public class UIMapEvent : UIPovRowElement
     {
         Initialize(visualizer);
         this.mapEvent = mapEvent;
-        name.text = GetText();
+        UpdateVisuals();
     }
     
     private string GetText()
@@ -33,5 +33,10 @@ public class UIMapEvent : UIPovRowElement
             ret += $" - {consequence.attribute} ({consequence.value})\n";
         
         return ret;
+    }
+    
+    protected override void UpdateVisuals()
+    {
+        name.text = GetText();
     }
 }

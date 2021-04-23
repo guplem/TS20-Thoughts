@@ -56,6 +56,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIPov
       objectReference: {fileID: 0}
+    - target: {fileID: 5146373145104440670, guid: b65725c03f8a4d540a9638488c19e59d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 7862442708098139926, guid: b65725c03f8a4d540a9638488c19e59d, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -99,6 +103,10 @@ PrefabInstance:
     - target: {fileID: 7862442708098139926, guid: b65725c03f8a4d540a9638488c19e59d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8917703459571281534, guid: b65725c03f8a4d540a9638488c19e59d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b65725c03f8a4d540a9638488c19e59d, type: 3}

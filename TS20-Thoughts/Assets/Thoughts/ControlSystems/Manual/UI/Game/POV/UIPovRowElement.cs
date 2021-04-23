@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using Attribute = Thoughts.Attribute;
 
-public class UIPovRowElement : MonoBehaviour
+public abstract class UIPovRowElement : MonoBehaviour
 {
     private Transform lookAtTarget;
 
@@ -17,5 +17,5 @@ public class UIPovRowElement : MonoBehaviour
         UpdateVisuals();
     }
 
-    protected virtual void UpdateVisuals() { }
+    protected abstract void UpdateVisuals();
 }
