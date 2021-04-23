@@ -129,16 +129,20 @@ namespace Thoughts.Game.GameMap
             return null;
         }*/
 
-        public MapEvent GetExecutionPlanToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected)
+        public MapEvent GetExecutionPlanToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out MapElement ownerOfFoundMapEvent)
         {
-            MapEvent found = null;
+            MapEvent foundMapEvent = null;
+            MapElement mapElementOfFoundMapEvent = null;
+            
             foreach (MapElement mapElement in mapElements)
             {
-                found = mapElement.GetMapEventToTakeCareOf(attribute, affected);
-                if (found != null)
+                foundMapEvent = mapElement.GetMapEventToTakeCareOf(attribute, affected, out mapElementOfFoundMapEvent);
+                if (foundMapEvent != null)
                     break;
             }
-            return found;
+            
+            ownerOfFoundMapEvent = mapElementOfFoundMapEvent;
+            return foundMapEvent;
         }
         
     }

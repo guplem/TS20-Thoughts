@@ -20,7 +20,7 @@ namespace Thoughts.Game.GameMap
             ownerAttribute = newOwner;
         }
 
-        public void Execute(MapElement executer, MapElement target)
+        public void Execute(MapElement executer, MapElement target, MapElement owner)
         {
             // Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{ownerAttribute}' with target '{target}'.");
 
@@ -29,8 +29,7 @@ namespace Thoughts.Game.GameMap
                 switch (attributeUpdate.affected)
                 {
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                        MapElement ownerMapElement = ownerAttribute.ownerAttributeManager.ownerMapElement;
-                        ownerMapElement.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        owner.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
                     break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
                         executer.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);

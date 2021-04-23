@@ -10,7 +10,7 @@ public class UIMapEventsManager : UIPovRow
     [SerializeField] private GameObject uiMapEventPrefab;
     private List<UIMapEvent> uiMapEvents = new List<UIMapEvent>();
 
-    public void ShowUIFor(MapElement mapElement, Attribute attribute)
+    public void ShowUIFor(MapElement mapElement, OwnedAttribute attribute)
     {
         this.gameObject.SetActive(mapElement != null && attribute != null);
         if (mapElement == null || attribute == null )
@@ -18,8 +18,8 @@ public class UIMapEventsManager : UIPovRow
 
         Clear();
 
-        List<MapEvent> mapEvents = attribute.mapEvents.Cast<MapEvent>().ToList();
-        for (int mapEventIndex = 0; mapEventIndex < attribute.mapEvents.Count; mapEventIndex++)
+        List<MapEvent> mapEvents = attribute.attribute.mapEvents.Cast<MapEvent>().ToList();
+        for (int mapEventIndex = 0; mapEventIndex < attribute.attribute.mapEvents.Count; mapEventIndex++)
         {
             UIMapEvent uiMapEvent = Instantiate(uiMapEventPrefab, GetLocationPosition(mapEventIndex),Quaternion.identity , this.transform).GetComponentRequired<UIMapEvent>();
             Transform visualizer = mapElement.transform;

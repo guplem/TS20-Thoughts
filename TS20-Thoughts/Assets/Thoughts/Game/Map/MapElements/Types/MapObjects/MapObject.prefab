@@ -16,7 +16,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &-845008225306030280
+--- !u!114 &2562710155873659894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -28,8 +28,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1400de9073d52404da30091ed6e00411, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventory:
-    items: []
+  attributeManager:
+    _attributes: []
 --- !u!1001 &5863722872147554148
 PrefabInstance:
   m_ObjectHideFlags: 0

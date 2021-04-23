@@ -10,26 +10,29 @@ public class AttributeManager
 {
     public MapElement ownerMapElement { get; private set; }
 
-    public List<Attribute> attributes
+    public List<OwnedAttribute> attributes
     {
         get { return _attributes;}
         private set { _attributes = value; }
     }
-    [SerializeField] private List<Attribute> _attributes = new List<Attribute>();
+    [SerializeField] private List<OwnedAttribute> _attributes = new List<OwnedAttribute>();
+    
+    //[SerializeField] private float deleteThis;
+    //[SerializeField] private List<DummyClass> dummyClassList = new List<DummyClass>();
 
-    public void Initialize(MapElement newOwner)
+    public void Initialize(MapElement owner)
     {
-        for (int i = 0; i < attributes.Count; i++)
+        /*for (int i = 0; i < attributes.Count; i++)
         {
             Attribute attributeToInstantiate = attributes[i];
             Attribute instantiatedAttribute = Object.Instantiate(attributeToInstantiate);
             instantiatedAttribute.name = attributeToInstantiate.name;
             attributes[i] = instantiatedAttribute;
-        }
+        }*/
 
-        ownerMapElement = newOwner;
-        foreach (Attribute attribute in attributes)
-            attribute.UpdateOwner(this);
+        ownerMapElement = owner;
+        foreach (OwnedAttribute attributeStats in attributes)
+            attributeStats.UpdateOwner(ownerMapElement);
     }
     
     /*public MapEvent GetAvailableActionToCoverAttribute(Attribute attributeToCover, MapElement mapElement, out Attribute attributeWithEventToCoverNeed, out MapEvent mapEventToCoverAttribute)
@@ -50,17 +53,17 @@ public class AttributeManager
         return null;
     }*/
     
-    public void ExecuteTimeElapseActions(MapElement mapElement)
+    public void ExecuteSelfTimeElapseActions()
     {
         if (attributes != null)
-            foreach (Attribute attribute in attributes)
+            foreach (OwnedAttribute attribute in attributes)
             {
-                foreach (MapEvent attributeMapEvent in attribute.mapEvents)
+                foreach (MapEvent attributeMapEvent in attribute.attribute.mapEvents)
                 {
                     if (attributeMapEvent.executeWithTimeElapse)
                     {
                         //Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
-                        attributeMapEvent.Execute(mapElement, mapElement);
+                        attributeMapEvent.Execute(ownerMapElement, ownerMapElement, ownerMapElement);
                     }
                 }
             }
@@ -84,17 +87,17 @@ public class AttributeManager
 
     public void UpdateAttribute(Attribute attributeToUpdate, int deltaValue)
     {
-        foreach (Attribute managerAttribute in attributes)
+        foreach (OwnedAttribute managerAttribute in attributes)
         {
-            if (managerAttribute == attributeToUpdate)
+            if (managerAttribute.attribute == attributeToUpdate)
                 managerAttribute.value += deltaValue;
             //Debug.Log($"         > The new value for the attribute '{managerAttribute}' in '{ownerMapElement}' is = {managerAttribute.value}");
         }
     }
-    public List<Attribute> GetAttributesThatNeedCare()
+    public List<OwnedAttribute> GetAttributesThatNeedCare()
     {
-        List<Attribute> attributesThatNeedCare = new List<Attribute>();
-        foreach (Attribute attribute in attributes)
+        List<OwnedAttribute> attributesThatNeedCare = new List<OwnedAttribute>();
+        foreach (OwnedAttribute attribute in attributes)
         {
             if (attribute.takeCare)
                 if (attribute.value < attribute.minValue)
@@ -110,9 +113,9 @@ public class AttributeManager
     /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate</returns>
     public bool Meets(AttributeUpdate requirement)
     {
-        foreach (Attribute attribute in attributes)
-            if (requirement.attribute == attribute)
-                if (requirement.value <= attribute.value)
+        foreach (OwnedAttribute ownedAttribute in attributes)
+            if (requirement.attribute == ownedAttribute.attribute)
+                if (requirement.value <= ownedAttribute.value)
                     return true;
 
         return false;

@@ -16,7 +16,7 @@ namespace Thoughts.Game.GameMap
           
           private List<ExecutionPlan> currentExecutionPlans = new List<ExecutionPlan>();
           
-          private Attribute currentObjectiveAttribute
+          private OwnedAttribute currentObjectiveAttribute
           {
                get => _currentObjectiveAttribute;
                set
@@ -25,14 +25,14 @@ namespace Thoughts.Game.GameMap
                          return;
                     
                     _currentObjectiveAttribute = value;
-                    Debug.Log($"► Updating current objective attribute for '{this}' to '{value}'.");
+                    Debug.Log($"► Updating current objective attribute for '{this}' to '{(value!=null?value.attribute.name:"null")}'.");
                     if (value != null)
                     {
                          currentExecutionPlans = currentObjectiveAttribute.GetExecutionPlanToCoverThisAttribute(this);
                          if (currentExecutionPlans == null)
-                              Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute}' was not found.");
+                              Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
                          else
-                              currentExecutionPlans.DebugLog(", ", $"└> Map Events to execute to cover '{currentObjectiveAttribute}': ", gameObject);
+                              currentExecutionPlans.DebugLog(", ", $"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}': ", gameObject);
 
                     }
                     else
@@ -42,7 +42,7 @@ namespace Thoughts.Game.GameMap
 
                }
           }
-          [CanBeNull] private Attribute _currentObjectiveAttribute;
+          [CanBeNull] private OwnedAttribute _currentObjectiveAttribute;
 
           private IEnumerator coroutineHolder;
           
@@ -114,7 +114,7 @@ namespace Thoughts.Game.GameMap
                {
                     // Set the time to wait until continuing the execution
                     yield return new WaitForSeconds(1f);
-                    attributeManager.ExecuteTimeElapseActions(this);
+                    attributeManager.ExecuteSelfTimeElapseActions();
                     SetObjectiveAttribute();
                     DoNextMapEvent();
                }
@@ -122,7 +122,7 @@ namespace Thoughts.Game.GameMap
           }
           private void SetObjectiveAttribute()
           {
-               List<Attribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
+               List<OwnedAttribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
                if (attributesThatNeedCare == null || attributesThatNeedCare.Count <= 0)
                     currentObjectiveAttribute = null;
                else
@@ -133,14 +133,18 @@ namespace Thoughts.Game.GameMap
           {
                attributeManager.UpdateAttribute(attribute, deltaValue);
           }
-          public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected)
+          public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out MapElement ownerOfFoundMapEvent)
           {
                // Debug.Log($">>> Searching to take care of {attribute} in {this}", this);
-               foreach (Attribute attributeManagerAttribute in attributeManager.attributes)
-                    foreach (MapEvent mapEvent in attributeManagerAttribute.mapEvents)
+               foreach (OwnedAttribute attributeManagerAttribute in attributeManager.attributes)
+                    foreach (MapEvent mapEvent in attributeManagerAttribute.attribute.mapEvents)
                          foreach (AttributeUpdate consequence in mapEvent.consequences)
                               if (consequence.attribute == attribute && consequence.affected == affected && consequence.value > 0)
+                              {
+                                   ownerOfFoundMapEvent = attributeManager.ownerMapElement;
                                    return mapEvent;
+                              }
+               ownerOfFoundMapEvent = null;
                return null;
           }
      }

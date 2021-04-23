@@ -8,17 +8,18 @@ public class ExecutionPlan
 {
     
     public MapEvent mapEvent { get; private set; }
-    public MapElement eventOwner { get => mapEvent.ownerAttribute.ownerAttributeManager.ownerMapElement; }
+    public MapElement eventOwner { get; private set; } //{ get => mapEvent.ownerAttribute.ownerAttributeManager.ownerMapElement; }
     public MapElement executer { get; private set; }
     public MapElement target { get; private set; }
 
     public Vector3 executionLocation => eventOwner.transform.position;
 
-    public ExecutionPlan(MapEvent mapEvent/*, MapElement owner*/, MapElement executer, MapElement target)
+    public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner)
     {
         this.mapEvent = mapEvent;
         this.executer = executer;
         this.target = target;
+        this.eventOwner = eventOwner;
     }
 
     public override string ToString()
@@ -34,7 +35,7 @@ public class ExecutionPlan
     {
         if (CanBeExecuted())
         {
-            mapEvent.Execute(executer, target);
+            mapEvent.Execute(executer, target, eventOwner);
             return true;
         }
 

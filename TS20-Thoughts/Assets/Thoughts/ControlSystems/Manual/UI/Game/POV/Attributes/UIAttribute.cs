@@ -4,10 +4,10 @@ using Attribute = Thoughts.Attribute;
 
 public class UIAttribute : UIPovRowElement
 {
-    public Attribute attribute { get; private set; }
+    public OwnedAttribute attribute { get; private set; }
     [SerializeField] private new TextMeshPro name;
     
-    public void Initialize(Attribute attribute, Transform visualizer)
+    public void Initialize(OwnedAttribute attribute, Transform visualizer)
     {
         Initialize(visualizer);
         this.attribute = attribute;
@@ -17,7 +17,7 @@ public class UIAttribute : UIPovRowElement
     
     private string GetText()
     {
-        string ret =attribute.name;
+        string ret = attribute.attribute.name;
         ret += '\n';
 
         ret += $"{attribute.value}/{attribute.minValue}";
