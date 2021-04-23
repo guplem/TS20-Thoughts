@@ -18,6 +18,8 @@ MonoBehaviour:
   type: 0
   mapEvents:
   - name: Drink
+    maxDistance: 3
+    executeWithTimeElapse: 0
     consequences:
     - attribute: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
       value: 10
@@ -29,5 +31,3 @@ MonoBehaviour:
     - attribute: {fileID: 11400000}
       value: 1
       affected: 0
-    executeWithTimeElapse: 0
-    maxDistance: 5

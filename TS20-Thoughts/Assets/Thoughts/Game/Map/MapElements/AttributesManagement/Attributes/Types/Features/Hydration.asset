@@ -12,12 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Hydration
   m_EditorClassIdentifier: 
-  value: 10
+  value: 6
   minValue: 5
   takeCare: 1
   type: 1
   mapEvents:
   - name: Get Thirsty
+    maxDistance: -1
+    executeWithTimeElapse: 1
     consequences:
     - attribute: {fileID: 11400000}
       value: -1
@@ -26,5 +28,3 @@ MonoBehaviour:
     - attribute: {fileID: 11400000}
       value: 1
       affected: 0
-    executeWithTimeElapse: 1
-    maxDistance: -1

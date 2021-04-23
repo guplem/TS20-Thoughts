@@ -32,10 +32,8 @@ namespace Thoughts.Game.GameMap
                          if (currentExecutionPlans == null)
                               Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute}' was not found.");
                          else
-                         {
                               currentExecutionPlans.DebugLog(", ", $"└> Map Events to execute to cover '{currentObjectiveAttribute}': ", gameObject);
-                              DoNextMapEvent();    
-                         }
+
                     }
                     else
                     {
@@ -60,7 +58,7 @@ namespace Thoughts.Game.GameMap
                     StopCoroutine(coroutineHolder);
 
                //Assign the coroutine to the holder
-               coroutineHolder = InventoryTimeElapse();
+               coroutineHolder = Clock();
                //Run the coroutine
                StartCoroutine(coroutineHolder);
 
@@ -79,22 +77,38 @@ namespace Thoughts.Game.GameMap
           {
                if (currentExecutionPlans == null || currentExecutionPlans.Count <=0 )
                {
-                    Debug.LogError($"Trying to execute the next map event in the execution plan of '{this}', but it does not exist. The Execution Plan is null or empty.");
+                    //Debug.LogError($"Trying to execute the next map event in the execution plan of '{this}', but it does not exist. The Execution Plan is null or empty.");
                     return;
                }
                
                // new MoveAction(elementToCoverNeed.gameObject.transform.position)
                int indexNextAction = currentExecutionPlans.Count-1;
-               ExecutionPlan mapEventInAttributeAtMapElement = currentExecutionPlans.ElementAt(indexNextAction);
-
-               Debug.Log($"        ◯ Executing map event '{mapEventInAttributeAtMapElement}'.");
-               //MapEvent nextEnqueuedEventInExecuter = indexNextAction >= 1 ? currentExecutionPlans.ElementAt(indexNextAction - 1) : null;
-               //mapEventInAttributeAtMapElement.Execute(this, mapEventInAttributeAtMapElement, mapEventInAttributeAtMapElement.attribute, nextEnqueuedEventInExecuter);
-               mapEventInAttributeAtMapElement.Execute();
-               currentExecutionPlans.RemoveAt(0);
+               ExecutionPlan executionPlan = currentExecutionPlans.ElementAt(indexNextAction);
+               
+               if (!executionPlan.AreRequirementsMet())
+               {
+                    Debug.LogWarning("REQUIREMENTS NOT MET"); //TODO: DELETE THIS LINE
+                    throw new NotImplementedException();
+               }
+               else if (!executionPlan.IsDistanceMet())
+               {
+                    Debug.Log($"Moving '{this}' to '{executionPlan.executionLocation}' to execute '{executionPlan.mapEvent}'");
+                    executionPlan.executer.MoveTo(executionPlan.executionLocation);
+               }
+               else
+               {
+                    Debug.Log($"        ◯ Executing next map event: '{executionPlan}'.");
+                    if (executionPlan.Execute())
+                         currentExecutionPlans.RemoveAt(0);
+               }
           }
-          
-          private IEnumerator InventoryTimeElapse()
+          private void MoveTo(Vector3 location)
+          {
+               navMeshAgent.SetDestination(location);
+               navMeshAgent.isStopped = false;
+          }
+
+          private IEnumerator Clock()
           {
                while (true)
                {
@@ -102,6 +116,7 @@ namespace Thoughts.Game.GameMap
                     yield return new WaitForSeconds(1f);
                     attributeManager.ExecuteTimeElapseActions(this);
                     SetObjectiveAttribute();
+                    DoNextMapEvent();
                }
                
           }
@@ -120,6 +135,7 @@ namespace Thoughts.Game.GameMap
           }
           public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected)
           {
+               // Debug.Log($">>> Searching to take care of {attribute} in {this}", this);
                foreach (Attribute attributeManagerAttribute in attributeManager.attributes)
                     foreach (MapEvent mapEvent in attributeManagerAttribute.mapEvents)
                          foreach (AttributeUpdate consequence in mapEvent.consequences)

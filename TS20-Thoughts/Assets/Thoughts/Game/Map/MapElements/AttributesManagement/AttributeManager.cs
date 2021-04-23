@@ -59,7 +59,7 @@ public class AttributeManager
                 {
                     if (attributeMapEvent.executeWithTimeElapse)
                     {
-                        Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
+                        //Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
                         attributeMapEvent.Execute(mapElement, mapElement);
                     }
                 }
@@ -88,7 +88,7 @@ public class AttributeManager
         {
             if (managerAttribute == attributeToUpdate)
                 managerAttribute.value += deltaValue;
-            Debug.Log($"         > The new value for the attribute '{managerAttribute}' in '{ownerMapElement}' is = {managerAttribute.value}");
+            //Debug.Log($"         > The new value for the attribute '{managerAttribute}' in '{ownerMapElement}' is = {managerAttribute.value}");
         }
     }
     public List<Attribute> GetAttributesThatNeedCare()
@@ -101,5 +101,20 @@ public class AttributeManager
                     attributesThatNeedCare.Add(attribute);
         }
         return attributesThatNeedCare;
+    }
+    
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="requirement"></param>
+    /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate</returns>
+    public bool Meets(AttributeUpdate requirement)
+    {
+        foreach (Attribute attribute in attributes)
+            if (requirement.attribute == attribute)
+                if (requirement.value <= attribute.value)
+                    return true;
+
+        return false;
     }
 }

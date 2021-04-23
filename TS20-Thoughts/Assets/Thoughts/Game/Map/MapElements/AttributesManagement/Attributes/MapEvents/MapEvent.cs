@@ -9,10 +9,10 @@ namespace Thoughts.Game.GameMap
     public class MapEvent
     {
         [SerializeField] public string name = "";
+        [SerializeField] public float maxDistance = 5f;
+        [SerializeField] public bool executeWithTimeElapse = false;
         [SerializeField] public List<AttributeUpdate> consequences = new List<AttributeUpdate>();
         [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
-        [SerializeField] public bool executeWithTimeElapse = false;
-        [SerializeField] public float maxDistance = 5f;
         
         public Attribute ownerAttribute { get; private set; }
         public void UpdateOwner(Attribute newOwner)
@@ -31,13 +31,13 @@ namespace Thoughts.Game.GameMap
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
                         MapElement ownerMapElement = ownerAttribute.ownerAttributeManager.ownerMapElement;
                         ownerMapElement.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
-                        break;
+                    break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
                         executer.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
-                        break;
+                    break;
                     case AttributeUpdate.AttributeUpdateAffected.eventTarget:
                         target.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
-                        break;
+                    break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
