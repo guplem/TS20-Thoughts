@@ -22,7 +22,7 @@ namespace Thoughts.Game.GameMap
 
         public void Execute(MapElement executer, MapElement target)
         {
-            Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{ownerAttribute}' with target '{target}'.");
+            // Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{ownerAttribute}' with target '{target}'.");
 
             foreach (AttributeUpdate attributeUpdate in consequences)
             {

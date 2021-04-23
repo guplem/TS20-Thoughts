@@ -92,12 +92,12 @@ namespace Thoughts.Game.GameMap
                }
                else if (!executionPlan.IsDistanceMet())
                {
-                    Debug.Log($"Moving '{this}' to '{executionPlan.executionLocation}' to execute '{executionPlan.mapEvent}'");
+                    // Debug.Log($"Moving '{this}' to '{executionPlan.executionLocation}' to execute '{executionPlan.mapEvent}'");
                     executionPlan.executer.MoveTo(executionPlan.executionLocation);
                }
                else
                {
-                    Debug.Log($"        ◯ Executing next map event: '{executionPlan}'.");
+                    Debug.Log($"        ◯ Executing next map event: {executionPlan}.");
                     if (executionPlan.Execute())
                          currentExecutionPlans.RemoveAt(0);
                }
