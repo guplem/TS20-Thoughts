@@ -52,13 +52,13 @@ namespace Thoughts.Game.GameMap
             spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
             generatedMapObjects.Add(spawnedElement);
             
-            //Rocks
-            spawnableGameObject = GetSpawnableGameObject("rock");
+            //Rocks //ToDo: remove next comment
+            /*spawnableGameObject = GetSpawnableGameObject("rock");
             for (int i = 0; i < 30; i++)
             {
                 spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
                 generatedMapObjects.Add(spawnedElement);
-            }
+            }*/
 
             return generatedMapObjects;
         }
@@ -128,6 +128,18 @@ namespace Thoughts.Game.GameMap
             mapEventToCoverAttribute = null;
             return null;
         }*/
+
+        public MapEvent GetExecutionPlanToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected)
+        {
+            MapEvent found = null;
+            foreach (MapElement mapElement in mapElements)
+            {
+                found = mapElement.GetMapEventToTakeCareOf(attribute, affected);
+                if (found != null)
+                    break;
+            }
+            return found;
+        }
         
     }
 }

@@ -25,7 +25,7 @@ namespace Thoughts.Game.GameMap
                          return;
                     
                     _currentObjectiveAttribute = value;
-                    Debug.Log($"► Updating current objective stat for '{this}' to '{value}'.");
+                    Debug.Log($"► Updating current objective attribute for '{this}' to '{value}'.");
                     if (value != null)
                     {
                          currentExecutionPlans = currentObjectiveAttribute.GetExecutionPlanToCoverThisAttribute(this);
@@ -33,7 +33,7 @@ namespace Thoughts.Game.GameMap
                               Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute}' was not found.");
                          else
                          {
-                              currentExecutionPlans.DebugLog(", ", $"└> Map Events to perform to cover '{currentObjectiveAttribute}' stat: ", gameObject);
+                              currentExecutionPlans.DebugLog(", ", $"└> Map Events to execute to cover '{currentObjectiveAttribute}': ", gameObject);
                               DoNextMapEvent();    
                          }
                     }
@@ -52,7 +52,7 @@ namespace Thoughts.Game.GameMap
           
           private void Awake()
           {
-               attributeManager.Initialize();
+               attributeManager.Initialize(this);
                
                // Ensure that we are not going to lose the track of a previous coroutine 
                // if we lose it, we'll not be able to stop it.
@@ -77,22 +77,21 @@ namespace Thoughts.Game.GameMap
           
           private void DoNextMapEvent()
           {
-               throw new NotImplementedException();
-               /*if (currentExecutionPlans == null || currentExecutionPlans.Count <=0 )
+               if (currentExecutionPlans == null || currentExecutionPlans.Count <=0 )
                {
-                    Debug.LogError($"Trying to execute the next map event of '{this}' but it does not exist. The action path is null or empty.");
+                    Debug.LogError($"Trying to execute the next map event in the execution plan of '{this}', but it does not exist. The Execution Plan is null or empty.");
                     return;
                }
                
                // new MoveAction(elementToCoverNeed.gameObject.transform.position)
                int indexNextAction = currentExecutionPlans.Count-1;
-               MapEvent mapEventInAttributeAtMapElement = currentExecutionPlans.ElementAt(indexNextAction).mapEvent;
+               ExecutionPlan mapEventInAttributeAtMapElement = currentExecutionPlans.ElementAt(indexNextAction);
 
-               Debug.Log($"        ◯ Executing map event '{mapEventInAttributeAtMapElement}' by '{this}' in '{mapEventInAttributeAtMapElement.mapElement}' with attribute '{mapEventInAttributeAtMapElement.attribute}'");
-               MapEvent nextEnqueuedEventInExecuter = indexNextAction >= 1 ? currentExecutionPlans.ElementAt(indexNextAction - 1) : null;
-               mapEventInAttributeAtMapElement.Execute(this, mapEventInAttributeAtMapElement, mapEventInAttributeAtMapElement.attribute, nextEnqueuedEventInExecuter);
-            
-               currentExecutionPlans.RemoveAt(0);*/
+               Debug.Log($"        ◯ Executing map event '{mapEventInAttributeAtMapElement}'.");
+               //MapEvent nextEnqueuedEventInExecuter = indexNextAction >= 1 ? currentExecutionPlans.ElementAt(indexNextAction - 1) : null;
+               //mapEventInAttributeAtMapElement.Execute(this, mapEventInAttributeAtMapElement, mapEventInAttributeAtMapElement.attribute, nextEnqueuedEventInExecuter);
+               mapEventInAttributeAtMapElement.Execute();
+               currentExecutionPlans.RemoveAt(0);
           }
           
           private IEnumerator InventoryTimeElapse()
@@ -118,6 +117,15 @@ namespace Thoughts.Game.GameMap
           public void UpdateAttribute(Attribute attribute, int deltaValue)
           {
                attributeManager.UpdateAttribute(attribute, deltaValue);
+          }
+          public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected)
+          {
+               foreach (Attribute attributeManagerAttribute in attributeManager.attributes)
+                    foreach (MapEvent mapEvent in attributeManagerAttribute.mapEvents)
+                         foreach (AttributeUpdate consequence in mapEvent.consequences)
+                              if (consequence.attribute == attribute && consequence.affected == affected && consequence.value > 0)
+                                   return mapEvent;
+               return null;
           }
      }
      

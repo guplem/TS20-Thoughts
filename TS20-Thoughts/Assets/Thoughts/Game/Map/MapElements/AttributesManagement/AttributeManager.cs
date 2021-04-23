@@ -8,6 +8,8 @@ using Object = UnityEngine.Object;
 [Serializable]
 public class AttributeManager
 {
+    public MapElement ownerMapElement { get; private set; }
+
     public List<Attribute> attributes
     {
         get { return _attributes;}
@@ -15,12 +17,19 @@ public class AttributeManager
     }
     [SerializeField] private List<Attribute> _attributes = new List<Attribute>();
 
-    public void Initialize()
+    public void Initialize(MapElement newOwner)
     {
         for (int i = 0; i < attributes.Count; i++)
         {
-            attributes[i] = Object.Instantiate(attributes[i]);
+            Attribute attributeToInstantiate = attributes[i];
+            Attribute instantiatedAttribute = Object.Instantiate(attributeToInstantiate);
+            instantiatedAttribute.name = attributeToInstantiate.name;
+            attributes[i] = instantiatedAttribute;
         }
+
+        ownerMapElement = newOwner;
+        foreach (Attribute attribute in attributes)
+            attribute.UpdateOwner(this);
     }
     
     /*public MapEvent GetAvailableActionToCoverAttribute(Attribute attributeToCover, MapElement mapElement, out Attribute attributeWithEventToCoverNeed, out MapEvent mapEventToCoverAttribute)
@@ -51,7 +60,7 @@ public class AttributeManager
                     if (attributeMapEvent.executeWithTimeElapse)
                     {
                         Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
-                        attributeMapEvent.Execute(mapElement, mapElement, mapElement);
+                        attributeMapEvent.Execute(mapElement, mapElement);
                     }
                 }
             }
