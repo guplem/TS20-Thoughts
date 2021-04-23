@@ -20,7 +20,7 @@ MonoBehaviour:
   - name: Drink
     consequences:
     - attribute: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
-      value: 1
+      value: 10
       affected: 1
     - attribute: {fileID: 11400000}
       value: -1

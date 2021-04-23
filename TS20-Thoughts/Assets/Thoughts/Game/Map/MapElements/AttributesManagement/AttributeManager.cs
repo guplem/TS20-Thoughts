@@ -88,7 +88,7 @@ public class AttributeManager
         {
             if (managerAttribute == attributeToUpdate)
                 managerAttribute.value += deltaValue;
-            Debug.Log($"         > The new value for the attribute '{managerAttribute}' is = {managerAttribute.value}");
+            Debug.Log($"         > The new value for the attribute '{managerAttribute}' in '{ownerMapElement}' is = {managerAttribute.value}");
         }
     }
     public List<Attribute> GetAttributesThatNeedCare()
