@@ -48,6 +48,42 @@ namespace Thoughts.Game.GameMap
         {
             return this.GetType().Name + (name.IsNullEmptyOrWhiteSpace() ? "" : $" ({name})") ;
         }
+        
+        public bool IsDistanceMet(MapElement eventOwner, MapElement executer)
+        {
+            if (maxDistance < 0)
+                return true;
+        
+            Vector3 eventOwnerPosition = eventOwner.transform.position;
+            Vector3 executerPosition = executer.transform.position;
+            return Vector3.Distance(eventOwnerPosition, executerPosition) <= maxDistance;
+        }
+        
+        public bool AreRequirementsMet(MapElement eventOwner, MapElement executer, MapElement target)
+        {
+            bool result;
+            foreach (AttributeUpdate requirement in requirements)
+            {
+                switch (requirement.affected)
+                {
+                    case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                        result = eventOwner.attributeManager.Meets(requirement);
+                        if (!result) return false;
+                        break;
+                    case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                        result = executer.attributeManager.Meets(requirement);
+                        if (!result) return false;
+                        break;
+                    case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                        result = target.attributeManager.Meets(requirement);
+                        if (!result) return false;
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            return true;
+        }
 
     }
 }

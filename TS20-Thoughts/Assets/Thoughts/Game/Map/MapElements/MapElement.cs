@@ -73,7 +73,7 @@ namespace Thoughts.Game.GameMap
                navMeshAgent = GetComponent<NavMeshAgent>();
           }
           
-          private void DoNextMapEvent()
+          private void DoNextPlanedMapEvent()
           {
                if (currentExecutionPlans == null || currentExecutionPlans.Count <=0 )
                {
@@ -115,7 +115,7 @@ namespace Thoughts.Game.GameMap
                     yield return new WaitForSeconds(1f);
                     attributeManager.ExecuteSelfTimeElapseActions();
                     SetObjectiveAttribute();
-                    DoNextMapEvent();
+                    DoNextPlanedMapEvent();
                }
                
           }

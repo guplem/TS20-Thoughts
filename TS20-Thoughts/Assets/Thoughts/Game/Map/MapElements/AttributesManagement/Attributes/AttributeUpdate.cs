@@ -18,9 +18,5 @@ public class AttributeUpdate
         eventExecuter,
         eventTarget
     }
-
-    public void Apply(MapElement owner, MapElement executer, MapElement target)
-    {
-        throw new System.NotImplementedException();
-    }
+    
 }
