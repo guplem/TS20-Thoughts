@@ -61,7 +61,7 @@ public class OwnedAttribute
         if (foundMapEvent != null)
             mapEventsToTakeCare.Add(new ExecutionPlan(foundMapEvent, caregiver, ownerMapElement.attributeManager.ownerMapElement, ownerOfFoundMapEvent));
         
-        //Todo: check if can be performed, if not, try to solve the incenvinience
+        //Todo: check if can be performed, if not, try to solve the inconvenience
         return mapEventsToTakeCare;
     }
 }

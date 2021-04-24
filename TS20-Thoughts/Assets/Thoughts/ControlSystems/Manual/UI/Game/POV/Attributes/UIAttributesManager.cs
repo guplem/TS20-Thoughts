@@ -47,7 +47,7 @@ public class UIAttributesManager : UIPovRow
             attribute.Initialize(mapElement.attributeManager.attributes[attributeIndex], visualizer);
             uiAttributes.Add(attribute);
             
-            //ToDo: remove next 2 lines
+            //ToDo: remove next 2 lines to disable automatic selection of an attribute
             if (attributeIndex == 0)
                 selectedAttribute = attribute;
         }
