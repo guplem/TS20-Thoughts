@@ -9,8 +9,9 @@ namespace Thoughts.Game.GameMap
     public class MapEvent
     {
         [SerializeField] public string name = "";
-        [SerializeField] public float maxDistance = 5f;
+        [SerializeField] public float maxDistance = 5f; // Ignored if it is <0 or if 'executeWithTimeElapse' is true
         [SerializeField] public bool executeWithTimeElapse = false;
+        [SerializeField] public bool executerMustOwnAttribute = false;
         [SerializeField] public List<AttributeUpdate> consequences = new List<AttributeUpdate>();
         [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
         

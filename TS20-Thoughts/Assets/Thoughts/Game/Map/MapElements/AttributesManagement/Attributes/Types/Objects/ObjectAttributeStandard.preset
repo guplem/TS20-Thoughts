@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!181963792 &2655988077585873504
+Preset:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ObjectAttributeStandard
+  m_TargetType:
+    m_NativeTypeID: 114
+    m_ManagedTypePPtr: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
+    m_ManagedTypeFallback: 
+  m_Properties:
+  - target: {fileID: 0}
+    propertyPath: m_Enabled
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorHideFlags
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: m_EditorClassIdentifier
+    value: 
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].name
+    value: Pick Up
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].maxDistance
+    value: 3
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].executeWithTimeElapse
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].executerMustOwnAttribute
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].value
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].affected
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].value
+    value: -1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].affected
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].requirements.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].value
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].affected
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].name
+    value: Drop
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].maxDistance
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].executeWithTimeElapse
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].executerMustOwnAttribute
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.size
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].value
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].affected
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].value
+    value: -1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].affected
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].requirements.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].value
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].affected
+    value: 1
+    objectReference: {fileID: 0}
+  m_ExcludedProperties: []

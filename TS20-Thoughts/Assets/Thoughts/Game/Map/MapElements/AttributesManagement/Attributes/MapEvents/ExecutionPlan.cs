@@ -50,6 +50,9 @@ public class ExecutionPlan
     
     public bool IsDistanceMet()
     {
+        if (mapEvent.maxDistance < 0)
+            return true;
+        
         Vector3 eventOwnerPosition = executionLocation;
         Vector3 executerPosition = executer.transform.position;
         return Vector3.Distance(eventOwnerPosition, executerPosition) <= mapEvent.maxDistance;

@@ -43,26 +43,28 @@ namespace Thoughts.Game.GameMap
         private List<MapElement> GenerateMapObjects()
         {
             List<MapElement> generatedMapObjects = new List<MapElement>();
-            GameObject spawnableGameObject = null;
-            MapElement spawnedElement = null;
             RandomEssentials random = new RandomEssentials();
-
-            //Water
-            spawnableGameObject = GetSpawnableGameObject("river");
-            spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
-            generatedMapObjects.Add(spawnedElement);
             
-            //Rocks //ToDo: remove next comment
-            /*spawnableGameObject = GetSpawnableGameObject("rock");
-            for (int i = 0; i < 30; i++)
-            {
-                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
-                generatedMapObjects.Add(spawnedElement);
-            }*/
+            generatedMapObjects.AddRange(SpawnRandom("river", 3, random));
+            generatedMapObjects.AddRange(SpawnRandom("rock", 5, random));
+            generatedMapObjects.AddRange(SpawnRandom("tree", 10, random));
+            generatedMapObjects.AddRange(SpawnRandom("bonfire", 1, random));
 
             return generatedMapObjects;
         }
-        
+        private List<MapElement> SpawnRandom(string prefabName, int quantity, RandomEssentials random)
+        {
+            GameObject spawnableGameObject = GetSpawnableGameObject(prefabName);
+            MapElement spawnedElement = null;
+            List<MapElement> generatedMapObjects = new List<MapElement>();
+            for (int i = 0; i < 10; i++)
+            {
+                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
+                generatedMapObjects.Add(spawnedElement);
+            }
+            return generatedMapObjects;
+        }
+
         private void BuildNavMeshes()
         {
             List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
@@ -109,25 +111,6 @@ namespace Thoughts.Game.GameMap
         
 
     #endregion
-        
-        /*public MapEvent FindEventToCoverAttribute(Attribute attribute, MapElement target, out MapElement mapElementWithActionToCoverAttribute, out Attribute attributeWithEventToCoverAttribute, out MapEvent mapEventToCoverAttribute)
-        {
-            foreach (MapElement mapElement in mapElements)
-            {
-                //Debug.Log($"Analazing {element} with inventory {map} for the need {need}");
-                MapEvent availableEvent = mapElement.attributeManager.GetAvailableActionToCoverAttribute(attribute, target, out attributeWithEventToCoverAttribute, out mapEventToCoverAttribute);
-                if (availableEvent != null)
-                {
-                    mapElementWithActionToCoverAttribute = mapElement;
-                    return availableEvent;
-                }
-            }
-
-            mapElementWithActionToCoverAttribute = null;
-            attributeWithEventToCoverAttribute = null;
-            mapEventToCoverAttribute = null;
-            return null;
-        }*/
 
         public MapEvent GetExecutionPlanToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out MapElement ownerOfFoundMapEvent)
         {
