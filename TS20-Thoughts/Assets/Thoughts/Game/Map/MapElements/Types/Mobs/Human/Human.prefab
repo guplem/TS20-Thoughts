@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attributeManager:
-    _attributes:
+    _ownedAttributes:
     - attribute: {fileID: 11400000, guid: 58e38d4c97a034a4ab8d28113ceb69bb, type: 2}
-      value: 10
+      value: 5
       minValue: 3
       takeCare: 1
   povCameraPrentTransform: {fileID: 5385195016694065520}

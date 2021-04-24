@@ -9,44 +9,9 @@ namespace Thoughts
     [CreateAssetMenu(fileName = "Attribute", menuName = "Thoughts/Attribute", order = 1)]
     public class Attribute : ScriptableObject, IEquatable<Attribute>
     {
-        
-    #region Funtionallity
 
         [SerializeField] public List<MapEvent> mapEvents;
 
-
-        
-        
-        
-        /*public void AlterQuantity(int quantity)
-        {
-            foreach (RelatedStat relatedStat in relatedStats)
-            {
-                if (relatedStat.stat.name == "Quantity")
-                {
-                    relatedStat.satisfactionAmount += quantity;
-                    Debug.Log($"     The new quantity is {relatedStat.satisfactionAmount}");
-                }
-            }
-        }*/
-
-        /*public MapEvent GetAction(int index)
-        {
-            if (mapEvents.Count > index)
-                return (MapEvent) mapEvents[index];
-            
-            Debug.LogWarning($"Trying to get the action with index '{index}' of the Item '{this.name} but the size of the array is {mapEvents.Count}.");
-            return null;
-        }*/
-        
-        /*public MapEvent GetMapEventToCoverAttribute(Attribute attribute, MapElement mapElement)
-        {
-            throw new NotImplementedException();
-            return null;
-        }*/
-    
-    #endregion
-        
     #region Comparasions
         public override bool Equals(object obj)
         {

@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class ExecutionPlan
 {
-    
     public MapEvent mapEvent { get; private set; }
     public MapElement eventOwner { get; private set; } //{ get => mapEvent.ownerAttribute.ownerAttributeManager.ownerMapElement; }
     public MapElement executer { get; private set; }
@@ -24,7 +23,7 @@ public class ExecutionPlan
 
     public override string ToString()
     {
-        return $"'{mapEvent}' (by '{executer}' to '{target}' at '{eventOwner}')";
+        return $"'{mapEvent}' (executed by '{executer}' to target '{target}' at '{eventOwner}')";
     }
     
     /// <summary>

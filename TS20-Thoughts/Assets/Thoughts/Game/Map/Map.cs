@@ -112,19 +112,19 @@ namespace Thoughts.Game.GameMap
 
     #endregion
 
-        public MapEvent GetExecutionPlanToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out MapElement ownerOfFoundMapEvent)
+        public MapEvent GetExecutionPlanToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out OwnedAttribute ownedAttributeOfFoundMapEvent)
         {
             MapEvent foundMapEvent = null;
-            MapElement mapElementOfFoundMapEvent = null;
+            OwnedAttribute foundOwnedAttributeOfFoundMapEvent = null;
             
             foreach (MapElement mapElement in mapElements)
             {
-                foundMapEvent = mapElement.GetMapEventToTakeCareOf(attribute, affected, out mapElementOfFoundMapEvent);
+                foundMapEvent = mapElement.GetMapEventToTakeCareOf(attribute, affected, out foundOwnedAttributeOfFoundMapEvent);
                 if (foundMapEvent != null)
                     break;
             }
             
-            ownerOfFoundMapEvent = mapElementOfFoundMapEvent;
+            ownedAttributeOfFoundMapEvent = foundOwnedAttributeOfFoundMapEvent;
             return foundMapEvent;
         }
         

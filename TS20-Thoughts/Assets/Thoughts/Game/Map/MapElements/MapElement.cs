@@ -32,7 +32,7 @@ namespace Thoughts.Game.GameMap
                          if (currentExecutionPlans == null)
                               Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
                          else
-                              currentExecutionPlans.DebugLog(", ", $"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}': ", gameObject);
+                              currentExecutionPlans.DebugLog("\n    ● ", $"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
 
                     }
                     else
@@ -87,7 +87,8 @@ namespace Thoughts.Game.GameMap
                
                if (!executionPlan.AreRequirementsMet())
                {
-                    throw new NotImplementedException();
+                    //ToDo: Do something when the requirements are not met
+                    Debug.LogWarning(" > Not executing planed map event");
                }
                else if (!executionPlan.IsDistanceMet())
                {
@@ -132,19 +133,23 @@ namespace Thoughts.Game.GameMap
           {
                attributeManager.UpdateAttribute(attribute, deltaValue);
           }
-          public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out MapElement ownerOfFoundMapEvent)
+          public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out OwnedAttribute ownedAttributeOfFoundMapEvent)
           {
                // Debug.Log($">>> Searching to take care of {attribute} in {this}", this);
-               foreach (OwnedAttribute attributeManagerAttribute in attributeManager.attributes)
-                    foreach (MapEvent mapEvent in attributeManagerAttribute.attribute.mapEvents)
+               foreach (OwnedAttribute ownedAttribute in attributeManager.ownedAttributes)
+                    foreach (MapEvent mapEvent in ownedAttribute.attribute.mapEvents)
                          foreach (AttributeUpdate consequence in mapEvent.consequences)
                               if (consequence.attribute == attribute && consequence.affected == affected && consequence.value > 0)
                               {
-                                   ownerOfFoundMapEvent = attributeManager.ownerMapElement;
+                                   ownedAttributeOfFoundMapEvent = ownedAttribute;
                                    return mapEvent;
                               }
-               ownerOfFoundMapEvent = null;
+               ownedAttributeOfFoundMapEvent = null;
                return null;
+          }
+          public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
+          {
+               return attributeManager.GetOwnedAttributeOf(attribute);
           }
      }
      

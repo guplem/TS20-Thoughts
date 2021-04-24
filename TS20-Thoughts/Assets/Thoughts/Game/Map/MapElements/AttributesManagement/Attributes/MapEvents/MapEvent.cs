@@ -14,12 +14,6 @@ namespace Thoughts.Game.GameMap
         [SerializeField] public bool executerMustOwnAttribute = false;
         [SerializeField] public List<AttributeUpdate> consequences = new List<AttributeUpdate>();
         [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
-        
-        public Attribute ownerAttribute { get; private set; }
-        public void UpdateOwner(Attribute newOwner)
-        {
-            ownerAttribute = newOwner;
-        }
 
         public void Execute(MapElement executer, MapElement target, MapElement owner)
         {
@@ -46,7 +40,7 @@ namespace Thoughts.Game.GameMap
         
         public override string ToString()
         {
-            return this.GetType().Name + (name.IsNullEmptyOrWhiteSpace() ? "" : $" ({name})") ;
+            return  (name.IsNullEmptyOrWhiteSpace() ? (this.GetType().Name + " (no name)") : $"{name}") ;
         }
         
         public bool IsDistanceMet(MapElement eventOwner, MapElement executer)

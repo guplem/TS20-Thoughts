@@ -10,12 +10,12 @@ public class AttributeManager
 {
     public MapElement ownerMapElement { get; private set; }
 
-    public List<OwnedAttribute> attributes
+    public List<OwnedAttribute> ownedAttributes
     {
-        get { return _attributes;}
-        private set { _attributes = value; }
+        get { return _ownedAttributes;}
+        private set { _ownedAttributes = value; }
     }
-    [SerializeField] private List<OwnedAttribute> _attributes = new List<OwnedAttribute>();
+    [SerializeField] private List<OwnedAttribute> _ownedAttributes = new List<OwnedAttribute>();
     
     //[SerializeField] private float deleteThis;
     //[SerializeField] private List<DummyClass> dummyClassList = new List<DummyClass>();
@@ -31,7 +31,7 @@ public class AttributeManager
         }*/
 
         ownerMapElement = owner;
-        foreach (OwnedAttribute attributeStats in attributes)
+        foreach (OwnedAttribute attributeStats in ownedAttributes)
             attributeStats.UpdateOwner(ownerMapElement);
     }
     
@@ -55,8 +55,8 @@ public class AttributeManager
     
     public void ExecuteSelfTimeElapseActions()
     {
-        if (attributes != null)
-            foreach (OwnedAttribute attribute in attributes)
+        if (ownedAttributes != null)
+            foreach (OwnedAttribute attribute in ownedAttributes)
             {
                 foreach (MapEvent attributeMapEvent in attribute.attribute.mapEvents)
                 {
@@ -87,7 +87,7 @@ public class AttributeManager
 
     public void UpdateAttribute(Attribute attributeToUpdate, int deltaValue)
     {
-        foreach (OwnedAttribute managerAttribute in attributes)
+        foreach (OwnedAttribute managerAttribute in ownedAttributes)
         {
             if (managerAttribute.attribute == attributeToUpdate)
                 managerAttribute.value += deltaValue;
@@ -97,7 +97,7 @@ public class AttributeManager
     public List<OwnedAttribute> GetAttributesThatNeedCare()
     {
         List<OwnedAttribute> attributesThatNeedCare = new List<OwnedAttribute>();
-        foreach (OwnedAttribute attribute in attributes)
+        foreach (OwnedAttribute attribute in ownedAttributes)
         {
             if (attribute.takeCare)
                 if (attribute.value < attribute.minValue)
@@ -113,11 +113,21 @@ public class AttributeManager
     /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate</returns>
     public bool Meets(AttributeUpdate requirement)
     {
-        foreach (OwnedAttribute ownedAttribute in attributes)
+        foreach (OwnedAttribute ownedAttribute in ownedAttributes)
             if (requirement.attribute == ownedAttribute.attribute)
                 if (requirement.value <= ownedAttribute.value)
                     return true;
-        Debug.LogWarning($"Requirement '{requirement.attribute}' not met in '{ownerMapElement}'");
+        Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'");
         return false;
+    }
+    public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
+    {
+        foreach (OwnedAttribute ownedAttribute in ownedAttributes)
+        {
+            if (ownedAttribute.attribute == attribute)
+                return ownedAttribute;
+        }
+        Debug.LogWarning($"Attribute '{attribute}' not found in '{ownerMapElement}' owned attributes.");
+        return null;
     }
 }
