@@ -96,7 +96,7 @@ namespace Thoughts.Game.GameMap
                }
                else
                {
-                    Debug.Log($"        ◯ Executing next map event: {executionPlan}.");
+                    Debug.Log($"        ◯ Executing next planed map event: {executionPlan}.");
                     if (executionPlan.Execute())
                          currentExecutionPlans.RemoveAt(0);
                }
