@@ -117,7 +117,7 @@ public class AttributeManager
             if (requirement.attribute == ownedAttribute.attribute)
                 if (requirement.value <= ownedAttribute.value)
                     return true;
-
+        Debug.LogWarning($"Requirement '{requirement.attribute}' not met in '{ownerMapElement}'");
         return false;
     }
 }

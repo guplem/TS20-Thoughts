@@ -87,7 +87,6 @@ namespace Thoughts.Game.GameMap
                
                if (!executionPlan.AreRequirementsMet())
                {
-                    Debug.LogWarning("REQUIREMENTS NOT MET"); //TODO: DELETE THIS LINE
                     throw new NotImplementedException();
                }
                else if (!executionPlan.IsDistanceMet())
