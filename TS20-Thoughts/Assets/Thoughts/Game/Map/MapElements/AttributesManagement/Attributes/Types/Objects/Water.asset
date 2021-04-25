@@ -12,17 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Water
   m_EditorClassIdentifier: 
-  value: 5
-  minValue: 0
-  takeCare: 0
-  type: 0
   mapEvents:
   - name: Drink
-    maxDistance: 3
+    maxDistance: 2
     executeWithTimeElapse: 0
+    executerMustOwnAttribute: 0
     consequences:
     - attribute: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
-      value: 10
+      value: 30
       affected: 1
     - attribute: {fileID: 11400000}
       value: -1
@@ -31,3 +28,4 @@ MonoBehaviour:
     - attribute: {fileID: 11400000}
       value: 1
       affected: 0
+    tryToCoverRequirementsIfNotMet: 1

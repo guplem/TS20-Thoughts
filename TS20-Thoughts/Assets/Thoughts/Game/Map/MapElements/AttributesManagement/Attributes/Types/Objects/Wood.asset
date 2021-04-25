@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapEvents:
   - name: Pick Up
-    maxDistance: 3
+    maxDistance: 2
     executeWithTimeElapse: 0
     executerMustOwnAttribute: 0
     consequences:

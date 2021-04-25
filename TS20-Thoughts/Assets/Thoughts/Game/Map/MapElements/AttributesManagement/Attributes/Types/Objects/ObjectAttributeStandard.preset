@@ -34,7 +34,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].maxDistance
-    value: 1
+    value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].executeWithTimeElapse
@@ -98,7 +98,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].maxDistance
-    value: 1
+    value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].executeWithTimeElapse
@@ -162,7 +162,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[2].maxDistance
-    value: 1
+    value: -1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[2].executeWithTimeElapse
