@@ -26,7 +26,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.size
-    value: 2
+    value: 3
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].name
@@ -34,7 +34,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].maxDistance
-    value: 3
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].executeWithTimeElapse
@@ -51,7 +51,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+    objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].value
     value: 1
@@ -63,7 +63,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+    objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].value
     value: -1
@@ -79,7 +79,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+    objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].value
     value: 1
@@ -89,12 +89,16 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].tryToCoverRequirementsIfNotMet
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].name
     value: Drop
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].maxDistance
-    value: 2
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].executeWithTimeElapse
@@ -111,7 +115,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+    objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].value
     value: 1
@@ -123,7 +127,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+    objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].value
     value: -1
@@ -139,13 +143,69 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
+    objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].value
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].affected
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].tryToCoverRequirementsIfNotMet
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].name
+    value: Consume
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].maxDistance
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].executeWithTimeElapse
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].executerMustOwnAttribute
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].consequences.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].value
+    value: 30
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].affected
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].requirements.Array.size
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].attribute
+    value: 
+    objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].value
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].affected
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].tryToCoverRequirementsIfNotMet
     value: 1
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

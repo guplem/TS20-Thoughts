@@ -16,11 +16,15 @@ MonoBehaviour:
     _ownedAttributes:
     - attribute: {fileID: 11400000, guid: 58e38d4c97a034a4ab8d28113ceb69bb, type: 2}
       value: 10
-      minValue: 3
+      minValue: 5
       takeCare: 1
     - attribute: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
-      value: 50
-      minValue: 3
+      value: 40
+      minValue: 5
+      takeCare: 1
+    - attribute: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
+      value: 70
+      minValue: 5
       takeCare: 1
   povCameraPrentTransform: {fileID: 5385195016694065520}
 --- !u!1 &3687949500601768678

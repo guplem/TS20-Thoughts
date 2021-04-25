@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
+  m_Name: Berry
+  m_EditorClassIdentifier: 
+  mapEvents:
+  - name: Pick Up
+    maxDistance: 1
+    executeWithTimeElapse: 0
+    executerMustOwnAttribute: 0
+    consequences:
+    - attribute: {fileID: 11400000}
+      value: 1
+      affected: 1
+    - attribute: {fileID: 11400000}
+      value: -1
+      affected: 0
+    requirements:
+    - attribute: {fileID: 11400000}
+      value: 1
+      affected: 0
+    tryToCoverRequirementsIfNotMet: 0
+  - name: Drop
+    maxDistance: 1
+    executeWithTimeElapse: 0
+    executerMustOwnAttribute: 1
+    consequences:
+    - attribute: {fileID: 11400000}
+      value: 1
+      affected: 2
+    - attribute: {fileID: 11400000}
+      value: -1
+      affected: 1
+    requirements:
+    - attribute: {fileID: 11400000}
+      value: 1
+      affected: 1
+    tryToCoverRequirementsIfNotMet: 1
+  - name: Consume
+    maxDistance: 1
+    executeWithTimeElapse: 0
+    executerMustOwnAttribute: 1
+    consequences:
+    - attribute: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
+      value: 30
+      affected: 1
+    requirements:
+    - attribute: {fileID: 11400000}
+      value: 1
+      affected: 1
+    tryToCoverRequirementsIfNotMet: 1

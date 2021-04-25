@@ -30,7 +30,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].name
-    value: Get Thirsty
+    value: Get Hungry
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].maxDistance
@@ -42,7 +42,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].executerMustOwnAttribute
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.size
@@ -51,7 +51,7 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
+    objectReference: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].value
     value: -1
@@ -67,13 +67,17 @@ Preset:
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].attribute
     value: 
-    objectReference: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
+    objectReference: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].value
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].affected
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].tryToCoverRequirementsIfNotMet
     value: 0
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

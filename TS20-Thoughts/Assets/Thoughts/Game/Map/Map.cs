@@ -49,6 +49,7 @@ namespace Thoughts.Game.GameMap
             generatedMapObjects.AddRange(SpawnRandom("rock", 10, random));
             generatedMapObjects.AddRange(SpawnRandom("tree", 3, random));
             generatedMapObjects.AddRange(SpawnRandom("bonfire", 1, random));
+            generatedMapObjects.AddRange(SpawnRandom("Berry Plant", 3, random));
 
             return generatedMapObjects;
         }
@@ -59,7 +60,7 @@ namespace Thoughts.Game.GameMap
             List<MapElement> generatedMapObjects = new List<MapElement>();
             for (int i = 0; i < quantity; i++)
             {
-                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-50f, 50f).WithY(0f), Quaternion.identity);
+                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-40f, 40f).WithY(0f), Quaternion.identity);
                 generatedMapObjects.Add(spawnedElement);
             }
             return generatedMapObjects;
