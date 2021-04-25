@@ -34,11 +34,12 @@ namespace Thoughts.Game
     /// <returns></returns>
     public List<ExecutionPlan> GetExecutionPlanToCoverThisAttribute(OwnedAttribute ownedAttribute, MapElement caregiver, List<ExecutionPlan> mapEventsToTakeCare = null, int iteration = 0)
     {
-        Debug.Log($" ◌ Searching for an execution plan to cover '{ownedAttribute.attribute}' at '{ownedAttribute.ownerMapElement}' by '{caregiver}'\n");
+        Debug.Log($" ◌ Searching for an execution plan to cover '{ownedAttribute.attribute}' owned by '{ownedAttribute.ownerMapElement}' executed by '{caregiver}'.    Iteration {iteration}.\n");
         
         if (iteration >= 50)
         {
             Debug.LogWarning($" ◙ Stopping the search of an execution plan for {ownedAttribute.attribute} after {iteration} iterations.\n");
+            mapEventsToTakeCare.DebugLog("\n - ", " ◙ The execution path found was: \n");
             return null;
         }
         

@@ -45,9 +45,9 @@ namespace Thoughts.Game.GameMap
             List<MapElement> generatedMapObjects = new List<MapElement>();
             RandomEssentials random = new RandomEssentials();
             
-            generatedMapObjects.AddRange(SpawnRandom("river", 3, random));
-            generatedMapObjects.AddRange(SpawnRandom("rock", 5, random));
-            generatedMapObjects.AddRange(SpawnRandom("tree", 10, random));
+            generatedMapObjects.AddRange(SpawnRandom("river", 0, random));
+            generatedMapObjects.AddRange(SpawnRandom("rock", 0, random));
+            generatedMapObjects.AddRange(SpawnRandom("tree", 1, random));
             generatedMapObjects.AddRange(SpawnRandom("bonfire", 1, random));
 
             return generatedMapObjects;
@@ -57,7 +57,7 @@ namespace Thoughts.Game.GameMap
             GameObject spawnableGameObject = GetSpawnableGameObject(prefabName);
             MapElement spawnedElement = null;
             List<MapElement> generatedMapObjects = new List<MapElement>();
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < quantity; i++)
             {
                 spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
                 generatedMapObjects.Add(spawnedElement);

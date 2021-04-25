@@ -83,11 +83,22 @@ namespace Thoughts.Game.GameMap
             return requirementsNotMet;
         }
 
-        public bool CanCover(Attribute attribute)
+        public bool CanCover(Attribute attribute, MapElement target, MapElement executer, MapElement owner)
         {
             foreach (AttributeUpdate consequence in consequences)
+            {
                 if (consequence.attribute == attribute && consequence.value > 0)
-                    return true;
+                    if (consequence.affected == AttributeUpdate.AttributeUpdateAffected.eventTarget)
+                    {
+                        if (target == executer || target == owner)
+                            return false;
+                    }
+                    else
+                    {
+                        return true;
+                    }                
+            }
+            
             return false;
         }
     }
