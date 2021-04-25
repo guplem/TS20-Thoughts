@@ -89,7 +89,8 @@ namespace Thoughts.Game.GameMap
                if (!requirementsNotMet.IsNullOrEmpty())
                {
                     //ToDo: Do something when the requirements are not met
-                    Debug.LogWarning(" > Not executing planed map event");
+                    Debug.LogWarning(" > Not executing planed map event.", gameObject);
+                    requirementsNotMet.DebugLog("\n    ● ", $" > Requirements not met:\n    ● ", gameObject);
                }
                else if (!executionPlan.IsDistanceMet())
                {
@@ -98,9 +99,16 @@ namespace Thoughts.Game.GameMap
                }
                else
                {
-                    Debug.Log($"        ◯ Executing next planed map event: {executionPlan}.");
+                    Debug.Log($"        ◯ Executing next planed map event: {executionPlan}.", gameObject);
                     if (executionPlan.Execute())
-                         currentExecutionPlans.RemoveAt(0);
+                    {
+                         currentExecutionPlans.RemoveAt(indexNextAction);
+                         //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
+                    }
+                    /*else
+                         Debug.LogWarning($"Trying to execute next planed map event ({executionPlan}) but something went wrong.");
+                    */
+                         
                }
           }
           private void MoveTo(Vector3 location)

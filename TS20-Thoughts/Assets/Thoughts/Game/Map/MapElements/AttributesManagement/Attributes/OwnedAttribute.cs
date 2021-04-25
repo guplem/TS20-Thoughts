@@ -8,12 +8,12 @@ using Attribute = Thoughts.Attribute;
 [Serializable]
 public class OwnedAttribute
 {
+    public MapElement ownerMapElement { get; private set; }
     [SerializeField] public Thoughts.Attribute attribute;
     [SerializeField] public float value;
     [SerializeField] public float minValue;
     [SerializeField] public bool takeCare;
     
-    public MapElement ownerMapElement { get; private set; }
     public void UpdateOwner(MapElement newOwner)
     {
         this.ownerMapElement = newOwner;
@@ -26,6 +26,11 @@ public class OwnedAttribute
         this.minValue = minValue;
         this.takeCare = takeCare;
         this.ownerMapElement = ownerMapElement;
+    }
+
+    public override string ToString()
+    {
+        return $"OwnedAttribute of attribute '{attribute}' owned by '{ownerMapElement}'. Value = {value}. MinValue = {minValue}. TakeCare = {takeCare}.";
     }
 
 }
