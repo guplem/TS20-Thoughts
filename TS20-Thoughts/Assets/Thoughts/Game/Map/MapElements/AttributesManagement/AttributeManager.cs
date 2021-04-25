@@ -142,29 +142,45 @@ public class AttributeManager
     {
         MapElement target = ownedAttribute.ownerMapElement;
         
-        Debug.Log($">>> Searching to take care of '{ownedAttribute.attribute}' in '{ownerMapElement}' by '{caregiver}'\n", ownerMapElement);
-        foreach (OwnedAttribute attribute in ownedAttributes)
+        Debug.Log($">>> Searching to take care of '{ownedAttribute.attribute}' owned by '{ownerMapElement}' executed by '{caregiver}'\n", ownerMapElement);
+        foreach (OwnedAttribute currentOwnedAttribute in ownedAttributes)
         {
-            foreach (MapEvent mapEvent in attribute.attribute.mapEvents)
+            foreach (MapEvent mapEvent in currentOwnedAttribute.attribute.mapEvents)
             {
-                Debug.Log($"Checking '{mapEvent}' in attribute '{attribute}' owned by '{ownerMapElement}'");
-                if (mapEvent.tryToCoverRequirementsIfNotMet || 
-                    (!mapEvent.tryToCoverRequirementsIfNotMet && mapEvent.GetRequirementsNotMet(ownerMapElement, caregiver, target).IsNullOrEmpty())
-                )
+                Debug.Log($"Checking '{mapEvent}' in attribute '{currentOwnedAttribute.attribute}' owned by '{ownerMapElement}'");
+                if (!mapEvent.executerMustOwnAttribute || (mapEvent.executerMustOwnAttribute && currentOwnedAttribute.ownerMapElement == caregiver))
                 {
-                    foreach (AttributeUpdate consequence in mapEvent.consequences){
-                        if (consequence.attribute == ownedAttribute.attribute && consequence.value > 0)
-                        {
-                            MapElement eventOwner = null;
-                            if (target != caregiver)
-                                eventOwner = target != attribute.ownerMapElement ? caregiver : target;
-                            else
-                                eventOwner = attribute.ownerMapElement;
+                    if ( mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEvent.GetRequirementsNotMet(ownerMapElement, caregiver, target).IsNullOrEmpty()) )
+                    {
+                        //foreach (AttributeUpdate consequence in mapEvent.consequences){
+                            //if (consequence.attribute == ownedAttribute.attribute && consequence.value > 0)
+                            if (mapEvent.CanCover(ownedAttribute.attribute))
+                            {
+                                MapElement eventOwner = null;
+                                if (target != caregiver)
+                                    eventOwner = target != currentOwnedAttribute.ownerMapElement ? caregiver : target;
+                                else
+                                    eventOwner = currentOwnedAttribute.ownerMapElement;
 
-                            return new ExecutionPlan(mapEvent, caregiver, target, eventOwner);
-                        }   
+                                ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, caregiver, target, eventOwner);
+                                Debug.Log($" <> Found Execution Plan: {executionPlan}");
+                                return executionPlan;
+                            }   
+                        //}
                     }
                 }
+                else
+                {
+                    Debug.LogWarning($"Executer must own attribute '{currentOwnedAttribute.attribute}' to execute '{mapEvent}' but it is not. MapEvent owned by '{currentOwnedAttribute.ownerMapElement}' and executer is '{caregiver}'");
+                    //AJKLSDHKJSDHKJHSD // TODO: CHECK IF IT WORKS
+                    if (mapEvent.CanCover(ownedAttribute.attribute))
+                    {
+                        ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, caregiver, target, caregiver);
+                        Debug.Log($" <> Found 'forced' Execution Plan: {executionPlan}");
+                        return executionPlan;
+                    }
+                }
+                    
             }
         }
 

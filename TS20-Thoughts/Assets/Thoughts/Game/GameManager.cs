@@ -34,11 +34,11 @@ namespace Thoughts.Game
     /// <returns></returns>
     public List<ExecutionPlan> GetExecutionPlanToCoverThisAttribute(OwnedAttribute ownedAttribute, MapElement caregiver, List<ExecutionPlan> mapEventsToTakeCare = null, int iteration = 0)
     {
-        Debug.Log($"Searching for an execution plan to cover '{ownedAttribute.attribute}' at '{ownedAttribute.ownerMapElement}' by '{caregiver}'\n");
+        Debug.Log($" ◌ Searching for an execution plan to cover '{ownedAttribute.attribute}' at '{ownedAttribute.ownerMapElement}' by '{caregiver}'\n");
         
         if (iteration >= 50)
         {
-            Debug.LogWarning($"Stopping the search of an execution plan for {ownedAttribute.attribute} after {iteration} iterations.\n");
+            Debug.LogWarning($" ◙ Stopping the search of an execution plan for {ownedAttribute.attribute} after {iteration} iterations.\n");
             return null;
         }
         
@@ -46,12 +46,12 @@ namespace Thoughts.Game
             mapEventsToTakeCare = new List<ExecutionPlan>();
 
         ExecutionPlan lastExecutionPlan = map.GetExecutionPlanToTakeCareOf(ownedAttribute, caregiver);
-        Debug.Log($"Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
+        Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
 
         if (lastExecutionPlan != null)
         {
             List<OwnedAttribute> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet();
-            if (requirementsNotMet != null && requirementsNotMet.Count > 0)
+            if (!requirementsNotMet.IsNullOrEmpty())
                 mapEventsToTakeCare = GetExecutionPlanToCoverThisAttribute(requirementsNotMet[0], caregiver, mapEventsToTakeCare, iteration+1);
         }
         

@@ -83,5 +83,12 @@ namespace Thoughts.Game.GameMap
             return requirementsNotMet;
         }
 
+        public bool CanCover(Attribute attribute)
+        {
+            foreach (AttributeUpdate consequence in consequences)
+                if (consequence.attribute == attribute && consequence.value > 0)
+                    return true;
+            return false;
+        }
     }
 }
