@@ -75,9 +75,9 @@ namespace Thoughts.Game.GameMap
           
           private void DoNextPlanedMapEvent()
           {
-               if (currentExecutionPlans == null || currentExecutionPlans.Count <=0 )
+               if (currentExecutionPlans.IsNullOrEmpty())
                {
-                    //Debug.LogError($"Trying to execute the next map event in the execution plan of '{this}', but it does not exist. The Execution Plan is null or empty.");
+                    // Debug.LogError($"Trying to execute the next map event in the execution plan of '{this}', but it does not exist. The Execution Plan is null or empty.");
                     return;
                }
                
@@ -85,8 +85,8 @@ namespace Thoughts.Game.GameMap
                int indexNextAction = currentExecutionPlans.Count-1;
                ExecutionPlan executionPlan = currentExecutionPlans.ElementAt(indexNextAction);
 
-               List<OwnedAttribute> reqNotMet = executionPlan.GetRequirementsNotMet();
-               if ( reqNotMet != null && reqNotMet.Count> 0)
+               List<OwnedAttribute> requirementsNotMet = executionPlan.GetRequirementsNotMet();
+               if (!requirementsNotMet.IsNullOrEmpty())
                {
                     //ToDo: Do something when the requirements are not met
                     Debug.LogWarning(" > Not executing planed map event");
@@ -124,7 +124,7 @@ namespace Thoughts.Game.GameMap
           private void SetObjectiveAttribute()
           {
                List<OwnedAttribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
-               if (attributesThatNeedCare == null || attributesThatNeedCare.Count <= 0)
+               if (attributesThatNeedCare.IsNullOrEmpty())
                     currentObjectiveAttribute = null;
                else
                     currentObjectiveAttribute = attributesThatNeedCare.ElementAt(0);

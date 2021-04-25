@@ -23,7 +23,7 @@ public class ExecutionPlan
 
     public override string ToString()
     {
-        return $"'{mapEvent}' (executed by '{executer}' to target '{target}' owned by '{eventOwner}')";
+        return $"'{mapEvent}' (executed by '{executer}' to target '{target}' at/owned by '{eventOwner}')";
     }
     
     /// <summary>

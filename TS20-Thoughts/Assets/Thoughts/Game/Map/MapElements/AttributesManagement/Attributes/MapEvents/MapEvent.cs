@@ -86,8 +86,10 @@ namespace Thoughts.Game.GameMap
         public bool ConsequencesCover(OwnedAttribute ownedAttribute, MapElement target, MapElement executer, MapElement owner)
         {
             bool consequenceCoversOwnerOfAttribute = false;
+            // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{ownedAttribute.attribute}'.\n");
             foreach (AttributeUpdate consequence in consequences)
             {
+                //Debug.Log($"    $$$$$ Current consequence's attribute = '{consequence.attribute}'.\n");
                 if (consequence.attribute == ownedAttribute.attribute && consequence.value > 0)
                 {
                     switch (consequence.affected)
@@ -112,6 +114,7 @@ namespace Thoughts.Game.GameMap
                             // The 'target' must not be the 'executer' neither the 'owner'
                             if (target == executer || target == owner)
                                 return false;
+                            return true;
                         }
                         else
                         {

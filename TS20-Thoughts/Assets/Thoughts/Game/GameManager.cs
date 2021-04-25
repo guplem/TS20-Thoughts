@@ -48,16 +48,17 @@ namespace Thoughts.Game
 
         ExecutionPlan lastExecutionPlan = map.GetExecutionPlanToTakeCareOf(ownedAttribute, caregiver);
         if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
-        else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf'.\n");
+        else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
 
         if (lastExecutionPlan != null)
         {
+            mapEventsToTakeCare.Add(lastExecutionPlan);
+            
             List<OwnedAttribute> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet();
             if (!requirementsNotMet.IsNullOrEmpty())
                 mapEventsToTakeCare = GetExecutionPlanToCoverThisAttribute(requirementsNotMet[0], caregiver, mapEventsToTakeCare, iteration+1);
         }
-        
-        //Todo: check if last item in 'mapEventsToTakeCare' covers the attribute in the parameter 'ownedAttribute'. If not, throw a warning - ExecutionPlanNotFound
+
         return mapEventsToTakeCare;
     }
     }

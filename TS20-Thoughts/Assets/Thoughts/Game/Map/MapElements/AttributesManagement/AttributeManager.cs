@@ -125,7 +125,7 @@ public class AttributeManager
             if (requirement.attribute == ownedAttribute.attribute)
                 if (requirement.value <= ownedAttribute.value)
                     return true;
-        Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'\n");
+        // Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'\n");
         return false;
     }
     public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
@@ -136,21 +136,21 @@ public class AttributeManager
                 return ownedAttribute;
         }
         //ToDo: adding the attribute (next lines) should be done in another method. Maybe calling a new method calling 'GetOwnedAttributeAndAddItIfNotFound' should  be created to call them both
-        Debug.Log($"Attribute '{attribute}' not found in '{ownerMapElement}' owned attributes. Adding the attribute with a value of 0.\n", ownerMapElement);
+        Debug.Log($"   Attribute '{attribute}' not found in '{ownerMapElement}' owned attributes. Adding the attribute with a value of 0.\n", ownerMapElement);
         OwnedAttribute newAttribute = new OwnedAttribute(attribute, 0, ownerMapElement, 0, false);
         ownedAttributes.Add(newAttribute);
         return newAttribute;
     }
-    public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttribute, MapElement executer)
+    public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttributeToTakeCare, MapElement executer)
     {
-        MapElement target = ownedAttribute.ownerMapElement;
+        MapElement target = ownedAttributeToTakeCare.ownerMapElement;
         
         //Debug.Log($">>> Searching to take care of '{ownedAttribute.attribute}' owned by '{ownerMapElement}' executed by '{caregiver}'\n", ownerMapElement);
         foreach (OwnedAttribute currentOwnedAttribute in ownedAttributes)
         {
             foreach (MapEvent mapEvent in currentOwnedAttribute.attribute.mapEvents)
             {
-                Debug.Log($" >>> Checking '{mapEvent}' in attribute '{currentOwnedAttribute.attribute}' owned by '{ownerMapElement}'. Target: {target}, Executer: {executer}, EventOwner still unknown.");
+                // Debug.Log($" >>> In '{ownerMapElement}', checking '{mapEvent}' in attribute '{currentOwnedAttribute.attribute}' to take care of '{ownedAttributeToTakeCare.attribute}'.\nTarget: {target}, Executer: {executer}, EventOwner still unknown.\n");
                 if (!mapEvent.executerMustOwnAttribute || (mapEvent.executerMustOwnAttribute && currentOwnedAttribute.ownerMapElement == executer))
                 {
                     if ( mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEvent.GetRequirementsNotMet(ownerMapElement, executer, target).IsNullOrEmpty()) )
@@ -162,10 +162,10 @@ public class AttributeManager
                         /*if (target != executer)
                             eventOwner = target != currentOwnedAttribute.ownerMapElement ? executer : target;*/
 
-                        if (mapEvent.ConsequencesCover(ownedAttribute, target, executer, eventOwner))
+                        if (mapEvent.ConsequencesCover(ownedAttributeToTakeCare, target, executer, eventOwner))
                         {
                             ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
-                            Debug.Log($" <> Found Execution Plan: {executionPlan}");
+                            // Debug.Log($" ● Found Execution Plan: {executionPlan}");
                             return executionPlan;
                         }   
 
@@ -173,11 +173,11 @@ public class AttributeManager
                 }
                 else
                 {
-                    Debug.Log($"The executer ({executer}) must own the attribute '{currentOwnedAttribute.attribute}' to execute '{mapEvent}' but it does not. MapEvent owned by '{currentOwnedAttribute.ownerMapElement}'.");
-                    if (mapEvent.ConsequencesCover(ownedAttribute, target, executer, executer))
+                    // Debug.Log($"The executer ({executer}) must own the attribute '{currentOwnedAttribute.attribute}' to execute '{mapEvent}' but it does not. MapEvent owned by '{currentOwnedAttribute.ownerMapElement}'.");
+                    if (mapEvent.ConsequencesCover(ownedAttributeToTakeCare, target, executer, executer))
                     {
                         ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer);
-                        Debug.Log($" <> Found 'forced' Execution Plan: {executionPlan}");
+                        // Debug.Log($" ● Found 'forced' Execution Plan: {executionPlan}");
                         return executionPlan;
                     }
                 }
