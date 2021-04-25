@@ -83,20 +83,43 @@ namespace Thoughts.Game.GameMap
             return requirementsNotMet;
         }
 
-        public bool CanCover(Attribute attribute, MapElement target, MapElement executer, MapElement owner)
+        public bool ConsequencesCover(OwnedAttribute ownedAttribute, MapElement target, MapElement executer, MapElement owner)
         {
+            bool consequenceCoversOwnerOfAttribute = false;
             foreach (AttributeUpdate consequence in consequences)
             {
-                if (consequence.attribute == attribute && consequence.value > 0)
-                    if (consequence.affected == AttributeUpdate.AttributeUpdateAffected.eventTarget)
+                if (consequence.attribute == ownedAttribute.attribute && consequence.value > 0)
+                {
+                    switch (consequence.affected)
                     {
-                        if (target == executer || target == owner)
-                            return false;
+                        case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                            consequenceCoversOwnerOfAttribute = ownedAttribute.ownerMapElement == owner;
+                            break;
+                        case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                            consequenceCoversOwnerOfAttribute = ownedAttribute.ownerMapElement == executer;
+                            break;
+                        case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                            consequenceCoversOwnerOfAttribute = ownedAttribute.ownerMapElement == target;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
-                    else
+
+                    if (consequenceCoversOwnerOfAttribute)
                     {
-                        return true;
-                    }                
+                        if (consequence.affected == AttributeUpdate.AttributeUpdateAffected.eventTarget)
+                        {
+                            // The 'target' must not be the 'executer' neither the 'owner'
+                            if (target == executer || target == owner)
+                                return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+                    }
+
+                }
             }
             
             return false;

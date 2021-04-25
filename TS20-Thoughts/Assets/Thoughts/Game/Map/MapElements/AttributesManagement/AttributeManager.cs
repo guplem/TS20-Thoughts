@@ -162,7 +162,7 @@ public class AttributeManager
                         /*if (target != executer)
                             eventOwner = target != currentOwnedAttribute.ownerMapElement ? executer : target;*/
 
-                        if (mapEvent.CanCover(ownedAttribute.attribute, target, executer, eventOwner))
+                        if (mapEvent.ConsequencesCover(ownedAttribute, target, executer, eventOwner))
                         {
                             ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
                             Debug.Log($" <> Found Execution Plan: {executionPlan}");
@@ -174,7 +174,7 @@ public class AttributeManager
                 else
                 {
                     Debug.Log($"The executer ({executer}) must own the attribute '{currentOwnedAttribute.attribute}' to execute '{mapEvent}' but it does not. MapEvent owned by '{currentOwnedAttribute.ownerMapElement}'.");
-                    if (mapEvent.CanCover(ownedAttribute.attribute, target, executer, executer))
+                    if (mapEvent.ConsequencesCover(ownedAttribute, target, executer, executer))
                     {
                         ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer);
                         Debug.Log($" <> Found 'forced' Execution Plan: {executionPlan}");
