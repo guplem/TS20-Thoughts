@@ -28,7 +28,7 @@ namespace Thoughts.Game.GameMap
                     Debug.Log($"► Updating current objective attribute for '{this}' to '{(value!=null?value.attribute.name:"null")}'.");
                     if (value != null)
                     {
-                         currentExecutionPlans = currentObjectiveAttribute.GetExecutionPlanToCoverThisAttribute(this);
+                         currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, this);
                          if (currentExecutionPlans == null)
                               Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
                          else
@@ -84,8 +84,9 @@ namespace Thoughts.Game.GameMap
                // new MoveAction(elementToCoverNeed.gameObject.transform.position)
                int indexNextAction = currentExecutionPlans.Count-1;
                ExecutionPlan executionPlan = currentExecutionPlans.ElementAt(indexNextAction);
-               
-               if (!executionPlan.AreRequirementsMet())
+
+               List<OwnedAttribute> reqNotMet = executionPlan.GetRequirementsNotMet();
+               if ( reqNotMet != null && reqNotMet.Count> 0)
                {
                     //ToDo: Do something when the requirements are not met
                     Debug.LogWarning(" > Not executing planed map event");
@@ -133,7 +134,7 @@ namespace Thoughts.Game.GameMap
           {
                attributeManager.UpdateAttribute(attribute, deltaValue);
           }
-          public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out OwnedAttribute ownedAttributeOfFoundMapEvent)
+          /*public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out OwnedAttribute ownedAttributeContainingFoundMapEvent)
           {
                // Debug.Log($">>> Searching to take care of {attribute} in {this}", this);
                foreach (OwnedAttribute ownedAttribute in attributeManager.ownedAttributes)
@@ -141,15 +142,20 @@ namespace Thoughts.Game.GameMap
                          foreach (AttributeUpdate consequence in mapEvent.consequences)
                               if (consequence.attribute == attribute && consequence.affected == affected && consequence.value > 0)
                               {
-                                   ownedAttributeOfFoundMapEvent = ownedAttribute;
+                                   ownedAttributeContainingFoundMapEvent = ownedAttribute;
                                    return mapEvent;
                               }
-               ownedAttributeOfFoundMapEvent = null;
+               ownedAttributeContainingFoundMapEvent = null;
                return null;
-          }
+          }*/
           public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
           {
                return attributeManager.GetOwnedAttributeOf(attribute);
+          }
+
+          public override string ToString()
+          {
+               return name;
           }
      }
      

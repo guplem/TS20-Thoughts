@@ -87,11 +87,19 @@ public class AttributeManager
 
     public void UpdateAttribute(Attribute attributeToUpdate, int deltaValue)
     {
+        bool found = false;
         foreach (OwnedAttribute managerAttribute in ownedAttributes)
         {
             if (managerAttribute.attribute == attributeToUpdate)
+            {
                 managerAttribute.value += deltaValue;
-            //Debug.Log($"         > The new value for the attribute '{managerAttribute}' in '{ownerMapElement}' is = {managerAttribute.value}");
+                //Debug.Log($"         > The new value for the attribute '{managerAttribute}' in '{ownerMapElement}' is = {managerAttribute.value}");
+                found = true;
+            }
+        }
+        if (!found)
+        {
+            ownedAttributes.Add(new OwnedAttribute(attributeToUpdate, deltaValue, ownerMapElement, 0, false));
         }
     }
     public List<OwnedAttribute> GetAttributesThatNeedCare()
@@ -117,7 +125,7 @@ public class AttributeManager
             if (requirement.attribute == ownedAttribute.attribute)
                 if (requirement.value <= ownedAttribute.value)
                     return true;
-        Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'");
+        Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'\n");
         return false;
     }
     public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
@@ -127,7 +135,40 @@ public class AttributeManager
             if (ownedAttribute.attribute == attribute)
                 return ownedAttribute;
         }
-        Debug.LogWarning($"Attribute '{attribute}' not found in '{ownerMapElement}' owned attributes.");
+        Debug.LogWarning($"Attribute '{attribute}' not found in '{ownerMapElement}' owned attributes.\n"); // Todo: if not found, create a new OwnedAttribute matching the parameter 'attribute' with the the same owner as this 'AttributeManager'
+        return null;
+    }
+    public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttribute, MapElement caregiver)
+    {
+        MapElement target = ownedAttribute.ownerMapElement;
+        
+        Debug.Log($">>> Searching to take care of '{ownedAttribute.attribute}' in '{ownerMapElement}' by '{caregiver}'\n", ownerMapElement);
+        foreach (OwnedAttribute attribute in ownedAttributes)
+        {
+            foreach (MapEvent mapEvent in attribute.attribute.mapEvents)
+            {
+                Debug.Log($"Checking '{mapEvent}' in attribute '{attribute}' owned by '{ownerMapElement}'");
+                if (mapEvent.tryToCoverRequirementsIfNotMet || 
+                    (!mapEvent.tryToCoverRequirementsIfNotMet && mapEvent.GetRequirementsNotMet(ownerMapElement, caregiver, target).IsNullOrEmpty())
+                )
+                {
+                    foreach (AttributeUpdate consequence in mapEvent.consequences){
+                        if (consequence.attribute == ownedAttribute.attribute && consequence.value > 0)
+                        {
+                            MapElement eventOwner = null;
+                            if (target != caregiver)
+                                eventOwner = target != attribute.ownerMapElement ? caregiver : target;
+                            else
+                                eventOwner = attribute.ownerMapElement;
+
+                            return new ExecutionPlan(mapEvent, caregiver, target, eventOwner);
+                        }   
+                    }
+                }
+            }
+        }
+
+        
         return null;
     }
 }

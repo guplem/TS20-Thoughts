@@ -11,9 +11,12 @@ namespace Thoughts.Game.GameMap
         [SerializeField] public string name = "";
         [SerializeField] public float maxDistance = 5f; // Ignored if it is <0 or if 'executeWithTimeElapse' is true
         [SerializeField] public bool executeWithTimeElapse = false;
-        [SerializeField] public bool executerMustOwnAttribute = false;
+        [SerializeField] public bool executerMustOwnAttribute = false; //TODO. Check if needed. It is used in "Drop"
         [SerializeField] public List<AttributeUpdate> consequences = new List<AttributeUpdate>();
         [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
+        [Tooltip("If false, in case the requirements are not met nd the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed.")]
+        [SerializeField] public bool tryToCoverRequirementsIfNotMet = true;
+
 
         public void Execute(MapElement executer, MapElement target, MapElement owner)
         {
@@ -40,7 +43,7 @@ namespace Thoughts.Game.GameMap
         
         public override string ToString()
         {
-            return  (name.IsNullEmptyOrWhiteSpace() ? (this.GetType().Name + " (no name)") : $"{name}") ;
+            return  (name.IsNullEmptyOrWhiteSpace() ? (this.GetType().Name + " (no name)") : name) ;
         }
         
         public bool IsDistanceMet(MapElement eventOwner, MapElement executer)
@@ -53,30 +56,31 @@ namespace Thoughts.Game.GameMap
             return Vector3.Distance(eventOwnerPosition, executerPosition) <= maxDistance;
         }
         
-        public bool AreRequirementsMet(MapElement eventOwner, MapElement executer, MapElement target)
+        public List<OwnedAttribute> GetRequirementsNotMet(MapElement eventOwner, MapElement executer, MapElement target)
         {
-            bool result;
+            List<OwnedAttribute> requirementsNotMet = new List<OwnedAttribute>();
+            
             foreach (AttributeUpdate requirement in requirements)
             {
                 switch (requirement.affected)
                 {
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                        result = eventOwner.attributeManager.Meets(requirement);
-                        if (!result) return false;
+                        if(!eventOwner.attributeManager.Meets(requirement))
+                            requirementsNotMet.Add(eventOwner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                        result = executer.attributeManager.Meets(requirement);
-                        if (!result) return false;
+                        if(!executer.attributeManager.Meets(requirement))
+                            requirementsNotMet.Add(executer.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                        result = target.attributeManager.Meets(requirement);
-                        if (!result) return false;
+                        if(!target.attributeManager.Meets(requirement))
+                            requirementsNotMet.Add(target.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
             }
-            return true;
+            return requirementsNotMet;
         }
 
     }

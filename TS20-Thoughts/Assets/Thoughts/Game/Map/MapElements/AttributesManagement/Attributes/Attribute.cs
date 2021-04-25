@@ -12,6 +12,11 @@ namespace Thoughts
 
         [SerializeField] public List<MapEvent> mapEvents;
 
+        public override string ToString()
+        {
+            return name;
+        }
+
     #region Comparasions
         public override bool Equals(object obj)
         {

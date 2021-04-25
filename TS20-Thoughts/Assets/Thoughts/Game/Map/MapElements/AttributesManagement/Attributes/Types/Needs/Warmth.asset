@@ -16,7 +16,7 @@ MonoBehaviour:
   - name: Get Cold
     maxDistance: -1
     executeWithTimeElapse: 1
-    executerMustOwnAttribute: 0
+    executerMustOwnAttribute: 1
     consequences:
     - attribute: {fileID: 11400000}
       value: -1
@@ -25,3 +25,4 @@ MonoBehaviour:
     - attribute: {fileID: 11400000}
       value: 1
       affected: 0
+    tryToCoverRequirementsIfNotMet: 1

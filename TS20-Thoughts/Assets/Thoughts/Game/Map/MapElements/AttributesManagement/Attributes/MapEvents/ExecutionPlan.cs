@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class ExecutionPlan
 {
-    public MapEvent mapEvent { get; private set; }
-    public MapElement eventOwner { get; private set; } //{ get => mapEvent.ownerAttribute.ownerAttributeManager.ownerMapElement; }
-    public MapElement executer { get; private set; }
-    public MapElement target { get; private set; }
+    public MapEvent mapEvent { get; private set; } // The event to execute
+    public MapElement eventOwner { get; private set; } // Who must have the event to be executed
+    public MapElement executer { get; private set; } // The executer of the event
+    public MapElement target { get; private set; } // The target of the event execution
 
     public Vector3 executionLocation => eventOwner.transform.position;
 
@@ -23,7 +23,7 @@ public class ExecutionPlan
 
     public override string ToString()
     {
-        return $"'{mapEvent}' (executed by '{executer}' to target '{target}' at '{eventOwner}')";
+        return $"'{mapEvent}' (executed by '{executer}' to target '{target}' owned by '{eventOwner}')";
     }
     
     /// <summary>
@@ -44,7 +44,8 @@ public class ExecutionPlan
     
     private bool CanBeExecuted()
     {
-        return AreRequirementsMet() && IsDistanceMet();
+        List<OwnedAttribute> requirementsNotMet = GetRequirementsNotMet();
+        return (requirementsNotMet == null || requirementsNotMet.Count <= 0) && IsDistanceMet();
     }
     
     public bool IsDistanceMet()
@@ -52,9 +53,9 @@ public class ExecutionPlan
         return mapEvent.IsDistanceMet(eventOwner, executer);
     }
     
-    public bool AreRequirementsMet()
+    public List<OwnedAttribute> GetRequirementsNotMet()
     {
-        return mapEvent.AreRequirementsMet(eventOwner, executer, target);
+        return mapEvent.GetRequirementsNotMet(eventOwner, executer, target);
     }
     
 }

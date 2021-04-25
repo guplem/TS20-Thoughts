@@ -91,6 +91,15 @@ namespace UnityEngine
         {
             return new HashSet<T>(source, comparer);
         }
+        
+        /// <summary>
+        /// Indicates whether the IEnumerable is null or does not contain any element.
+        /// </summary>
+        /// <returns>True if the value IEnumerable is null or does not contain any element. Otherwise, false.</returns>
+        public static bool IsNullOrEmpty<T>(this IEnumerable<T> source)
+        {
+            return source == null || !source.Any();
+        }
 
     }
 }

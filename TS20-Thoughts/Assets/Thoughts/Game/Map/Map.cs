@@ -112,20 +112,27 @@ namespace Thoughts.Game.GameMap
 
     #endregion
 
-        public MapEvent GetExecutionPlanToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out OwnedAttribute ownedAttributeOfFoundMapEvent)
+        public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttribute, MapElement caregiver)
         {
-            MapEvent foundMapEvent = null;
-            OwnedAttribute foundOwnedAttributeOfFoundMapEvent = null;
+            ExecutionPlan foundExecutionPlan = null;
             
-            foreach (MapElement mapElement in mapElements)
-            {
-                foundMapEvent = mapElement.GetMapEventToTakeCareOf(attribute, affected, out foundOwnedAttributeOfFoundMapEvent);
-                if (foundMapEvent != null)
-                    break;
-            }
+            //Trying to take care with an attribute/mapEvent in the target
+            foundExecutionPlan = ownedAttribute.ownerMapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttribute, caregiver);
+                
+            //Trying to take care with an attribute/mapEvent in the caregiver
+            if (foundExecutionPlan == null)
+                foundExecutionPlan = caregiver.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttribute, caregiver);
             
-            ownedAttributeOfFoundMapEvent = foundOwnedAttributeOfFoundMapEvent;
-            return foundMapEvent;
+            //Trying to take care with an attribute/mapEvent in any map element
+            if (foundExecutionPlan == null)
+                foreach (MapElement mapElement in mapElements) // Todo: sort by distance
+                {
+                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttribute, caregiver);
+                    if (foundMapEvent != null)
+                        return foundMapEvent;
+                }
+
+            return foundExecutionPlan;
         }
         
     }

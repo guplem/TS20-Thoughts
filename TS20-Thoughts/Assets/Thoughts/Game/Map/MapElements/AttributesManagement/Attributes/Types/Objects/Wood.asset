@@ -19,15 +19,16 @@ MonoBehaviour:
     executerMustOwnAttribute: 0
     consequences:
     - attribute: {fileID: 11400000}
-      value: 1
+      value: 10
       affected: 1
     - attribute: {fileID: 11400000}
-      value: -1
+      value: -10
       affected: 0
     requirements:
     - attribute: {fileID: 11400000}
-      value: 1
+      value: 10
       affected: 0
+    tryToCoverRequirementsIfNotMet: 0
   - name: Drop
     maxDistance: 2
     executeWithTimeElapse: 0
@@ -43,3 +44,4 @@ MonoBehaviour:
     - attribute: {fileID: 11400000}
       value: 1
       affected: 1
+    tryToCoverRequirementsIfNotMet: 1
