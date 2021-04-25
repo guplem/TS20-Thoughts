@@ -11,7 +11,19 @@ public class ExecutionPlan
     public MapElement executer { get; private set; } // The executer of the event
     public MapElement target { get; private set; } // The target of the event execution
 
-    public Vector3 executionLocation => eventOwner.transform.position;
+    public Vector3 executionLocation
+    {
+        get
+        {
+            if (eventOwner == executer)
+                return target.transform.position;
+            
+            if (target != executer)
+                return target.transform.position;
+            
+            return eventOwner.transform.position;
+        }
+    }
 
     public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner)
     {
@@ -50,7 +62,7 @@ public class ExecutionPlan
     
     public bool IsDistanceMet()
     {
-        return mapEvent.IsDistanceMet(eventOwner, executer);
+        return mapEvent.IsDistanceMet(target, eventOwner, executer);
     }
     
     public List<OwnedAttribute> GetRequirementsNotMet()

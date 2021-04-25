@@ -68,8 +68,6 @@ namespace Thoughts.Game.GameMap
                 * StartCoroutine(CourutineMethod());
                */
                
-               
-               
                navMeshAgent = GetComponent<NavMeshAgent>();
           }
           
@@ -89,7 +87,7 @@ namespace Thoughts.Game.GameMap
                if (!requirementsNotMet.IsNullOrEmpty())
                {
                     //ToDo: Do something when the requirements are not met
-                    Debug.LogWarning(" > Not executing planed map event.", gameObject);
+                    Debug.LogWarning($" > Not executing planed map event {executionPlan}.", gameObject);
                     requirementsNotMet.DebugLog("\n    ● ", $" > Requirements not met:\n    ● ", gameObject);
                }
                else if (!executionPlan.IsDistanceMet())
@@ -141,24 +139,6 @@ namespace Thoughts.Game.GameMap
           public void UpdateAttribute(Attribute attribute, int deltaValue)
           {
                attributeManager.UpdateAttribute(attribute, deltaValue);
-          }
-          /*public MapEvent GetMapEventToTakeCareOf(Attribute attribute, AttributeUpdate.AttributeUpdateAffected affected, out OwnedAttribute ownedAttributeContainingFoundMapEvent)
-          {
-               // Debug.Log($">>> Searching to take care of {attribute} in {this}", this);
-               foreach (OwnedAttribute ownedAttribute in attributeManager.ownedAttributes)
-                    foreach (MapEvent mapEvent in ownedAttribute.attribute.mapEvents)
-                         foreach (AttributeUpdate consequence in mapEvent.consequences)
-                              if (consequence.attribute == attribute && consequence.affected == affected && consequence.value > 0)
-                              {
-                                   ownedAttributeContainingFoundMapEvent = ownedAttribute;
-                                   return mapEvent;
-                              }
-               ownedAttributeContainingFoundMapEvent = null;
-               return null;
-          }*/
-          public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
-          {
-               return attributeManager.GetOwnedAttributeOf(attribute);
           }
 
           public override string ToString()

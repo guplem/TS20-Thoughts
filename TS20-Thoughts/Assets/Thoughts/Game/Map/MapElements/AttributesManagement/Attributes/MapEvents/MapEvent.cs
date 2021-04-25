@@ -46,14 +46,23 @@ namespace Thoughts.Game.GameMap
             return  (name.IsNullEmptyOrWhiteSpace() ? (this.GetType().Name + " (no name)") : name) ;
         }
         
-        public bool IsDistanceMet(MapElement eventOwner, MapElement executer)
+        public bool IsDistanceMet(MapElement target, MapElement eventOwner, MapElement executer)
         {
             if (maxDistance < 0)
                 return true;
         
             Vector3 eventOwnerPosition = eventOwner.transform.position;
+            
             Vector3 executerPosition = executer.transform.position;
-            return Vector3.Distance(eventOwnerPosition, executerPosition) <= maxDistance;
+            float distanceOwnerExecuter = Vector3.Distance(eventOwnerPosition, executerPosition);
+            
+
+            Vector3 targetPosition = target.transform.position;
+            float distanceTargetExecuter = Vector3.Distance(eventOwnerPosition, targetPosition);
+
+            float currentMaxDistance = Mathf.Max(distanceTargetExecuter, distanceOwnerExecuter);
+            //Debug.Log($"CURRENT MAX DISTANCE = {currentMaxDistance}");
+            return currentMaxDistance <= maxDistance;
         }
         
         public List<OwnedAttribute> GetRequirementsNotMet(MapElement eventOwner, MapElement executer, MapElement target)

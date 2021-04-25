@@ -34,7 +34,7 @@ namespace Thoughts.Game
     /// <returns></returns>
     public List<ExecutionPlan> GetExecutionPlanToCoverThisAttribute(OwnedAttribute ownedAttribute, MapElement caregiver, List<ExecutionPlan> mapEventsToTakeCare = null, int iteration = 0)
     {
-        Debug.Log($" ◌ Searching for an execution plan to cover '{ownedAttribute.attribute}' owned by '{ownedAttribute.ownerMapElement}' executed by '{caregiver}'.    Iteration {iteration}.\n");
+        // Debug.Log($" ◌ Searching for an execution plan to cover '{ownedAttribute.attribute}' owned by '{ownedAttribute.ownerMapElement}' executed by '{caregiver}'.    Iteration {iteration}.\n");
         
         if (iteration >= 50)
         {
@@ -47,8 +47,9 @@ namespace Thoughts.Game
             mapEventsToTakeCare = new List<ExecutionPlan>();
 
         ExecutionPlan lastExecutionPlan = map.GetExecutionPlanToTakeCareOf(ownedAttribute, caregiver);
-        if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
-        else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
+        
+        //if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
+        //else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
 
         if (lastExecutionPlan != null)
         {
