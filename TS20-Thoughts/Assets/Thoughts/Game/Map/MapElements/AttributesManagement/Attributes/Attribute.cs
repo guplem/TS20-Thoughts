@@ -70,13 +70,18 @@ namespace Thoughts
         
         public bool IsMorePrioritaryThan(Attribute attribute)
         {
-            if (this.needPriority == NeedPriority.None)
+            if (!this.IsNeed())
                 return false;
 
-            if (attribute.needPriority == NeedPriority.None)
+            if (!attribute.IsNeed())
                 return true;
 
             return this.needPriority < attribute.needPriority;
+        }
+
+        public bool IsNeed()
+        {
+            return this.needPriority != NeedPriority.None;
         }
         
     #region EqualityComparer
