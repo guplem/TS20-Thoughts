@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Satiety
   m_EditorClassIdentifier: 
+  _needPriority: 1
   mapEvents:
   - name: Get Hungry
     maxDistance: -1
