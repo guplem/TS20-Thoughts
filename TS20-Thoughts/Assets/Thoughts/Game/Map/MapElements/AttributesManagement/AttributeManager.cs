@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 using Attribute = Thoughts.Attribute;
-using Object = UnityEngine.Object;
 
 [Serializable]
 public class AttributeManager
@@ -54,7 +53,7 @@ public class AttributeManager
         }
         if (!found)
         {
-            ownedAttributes.Add(new OwnedAttribute(attributeToUpdate, deltaValue, ownerMapElement, 0, false));
+            ownedAttributes.Add(new OwnedAttribute(attributeToUpdate, deltaValue, ownerMapElement, false));
         }
     }
     public List<OwnedAttribute> GetAttributesThatNeedCare()
@@ -63,7 +62,7 @@ public class AttributeManager
         foreach (OwnedAttribute attribute in ownedAttributes)
         {
             if (attribute.takeCare)
-                if (attribute.value < attribute.minValue)
+                if (attribute.value <= 0)
                     attributesThatNeedCare.Add(attribute);
         }
         return attributesThatNeedCare;
@@ -92,7 +91,7 @@ public class AttributeManager
         }
         //ToDo: adding the attribute (next lines) should be done in another method. Maybe calling a new method calling 'GetOwnedAttributeAndAddItIfNotFound' should  be created to call them both
         Debug.Log($"   Attribute '{attribute}' not found in '{ownerMapElement}' owned attributes. Adding the attribute with a value of 0.\n", ownerMapElement);
-        OwnedAttribute newAttribute = new OwnedAttribute(attribute, 0, ownerMapElement, 0, false);
+        OwnedAttribute newAttribute = new OwnedAttribute(attribute, 0, ownerMapElement, false);
         ownedAttributes.Add(newAttribute);
         return newAttribute;
     }

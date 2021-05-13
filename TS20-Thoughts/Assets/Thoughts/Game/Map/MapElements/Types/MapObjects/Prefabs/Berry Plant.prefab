@@ -103,6 +103,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2562710155873659894, guid: 6fed3179059dd8946a727f3b8820d3c8, type: 3}
+      propertyPath: name
+      value: Berry Plant
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562710155873659894, guid: 6fed3179059dd8946a727f3b8820d3c8, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.size
       value: 1
       objectReference: {fileID: 0}

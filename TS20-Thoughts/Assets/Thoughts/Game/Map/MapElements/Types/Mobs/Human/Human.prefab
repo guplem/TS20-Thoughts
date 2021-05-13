@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &5136355112049165808
+--- !u!114 &3122060852096878129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,23 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 2469175761462515557}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856d882b08e74b94fb069a87da61f8ed, type: 3}
+  m_Script: {fileID: 11500000, guid: 61b93221cbedc1a48826c04cf4ed8e48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attributeManager:
     _ownedAttributes:
     - attribute: {fileID: 11400000, guid: 58e38d4c97a034a4ab8d28113ceb69bb, type: 2}
       value: 10
-      minValue: 5
       takeCare: 1
     - attribute: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
       value: 40
-      minValue: 5
       takeCare: 1
     - attribute: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
-      value: 70
-      minValue: 5
+      value: 0
       takeCare: 1
+  name: Human
   povCameraPrentTransform: {fileID: 5385195016694065520}
 --- !u!1 &3687949500601768678
 GameObject:

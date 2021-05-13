@@ -20,7 +20,7 @@ public class UIAttribute : UIPovRowElement
         string ret = attribute.attribute.name;
         ret += '\n';
 
-        ret += $"{attribute.value}/{attribute.minValue}";
+        ret += $"{attribute.value}";
         
         return ret;
     }

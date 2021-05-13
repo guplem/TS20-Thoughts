@@ -1,5 +1,3 @@
-
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +11,7 @@ namespace Thoughts.Game.GameMap
      public abstract class MapElement : MonoBehaviour
      {
           [SerializeField] public AttributeManager attributeManager = new AttributeManager();
-          
+
           private List<ExecutionPlan> currentExecutionPlans = new List<ExecutionPlan>();
           
           private OwnedAttribute currentObjectiveAttribute

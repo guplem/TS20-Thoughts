@@ -1,7 +1,4 @@
 #if UNITY_EDITOR
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Thoughts.Game.GameMap;
 using UnityEditor;
 using UnityEngine;
@@ -21,7 +18,7 @@ namespace Thoughts
             
             attribute = target as Attribute;
             base.OnInspectorGUI();
-            ShowMapEventsArray();
+            //ShowMapEventsArray();
             
             // Apply changes to the serializedProperty - always do this in the end of OnInspectorGUI.
             serializedObject.ApplyModifiedProperties ();

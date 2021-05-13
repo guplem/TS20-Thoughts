@@ -11,7 +11,6 @@ public class OwnedAttribute
     public MapElement ownerMapElement { get; private set; }
     [SerializeField] public Thoughts.Attribute attribute;
     [SerializeField] public float value;
-    [SerializeField] public float minValue;
     [SerializeField] public bool takeCare;
     
     public void UpdateOwner(MapElement newOwner)
@@ -19,18 +18,17 @@ public class OwnedAttribute
         this.ownerMapElement = newOwner;
     }
 
-    public OwnedAttribute(Attribute attribute, float value, MapElement ownerMapElement, float minValue = 0, bool takeCare = false)
+    public OwnedAttribute(Attribute attribute, float value, MapElement ownerMapElement, bool takeCare = false)
     {
         this.attribute = attribute;
         this.value = value;
-        this.minValue = minValue;
         this.takeCare = takeCare;
         this.ownerMapElement = ownerMapElement;
     }
 
     public override string ToString()
     {
-        return $"OwnedAttribute of attribute '{attribute}' owned by '{ownerMapElement}'. Value = {value}. MinValue = {minValue}. TakeCare = {takeCare}.";
+        return $"OwnedAttribute of attribute '{attribute}' owned by '{ownerMapElement}'. Value = {value}. TakeCare = {takeCare}.";
     }
 
 }
