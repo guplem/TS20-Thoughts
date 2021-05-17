@@ -141,6 +141,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2562710155873659894, guid: 6fed3179059dd8946a727f3b8820d3c8, type: 3}
+      propertyPath: attributeManager._ownedAttributes.Array.data[0]._value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562710155873659894, guid: 6fed3179059dd8946a727f3b8820d3c8, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0].attribute
       value: 
       objectReference: {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}

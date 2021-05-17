@@ -129,13 +129,21 @@ namespace Thoughts.Game.GameMap
           {
                List<OwnedAttribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
                if (attributesThatNeedCare.IsNullOrEmpty())
-                    currentObjectiveAttribute = null;
+               {
+                    currentObjectiveAttribute = null;      
+               }
                else
                {
                     foreach (OwnedAttribute ownedAttribute in attributesThatNeedCare)
                     {
-                         if (ownedAttribute.attribute.IsMorePrioritaryThan(currentObjectiveAttribute.attribute))
-                              currentObjectiveAttribute = attributesThatNeedCare.ElementAt(0);
+                         OwnedAttribute mostPrioritary = currentObjectiveAttribute;
+
+                         if (mostPrioritary == null)
+                              mostPrioritary = ownedAttribute;
+                         else if (!mostPrioritary.NeedsCare() || ownedAttribute.attribute.IsMorePrioritaryThan(mostPrioritary.attribute))
+                              mostPrioritary = ownedAttribute;
+
+                         currentObjectiveAttribute = mostPrioritary;
                     }
                }
                     

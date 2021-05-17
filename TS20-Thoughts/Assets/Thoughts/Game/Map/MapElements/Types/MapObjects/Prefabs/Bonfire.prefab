@@ -131,6 +131,14 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2562710155873659894, guid: 6fed3179059dd8946a727f3b8820d3c8, type: 3}
+      propertyPath: attributeManager._ownedAttributes.Array.data[0]._value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562710155873659894, guid: 6fed3179059dd8946a727f3b8820d3c8, type: 3}
+      propertyPath: attributeManager._ownedAttributes.Array.data[1]._value
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2562710155873659894, guid: 6fed3179059dd8946a727f3b8820d3c8, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0].attribute
       value: 
       objectReference: {fileID: 11400000, guid: 58b27d8180ef93f478028745e7aa7c2a, type: 2}

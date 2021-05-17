@@ -46,7 +46,7 @@ public class AttributeManager
         {
             if (managerAttribute.attribute == attributeToUpdate)
             {
-                managerAttribute.value += deltaValue;
+                managerAttribute.UpdateValue(deltaValue);
                 //Debug.Log($"         > The new value for the attribute '{managerAttribute}' in '{ownerMapElement}' is = {managerAttribute.value}");
                 found = true;
             }
@@ -61,9 +61,8 @@ public class AttributeManager
         List<OwnedAttribute> attributesThatNeedCare = new List<OwnedAttribute>();
         foreach (OwnedAttribute attribute in ownedAttributes)
         {
-            if (attribute.takeCare)
-                if (attribute.value <= 0)
-                    attributesThatNeedCare.Add(attribute);
+            if (attribute.NeedsCare())
+                attributesThatNeedCare.Add(attribute);
         }
         return attributesThatNeedCare;
     }
