@@ -19,7 +19,8 @@ namespace Thoughts
             return name;
         }
         
-        /*
+        /*  ==== LEVELS EXPLANATION ====
+         
             5. Self-actualization (SelfActualization - Priority = 5)
             	- Becoming the most that one can be
             	- Creative activities
@@ -70,6 +71,9 @@ namespace Thoughts
         
         public bool IsMorePrioritaryThan(Attribute attribute)
         {
+            if (attribute == null)
+                return true;
+            
             if (!this.IsNeed())
                 return false;
 

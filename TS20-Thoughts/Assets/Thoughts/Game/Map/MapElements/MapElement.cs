@@ -131,7 +131,14 @@ namespace Thoughts.Game.GameMap
                if (attributesThatNeedCare.IsNullOrEmpty())
                     currentObjectiveAttribute = null;
                else
-                    currentObjectiveAttribute = attributesThatNeedCare.ElementAt(0);
+               {
+                    foreach (OwnedAttribute ownedAttribute in attributesThatNeedCare)
+                    {
+                         if (ownedAttribute.attribute.IsMorePrioritaryThan(currentObjectiveAttribute.attribute))
+                              currentObjectiveAttribute = attributesThatNeedCare.ElementAt(0);
+                    }
+               }
+                    
           }
 
           public void UpdateAttribute(Attribute attribute, int deltaValue)
