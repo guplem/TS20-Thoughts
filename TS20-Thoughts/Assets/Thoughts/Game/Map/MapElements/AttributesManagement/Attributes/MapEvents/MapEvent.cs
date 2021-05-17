@@ -13,9 +13,9 @@ namespace Thoughts.Game.GameMap
         [SerializeField] public bool executeWithTimeElapse = false;
         [SerializeField] public bool executerMustOwnAttribute = false; //TODO. Check if needed. It is used in "Drop"
         [SerializeField] public List<AttributeUpdate> consequences = new List<AttributeUpdate>();
-        [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
         [Tooltip("If false, in case the requirements are not met and the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed.")]
         [SerializeField] public bool tryToCoverRequirementsIfNotMet = true;
+        [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
 
 
         public void Execute(MapElement executer, MapElement target, MapElement owner)
