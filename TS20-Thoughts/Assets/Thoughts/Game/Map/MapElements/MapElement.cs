@@ -26,7 +26,7 @@ namespace Thoughts.Game.GameMap
                     Debug.Log($"► Updating current objective attribute for '{this}' to '{(value!=null?value.attribute.name:"null")}'.");
                     if (value != null)
                     {
-                         currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, this);
+                         currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, 1, this);
                          if (currentExecutionPlans.IsNullOrEmpty())
                               Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
                          else
@@ -81,7 +81,7 @@ namespace Thoughts.Game.GameMap
                int indexNextAction = currentExecutionPlans.Count-1;
                ExecutionPlan executionPlan = currentExecutionPlans.ElementAt(indexNextAction);
 
-               List<OwnedAttribute> requirementsNotMet = executionPlan.GetRequirementsNotMet();
+               List<OwnedAttribute> requirementsNotMet = executionPlan.GetRequirementsNotMet(out List<int> temp);
                if (!requirementsNotMet.IsNullOrEmpty())
                {
                     //ToDo: Do something when the requirements are not met

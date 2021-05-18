@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Thoughts.ControlSystems;
 using UnityEngine;
 using UnityEngine.AI;
@@ -45,11 +46,11 @@ namespace Thoughts.Game.GameMap
             List<MapElement> generatedMapObjects = new List<MapElement>();
             RandomEssentials random = new RandomEssentials();
             
-            generatedMapObjects.AddRange(SpawnRandom("river", 1, random));
-            generatedMapObjects.AddRange(SpawnRandom("rock", 10, random));
-            generatedMapObjects.AddRange(SpawnRandom("tree", 3, random));
+            //generatedMapObjects.AddRange(SpawnRandom("river", 1, random));
+            //generatedMapObjects.AddRange(SpawnRandom("rock", 10, random));
+            generatedMapObjects.AddRange(SpawnRandom("tree", 1, random));
             generatedMapObjects.AddRange(SpawnRandom("bonfire", 1, random));
-            generatedMapObjects.AddRange(SpawnRandom("Berry Plant", 3, random));
+            //generatedMapObjects.AddRange(SpawnRandom("Berry Plant", 3, random));
 
             return generatedMapObjects;
         }
@@ -113,8 +114,11 @@ namespace Thoughts.Game.GameMap
 
     #endregion
 
-        public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttributeToTakeCare, MapElement caregiver)
+        public ExecutionPlan GetExecutionPlanToTakeCareOf([NotNull] OwnedAttribute ownedAttributeToTakeCare, MapElement caregiver)
         {
+            if (ownedAttributeToTakeCare == null)
+                throw new ArgumentNullException(nameof(ownedAttributeToTakeCare));
+            
             ExecutionPlan foundExecutionPlan = null;
             
             //Trying to take care with an attribute/mapEvent in the target

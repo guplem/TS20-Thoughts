@@ -65,30 +65,61 @@ namespace Thoughts.Game.GameMap
             return currentMaxDistance <= maxDistance;
         }
         
-        public List<OwnedAttribute> GetRequirementsNotMet(MapElement eventOwner, MapElement executer, MapElement target)
+        public List<OwnedAttribute> GetRequirementsNotMet(MapElement eventOwner, MapElement executer, MapElement target, out List<int> remainingValueToCoverRequirementsNotMet)
         {
             List<OwnedAttribute> requirementsNotMet = new List<OwnedAttribute>();
+            remainingValueToCoverRequirementsNotMet = new List<int>();
             
             foreach (AttributeUpdate requirement in requirements)
             {
+                //OwnedAttribute attributeThatMostCloselyMeetsTheRequirement;
+                int remainingValueToCoverRequirementNotMet;
+                bool meets = true;
+
                 switch (requirement.affected)
                 {
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                        if(!eventOwner.attributeManager.Meets(requirement))
+                        meets = eventOwner.attributeManager.Meets(requirement, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        if (!meets) {
                             requirementsNotMet.Add(eventOwner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
+                            remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                        }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                        if(!executer.attributeManager.Meets(requirement))
+                        meets = executer.attributeManager.Meets(requirement, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        if (!meets) {
                             requirementsNotMet.Add(executer.attributeManager.GetOwnedAttributeOf(requirement.attribute));
+                            remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                        }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                        if(!target.attributeManager.Meets(requirement))
+                        meets = target.attributeManager.Meets(requirement, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        if (!meets) {
                             requirementsNotMet.Add(target.attributeManager.GetOwnedAttributeOf(requirement.attribute));
+                            remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                        }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
+
+                //if (!meets)
+                //{
+                //    //remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                //    //requirementsNotMet.Add(requirement);
+                //    //if (attributeThatMostCloselyMeetsTheRequirement == null)
+                //    //    Debug.LogWarning("Adding a attributeThatMostCloselyMeetsTheRequirement that is null"); // Only ok if there is no 
+                //}
+
+                //if (requirementsNotMet.Count != remainingValueToCoverRequirementsNotMet.Count)
+                //{
+                //    Debug.LogWarning("The two lists (requirementsNotMet and remainingValueToCoverInRequirementsNotMet) should be kept syncronized and they have different sizes.");
+                //    requirementsNotMet.DebugLogWarning();
+                //    remainingValueToCoverRequirementsNotMet.DebugLogWarning();
+                //}
+                
             }
+            
             return requirementsNotMet;
         }
 

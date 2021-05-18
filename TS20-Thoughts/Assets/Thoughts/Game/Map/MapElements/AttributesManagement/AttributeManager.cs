@@ -22,7 +22,12 @@ public class AttributeManager
         foreach (OwnedAttribute attributeStats in ownedAttributes)
             attributeStats.UpdateOwner(ownerMapElement);
     }
-    
+
+    public override string ToString()
+    {
+        return $"AttributeManager of {ownerMapElement} with attributes '{ownedAttributes}'";
+    }
+
     public void ExecuteSelfTimeElapseActions()
     {
         if (!ownedAttributes.IsNullOrEmpty())
@@ -30,7 +35,8 @@ public class AttributeManager
             {
                 foreach (MapEvent attributeMapEvent in attribute.attribute.mapEvents)
                 {
-                    if (attributeMapEvent.executeWithTimeElapse && attributeMapEvent.GetRequirementsNotMet(ownerMapElement, ownerMapElement, ownerMapElement).IsNullOrEmpty())
+                    if (attributeMapEvent.executeWithTimeElapse && 
+                        attributeMapEvent.GetRequirementsNotMet(ownerMapElement, ownerMapElement, ownerMapElement, out List<int> temp).IsNullOrEmpty())
                     {
                         //Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
                         attributeMapEvent.Execute(ownerMapElement, ownerMapElement, ownerMapElement);
@@ -66,19 +72,44 @@ public class AttributeManager
         }
         return attributesThatNeedCare;
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="requirement"></param>
+    /// <param name="ownedAttributeThatMostCloselyMeetsTheRequirement">NULL if no attribute can even cover a little bit the requirement</param>
+    /// <param name="remainingValueToCoverInAttributeManager"></param>
     /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate</returns>
-    public bool Meets(AttributeUpdate requirement)
+    public bool Meets(AttributeUpdate requirement, out OwnedAttribute ownedAttributeThatMostCloselyMeetsTheRequirement, out int remainingValueToCoverInAttributeManager)
     {
+        remainingValueToCoverInAttributeManager = requirement.value;
+        ownedAttributeThatMostCloselyMeetsTheRequirement = null;
         foreach (OwnedAttribute ownedAttribute in ownedAttributes)
             if (requirement.attribute == ownedAttribute.attribute)
-                if (requirement.value <= ownedAttribute.value)
+            {
+                int remainingValueToCoverWithCurrentAttribute = requirement.value - ownedAttribute.value;
+                if (remainingValueToCoverWithCurrentAttribute < remainingValueToCoverInAttributeManager)
+                {
+                    remainingValueToCoverInAttributeManager = remainingValueToCoverWithCurrentAttribute;
+                    ownedAttributeThatMostCloselyMeetsTheRequirement = ownedAttribute;
+                }
+                
+                //Debug.Log($">>>>>> Evaluating if {this} meets the requirement {requirement}. Remaining value = {remainingValueToCoverInAttributeManager}");
+
+                if (remainingValueToCoverInAttributeManager <= 0) // No value is missing, so the requirement can be covered
+                {
+                    if (ownedAttributeThatMostCloselyMeetsTheRequirement == null)
+                        Debug.LogWarning("Meet, but a null attribute shouldn't be the best to cover a requirement....");
                     return true;
+                } 
+                
+            }
+                
+        //if (ownedAttributeThatMostCloselyMeetsTheRequirement == null)
+        //    Debug.LogWarning("No attribute in the AttributeManager can cover the requirement....");
+
         // Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'\n");
+
         return false;
     }
     public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
@@ -106,7 +137,7 @@ public class AttributeManager
                 // Debug.Log($" >>> In '{ownerMapElement}', checking '{mapEvent}' in attribute '{currentOwnedAttribute.attribute}' to take care of '{ownedAttributeToTakeCare.attribute}'.\nTarget: {target}, Executer: {executer}, EventOwner still unknown.\n");
                 if (!mapEvent.executerMustOwnAttribute || (mapEvent.executerMustOwnAttribute && currentOwnedAttribute.ownerMapElement == executer))
                 {
-                    if ( mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEvent.GetRequirementsNotMet(ownerMapElement, executer, target).IsNullOrEmpty()) )
+                    if ( mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEvent.GetRequirementsNotMet(ownerMapElement, executer, target, out List<int> temp).IsNullOrEmpty()) )
                     {
                         // If reached here, the mapEvent can be executed - Now choose if it is the appropriate one
 

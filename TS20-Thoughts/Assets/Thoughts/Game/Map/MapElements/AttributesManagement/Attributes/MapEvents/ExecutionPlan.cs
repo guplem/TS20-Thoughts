@@ -56,8 +56,8 @@ public class ExecutionPlan
     
     private bool CanBeExecuted()
     {
-        List<OwnedAttribute> requirementsNotMet = GetRequirementsNotMet();
-        return (requirementsNotMet == null || requirementsNotMet.Count <= 0) && IsDistanceMet();
+        List<OwnedAttribute> requirementsNotMet = GetRequirementsNotMet(out List<int> temp);
+        return (requirementsNotMet.IsNullOrEmpty()) && IsDistanceMet();
     }
     
     public bool IsDistanceMet()
@@ -65,11 +65,59 @@ public class ExecutionPlan
         return mapEvent.IsDistanceMet(target, eventOwner, executer);
     }
     
-    public List<OwnedAttribute> GetRequirementsNotMet()
+    public List<OwnedAttribute> GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet)
     {
-        return mapEvent.GetRequirementsNotMet(eventOwner, executer, target);
+        return mapEvent.GetRequirementsNotMet(eventOwner, executer, target, out remainingValueToCoverInRequirementsNotMet);
     }
-    
+
+    public int ExecutionsNeededToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover)
+    {
+        int coveredPerExecution = 0;
+
+        //Debug.LogWarning($"Calculating how many times '{this.mapEvent}' must be executed to cover '{ownedAttributeToCover.attribute}'...");
+
+        foreach (AttributeUpdate consequence in mapEvent.consequences)
+        {
+            //Debug.Log($"CHECKING {consequence.attribute} against {ownedAttributeToCover.attribute}");
+            if (consequence.attribute == ownedAttributeToCover.attribute)
+            {
+                switch (consequence.affected)   
+                {
+                    case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                        if (this.eventOwner == ownedAttributeToCover.ownerMapElement)
+                            coveredPerExecution += consequence.value;
+
+                        break;
+                    case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                        if (this.executer == ownedAttributeToCover.ownerMapElement)
+                            coveredPerExecution += consequence.value;
+
+                        break;
+                    case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                        if (this.target == ownedAttributeToCover.ownerMapElement)
+                            coveredPerExecution += consequence.value;
+
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+        }
+        int result = -1;
+        if (coveredPerExecution > 0)
+            result = (int) Math.Ceiling(((double) remainingValueToCover) / ((double) coveredPerExecution));
+        
+        //Debug.LogWarning($"It needs to be executed {result} times to cover {remainingValueToCover} of remaining value. It covers {coveredPerExecution} per execution.");
+        
+        if (coveredPerExecution >= remainingValueToCover)
+            return 1;
+        
+        if (coveredPerExecution > 0)
+            return result;
+
+        Debug.LogWarning($"{this} can not cover {ownedAttributeToCover}.");
+        return -1;
+    }
 }
 
 

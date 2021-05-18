@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Fire
   m_EditorClassIdentifier: 
+  _needPriority: 0
   mapEvents:
   - name: Get Warm
     maxDistance: 3
@@ -21,11 +22,11 @@ MonoBehaviour:
     - attribute: {fileID: 11400000, guid: 58e38d4c97a034a4ab8d28113ceb69bb, type: 2}
       value: 50
       affected: 1
+    tryToCoverRequirementsIfNotMet: 1
     requirements:
     - attribute: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
-      value: 1
+      value: 30
       affected: 0
-    tryToCoverRequirementsIfNotMet: 1
   - name: Consume Wood
     maxDistance: -1
     executeWithTimeElapse: 1
@@ -34,8 +35,8 @@ MonoBehaviour:
     - attribute: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
       value: -1
       affected: 0
+    tryToCoverRequirementsIfNotMet: 1
     requirements:
     - attribute: {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
       value: 1
       affected: 0
-    tryToCoverRequirementsIfNotMet: 1
