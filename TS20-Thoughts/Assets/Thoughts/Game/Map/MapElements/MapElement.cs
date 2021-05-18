@@ -26,12 +26,7 @@ namespace Thoughts.Game.GameMap
                     Debug.Log($"► Updating current objective attribute for '{this}' to '{(value!=null?value.attribute.name:"null")}'.");
                     if (value != null)
                     {
-                         currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, 1, this);
-                         if (currentExecutionPlans.IsNullOrEmpty())
-                              Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
-                         else
-                              currentExecutionPlans.DebugLog("\n    ● ", $"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
-
+                         UpdateExecutionPlans();
                     }
                     else
                     {
@@ -39,6 +34,15 @@ namespace Thoughts.Game.GameMap
                     }
 
                }
+          }
+          private void UpdateExecutionPlans()
+          {
+
+               currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, 1, this);
+               if (currentExecutionPlans.IsNullOrEmpty())
+                    Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
+               else
+                    currentExecutionPlans.DebugLog("\n    ● ", $"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
           }
           [CanBeNull] private OwnedAttribute _currentObjectiveAttribute;
 
@@ -99,12 +103,14 @@ namespace Thoughts.Game.GameMap
                     if (executionPlan.Execute())
                     {
                          currentExecutionPlans.RemoveAt(indexNextAction);
+                         DoNextPlanedMapEvent(); // To enable chain of actions automatically done like "drop and use (before the materials are consumed)"
                          //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
                     }
-                    /*else
-                         Debug.LogWarning($"Trying to execute next planed map event ({executionPlan}) but something went wrong.");
-                    */
-                         
+                    else
+                    {
+                         UpdateExecutionPlans();
+                    }
+                    
                }
           }
           private void MoveTo(Vector3 location)

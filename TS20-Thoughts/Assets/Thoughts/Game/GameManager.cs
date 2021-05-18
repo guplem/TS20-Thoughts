@@ -57,7 +57,7 @@ namespace Thoughts.Game
             
             //if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
             //else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
-
+            Debug.Log($"Found execution plan: {lastExecutionPlan}");
             if (lastExecutionPlan != null)
             {
                 mapEventsToExecute.Add(lastExecutionPlan);

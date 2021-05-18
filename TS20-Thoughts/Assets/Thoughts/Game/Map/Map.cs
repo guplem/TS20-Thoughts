@@ -61,7 +61,7 @@ namespace Thoughts.Game.GameMap
             List<MapElement> generatedMapObjects = new List<MapElement>();
             for (int i = 0; i < quantity; i++)
             {
-                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-40f, 40f).WithY(0f), Quaternion.identity);
+                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
                 generatedMapObjects.Add(spawnedElement);
             }
             return generatedMapObjects;
