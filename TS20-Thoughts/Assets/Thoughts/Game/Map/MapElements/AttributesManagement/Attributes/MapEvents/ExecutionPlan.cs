@@ -10,6 +10,7 @@ public class ExecutionPlan
     public MapElement eventOwner { get; private set; } // Who must have the event to be executed
     public MapElement executer { get; private set; } // The executer of the event
     public MapElement target { get; private set; } // The target of the event execution
+    public int executionTimes { get; private set; } // The target of the event execution
 
     public Vector3 executionLocation
     {
@@ -25,17 +26,18 @@ public class ExecutionPlan
         }
     }
 
-    public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner)
+    public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner, int executionTimes = 1)
     {
         this.mapEvent = mapEvent;
         this.executer = executer;
         this.target = target;
         this.eventOwner = eventOwner;
+        this.executionTimes = executionTimes;
     }
 
     public override string ToString()
     {
-        return $"'{mapEvent}' (executed by '{executer}' to target '{target}' at/owned by '{eventOwner}')";
+        return $"'{mapEvent}' (x{executionTimes} times by '{executer}' to target '{target}' at/owned by '{eventOwner}')";
     }
     
     /// <summary>
@@ -47,6 +49,9 @@ public class ExecutionPlan
         if (CanBeExecuted())
         {
             mapEvent.Execute(executer, target, eventOwner);
+            executionTimes--;
+            if (executionTimes > 0)
+                return Execute();
             return true;
         }
 
@@ -118,6 +123,12 @@ public class ExecutionPlan
         Debug.LogWarning($"{this} can not cover {ownedAttributeToCover}.");
         return -1;
     }
+    
+    public void SetExecutionsToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover)
+    {
+        executionTimes = ExecutionsNeededToCover(ownedAttributeToCover, remainingValueToCover);
+    }
+    
 }
 
 

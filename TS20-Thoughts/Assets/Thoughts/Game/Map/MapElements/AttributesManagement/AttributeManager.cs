@@ -125,7 +125,7 @@ public class AttributeManager
         ownedAttributes.Add(newAttribute);
         return newAttribute;
     }
-    public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttributeToTakeCare, MapElement executer)
+    public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttributeToTakeCare, int remainingValueToCover, MapElement executer)
     {
         MapElement target = ownedAttributeToTakeCare.ownerMapElement;
         
@@ -148,7 +148,9 @@ public class AttributeManager
 
                         if (mapEvent.ConsequencesCover(ownedAttributeToTakeCare, target, executer, eventOwner))
                         {
+                            
                             ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
+                            executionPlan.SetExecutionsToCover(ownedAttributeToTakeCare, remainingValueToCover);
                             // Debug.Log($" ● Found Execution Plan: {executionPlan}");
                             return executionPlan;
                         }   
@@ -161,6 +163,7 @@ public class AttributeManager
                     if (mapEvent.ConsequencesCover(ownedAttributeToTakeCare, target, executer, executer))
                     {
                         ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer);
+                        executionPlan.SetExecutionsToCover(ownedAttributeToTakeCare, remainingValueToCover);
                         // Debug.Log($" ● Found 'forced' Execution Plan: {executionPlan}");
                         return executionPlan;
                     }

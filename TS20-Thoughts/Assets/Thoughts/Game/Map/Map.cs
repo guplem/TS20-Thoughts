@@ -114,7 +114,7 @@ namespace Thoughts.Game.GameMap
 
     #endregion
 
-        public ExecutionPlan GetExecutionPlanToTakeCareOf([NotNull] OwnedAttribute ownedAttributeToTakeCare, MapElement caregiver)
+        public ExecutionPlan GetExecutionPlanToTakeCareOf([NotNull] OwnedAttribute ownedAttributeToTakeCare, int remainingValueToCover, MapElement caregiver)
         {
             if (ownedAttributeToTakeCare == null)
                 throw new ArgumentNullException(nameof(ownedAttributeToTakeCare));
@@ -122,17 +122,17 @@ namespace Thoughts.Game.GameMap
             ExecutionPlan foundExecutionPlan = null;
             
             //Trying to take care with an attribute/mapEvent in the target
-            foundExecutionPlan = ownedAttributeToTakeCare.ownerMapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, caregiver);
+            foundExecutionPlan = ownedAttributeToTakeCare.ownerMapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
                 
             //Trying to take care with an attribute/mapEvent in the caregiver
             if (foundExecutionPlan == null)
-                foundExecutionPlan = caregiver.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, caregiver);
+                foundExecutionPlan = caregiver.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
             
             //Trying to take care with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
                 foreach (MapElement mapElement in mapElements) // Todo: sort by distance
                 {
-                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, caregiver);
+                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
                     if (foundMapEvent != null)
                         return foundMapEvent;
                 }
