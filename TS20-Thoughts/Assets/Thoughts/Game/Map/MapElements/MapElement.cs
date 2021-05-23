@@ -39,7 +39,7 @@ namespace Thoughts.Game.GameMap
           {
                currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, 1, this);
                if (currentExecutionPlans.IsNullOrEmpty())
-                    Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
+                    Debug.LogWarning($"└> An action path to cover the attribute '{currentObjectiveAttribute.attribute}' was not found.");
                else
                     Debug.Log($"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● {currentExecutionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
                
@@ -130,7 +130,9 @@ namespace Thoughts.Game.GameMap
                     DoNextPlanedMapEvent();
                }
                
+               // ReSharper disable once IteratorNeverReturns
           }
+          
           private void SetObjectiveAttribute()
           {
                List<OwnedAttribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();

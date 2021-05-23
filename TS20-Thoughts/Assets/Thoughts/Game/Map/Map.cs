@@ -114,25 +114,25 @@ namespace Thoughts.Game.GameMap
 
     #endregion
 
-        public ExecutionPlan GetExecutionPlanToTakeCareOf([NotNull] OwnedAttribute ownedAttributeToTakeCare, int remainingValueToCover, MapElement caregiver)
+        public ExecutionPlan GetExecutionPlanToCover([NotNull] OwnedAttribute ownedAttributeToCover, int remainingValueToCover, MapElement executer)
         {
-            if (ownedAttributeToTakeCare == null)
-                throw new ArgumentNullException(nameof(ownedAttributeToTakeCare));
+            if (ownedAttributeToCover == null)
+                throw new ArgumentNullException(nameof(ownedAttributeToCover));
             
             ExecutionPlan foundExecutionPlan = null;
             
-            //Trying to take care with an attribute/mapEvent in the target
-            foundExecutionPlan = ownedAttributeToTakeCare.ownerMapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
+            //Trying to cover with an attribute/mapEvent in the target
+            foundExecutionPlan = ownedAttributeToCover.ownerMapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToCover, remainingValueToCover, executer);
                 
-            //Trying to take care with an attribute/mapEvent in the caregiver
+            //Trying to cover with an attribute/mapEvent in the caregiver/executer
             if (foundExecutionPlan == null)
-                foundExecutionPlan = caregiver.attributeManager.GetExecutionPlanToCover(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
+                foundExecutionPlan = executer.attributeManager.GetExecutionPlanToCover(ownedAttributeToCover, remainingValueToCover, executer);
             
-            //Trying to take care with an attribute/mapEvent in any map element
+            //Trying to cover with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
                 foreach (MapElement mapElement in mapElements) // Todo: sort by distance
                 {
-                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
+                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToCover, remainingValueToCover, executer);
                     if (foundMapEvent != null)
                         return foundMapEvent;
                 }
