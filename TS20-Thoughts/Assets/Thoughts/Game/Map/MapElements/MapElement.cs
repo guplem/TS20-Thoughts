@@ -35,6 +35,7 @@ namespace Thoughts.Game.GameMap
 
                }
           }
+          
           private void UpdateExecutionPlans()
           {
                currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, 1, this);
@@ -42,8 +43,8 @@ namespace Thoughts.Game.GameMap
                     Debug.LogWarning($"└> An action path to cover the attribute '{currentObjectiveAttribute.attribute}' was not found.\n");
                else
                     Debug.Log($"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● {currentExecutionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
-               
           }
+          
           [CanBeNull] private OwnedAttribute _currentObjectiveAttribute;
 
           private IEnumerator coroutineHolder;
