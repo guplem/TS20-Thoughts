@@ -122,17 +122,17 @@ namespace Thoughts.Game.GameMap
             ExecutionPlan foundExecutionPlan = null;
             
             //Trying to take care with an attribute/mapEvent in the target
-            foundExecutionPlan = ownedAttributeToTakeCare.ownerMapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
+            foundExecutionPlan = ownedAttributeToTakeCare.ownerMapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
                 
             //Trying to take care with an attribute/mapEvent in the caregiver
             if (foundExecutionPlan == null)
-                foundExecutionPlan = caregiver.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
+                foundExecutionPlan = caregiver.attributeManager.GetExecutionPlanToCover(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
             
             //Trying to take care with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
                 foreach (MapElement mapElement in mapElements) // Todo: sort by distance
                 {
-                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToTakeCareOf(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
+                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToTakeCare, remainingValueToCover, caregiver);
                     if (foundMapEvent != null)
                         return foundMapEvent;
                 }

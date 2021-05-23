@@ -65,7 +65,7 @@ namespace Thoughts.Game.GameMap
             return currentMaxDistance <= maxDistance;
         }
         
-        public List<OwnedAttribute> GetRequirementsNotMet(MapElement eventOwner, MapElement executer, MapElement target, out List<int> remainingValueToCoverRequirementsNotMet)
+        public List<OwnedAttribute> GetRequirementsNotMet(MapElement eventOwner, MapElement executer, MapElement target, int executionTimes, out List<int> remainingValueToCoverRequirementsNotMet)
         {
             List<OwnedAttribute> requirementsNotMet = new List<OwnedAttribute>();
             remainingValueToCoverRequirementsNotMet = new List<int>();
@@ -79,21 +79,21 @@ namespace Thoughts.Game.GameMap
                 switch (requirement.affected)
                 {
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                        meets = eventOwner.attributeManager.Meets(requirement, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        meets = eventOwner.attributeManager.CanCover(requirement, executionTimes, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(eventOwner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                        meets = executer.attributeManager.Meets(requirement, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        meets = executer.attributeManager.CanCover(requirement, executionTimes, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(executer.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                        meets = target.attributeManager.Meets(requirement, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        meets = target.attributeManager.CanCover(requirement, executionTimes, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(target.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);

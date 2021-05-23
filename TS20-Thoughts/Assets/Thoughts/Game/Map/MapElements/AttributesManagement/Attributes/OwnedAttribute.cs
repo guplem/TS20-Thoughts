@@ -35,7 +35,7 @@ public class OwnedAttribute
 
     public override string ToString()
     {
-        return $"OwnedAttribute of attribute '{attribute}' owned by '{ownerMapElement}'. Value = {value}. TakeCare = {takeCare}.";
+        return $"{ownerMapElement}' is owner of an attribute '{attribute}' that has a value of {value}.  TakeCare = {takeCare}.";
     }
 
     public bool NeedsCare()

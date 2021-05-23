@@ -18,5 +18,10 @@ public class AttributeUpdate
         eventExecuter,
         eventTarget
     }
-    
+
+    public override string ToString()
+    {
+        return $"{attribute} (val={value})";
+    }
+
 }

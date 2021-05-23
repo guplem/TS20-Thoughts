@@ -10,7 +10,7 @@ public class ExecutionPlan
     public MapElement eventOwner { get; private set; } // Who must have the event to be executed
     public MapElement executer { get; private set; } // The executer of the event
     public MapElement target { get; private set; } // The target of the event execution
-    public int executionTimes { get; private set; } // The target of the event execution
+    public int executionTimes { get; private set; } //Note: automatically updated after calling "GetAndSetExecutionsToCover" // The target of the event execution
 
     public Vector3 executionLocation
     {
@@ -46,7 +46,8 @@ public class ExecutionPlan
     /// <returns></returns>
     public bool Execute()
     {
-        if (CanBeExecuted())
+        string message;
+        if (CanBeExecuted(out message))
         {
             mapEvent.Execute(executer, target, eventOwner);
             executionTimes--;
@@ -55,14 +56,23 @@ public class ExecutionPlan
             return true;
         }
 
-        Debug.LogWarning("Trying to execute an ExecutionPlan that can not be executed.");
+        Debug.LogWarning($"Trying to execute an ExecutionPlan that can not be executed (stored data of executionTimes = {executionTimes}).  Reasons:\n{message}");
         return false;
     }
     
-    private bool CanBeExecuted()
+    private bool CanBeExecuted(out string message)
     {
         List<OwnedAttribute> requirementsNotMet = GetRequirementsNotMet(out List<int> temp);
-        return (requirementsNotMet.IsNullOrEmpty()) && IsDistanceMet();
+        bool allRequirementsMet = requirementsNotMet.IsNullOrEmpty();
+        bool isDistanceMet = IsDistanceMet();
+        
+        message = "";
+        if (!allRequirementsMet)
+            message += $"  ◍ Requirements not met:\n      - {requirementsNotMet.ToStringAllElements("\n      - ")}\n";
+        if (!isDistanceMet)
+            message += $"  ◍ Distance is not met not met.\n";
+        
+        return allRequirementsMet && isDistanceMet;
     }
     
     public bool IsDistanceMet()
@@ -72,10 +82,10 @@ public class ExecutionPlan
     
     public List<OwnedAttribute> GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet)
     {
-        return mapEvent.GetRequirementsNotMet(eventOwner, executer, target, out remainingValueToCoverInRequirementsNotMet);
+        return mapEvent.GetRequirementsNotMet(eventOwner, executer, target, executionTimes, out remainingValueToCoverInRequirementsNotMet);
     }
 
-    public int ExecutionsNeededToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover)
+    private int CalculateExecutionsNeededToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover)
     {
         int coveredPerExecution = 0;
 
@@ -120,14 +130,17 @@ public class ExecutionPlan
         if (coveredPerExecution > 0)
             return result;
 
-        Debug.LogWarning($"{this} can not cover {ownedAttributeToCover}.");
+        // Debug.LogWarning($"'{this}' can not cover '{ownedAttributeToCover}'.");
         return -1;
     }
     
-    public void SetExecutionsToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover)
+    public int GetAndSetExecutionTimesToExecutionsToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover)
     {
-        executionTimes = ExecutionsNeededToCover(ownedAttributeToCover, remainingValueToCover);
+        this.executionTimes = CalculateExecutionsNeededToCover(ownedAttributeToCover, remainingValueToCover);
+        return this.executionTimes;
     }
+    
+    
     
 }
 

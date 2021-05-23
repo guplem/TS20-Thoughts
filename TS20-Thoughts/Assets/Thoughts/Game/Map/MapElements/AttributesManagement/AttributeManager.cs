@@ -36,7 +36,7 @@ public class AttributeManager
                 foreach (MapEvent attributeMapEvent in attribute.attribute.mapEvents)
                 {
                     if (attributeMapEvent.executeWithTimeElapse && 
-                        attributeMapEvent.GetRequirementsNotMet(ownerMapElement, ownerMapElement, ownerMapElement, out List<int> temp).IsNullOrEmpty())
+                        attributeMapEvent.GetRequirementsNotMet(ownerMapElement, ownerMapElement, ownerMapElement, 1, out List<int> temp).IsNullOrEmpty())
                     {
                         //Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
                         attributeMapEvent.Execute(ownerMapElement, ownerMapElement, ownerMapElement);
@@ -77,13 +77,19 @@ public class AttributeManager
     /// 
     /// </summary>
     /// <param name="requirement"></param>
+    /// <param name="times">The amount of times the requirement will have to be met</param>
     /// <param name="ownedAttributeThatMostCloselyMeetsTheRequirement">NULL if no attribute can even cover a little bit the requirement</param>
     /// <param name="remainingValueToCoverInAttributeManager"></param>
-    /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate</returns>
-    public bool Meets(AttributeUpdate requirement, out OwnedAttribute ownedAttributeThatMostCloselyMeetsTheRequirement, out int remainingValueToCoverInAttributeManager)
+    /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate n times</returns>
+    public bool CanCover(AttributeUpdate requirement, int times, out OwnedAttribute ownedAttributeThatMostCloselyMeetsTheRequirement, out int remainingValueToCoverInAttributeManager)
     {
-        remainingValueToCoverInAttributeManager = requirement.value;
+        if (times <= 0)
+            Debug.LogWarning($"   - Attention: Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times!.");
+        //else Debug.Log($"   - Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times.");
+        
+        remainingValueToCoverInAttributeManager = requirement.value * times;
         ownedAttributeThatMostCloselyMeetsTheRequirement = null;
+        
         foreach (OwnedAttribute ownedAttribute in ownedAttributes)
             if (requirement.attribute == ownedAttribute.attribute)
             {
@@ -99,7 +105,9 @@ public class AttributeManager
                 if (remainingValueToCoverInAttributeManager <= 0) // No value is missing, so the requirement can be covered
                 {
                     if (ownedAttributeThatMostCloselyMeetsTheRequirement == null)
-                        Debug.LogWarning("Meet, but a null attribute shouldn't be the best to cover a requirement....");
+                        Debug.LogWarning($"The AttributeManager of '{ownerMapElement}' meets the requirement '{requirement.attribute}'. But a null attribute shouldn't be the best to cover a requirement...\nremainingValueToCoverInAttributeManager = {remainingValueToCoverInAttributeManager}");
+                    
+                    //Debug.Log($"   - The AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times.");
                     return true;
                 } 
                 
@@ -109,7 +117,8 @@ public class AttributeManager
         //    Debug.LogWarning("No attribute in the AttributeManager can cover the requirement....");
 
         // Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'\n");
-
+        
+        //Debug.Log($"   - The AttributeManager of '{ownerMapElement}' can NOT cover the requirement '{requirement.ToString()}' {times} times.");
         return false;
     }
     public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
@@ -125,33 +134,35 @@ public class AttributeManager
         ownedAttributes.Add(newAttribute);
         return newAttribute;
     }
-    public ExecutionPlan GetExecutionPlanToTakeCareOf(OwnedAttribute ownedAttributeToTakeCare, int remainingValueToCover, MapElement executer)
+    public ExecutionPlan GetExecutionPlanToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover, MapElement executer)
     {
-        MapElement target = ownedAttributeToTakeCare.ownerMapElement;
+        MapElement target = ownedAttributeToCover.ownerMapElement;
         
-        //Debug.Log($">>> Searching to take care of '{ownedAttribute.attribute}' owned by '{ownerMapElement}' executed by '{caregiver}'\n", ownerMapElement);
+        // Debug.Log($" >>> Searching for an execution plan to cover '{remainingValueToCover}' of '{ownedAttributeToCover.attribute}' owned by '{ownedAttributeToCover.ownerMapElement}' executed by '{executer}'.\n");
+        
         foreach (OwnedAttribute currentOwnedAttribute in ownedAttributes)
         {
             foreach (MapEvent mapEvent in currentOwnedAttribute.attribute.mapEvents)
             {
-                // Debug.Log($" >>> In '{ownerMapElement}', checking '{mapEvent}' in attribute '{currentOwnedAttribute.attribute}' to take care of '{ownedAttributeToTakeCare.attribute}'.\nTarget: {target}, Executer: {executer}, EventOwner still unknown.\n");
+                // Debug.Log($" >>> In '{ownerMapElement}', checking if mapEvent '{mapEvent}' in attribute '{currentOwnedAttribute.attribute}' can cover {remainingValueToCover} missing of the attribute '{ownedAttributeToCover.attribute}'.\nTarget: {target}, Executer: {executer}, EventOwner still unknown.\n");
                 if (!mapEvent.executerMustOwnAttribute || (mapEvent.executerMustOwnAttribute && currentOwnedAttribute.ownerMapElement == executer))
                 {
-                    if ( mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEvent.GetRequirementsNotMet(ownerMapElement, executer, target, out List<int> temp).IsNullOrEmpty()) )
+                    MapElement eventOwner = currentOwnedAttribute.ownerMapElement;
+                    ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
+                    int executionsToCover = executionPlan.GetAndSetExecutionTimesToExecutionsToCover(ownedAttributeToCover, remainingValueToCover);
+                    if (executionsToCover < 0) // The executionPlan can not cover the attribute
+                        continue;
+                    
+                    List<OwnedAttribute> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(ownerMapElement, executer, target, executionPlan.executionTimes, out List<int> temp);
+                    
+                    if ( mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()) )
                     {
                         // If reached here, the mapEvent can be executed - Now choose if it is the appropriate one
+                        Debug.Log($"   > The mapEvent '{mapEvent}' can be executed ({mapEventRequirementsNotMet.Count} requirements must be covered before):\n{mapEventRequirementsNotMet.ToStringAllElements()}\n");
 
-                        MapElement eventOwner = currentOwnedAttribute.ownerMapElement;
-                        
-                        /*if (target != executer)
-                            eventOwner = target != currentOwnedAttribute.ownerMapElement ? executer : target;*/
-
-                        if (mapEvent.ConsequencesCover(ownedAttributeToTakeCare, target, executer, eventOwner))
+                        if (mapEvent.ConsequencesCover(ownedAttributeToCover, target, executer, eventOwner))
                         {
-                            
-                            ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
-                            executionPlan.SetExecutionsToCover(ownedAttributeToTakeCare, remainingValueToCover);
-                            // Debug.Log($" ● Found Execution Plan: {executionPlan}");
+                            Debug.Log($" ● Found Execution Plan: {executionPlan}\n");
                             return executionPlan;
                         }   
 
@@ -159,12 +170,12 @@ public class AttributeManager
                 }
                 else
                 {
-                    // Debug.Log($"The executer ({executer}) must own the attribute '{currentOwnedAttribute.attribute}' to execute '{mapEvent}' but it does not. MapEvent owned by '{currentOwnedAttribute.ownerMapElement}'.");
-                    if (mapEvent.ConsequencesCover(ownedAttributeToTakeCare, target, executer, executer))
+                    // Debug.Log($"    The executer ({executer}) must own the attribute '{currentOwnedAttribute.attribute}' to execute '{mapEvent}' but it does not. MapEvent owned by '{currentOwnedAttribute.ownerMapElement}'.\n");
+                    if (mapEvent.ConsequencesCover(ownedAttributeToCover, target, executer, executer))
                     {
                         ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer);
-                        executionPlan.SetExecutionsToCover(ownedAttributeToTakeCare, remainingValueToCover);
-                        // Debug.Log($" ● Found 'forced' Execution Plan: {executionPlan}");
+                        executionPlan.GetAndSetExecutionTimesToExecutionsToCover(ownedAttributeToCover, remainingValueToCover);
+                        Debug.Log($" ● Found 'forced' Execution Plan: {executionPlan}\n");
                         return executionPlan;
                     }
                 }

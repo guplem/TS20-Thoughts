@@ -41,11 +41,11 @@ namespace Thoughts.Game
             if (ownedAttributeToCover == null)
                 throw new ArgumentNullException(nameof(ownedAttributeToCover));
             
-            Debug.Log($" ◌ Searching for an execution plan to cover '{ownedAttributeToCover.attribute}' owned by '{ownedAttributeToCover.ownerMapElement}' executed by '{caregiver}'.    Iteration {iteration}.\n");
+            Debug.Log($" ◌ Searching for an execution plan to cover '{remainingValueToCover}' of '{ownedAttributeToCover.attribute}' owned by '{ownedAttributeToCover.ownerMapElement}' executed by '{caregiver}'.    Iteration {iteration}.\n");
             
             if (iteration >= 50)
             {
-                Debug.LogWarning($" ◙ Stopping the search of an execution plan for {ownedAttributeToCover.attribute} after {iteration} iterations.\n");
+                Debug.LogWarning($" ◙ Stopping the search of an execution plan to cover '{remainingValueToCover}' of '{ownedAttributeToCover.attribute}' after {iteration} iterations.\n");
                 mapEventsToExecute.DebugLog("\n - ", " ◙ The execution path found was: \n");
                 return null;
             }
@@ -57,7 +57,7 @@ namespace Thoughts.Game
             
             //if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
             //else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
-            Debug.Log($"Found execution plan: {lastExecutionPlan}");
+            //Debug.Log($" ◍ Found Execution Plan: {lastExecutionPlan}\n");
             if (lastExecutionPlan != null)
             {
                 mapEventsToExecute.Add(lastExecutionPlan);
@@ -65,7 +65,7 @@ namespace Thoughts.Game
                 List<int> remainingValueToCoverInRequirementsNotMet;
                 List<OwnedAttribute> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet(out remainingValueToCoverInRequirementsNotMet);
                 if (!requirementsNotMet.IsNullOrEmpty())
-                    mapEventsToExecute = GetExecutionPlanToCoverThisAttribute(requirementsNotMet[0], remainingValueToCoverInRequirementsNotMet[0]*lastExecutionPlan.executionTimes, caregiver, mapEventsToExecute, iteration+1);
+                    mapEventsToExecute = GetExecutionPlanToCoverThisAttribute(requirementsNotMet[0], remainingValueToCoverInRequirementsNotMet[0], caregiver, mapEventsToExecute, iteration+1);
             }
 
             return mapEventsToExecute;

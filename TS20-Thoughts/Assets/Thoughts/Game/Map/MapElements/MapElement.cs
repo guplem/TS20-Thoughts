@@ -37,12 +37,12 @@ namespace Thoughts.Game.GameMap
           }
           private void UpdateExecutionPlans()
           {
-
                currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, 1, this);
                if (currentExecutionPlans.IsNullOrEmpty())
                     Debug.LogWarning($"└> An action path to take care of the stat '{currentObjectiveAttribute.attribute}' was not found.");
                else
-                    currentExecutionPlans.DebugLog("\n    ● ", $"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
+                    Debug.Log($"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● {currentExecutionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
+               
           }
           [CanBeNull] private OwnedAttribute _currentObjectiveAttribute;
 
