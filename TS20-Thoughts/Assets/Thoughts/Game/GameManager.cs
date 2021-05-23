@@ -46,7 +46,7 @@ namespace Thoughts.Game
             if (iteration >= 50)
             {
                 Debug.LogWarning($" ◙ Stopping the search of an execution plan to cover '{remainingValueToCover}' of '{ownedAttributeToCover.attribute}' after {iteration} iterations.\n");
-                mapEventsToExecute.DebugLog("\n - ", " ◙ The execution path found was: \n");
+                mapEventsToExecute.DebugLog("\n - ", " ◙ So far, the execution path found was: \n");
                 return null;
             }
             
@@ -62,10 +62,14 @@ namespace Thoughts.Game
             {
                 mapEventsToExecute.Add(lastExecutionPlan);
 
-                List<int> remainingValueToCoverInRequirementsNotMet;
-                List<OwnedAttribute> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet(out remainingValueToCoverInRequirementsNotMet);
+                List<OwnedAttribute> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet);
                 if (!requirementsNotMet.IsNullOrEmpty())
                     mapEventsToExecute = GetExecutionPlanToCoverThisAttribute(requirementsNotMet[0], remainingValueToCoverInRequirementsNotMet[0], executer, mapEventsToExecute, iteration+1);
+            }
+            else
+            {
+                Debug.LogWarning($" ◙ An execution plan to cover '{remainingValueToCover}' of '{ownedAttributeToCover.attribute}' was not found (at the iteration: {iteration}).   The previously found execution plans were:\n    ● {mapEventsToExecute.ToStringAllElements("\n    ● ")}\n", gameObject);
+                return null;
             }
 
             return mapEventsToExecute;

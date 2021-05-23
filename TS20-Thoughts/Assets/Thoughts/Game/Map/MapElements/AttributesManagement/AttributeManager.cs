@@ -78,49 +78,35 @@ public class AttributeManager
     /// </summary>
     /// <param name="requirement"></param>
     /// <param name="times">The amount of times the requirement will have to be met</param>
-    /// <param name="ownedAttributeThatMostCloselyMeetsTheRequirement">NULL if no attribute can even cover a little bit the requirement</param>
-    /// <param name="remainingValueToCoverInAttributeManager"></param>
+    /// <param name="missingValueToCoverInThisAttributeManager"></param>
     /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate n times</returns>
-    public bool CanCover(AttributeUpdate requirement, int times, out OwnedAttribute ownedAttributeThatMostCloselyMeetsTheRequirement, out int remainingValueToCoverInAttributeManager)
+    public bool CanCover(AttributeUpdate requirement, int times, /*out OwnedAttribute attributeInThisAttributeManagerThatCanCoverTheMostTheRequirement, */out int missingValueToCoverInThisAttributeManager)
     {
-        if (times <= 0)
-            Debug.LogWarning($"   - Attention: Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times!.");
-        //else Debug.Log($"   - Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times.");
-        
-        remainingValueToCoverInAttributeManager = requirement.value * times;
-        ownedAttributeThatMostCloselyMeetsTheRequirement = null;
-        
+        missingValueToCoverInThisAttributeManager = requirement.value * times;
+
+        if (times <= 0) 
+            Debug.LogWarning($"   - Attention: Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times!.\n");
+        //else Debug.Log($"   - Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times. Amount of value to gain: {missingValueToCoverInThisAttributeManager}\n");
+
+
         foreach (OwnedAttribute ownedAttribute in ownedAttributes)
-            if (requirement.attribute == ownedAttribute.attribute)
+        {
+            if (requirement.attribute != ownedAttribute.attribute)
+                continue;
+
+            missingValueToCoverInThisAttributeManager -= ownedAttribute.value;
+
+            if (missingValueToCoverInThisAttributeManager <= 0) // No value is missing, so the requirement can be covered
             {
-                int remainingValueToCoverWithCurrentAttribute = requirement.value - ownedAttribute.value;
-                if (remainingValueToCoverWithCurrentAttribute < remainingValueToCoverInAttributeManager)
-                {
-                    remainingValueToCoverInAttributeManager = remainingValueToCoverWithCurrentAttribute;
-                    ownedAttributeThatMostCloselyMeetsTheRequirement = ownedAttribute;
-                }
-                
-                //Debug.Log($">>>>>> Evaluating if {this} meets the requirement {requirement}. Remaining value = {remainingValueToCoverInAttributeManager}");
-
-                if (remainingValueToCoverInAttributeManager <= 0) // No value is missing, so the requirement can be covered
-                {
-                    if (ownedAttributeThatMostCloselyMeetsTheRequirement == null)
-                        Debug.LogWarning($"The AttributeManager of '{ownerMapElement}' meets the requirement '{requirement.attribute}'. But a null attribute shouldn't be the best to cover a requirement...\nremainingValueToCoverInAttributeManager = {remainingValueToCoverInAttributeManager}");
-                    
-                    //Debug.Log($"   - The AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times.");
-                    return true;
-                } 
-                
+                // Debug.Log($"   - The AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times. Remaining amount of value to gain: {missingValueToCoverInThisAttributeManager}\n");
+                return true;
             }
-                
-        //if (ownedAttributeThatMostCloselyMeetsTheRequirement == null)
-        //    Debug.LogWarning("No attribute in the AttributeManager can cover the requirement....");
-
-        // Debug.LogWarning($"Requirement of '{requirement.attribute}' not met in '{ownerMapElement}'\n");
+        }
         
-        //Debug.Log($"   - The AttributeManager of '{ownerMapElement}' can NOT cover the requirement '{requirement.ToString()}' {times} times.");
+        // Debug.Log($"   - The AttributeManager of '{ownerMapElement}' can NOT cover the requirement '{requirement.ToString()}' {times} times. Remaining amount of value to gain: {missingValueToCoverInThisAttributeManager}\n");
         return false;
     }
+    
     public OwnedAttribute GetOwnedAttributeOf(Attribute attribute)
     {
         foreach (OwnedAttribute ownedAttribute in ownedAttributes)
@@ -158,7 +144,7 @@ public class AttributeManager
                     if ( mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()) )
                     {
                         // If reached here, the mapEvent can be executed - Now choose if it is the appropriate one
-                        Debug.Log($"   > The mapEvent '{mapEvent}' can be executed ({mapEventRequirementsNotMet.Count} requirements must be covered before):\n{mapEventRequirementsNotMet.ToStringAllElements()}\n");
+                        Debug.Log($"   > The mapEvent '{mapEvent}' can be executed ({mapEventRequirementsNotMet.Count} requirements must be covered before):\n    - {mapEventRequirementsNotMet.ToStringAllElements("\n    - ")}\n");
 
                         if (mapEvent.ConsequencesCover(ownedAttributeToCover, target, executer, eventOwner))
                         {

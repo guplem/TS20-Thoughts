@@ -79,21 +79,21 @@ namespace Thoughts.Game.GameMap
                 switch (requirement.affected)
                 {
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                        meets = eventOwner.attributeManager.CanCover(requirement, executionTimes, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        meets = eventOwner.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(eventOwner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                        meets = executer.attributeManager.CanCover(requirement, executionTimes, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        meets = executer.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(executer.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                        meets = target.attributeManager.CanCover(requirement, executionTimes, out OwnedAttribute _, out remainingValueToCoverRequirementNotMet);
+                        meets = target.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(target.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
