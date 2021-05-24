@@ -1,8 +1,8 @@
 <map id="Thoughts.Game.GameMap.Mob" name="Thoughts.Game.GameMap.Mob">
-<area shape="rect" id="node1" title=" " alt="" coords="149,676,356,753"/>
-<area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html" title=" " alt="" coords="162,417,343,627"/>
+<area shape="rect" id="node1" title=" " alt="" coords="176,676,383,753"/>
+<area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html" title=" " alt="" coords="189,417,370,627"/>
 <area shape="rect" id="node3" title=" " alt="" coords="5,211,116,289"/>
-<area shape="rect" id="node4" href="$classAttributeManager.html" title=" " alt="" coords="141,145,365,355"/>
-<area shape="rect" id="node5" href="$classOwnedAttribute.html" title=" " alt="" coords="389,153,530,347"/>
-<area shape="rect" id="node6" title=" " alt="" coords="422,5,497,83"/>
+<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html" title=" " alt="" coords="141,145,418,355"/>
+<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html" title=" " alt="" coords="442,153,709,347"/>
+<area shape="rect" id="node6" title=" " alt="" coords="547,5,604,83"/>
 </map>

@@ -2,21 +2,22 @@
 using Thoughts.Game.GameMap;
 using UnityEditor;
 using UnityEngine;
+using Attributes = Thoughts.Game.Attributes;
 
 namespace Thoughts
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(Attribute))]
+    [CustomEditor(typeof(Attributes.Attribute))]
     public class AttributeInspector : UnityEditor.Editor
     {
-        private Attribute attribute;
+        private Attributes.Attribute attribute;
         
         public override void OnInspectorGUI()
         {
             // Update the serializedProperty - always do this in the beginning of OnInspectorGUI.
             serializedObject.Update ();
             
-            attribute = target as Attribute;
+            attribute = target as Attributes.Attribute;
             base.OnInspectorGUI();
             //ShowMapEventsArray();
             

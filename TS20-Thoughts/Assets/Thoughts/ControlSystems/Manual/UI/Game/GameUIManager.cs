@@ -1,16 +1,18 @@
-using System;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 
-public class GameUIManager : MonoBehaviour
+namespace Thoughts.ControlSystems.UI
 {
-    [SerializeField] private UIPovManager uiPovManager;
-
-    public void DisplayUIFor(MapElement mapElement)
+    public class GameUIManager : MonoBehaviour
     {
-        Debug.Log($"DisplayUIFor '{mapElement}'");
-        Mob mobMapElement = mapElement as Mob;
-        uiPovManager.ShowUIFor(mobMapElement);
-    }
+        [SerializeField] private UIPovManager uiPovManager;
+
+        public void DisplayUIFor(MapElement mapElement)
+        {
+            Debug.Log($"DisplayUIFor '{mapElement}'");
+            Mob mobMapElement = mapElement as Mob;
+            uiPovManager.ShowUIFor(mobMapElement);
+        }
     
+    }
 }

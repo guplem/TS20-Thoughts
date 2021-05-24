@@ -1,9 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Attributes;
 using UnityEngine;
 
+namespace Thoughts.Game.GameMap
+{
 public class ExecutionPlan
 {
     public MapEvent mapEvent { get; private set; } // The event to execute
@@ -143,5 +144,7 @@ public class ExecutionPlan
     
     
 }
+}
+
 
 

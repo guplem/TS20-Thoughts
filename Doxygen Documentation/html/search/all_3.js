@@ -1,15 +1,15 @@
 var searchData=
 [
-  ['calculateexecutionsneededtocover_25',['CalculateExecutionsNeededToCover',['../classExecutionPlan.html#ae8ef16ffbf71195ce3814c1f15d5e98b',1,'ExecutionPlan']]],
+  ['calculateexecutionsneededtocover_25',['CalculateExecutionsNeededToCover',['../classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html#a7407ee80c8c2afa2494d33ee8b9212b6',1,'Thoughts::Game::GameMap::ExecutionPlan']]],
   ['camera_26',['camera',['../classThoughts_1_1ControlSystems_1_1CameraController.html#a5e9ab11064c5b9e3eafe21a2ac106404',1,'Thoughts::ControlSystems::CameraController']]],
   ['cameracontroller_27',['cameraController',['../classThoughts_1_1ControlSystems_1_1Manual.html#a0551482759609062baed32533dbdfea4',1,'Thoughts::ControlSystems::Manual']]],
   ['cameracontroller_28',['CameraController',['../classThoughts_1_1ControlSystems_1_1CameraController.html',1,'Thoughts::ControlSystems']]],
   ['cameracontroller_2ecs_29',['CameraController.cs',['../CameraController_8cs.html',1,'']]],
   ['camerarig_30',['cameraRig',['../classThoughts_1_1ControlSystems_1_1CameraController.html#abf19aaf8c20bcf29c6149f549f6e2ed3',1,'Thoughts::ControlSystems::CameraController']]],
   ['cameraview_31',['CameraView',['../classThoughts_1_1ControlSystems_1_1CameraController.html#aecb59def0c99f3e9f6f33a618aa148ec',1,'Thoughts::ControlSystems::CameraController']]],
-  ['canbeexecuted_32',['CanBeExecuted',['../classExecutionPlan.html#aa602e66a37a75284869b7a68c8632167',1,'ExecutionPlan']]],
-  ['cancover_33',['CanCover',['../classAttributeManager.html#a6ffc16a488eb49a907b43b4b8bee197e',1,'AttributeManager']]],
-  ['clear_34',['Clear',['../classUIMapEventsManager.html#a5926569719dbc4312d4141adb84388f7',1,'UIMapEventsManager.Clear()'],['../classUIAttributesManager.html#a9de22d48366740e6a3a1225dd4a53eb0',1,'UIAttributesManager.Clear()'],['../classUIPovRow.html#acff3e872eca1bb8f8cb44bf6a68f0b91',1,'UIPovRow.Clear()']]],
+  ['canbeexecuted_32',['CanBeExecuted',['../classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html#a27d2f83684ef90bc1645b6452dbe15d4',1,'Thoughts::Game::GameMap::ExecutionPlan']]],
+  ['cancover_33',['CanCover',['../classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html#aba6919bc4f49d75450c4b451402e2f72',1,'Thoughts::Game::Attributes::AttributeManager']]],
+  ['clear_34',['Clear',['../classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager.html#a05464d6be8f353d3732779a3288f0a10',1,'Thoughts.ControlSystems.UI.UIMapEventsManager.Clear()'],['../classThoughts_1_1ControlSystems_1_1UI_1_1UIAttributesManager.html#a5e86d755a1ded201d99208621c1847fb',1,'Thoughts.ControlSystems.UI.UIAttributesManager.Clear()'],['../classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow.html#ae1309e1f84e51ab6dc69aeeb43b627a4',1,'Thoughts.ControlSystems.UI.UIPovRow.Clear()']]],
   ['clock_35',['Clock',['../classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#a3fb1a5bfe0319009f9d1f3fbf3af9a27',1,'Thoughts::Game::GameMap::MapElement']]],
   ['consequences_36',['consequences',['../classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#aef325035aa8b2492ffabd799c8b80ec1',1,'Thoughts::Game::GameMap::MapEvent']]],
   ['consequencescover_37',['ConsequencesCover',['../classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#abd3d08d8115b6e9885c27498973ea6d1',1,'Thoughts::Game::GameMap::MapEvent']]],
@@ -19,6 +19,6 @@ var searchData=
   ['controlsystem_2ecs_41',['ControlSystem.cs',['../ControlSystem_8cs.html',1,'']]],
   ['coroutineholder_42',['coroutineHolder',['../classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#a837cc36479b207351d8118a850a79cb5',1,'Thoughts::Game::GameMap::MapElement']]],
   ['currentexecutionplans_43',['currentExecutionPlans',['../classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#ad055fc364e5c8b5b010550c3a9f04191',1,'Thoughts::Game::GameMap::MapElement']]],
-  ['currentmapelement_44',['currentMapElement',['../classUIAttributesManager.html#aea7f4b4426a33e922553f754382b2e79',1,'UIAttributesManager']]],
+  ['currentmapelement_44',['currentMapElement',['../classThoughts_1_1ControlSystems_1_1UI_1_1UIAttributesManager.html#a238da2d0e7c6cdc716ad73ff17481675',1,'Thoughts::ControlSystems::UI::UIAttributesManager']]],
   ['currentobjectiveattribute_45',['currentObjectiveAttribute',['../classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#acbb009aa9302341860504ac7a886d4d4',1,'Thoughts::Game::GameMap::MapElement']]]
 ];

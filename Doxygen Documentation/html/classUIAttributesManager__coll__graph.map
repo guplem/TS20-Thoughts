@@ -1,12 +1,12 @@
 <map id="UIAttributesManager" name="UIAttributesManager">
-<area shape="rect" id="node1" title=" " alt="" coords="163,689,303,811"/>
-<area shape="rect" id="node2" href="$classUIPovRow.html" title=" " alt="" coords="163,182,343,318"/>
-<area shape="rect" id="node10" href="$classUIMapEventsManager.html" title=" " alt="" coords="233,469,381,575"/>
-<area shape="rect" id="node3" title=" " alt="" coords="198,5,309,83"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html" title=" " alt="" coords="405,417,659,627"/>
-<area shape="rect" id="node9" href="$classUIPovRowElement.html" title=" " alt="" coords="9,197,137,303"/>
-<area shape="rect" id="node5" href="$classAttributeManager.html" title=" " alt="" coords="419,145,643,355"/>
-<area shape="rect" id="node6" href="$classOwnedAttribute.html" title=" " alt="" coords="667,153,808,347"/>
-<area shape="rect" id="node7" title=" " alt="" coords="700,5,775,83"/>
-<area shape="rect" id="node8" href="$classUIAttribute.html" title=" " alt="" coords="5,461,131,583"/>
+<area shape="rect" id="node1" title=" " alt="" coords="181,689,321,811"/>
+<area shape="rect" id="node2" href="$classUIPovRow.html" title=" " alt="" coords="158,182,338,318"/>
+<area shape="rect" id="node10" href="$classUIMapEventsManager.html" title=" " alt="" coords="250,469,398,575"/>
+<area shape="rect" id="node3" title=" " alt="" coords="193,5,303,83"/>
+<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html" title=" " alt="" coords="423,417,678,627"/>
+<area shape="rect" id="node9" href="$classUIPovRowElement.html" title=" " alt="" coords="5,197,133,303"/>
+<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html" title=" " alt="" coords="413,145,691,355"/>
+<area shape="rect" id="node6" href="$classOwnedAttribute.html" title=" " alt="" coords="715,153,856,347"/>
+<area shape="rect" id="node7" title=" " alt="" coords="748,5,823,83"/>
+<area shape="rect" id="node8" href="$classUIAttribute.html" title=" " alt="" coords="11,461,136,583"/>
 </map>

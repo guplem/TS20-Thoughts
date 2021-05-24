@@ -1,39 +1,41 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Thoughts.Game.Attributes;
 using Thoughts.Game.GameMap;
 using UnityEngine;
-using Attribute = Thoughts.Attribute;
 
-public class UIMapEventsManager : UIPovRow
+namespace Thoughts.ControlSystems.UI
 {
-    [SerializeField] private GameObject uiMapEventPrefab;
-    private List<UIMapEvent> uiMapEvents = new List<UIMapEvent>();
-
-    public void ShowUIFor(MapElement mapElement, OwnedAttribute attribute)
+    public class UIMapEventsManager : UIPovRow
     {
-        this.gameObject.SetActive(mapElement != null && attribute != null);
-        if (mapElement == null || attribute == null )
-            return;
+        [SerializeField] private GameObject uiMapEventPrefab;
+        private List<UIMapEvent> uiMapEvents = new List<UIMapEvent>();
 
-        Clear();
-
-        List<MapEvent> mapEvents = attribute.attribute.mapEvents.Cast<MapEvent>().ToList();
-        for (int mapEventIndex = 0; mapEventIndex < attribute.attribute.mapEvents.Count; mapEventIndex++)
+        public void ShowUIFor(MapElement mapElement, OwnedAttribute attribute)
         {
-            UIMapEvent uiMapEvent = Instantiate(uiMapEventPrefab, GetLocationPosition(mapEventIndex),Quaternion.identity , this.transform).GetComponentRequired<UIMapEvent>();
-            Transform visualizer = mapElement.transform;
-            if (mapElement is Mob mobMapElement)
-                visualizer = mobMapElement.povCameraPrentTransform;
-            uiMapEvent.Initialize(mapEvents[mapEventIndex], visualizer);
-            uiMapEvents.Add(uiMapEvent);
-        }
-        
-    }
+            this.gameObject.SetActive(mapElement != null && attribute != null);
+            if (mapElement == null || attribute == null )
+                return;
 
-    public override void Clear()
-    {
-        base.Clear();
-        uiMapEvents.Clear();
+            Clear();
+
+            List<MapEvent> mapEvents = attribute.attribute.mapEvents.Cast<MapEvent>().ToList();
+            for (int mapEventIndex = 0; mapEventIndex < attribute.attribute.mapEvents.Count; mapEventIndex++)
+            {
+                UIMapEvent uiMapEvent = Instantiate(uiMapEventPrefab, GetLocationPosition(mapEventIndex),Quaternion.identity , this.transform).GetComponentRequired<UIMapEvent>();
+                Transform visualizer = mapElement.transform;
+                if (mapElement is Mob mobMapElement)
+                    visualizer = mobMapElement.povCameraPrentTransform;
+                uiMapEvent.Initialize(mapEvents[mapEventIndex], visualizer);
+                uiMapEvents.Add(uiMapEvent);
+            }
+        
+        }
+
+        public override void Clear()
+        {
+            base.Clear();
+            uiMapEvents.Clear();
+        }
     }
 }

@@ -18,9 +18,9 @@ override string \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a9
 \item 
 bool \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a525ff7d8ee812a282e3018f20b0001e3}{Is\+Distance\+Met}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} target, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} event\+Owner, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer)
 \item 
-List$<$ \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7dad3edc686eedee03541db4aa35c8bf}{Get\+Requirements\+Not\+Met}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} event\+Owner, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} target, int execution\+Times, out List$<$ int $>$ remaining\+Value\+To\+Cover\+Requirements\+Not\+Met)
+List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7dad3edc686eedee03541db4aa35c8bf}{Get\+Requirements\+Not\+Met}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} event\+Owner, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} target, int execution\+Times, out List$<$ int $>$ remaining\+Value\+To\+Cover\+Requirements\+Not\+Met)
 \item 
-bool \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_abd3d08d8115b6e9885c27498973ea6d1}{Consequences\+Cover}} (\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} owned\+Attribute, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} target, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} owner)
+bool \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_abd3d08d8115b6e9885c27498973ea6d1}{Consequences\+Cover}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} owned\+Attribute, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} target, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} owner)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -33,18 +33,18 @@ bool \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a0d2254519f44
 \item 
 bool \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a3a806d810cdb0a9f4141a29b150d8d5c}{executer\+Must\+Own\+Attribute}} = false
 \item 
-List$<$ \mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_aef325035aa8b2492ffabd799c8b80ec1}{consequences}} = new List$<$\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}}$>$()
+List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_aef325035aa8b2492ffabd799c8b80ec1}{consequences}} = new List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}}$>$()
 \item 
 bool \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7e0876e36fcf106e2497462b5a0a5376}{try\+To\+Cover\+Requirements\+If\+Not\+Met}} = true
 \item 
-List$<$ \mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7d672b3cb2b051648f567445ea79b09f}{requirements}} = new List$<$\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}}$>$()
+List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7d672b3cb2b051648f567445ea79b09f}{requirements}} = new List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}}$>$()
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
 
 
-Definition at line 9 of file Map\+Event.\+cs.
+Definition at line 10 of file Map\+Event.\+cs.
 
 
 
@@ -53,13 +53,14 @@ Definition at line 9 of file Map\+Event.\+cs.
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!ConsequencesCover@{ConsequencesCover}}
 \index{ConsequencesCover@{ConsequencesCover}!Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}}
 \doxysubsubsection{\texorpdfstring{ConsequencesCover()}{ConsequencesCover()}}
-{\footnotesize\ttfamily bool Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+Consequences\+Cover (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}}]{owned\+Attribute,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{target,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{owner }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+Consequences\+Cover (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{owned\+Attribute,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{target,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{owner }\end{DoxyParamCaption})}
 
 
 
-Definition at line 126 of file Map\+Event.\+cs.
+Definition at line 127 of file Map\+Event.\+cs.
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -74,9 +75,10 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 21 of file Map\+Event.\+cs.
+Definition at line 22 of file Map\+Event.\+cs.
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -87,13 +89,14 @@ Here is the caller graph for this function\+:\nopagebreak
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!GetRequirementsNotMet@{GetRequirementsNotMet}}
 \index{GetRequirementsNotMet@{GetRequirementsNotMet}!Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}}
 \doxysubsubsection{\texorpdfstring{GetRequirementsNotMet()}{GetRequirementsNotMet()}}
-{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+Get\+Requirements\+Not\+Met (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{event\+Owner,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{target,  }\item[{int}]{execution\+Times,  }\item[{out List$<$ int $>$}]{remaining\+Value\+To\+Cover\+Requirements\+Not\+Met }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+Get\+Requirements\+Not\+Met (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{event\+Owner,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{target,  }\item[{int}]{execution\+Times,  }\item[{out List$<$ int $>$}]{remaining\+Value\+To\+Cover\+Requirements\+Not\+Met }\end{DoxyParamCaption})}
 
 
 
-Definition at line 68 of file Map\+Event.\+cs.
+Definition at line 69 of file Map\+Event.\+cs.
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -108,9 +111,10 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 49 of file Map\+Event.\+cs.
+Definition at line 50 of file Map\+Event.\+cs.
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -125,7 +129,7 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 44 of file Map\+Event.\+cs.
+Definition at line 45 of file Map\+Event.\+cs.
 
 
 
@@ -134,11 +138,11 @@ Definition at line 44 of file Map\+Event.\+cs.
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!consequences@{consequences}}
 \index{consequences@{consequences}!Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}}
 \doxysubsubsection{\texorpdfstring{consequences}{consequences}}
-{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+consequences = new List$<$\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}}$>$()}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+consequences = new List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}}$>$()}
 
 
 
-Definition at line 15 of file Map\+Event.\+cs.
+Definition at line 16 of file Map\+Event.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a3a806d810cdb0a9f4141a29b150d8d5c}\label{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a3a806d810cdb0a9f4141a29b150d8d5c}} 
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!executerMustOwnAttribute@{executerMustOwnAttribute}}
@@ -148,7 +152,7 @@ Definition at line 15 of file Map\+Event.\+cs.
 
 
 
-Definition at line 14 of file Map\+Event.\+cs.
+Definition at line 15 of file Map\+Event.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a0d2254519f445370af6b6de3bcbc7174}\label{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a0d2254519f445370af6b6de3bcbc7174}} 
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!executeWithTimeElapse@{executeWithTimeElapse}}
@@ -158,7 +162,7 @@ Definition at line 14 of file Map\+Event.\+cs.
 
 
 
-Definition at line 13 of file Map\+Event.\+cs.
+Definition at line 14 of file Map\+Event.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a08ba2f1f11ccbcd9314fbe247410e8fe}\label{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a08ba2f1f11ccbcd9314fbe247410e8fe}} 
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!maxDistance@{maxDistance}}
@@ -168,7 +172,7 @@ Definition at line 13 of file Map\+Event.\+cs.
 
 
 
-Definition at line 12 of file Map\+Event.\+cs.
+Definition at line 13 of file Map\+Event.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a3b98cd19e62d9de4d26ea2f43567d418}\label{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a3b98cd19e62d9de4d26ea2f43567d418}} 
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!name@{name}}
@@ -178,17 +182,17 @@ Definition at line 12 of file Map\+Event.\+cs.
 
 
 
-Definition at line 11 of file Map\+Event.\+cs.
+Definition at line 12 of file Map\+Event.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7d672b3cb2b051648f567445ea79b09f}\label{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7d672b3cb2b051648f567445ea79b09f}} 
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!requirements@{requirements}}
 \index{requirements@{requirements}!Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}}
 \doxysubsubsection{\texorpdfstring{requirements}{requirements}}
-{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+requirements = new List$<$\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}}$>$()}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map\+Event.\+requirements = new List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeUpdate}{Attribute\+Update}}$>$()}
 
 
 
-Definition at line 18 of file Map\+Event.\+cs.
+Definition at line 19 of file Map\+Event.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7e0876e36fcf106e2497462b5a0a5376}\label{classThoughts_1_1Game_1_1GameMap_1_1MapEvent_a7e0876e36fcf106e2497462b5a0a5376}} 
 \index{Thoughts.Game.GameMap.MapEvent@{Thoughts.Game.GameMap.MapEvent}!tryToCoverRequirementsIfNotMet@{tryToCoverRequirementsIfNotMet}}
@@ -198,7 +202,7 @@ Definition at line 18 of file Map\+Event.\+cs.
 
 
 
-Definition at line 17 of file Map\+Event.\+cs.
+Definition at line 18 of file Map\+Event.\+cs.
 
 
 

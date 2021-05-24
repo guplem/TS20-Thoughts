@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['safety_153',['Safety',['../classThoughts_1_1Attribute.html#ab51cbed3dd61899a6c53b84f8e652c18a6472ce41c26babff27b4c28028093d77',1,'Thoughts::Attribute']]],
-  ['selectedattribute_154',['selectedAttribute',['../classUIAttributesManager.html#a3e8531227f9a3b1bbf572d7713f7b3ee',1,'UIAttributesManager']]],
+  ['safety_153',['Safety',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#a45c798f1f1f7a67f2836a5ac196e0078a6472ce41c26babff27b4c28028093d77',1,'Thoughts::Game::Attributes::Attribute']]],
+  ['selectedattribute_154',['selectedAttribute',['../classThoughts_1_1ControlSystems_1_1UI_1_1UIAttributesManager.html#abe9b7b5f642607ba24e02f806c68ba1d',1,'Thoughts::ControlSystems::UI::UIAttributesManager']]],
   ['selectedmapelement_155',['selectedMapElement',['../classThoughts_1_1ControlSystems_1_1Manual.html#a73117eff5d0d1cc8c65c9df0b3a908e3',1,'Thoughts::ControlSystems::Manual']]],
-  ['selfactualization_156',['SelfActualization',['../classThoughts_1_1Attribute.html#ab51cbed3dd61899a6c53b84f8e652c18a209c60194acd5bc5f274cdec8d84f77a',1,'Thoughts::Attribute']]],
-  ['showuifor_157',['ShowUIFor',['../classUIMapEventsManager.html#a908382cd1fce1a59b3c7cffe795787d8',1,'UIMapEventsManager.ShowUIFor()'],['../classUIAttributesManager.html#ac3d5f0ada76211eabca73861e6e257f5',1,'UIAttributesManager.ShowUIFor()'],['../classUIPovManager.html#acc7eb335427e71779c98605b21528e6f',1,'UIPovManager.ShowUIFor()']]],
+  ['selfactualization_156',['SelfActualization',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#a45c798f1f1f7a67f2836a5ac196e0078a209c60194acd5bc5f274cdec8d84f77a',1,'Thoughts::Game::Attributes::Attribute']]],
+  ['showuifor_157',['ShowUIFor',['../classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager.html#a4cff229f0c90b3382ada259abcba04ac',1,'Thoughts.ControlSystems.UI.UIMapEventsManager.ShowUIFor()'],['../classThoughts_1_1ControlSystems_1_1UI_1_1UIAttributesManager.html#a60b46a3995cbe3264a6752ec36e65668',1,'Thoughts.ControlSystems.UI.UIAttributesManager.ShowUIFor()'],['../classThoughts_1_1ControlSystems_1_1UI_1_1UIPovManager.html#a5bccd92c1b9b27e5c644ddd75ca69a7f',1,'Thoughts.ControlSystems.UI.UIPovManager.ShowUIFor()']]],
   ['spawnablemapelement_158',['spawnableMapElement',['../classThoughts_1_1Game_1_1GameMap_1_1Map.html#a0b232ee898cc3b6b14b0320fc488a212',1,'Thoughts::Game::GameMap::Map']]],
   ['spawnmapelement_159',['SpawnMapElement',['../classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca',1,'Thoughts::Game::GameMap::Map']]],
   ['spawnrandom_160',['SpawnRandom',['../classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58',1,'Thoughts::Game::GameMap::Map']]],

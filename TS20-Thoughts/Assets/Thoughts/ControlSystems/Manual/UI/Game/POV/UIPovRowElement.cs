@@ -1,21 +1,22 @@
-using TMPro;
 using UnityEngine;
-using Attribute = Thoughts.Attribute;
 
-public abstract class UIPovRowElement : MonoBehaviour
+namespace Thoughts.ControlSystems.UI
 {
-    private Transform lookAtTarget;
-
-    public virtual void Initialize(Transform visualizer)
+    public abstract class UIPovRowElement : MonoBehaviour
     {
-        this.lookAtTarget = visualizer;
-    }
+        private Transform lookAtTarget;
 
-    private void Update()
-    {
-        transform.LookAt(lookAtTarget);
-        UpdateVisuals();
-    }
+        public virtual void Initialize(Transform visualizer)
+        {
+            this.lookAtTarget = visualizer;
+        }
 
-    protected abstract void UpdateVisuals();
+        private void Update()
+        {
+            transform.LookAt(lookAtTarget);
+            UpdateVisuals();
+        }
+
+        protected abstract void UpdateVisuals();
+    }
 }

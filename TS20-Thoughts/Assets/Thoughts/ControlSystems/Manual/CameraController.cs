@@ -1,6 +1,4 @@
-using System;
 using Cinemachine;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 namespace Thoughts.ControlSystems

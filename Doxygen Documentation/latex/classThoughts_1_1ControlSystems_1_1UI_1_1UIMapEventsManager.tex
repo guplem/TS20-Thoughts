@@ -1,0 +1,190 @@
+\hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager}{}\doxysection{Thoughts.\+Control\+Systems.\+UI.\+UIMap\+Events\+Manager Class Reference}
+\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager}\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+
+
+Inheritance diagram for Thoughts.\+Control\+Systems.\+UI.\+UIMap\+Events\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Thoughts.\+Control\+Systems.\+UI.\+UIMap\+Events\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=319pt]{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a4cff229f0c90b3382ada259abcba04ac}{Show\+UIFor}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} map\+Element, \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} attribute)
+\item 
+override void \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a05464d6be8f353d3732779a3288f0a10}{Clear}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a864868eda015c1a9a6b160e6e09ad8d3}{Get\+Location\+Position}} (int location\+Index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a93b201df75a90df55d4dbc33736149b3}{On\+Draw\+Gizmos\+Selected}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Game\+Object \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_ac17894f786a3ff6d7b8419d11c89019f}{ui\+Map\+Event\+Prefab}}
+\item 
+List$<$ \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEvent}{UIMap\+Event}} $>$ \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a8e307c92243415e7b7ad903e1be85884}{ui\+Map\+Events}} = new List$<$\mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEvent}{UIMap\+Event}}$>$()
+\item 
+int \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a4aea7d4b8d3fce6b75769f346a35ea2c}{locations\+Preview\+Amount}} = 3
+\item 
+float \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a38485441fbdd587ded0221209dec06dc}{elements\+Separation}} = 1.\+5f
+\item 
+float \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a17943362b8a872e646de15bc30fd9bc5}{pov\+Distance}} = 1f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 9 of file UIMap\+Events\+Manager.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a05464d6be8f353d3732779a3288f0a10}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a05464d6be8f353d3732779a3288f0a10}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!Clear@{Clear}}
+\index{Clear@{Clear}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily override void Thoughts.\+Control\+Systems.\+UI.\+UIMap\+Events\+Manager.\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_ae1309e1f84e51ab6dc69aeeb43b627a4}{Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row}}.
+
+
+
+Definition at line 35 of file UIMap\+Events\+Manager.\+cs.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a05464d6be8f353d3732779a3288f0a10_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a864868eda015c1a9a6b160e6e09ad8d3}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a864868eda015c1a9a6b160e6e09ad8d3}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!GetLocationPosition@{GetLocationPosition}}
+\index{GetLocationPosition@{GetLocationPosition}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{GetLocationPosition()}{GetLocationPosition()}}
+{\footnotesize\ttfamily Vector3 Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+Get\+Location\+Position (\begin{DoxyParamCaption}\item[{int}]{location\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 28 of file UIPov\+Row.\+cs.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a864868eda015c1a9a6b160e6e09ad8d3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a93b201df75a90df55d4dbc33736149b3}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a93b201df75a90df55d4dbc33736149b3}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!OnDrawGizmosSelected@{OnDrawGizmosSelected}}
+\index{OnDrawGizmosSelected@{OnDrawGizmosSelected}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{OnDrawGizmosSelected()}{OnDrawGizmosSelected()}}
+{\footnotesize\ttfamily void Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+On\+Draw\+Gizmos\+Selected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 20 of file UIPov\+Row.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a93b201df75a90df55d4dbc33736149b3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a4cff229f0c90b3382ada259abcba04ac}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a4cff229f0c90b3382ada259abcba04ac}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!ShowUIFor@{ShowUIFor}}
+\index{ShowUIFor@{ShowUIFor}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{ShowUIFor()}{ShowUIFor()}}
+{\footnotesize\ttfamily void Thoughts.\+Control\+Systems.\+UI.\+UIMap\+Events\+Manager.\+Show\+UIFor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{map\+Element,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{attribute }\end{DoxyParamCaption})}
+
+
+
+Definition at line 14 of file UIMap\+Events\+Manager.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a4cff229f0c90b3382ada259abcba04ac_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a38485441fbdd587ded0221209dec06dc}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a38485441fbdd587ded0221209dec06dc}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!elementsSeparation@{elementsSeparation}}
+\index{elementsSeparation@{elementsSeparation}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{elementsSeparation}{elementsSeparation}}
+{\footnotesize\ttfamily float Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+elements\+Separation = 1.\+5f\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 18 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a4aea7d4b8d3fce6b75769f346a35ea2c}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a4aea7d4b8d3fce6b75769f346a35ea2c}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!locationsPreviewAmount@{locationsPreviewAmount}}
+\index{locationsPreviewAmount@{locationsPreviewAmount}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{locationsPreviewAmount}{locationsPreviewAmount}}
+{\footnotesize\ttfamily int Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+locations\+Preview\+Amount = 3\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 17 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a17943362b8a872e646de15bc30fd9bc5}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow_a17943362b8a872e646de15bc30fd9bc5}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!povDistance@{povDistance}}
+\index{povDistance@{povDistance}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{povDistance}{povDistance}}
+{\footnotesize\ttfamily float Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+pov\+Distance = 1f\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 19 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_ac17894f786a3ff6d7b8419d11c89019f}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_ac17894f786a3ff6d7b8419d11c89019f}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!uiMapEventPrefab@{uiMapEventPrefab}}
+\index{uiMapEventPrefab@{uiMapEventPrefab}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{uiMapEventPrefab}{uiMapEventPrefab}}
+{\footnotesize\ttfamily Game\+Object Thoughts.\+Control\+Systems.\+UI.\+UIMap\+Events\+Manager.\+ui\+Map\+Event\+Prefab\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 11 of file UIMap\+Events\+Manager.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a8e307c92243415e7b7ad903e1be85884}\label{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEventsManager_a8e307c92243415e7b7ad903e1be85884}} 
+\index{Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}!uiMapEvents@{uiMapEvents}}
+\index{uiMapEvents@{uiMapEvents}!Thoughts.ControlSystems.UI.UIMapEventsManager@{Thoughts.ControlSystems.UI.UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{uiMapEvents}{uiMapEvents}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEvent}{UIMap\+Event}}$>$ Thoughts.\+Control\+Systems.\+UI.\+UIMap\+Events\+Manager.\+ui\+Map\+Events = new List$<$\mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEvent}{UIMap\+Event}}$>$()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 12 of file UIMap\+Events\+Manager.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{UIMapEventsManager_8cs}{UIMap\+Events\+Manager.\+cs}}\end{DoxyCompactItemize}

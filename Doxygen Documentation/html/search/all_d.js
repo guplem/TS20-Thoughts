@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['ondrawgizmosselected_133',['OnDrawGizmosSelected',['../classUIPovRow.html#a6140ef730478cfda438a2030d4c96f36',1,'UIPovRow']]],
-  ['operator_21_3d_134',['operator!=',['../classThoughts_1_1Attribute.html#a2b4a6aa581c1a74c97089dff702fa1ba',1,'Thoughts::Attribute']]],
-  ['operator_3d_3d_135',['operator==',['../classThoughts_1_1Attribute.html#a131c3cb8d1c1160c88a5a94dfbb8517b',1,'Thoughts::Attribute']]],
+  ['ondrawgizmosselected_133',['OnDrawGizmosSelected',['../classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow.html#a93b201df75a90df55d4dbc33736149b3',1,'Thoughts::ControlSystems::UI::UIPovRow']]],
+  ['operator_21_3d_134',['operator!=',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#a726d47b71c3469d4abfadcadb8b02dc3',1,'Thoughts::Game::Attributes::Attribute']]],
+  ['operator_3d_3d_135',['operator==',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#ac3209f87be14f3822be64ae4e64e6899',1,'Thoughts::Game::Attributes::Attribute']]],
   ['overworld_136',['overworld',['../classThoughts_1_1ControlSystems_1_1CameraController.html#aecb59def0c99f3e9f6f33a618aa148eca6d886540bba0d7ff5af96d12a5831469',1,'Thoughts::ControlSystems::CameraController']]],
   ['overworldcamera_137',['overworldCamera',['../classThoughts_1_1ControlSystems_1_1CameraController.html#a3aca09e275f69cda38d67bc6e6143f4a',1,'Thoughts::ControlSystems::CameraController']]],
-  ['ownedattribute_138',['OwnedAttribute',['../classOwnedAttribute.html',1,'OwnedAttribute'],['../classOwnedAttribute.html#aaee2a1045cd48c04427f2f7ffb7a8922',1,'OwnedAttribute.OwnedAttribute()']]],
+  ['ownedattribute_138',['OwnedAttribute',['../classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html#a3d7808b525201c5d84b3d02ef4346143',1,'Thoughts.Game.Attributes.OwnedAttribute.OwnedAttribute()'],['../classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html',1,'Thoughts.Game.Attributes.OwnedAttribute']]],
   ['ownedattribute_2ecs_139',['OwnedAttribute.cs',['../OwnedAttribute_8cs.html',1,'']]],
-  ['ownedattributes_140',['ownedAttributes',['../classAttributeManager.html#ab3881c3705a5a10bbd3c2d9140dd4911',1,'AttributeManager']]],
-  ['ownermapelement_141',['ownerMapElement',['../classAttributeManager.html#a5b15764a483d731c7df0e81c8be6da8f',1,'AttributeManager.ownerMapElement()'],['../classOwnedAttribute.html#a46a0ceac201ac873a9710b0b2abeb796',1,'OwnedAttribute.ownerMapElement()']]]
+  ['ownedattributes_140',['ownedAttributes',['../classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html#ae9d397ac02364b5f5f9d233ac79f508e',1,'Thoughts::Game::Attributes::AttributeManager']]],
+  ['ownermapelement_141',['ownerMapElement',['../classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html#a5b32351a0e4ac73a4a205c9e06185add',1,'Thoughts.Game.Attributes.AttributeManager.ownerMapElement()'],['../classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html#a0633a2789a51b8e9a563fb0a98b5d05f',1,'Thoughts.Game.Attributes.OwnedAttribute.ownerMapElement()']]]
 ];

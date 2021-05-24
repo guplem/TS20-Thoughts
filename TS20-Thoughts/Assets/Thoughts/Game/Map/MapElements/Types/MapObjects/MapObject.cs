@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Thoughts.Game.GameMap;
-using UnityEngine;
-
-public class MapObject : MapElement
+namespace Thoughts.Game.GameMap
 {
+    public class MapObject : MapElement
+    {
+    }
 }

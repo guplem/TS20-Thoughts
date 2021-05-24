@@ -18,13 +18,13 @@ override string \mbox{\hyperlink{classAttributeManager_a503dde9a5dd8343436a0d7dc
 \item 
 void \mbox{\hyperlink{classAttributeManager_ac6d26b24f23f655fbd298e4e634a7ac9}{Execute\+Self\+Time\+Elapse\+Actions}} ()
 \item 
-void \mbox{\hyperlink{classAttributeManager_afbac5935000a9346360038d5fbcb8b17}{Update\+Attribute}} (\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}} attribute\+To\+Update, int delta\+Value)
+void \mbox{\hyperlink{classAttributeManager_a8354f25ad9d274f456ffe0f7a0e72315}{Update\+Attribute}} (Attributes.\+Attribute attribute\+To\+Update, int delta\+Value)
 \item 
 List$<$ \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} $>$ \mbox{\hyperlink{classAttributeManager_a4f1cf4b739bd032754e2113b12538c36}{Get\+Attributes\+That\+Need\+Care}} ()
 \item 
 bool \mbox{\hyperlink{classAttributeManager_a6ffc16a488eb49a907b43b4b8bee197e}{Can\+Cover}} (\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}} requirement, int times, out int missing\+Value\+To\+Cover\+In\+This\+Attribute\+Manager)
 \item 
-\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} \mbox{\hyperlink{classAttributeManager_aebdbdf28109a20eb36b7fdc7b8bb3d33}{Get\+Owned\+Attribute\+Of}} (\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}} attribute)
+\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} \mbox{\hyperlink{classAttributeManager_a64d6b2c423d55884ac7d5678401839f1}{Get\+Owned\+Attribute\+Of}} (Attributes.\+Attribute attribute)
 \item 
 \mbox{\hyperlink{classExecutionPlan}{Execution\+Plan}} \mbox{\hyperlink{classAttributeManager_abb894fe217af2ee4d9e748a970662d71}{Get\+Execution\+Plan\+To\+Cover}} (\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} owned\+Attribute\+To\+Cover, int remaining\+Value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer)
 \end{DoxyCompactItemize}
@@ -148,11 +148,11 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classAttributeManager_abb894fe217af2ee4d9e748a970662d71_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{classAttributeManager_aebdbdf28109a20eb36b7fdc7b8bb3d33}\label{classAttributeManager_aebdbdf28109a20eb36b7fdc7b8bb3d33}} 
+\mbox{\Hypertarget{classAttributeManager_a64d6b2c423d55884ac7d5678401839f1}\label{classAttributeManager_a64d6b2c423d55884ac7d5678401839f1}} 
 \index{AttributeManager@{AttributeManager}!GetOwnedAttributeOf@{GetOwnedAttributeOf}}
 \index{GetOwnedAttributeOf@{GetOwnedAttributeOf}!AttributeManager@{AttributeManager}}
 \doxysubsubsection{\texorpdfstring{GetOwnedAttributeOf()}{GetOwnedAttributeOf()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} Attribute\+Manager.\+Get\+Owned\+Attribute\+Of (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}}}]{attribute }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} Attribute\+Manager.\+Get\+Owned\+Attribute\+Of (\begin{DoxyParamCaption}\item[{Attributes.\+Attribute}]{attribute }\end{DoxyParamCaption})}
 
 
 
@@ -192,21 +192,22 @@ Here is the caller graph for this function\+:\nopagebreak
 
 Definition at line 26 of file Attribute\+Manager.\+cs.
 
-\mbox{\Hypertarget{classAttributeManager_afbac5935000a9346360038d5fbcb8b17}\label{classAttributeManager_afbac5935000a9346360038d5fbcb8b17}} 
+\mbox{\Hypertarget{classAttributeManager_a8354f25ad9d274f456ffe0f7a0e72315}\label{classAttributeManager_a8354f25ad9d274f456ffe0f7a0e72315}} 
 \index{AttributeManager@{AttributeManager}!UpdateAttribute@{UpdateAttribute}}
 \index{UpdateAttribute@{UpdateAttribute}!AttributeManager@{AttributeManager}}
 \doxysubsubsection{\texorpdfstring{UpdateAttribute()}{UpdateAttribute()}}
-{\footnotesize\ttfamily void Attribute\+Manager.\+Update\+Attribute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}}}]{attribute\+To\+Update,  }\item[{int}]{delta\+Value }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Attribute\+Manager.\+Update\+Attribute (\begin{DoxyParamCaption}\item[{Attributes.\+Attribute}]{attribute\+To\+Update,  }\item[{int}]{delta\+Value }\end{DoxyParamCaption})}
 
 
 
 Definition at line 48 of file Attribute\+Manager.\+cs.
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classAttributeManager_afbac5935000a9346360038d5fbcb8b17_cgraph}
+\includegraphics[width=350pt]{classAttributeManager_a8354f25ad9d274f456ffe0f7a0e72315_cgraph}
 \end{center}
 \end{figure}
 

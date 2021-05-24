@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Thoughts.ControlSystems;
+using Thoughts.Game.Attributes;
 using UnityEngine;
 using UnityEngine.AI;
 

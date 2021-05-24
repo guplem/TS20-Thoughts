@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Thoughts.Game.Attributes;
 using UnityEngine;
 
 namespace Thoughts.Game.GameMap

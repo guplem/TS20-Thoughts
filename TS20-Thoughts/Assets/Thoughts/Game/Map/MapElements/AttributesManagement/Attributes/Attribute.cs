@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Thoughts.Game;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 
-namespace Thoughts
+namespace Thoughts.Game.Attributes
 {
     [CreateAssetMenu(fileName = "Attribute", menuName = "Thoughts/Attribute", order = 1)]
     public class Attribute : ScriptableObject, IEquatable<Attribute>
