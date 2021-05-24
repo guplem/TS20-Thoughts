@@ -2,6 +2,11 @@
 \label{classThoughts_1_1AppManager}\index{Thoughts.AppManager@{Thoughts.AppManager}}
 
 
+Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current \char`\"{}\+Game\+Manager\char`\"{}.  
+
+
+
+
 Inheritance diagram for Thoughts.\+App\+Manager\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -22,31 +27,33 @@ Collaboration diagram for Thoughts.\+App\+Manager\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 static \mbox{\hyperlink{classThoughts_1_1AppManager}{App\+Manager}} \mbox{\hyperlink{classThoughts_1_1AppManager_abdaa9a67d31da294cb6a85381ca8b72d}{instance}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
-\item 
+\begin{DoxyCompactList}\small\item\em The singleton instance of this class (\mbox{\hyperlink{classThoughts_1_1AppManager}{App\+Manager}}) \end{DoxyCompactList}\item 
 static \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager}{Game\+Manager}} \mbox{\hyperlink{classThoughts_1_1AppManager_a86b879d360baeac08ee9ea1f45ca00ef}{game\+Manager}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The current Game\+Manager of the game/app \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classThoughts_1_1AppManager_a4cdaadd22e5c3f4136991f02afe33298}{Awake}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Tries to set up this \char`\"{}\+App\+Manager\char`\"{} as singleton instance. If possible, marks the Game\+Object containing this Mono\+Behaviour as \char`\"{}\+Dont\+Destroy\+On\+Load\char`\"{}. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classThoughts_1_1AppManager_a0bb22cc2b3cc5aa16c793157c0bef3b1}{Start}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Triggers the start of a new game. \end{DoxyCompactList}\item 
 bool \mbox{\hyperlink{classThoughts_1_1AppManager_a0f1cf13d1debe8f7974e2e39ae621533}{Initialize\+Singleton}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em If there is no other instance of an \char`\"{}\+App\+Manager\char`\"{}, this is set as it. Being the only one following the \char`\"{}singleton\char`\"{} pattern. \end{DoxyCompactList}\item 
 void \mbox{\hyperlink{classThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae}{Start\+New\+Game}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Starts a new game by instantiating the Game\+Manager prefab and triggering its method \char`\"{}\+Start\+New\+Game\char`\"{} \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 Game\+Object \mbox{\hyperlink{classThoughts_1_1AppManager_a5a549870df0329b83ce69a4621eece45}{game\+Manager\+Prefab}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The Game\+Object prefab that is going to be spawned to initialize a new game process. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current \char`\"{}\+Game\+Manager\char`\"{}. 
 
 
-Definition at line 6 of file App\+Manager.\+cs.
+
+Definition at line 9 of file App\+Manager.\+cs.
 
 
 
@@ -59,7 +66,11 @@ Definition at line 6 of file App\+Manager.\+cs.
 
 
 
-Definition at line 12 of file App\+Manager.\+cs.
+Tries to set up this \char`\"{}\+App\+Manager\char`\"{} as singleton instance. If possible, marks the Game\+Object containing this Mono\+Behaviour as \char`\"{}\+Dont\+Destroy\+On\+Load\char`\"{}. 
+
+
+
+Definition at line 29 of file App\+Manager.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -76,7 +87,14 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 23 of file App\+Manager.\+cs.
+If there is no other instance of an \char`\"{}\+App\+Manager\char`\"{}, this is set as it. Being the only one following the \char`\"{}singleton\char`\"{} pattern. 
+
+\begin{DoxyReturn}{Returns}
+True if it became the singleton instance, false if another \char`\"{}\+App\+Manager\char`\"{} set up as the singleton instance already exists.
+\end{DoxyReturn}
+
+
+Definition at line 47 of file App\+Manager.\+cs.
 
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -93,7 +111,11 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 18 of file App\+Manager.\+cs.
+Triggers the start of a new game. 
+
+
+
+Definition at line 38 of file App\+Manager.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -110,7 +132,11 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 36 of file App\+Manager.\+cs.
+Starts a new game by instantiating the Game\+Manager prefab and triggering its method \char`\"{}\+Start\+New\+Game\char`\"{} 
+
+
+
+Definition at line 63 of file App\+Manager.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -137,7 +163,11 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 9 of file App\+Manager.\+cs.
+The Game\+Object prefab that is going to be spawned to initialize a new game process. 
+
+
+
+Definition at line 19 of file App\+Manager.\+cs.
 
 
 
@@ -150,7 +180,11 @@ Definition at line 9 of file App\+Manager.\+cs.
 
 
 
-Definition at line 10 of file App\+Manager.\+cs.
+The current Game\+Manager of the game/app 
+
+
+
+Definition at line 24 of file App\+Manager.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1AppManager_abdaa9a67d31da294cb6a85381ca8b72d}\label{classThoughts_1_1AppManager_abdaa9a67d31da294cb6a85381ca8b72d}} 
 \index{Thoughts.AppManager@{Thoughts.AppManager}!instance@{instance}}
@@ -160,7 +194,11 @@ Definition at line 10 of file App\+Manager.\+cs.
 
 
 
-Definition at line 8 of file App\+Manager.\+cs.
+The singleton instance of this class (\mbox{\hyperlink{classThoughts_1_1AppManager}{App\+Manager}}) 
+
+
+
+Definition at line 14 of file App\+Manager.\+cs.
 
 
 

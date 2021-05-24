@@ -1,4 +1,4 @@
 <map id="Thoughts.AppManager.InitializeSingleton" name="Thoughts.AppManager.InitializeSingleton">
-<area shape="rect" id="node1" title=" " alt="" coords="248,5,505,32"/>
-<area shape="rect" id="node2" href="$classThoughts_1_1AppManager.html#a4cdaadd22e5c3f4136991f02afe33298" title=" " alt="" coords="5,5,200,32"/>
+<area shape="rect" id="node1" title="If there is no other instance of an &quot;AppManager&quot;, this is set as it. Being the only one following the..." alt="" coords="248,5,505,32"/>
+<area shape="rect" id="node2" href="$classThoughts_1_1AppManager.html#a4cdaadd22e5c3f4136991f02afe33298" title="Tries to set up this &quot;AppManager&quot; as singleton instance. If possible, marks the GameObject containing..." alt="" coords="5,5,200,32"/>
 </map>

@@ -1,6 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
 <area shape="rect" id="node1" title=" " alt="" coords="5,259,116,285"/>
-<area shape="rect" id="node2" href="$classThoughts_1_1AppManager.html" title=" " alt="" coords="237,5,389,32"/>
+<area shape="rect" id="node2" href="$classThoughts_1_1AppManager.html" title="Object that must be kept always alive while running the app. It initializes the game process and keep..." alt="" coords="237,5,389,32"/>
 <area shape="rect" id="node3" href="$classThoughts_1_1ControlSystems_1_1CameraController.html" title=" " alt="" coords="175,56,451,83"/>
 <area shape="rect" id="node4" href="$classThoughts_1_1ControlSystems_1_1ControlSystem.html" title=" " alt="" coords="182,107,445,133"/>
 <area shape="rect" id="node6" href="$classThoughts_1_1ControlSystems_1_1InputHandler.html" title=" " alt="" coords="189,157,437,184"/>

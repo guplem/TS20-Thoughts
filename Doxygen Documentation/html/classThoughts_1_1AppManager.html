@@ -74,12 +74,15 @@ $(function() {
 <div class="title">Thoughts.AppManager Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current "GameManager".  
+ <a href="classThoughts_1_1AppManager.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Thoughts.AppManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1AppManager__inherit__graph.png" border="0" usemap="#aThoughts_8AppManager_inherit__map" alt="Inheritance graph"/></div>
 <map name="aThoughts_8AppManager_inherit__map" id="aThoughts_8AppManager_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,131,157,281"/>
+<area shape="rect" title="Object that must be kept always alive while running the app. It initializes the game process and keep..." alt="" coords="5,131,157,281"/>
 <area shape="rect" title=" " alt="" coords="26,5,137,83"/>
 </map>
 </div>
@@ -88,7 +91,7 @@ Collaboration diagram for Thoughts.AppManager:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1AppManager__coll__graph.png" border="0" usemap="#aThoughts_8AppManager_coll__map" alt="Collaboration graph"/></div>
 <map name="aThoughts_8AppManager_coll__map" id="aThoughts_8AppManager_coll__map">
-<area shape="rect" title=" " alt="" coords="5,131,157,281"/>
+<area shape="rect" title="Object that must be kept always alive while running the app. It initializes the game process and keep..." alt="" coords="5,131,157,281"/>
 <area shape="rect" title=" " alt="" coords="26,5,137,83"/>
 </map>
 </div>
@@ -96,29 +99,37 @@ Collaboration diagram for Thoughts.AppManager:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
 <tr class="memitem:abdaa9a67d31da294cb6a85381ca8b72d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classThoughts_1_1AppManager.html">AppManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1AppManager.html#abdaa9a67d31da294cb6a85381ca8b72d">instance</a><code> [get, private set]</code></td></tr>
+<tr class="memdesc:abdaa9a67d31da294cb6a85381ca8b72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The singleton instance of this class (<a class="el" href="classThoughts_1_1AppManager.html" title="Object that must be kept always alive while running the app. It initializes the game process and keep...">AppManager</a>)  <a href="classThoughts_1_1AppManager.html#abdaa9a67d31da294cb6a85381ca8b72d">More...</a><br /></td></tr>
 <tr class="separator:abdaa9a67d31da294cb6a85381ca8b72d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86b879d360baeac08ee9ea1f45ca00ef"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classThoughts_1_1Game_1_1GameManager.html">GameManager</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1AppManager.html#a86b879d360baeac08ee9ea1f45ca00ef">gameManager</a><code> [get, private set]</code></td></tr>
+<tr class="memdesc:a86b879d360baeac08ee9ea1f45ca00ef"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current GameManager of the game/app  <a href="classThoughts_1_1AppManager.html#a86b879d360baeac08ee9ea1f45ca00ef">More...</a><br /></td></tr>
 <tr class="separator:a86b879d360baeac08ee9ea1f45ca00ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a4cdaadd22e5c3f4136991f02afe33298"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1AppManager.html#a4cdaadd22e5c3f4136991f02afe33298">Awake</a> ()</td></tr>
+<tr class="memdesc:a4cdaadd22e5c3f4136991f02afe33298"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to set up this "AppManager" as singleton instance. If possible, marks the GameObject containing this MonoBehaviour as "DontDestroyOnLoad".  <a href="classThoughts_1_1AppManager.html#a4cdaadd22e5c3f4136991f02afe33298">More...</a><br /></td></tr>
 <tr class="separator:a4cdaadd22e5c3f4136991f02afe33298"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0bb22cc2b3cc5aa16c793157c0bef3b1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1">Start</a> ()</td></tr>
+<tr class="memdesc:a0bb22cc2b3cc5aa16c793157c0bef3b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triggers the start of a new game.  <a href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1">More...</a><br /></td></tr>
 <tr class="separator:a0bb22cc2b3cc5aa16c793157c0bef3b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0f1cf13d1debe8f7974e2e39ae621533"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1AppManager.html#a0f1cf13d1debe8f7974e2e39ae621533">InitializeSingleton</a> ()</td></tr>
+<tr class="memdesc:a0f1cf13d1debe8f7974e2e39ae621533"><td class="mdescLeft">&#160;</td><td class="mdescRight">If there is no other instance of an "AppManager", this is set as it. Being the only one following the "singleton" pattern.  <a href="classThoughts_1_1AppManager.html#a0f1cf13d1debe8f7974e2e39ae621533">More...</a><br /></td></tr>
 <tr class="separator:a0f1cf13d1debe8f7974e2e39ae621533"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa6b4098e23afcb973848216e995e00ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae">StartNewGame</a> ()</td></tr>
+<tr class="memdesc:aa6b4098e23afcb973848216e995e00ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts a new game by instantiating the GameManager prefab and triggering its method "StartNewGame"  <a href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae">More...</a><br /></td></tr>
 <tr class="separator:aa6b4098e23afcb973848216e995e00ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a5a549870df0329b83ce69a4621eece45"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1AppManager.html#a5a549870df0329b83ce69a4621eece45">gameManagerPrefab</a></td></tr>
+<tr class="memdesc:a5a549870df0329b83ce69a4621eece45"><td class="mdescLeft">&#160;</td><td class="mdescRight">The GameObject prefab that is going to be spawned to initialize a new game process.  <a href="classThoughts_1_1AppManager.html#a5a549870df0329b83ce69a4621eece45">More...</a><br /></td></tr>
 <tr class="separator:a5a549870df0329b83ce69a4621eece45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00006">6</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<div class="textblock"><p>Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current "GameManager". </p>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00009">9</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4cdaadd22e5c3f4136991f02afe33298"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4cdaadd22e5c3f4136991f02afe33298">&#9670;&nbsp;</a></span>Awake()</h2>
@@ -143,14 +154,16 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00012">12</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<p>Tries to set up this "AppManager" as singleton instance. If possible, marks the GameObject containing this MonoBehaviour as "DontDestroyOnLoad". </p>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00029">29</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1AppManager_a4cdaadd22e5c3f4136991f02afe33298_cgraph.png" border="0" usemap="#aclassThoughts_1_1AppManager_a4cdaadd22e5c3f4136991f02afe33298_cgraph" alt=""/></div>
 <map name="aclassThoughts_1_1AppManager_a4cdaadd22e5c3f4136991f02afe33298_cgraph" id="aclassThoughts_1_1AppManager_a4cdaadd22e5c3f4136991f02afe33298_cgraph">
-<area shape="rect" title=" " alt="" coords="5,5,200,32"/>
-<area shape="rect" href="classThoughts_1_1AppManager.html#a0f1cf13d1debe8f7974e2e39ae621533" title=" " alt="" coords="248,5,505,32"/>
+<area shape="rect" title="Tries to set up this &quot;AppManager&quot; as singleton instance. If possible, marks the GameObject containing..." alt="" coords="5,5,200,32"/>
+<area shape="rect" href="classThoughts_1_1AppManager.html#a0f1cf13d1debe8f7974e2e39ae621533" title="If there is no other instance of an &quot;AppManager&quot;, this is set as it. Being the only one following the..." alt="" coords="248,5,505,32"/>
 </map>
 </div>
 
@@ -179,14 +192,17 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00023">23</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<p>If there is no other instance of an "AppManager", this is set as it. Being the only one following the "singleton" pattern. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if it became the singleton instance, false if another "AppManager" set up as the singleton instance already exists.</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00047">47</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1AppManager_a0f1cf13d1debe8f7974e2e39ae621533_icgraph.png" border="0" usemap="#aclassThoughts_1_1AppManager_a0f1cf13d1debe8f7974e2e39ae621533_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1AppManager_a0f1cf13d1debe8f7974e2e39ae621533_icgraph" id="aclassThoughts_1_1AppManager_a0f1cf13d1debe8f7974e2e39ae621533_icgraph">
-<area shape="rect" title=" " alt="" coords="248,5,505,32"/>
-<area shape="rect" href="classThoughts_1_1AppManager.html#a4cdaadd22e5c3f4136991f02afe33298" title=" " alt="" coords="5,5,200,32"/>
+<area shape="rect" title="If there is no other instance of an &quot;AppManager&quot;, this is set as it. Being the only one following the..." alt="" coords="248,5,505,32"/>
+<area shape="rect" href="classThoughts_1_1AppManager.html#a4cdaadd22e5c3f4136991f02afe33298" title="Tries to set up this &quot;AppManager&quot; as singleton instance. If possible, marks the GameObject containing..." alt="" coords="5,5,200,32"/>
 </map>
 </div>
 
@@ -215,14 +231,16 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00018">18</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<p>Triggers the start of a new game. </p>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00038">38</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1AppManager_a0bb22cc2b3cc5aa16c793157c0bef3b1_cgraph.png" border="0" usemap="#aclassThoughts_1_1AppManager_a0bb22cc2b3cc5aa16c793157c0bef3b1_cgraph" alt=""/></div>
 <map name="aclassThoughts_1_1AppManager_a0bb22cc2b3cc5aa16c793157c0bef3b1_cgraph" id="aclassThoughts_1_1AppManager_a0bb22cc2b3cc5aa16c793157c0bef3b1_cgraph">
-<area shape="rect" title=" " alt="" coords="5,56,189,83"/>
-<area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title=" " alt="" coords="237,56,481,83"/>
+<area shape="rect" title="Triggers the start of a new game." alt="" coords="5,56,189,83"/>
+<area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,56,481,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title=" " alt="" coords="529,56,824,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad4009688d0199fe4b581542a1ff933fb" title=" " alt="" coords="872,56,1137,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a69aa2e06c1047b0e3f6ab4d51c4a562a" title=" " alt="" coords="1199,5,1506,32"/>
@@ -259,13 +277,15 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00036">36</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<p>Starts a new game by instantiating the GameManager prefab and triggering its method "StartNewGame" </p>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00063">63</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_cgraph.png" border="0" usemap="#aclassThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_cgraph" alt=""/></div>
 <map name="aclassThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_cgraph" id="aclassThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_cgraph">
-<area shape="rect" title=" " alt="" coords="5,56,249,83"/>
+<area shape="rect" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="5,56,249,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title=" " alt="" coords="297,56,592,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad4009688d0199fe4b581542a1ff933fb" title=" " alt="" coords="640,56,905,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a69aa2e06c1047b0e3f6ab4d51c4a562a" title=" " alt="" coords="967,5,1274,32"/>
@@ -281,8 +301,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_icgraph.png" border="0" usemap="#aclassThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_icgraph" id="aclassThoughts_1_1AppManager_aa6b4098e23afcb973848216e995e00ae_icgraph">
-<area shape="rect" title=" " alt="" coords="237,5,481,32"/>
-<area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title=" " alt="" coords="5,5,189,32"/>
+<area shape="rect" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
+<area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
 </map>
 </div>
 
@@ -309,7 +329,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00009">9</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<p>The GameObject prefab that is going to be spawned to initialize a new game process. </p>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00019">19</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 
 </div>
 </div>
@@ -334,7 +356,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00010">10</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<p>The current GameManager of the game/app </p>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00024">24</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 
 </div>
 </div>
@@ -358,7 +382,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00008">8</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
+<p>The singleton instance of this class (<a class="el" href="classThoughts_1_1AppManager.html" title="Object that must be kept always alive while running the app. It initializes the game process and keep...">AppManager</a>) </p>
+
+<p class="definition">Definition at line <a class="el" href="AppManager_8cs_source.html#l00014">14</a> of file <a class="el" href="AppManager_8cs_source.html">AppManager.cs</a>.</p>
 
 </div>
 </div>

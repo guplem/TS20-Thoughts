@@ -1,5 +1,5 @@
 <map id="Thoughts.AppManager.StartNewGame" name="Thoughts.AppManager.StartNewGame">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,249,83"/>
+<area shape="rect" id="node1" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="5,56,249,83"/>
 <area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title=" " alt="" coords="297,56,592,83"/>
 <area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad4009688d0199fe4b581542a1ff933fb" title=" " alt="" coords="640,56,905,83"/>
 <area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a69aa2e06c1047b0e3f6ab4d51c4a562a" title=" " alt="" coords="967,5,1274,32"/>
