@@ -14,7 +14,7 @@ namespace Thoughts.Game
         [SerializeField] private GameObject manualControlSystemPrefab;
         
         [Header("Game Elements")]
-        [SerializeField] public GameMap.Map map;
+        [SerializeField] public Map map;
         
         private readonly List<Participant> participants = new List<Participant>();
 
