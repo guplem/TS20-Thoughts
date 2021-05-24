@@ -1,0 +1,17 @@
+<map id="Thoughts.ControlSystems.CameraController" name="Thoughts.ControlSystems.CameraController">
+<area shape="rect" id="node1" title=" " alt="" coords="835,1429,1111,1756"/>
+<area shape="rect" id="node2" title=" " alt="" coords="785,5,895,83"/>
+<area shape="rect" id="node4" href="$classThoughts_1_1ControlSystems_1_1ControlSystem.html" title=" " alt="" coords="911,379,1063,471"/>
+<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html" title=" " alt="" coords="169,495,423,704"/>
+<area shape="rect" id="node9" href="$classGameUIManager.html" title=" " alt="" coords="805,1091,923,1168"/>
+<area shape="rect" id="node10" href="$classUIPovManager.html" title=" " alt="" coords="729,951,834,1028"/>
+<area shape="rect" id="node12" href="$classUIPovRow.html" title=" " alt="" coords="622,182,802,318"/>
+<area shape="rect" id="node14" href="$classUIPovRowElement.html" title=" " alt="" coords="469,197,597,303"/>
+<area shape="rect" id="node3" href="$classThoughts_1_1ControlSystems_1_1Manual.html" title=" " alt="" coords="769,1231,988,1367"/>
+<area shape="rect" id="node11" href="$classUIAttributesManager.html" title=" " alt="" coords="566,767,706,888"/>
+<area shape="rect" id="node6" href="$classAttributeManager.html" title=" " alt="" coords="171,145,395,355"/>
+<area shape="rect" id="node7" href="$classOwnedAttribute.html" title=" " alt="" coords="5,153,147,347"/>
+<area shape="rect" id="node8" title=" " alt="" coords="39,5,113,83"/>
+<area shape="rect" id="node15" href="$classUIMapEventsManager.html" title=" " alt="" coords="602,546,750,653"/>
+<area shape="rect" id="node13" href="$classUIAttribute.html" title=" " alt="" coords="449,539,575,660"/>
+</map>

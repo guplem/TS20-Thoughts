@@ -1,0 +1,4 @@
+<map id="GetExecutionPlanToCover" name="GetExecutionPlanToCover">
+<area shape="rect" id="node1" title=" " alt="" coords="484,5,657,32"/>
+<area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameManager.html#afc2f906fb0859302d2b6662839de0f6c" title="Look for all MapEvents that, as consequence of the event, they make the attribute value increase for ..." alt="" coords="5,5,436,32"/>
+</map>

@@ -1,0 +1,268 @@
+\hypertarget{classMapObject}{}\doxysection{Map\+Object Class Reference}
+\label{classMapObject}\index{MapObject@{MapObject}}
+
+
+Inheritance diagram for Map\+Object\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{classMapObject__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Map\+Object\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classMapObject__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+override string \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a17509cb81e6bb1d81ff58d0d005e5b21}{To\+String}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classAttributeManager}{Attribute\+Manager}} \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a20d7ea24fbc380b2e02afa46463bbd39}{attribute\+Manager}} = new \mbox{\hyperlink{classAttributeManager}{Attribute\+Manager}}()
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Nav\+Mesh\+Agent \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6466203bf188ce36f82e391238853737}{nav\+Mesh\+Agent}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}? \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_acbb009aa9302341860504ac7a886d4d4}{current\+Objective\+Attribute}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a23672e2fcc95b2a766c671a6077780e8}{Move\+To}} (Vector3 location)
+\item 
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a9fadea0db7b00081ec2189bfbc8ae4ce}{Awake}} ()
+\item 
+IEnumerator \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a3fb1a5bfe0319009f9d1f3fbf3af9a27}{Clock}} ()
+\item 
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_add64760c17561f5ed8b0733be2c80fb8}{Update\+Execution\+Plans}} ()
+\item 
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6761d523c3aab458609c6ea93397eaee}{Update\+Objective\+Attribute}} ()
+\item 
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a170a8bf791b27f3b102669a3767af508}{Do\+Next\+Planed\+Map\+Event}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+IEnumerator \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a837cc36479b207351d8118a850a79cb5}{coroutine\+Holder}}
+\item 
+List$<$ \mbox{\hyperlink{classExecutionPlan}{Execution\+Plan}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_ad055fc364e5c8b5b010550c3a9f04191}{current\+Execution\+Plans}} = new List$<$\mbox{\hyperlink{classExecutionPlan}{Execution\+Plan}}$>$()
+\item 
+\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a5c03bbb4409524f12231a0aab70ecbcd}{\+\_\+current\+Objective\+Attribute}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 6 of file Map\+Object.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a9fadea0db7b00081ec2189bfbc8ae4ce}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a9fadea0db7b00081ec2189bfbc8ae4ce}} 
+\index{MapObject@{MapObject}!Awake@{Awake}}
+\index{Awake@{Awake}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{Awake()}{Awake()}}
+{\footnotesize\ttfamily void Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+Awake (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 31 of file Map\+Element.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a9fadea0db7b00081ec2189bfbc8ae4ce_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a3fb1a5bfe0319009f9d1f3fbf3af9a27}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a3fb1a5bfe0319009f9d1f3fbf3af9a27}} 
+\index{MapObject@{MapObject}!Clock@{Clock}}
+\index{Clock@{Clock}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{Clock()}{Clock()}}
+{\footnotesize\ttfamily IEnumerator Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+Clock (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 54 of file Map\+Element.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a3fb1a5bfe0319009f9d1f3fbf3af9a27_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a3fb1a5bfe0319009f9d1f3fbf3af9a27_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a170a8bf791b27f3b102669a3767af508}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a170a8bf791b27f3b102669a3767af508}} 
+\index{MapObject@{MapObject}!DoNextPlanedMapEvent@{DoNextPlanedMapEvent}}
+\index{DoNextPlanedMapEvent@{DoNextPlanedMapEvent}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{DoNextPlanedMapEvent()}{DoNextPlanedMapEvent()}}
+{\footnotesize\ttfamily void Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+Do\+Next\+Planed\+Map\+Event (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 130 of file Map\+Element.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a170a8bf791b27f3b102669a3767af508_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a170a8bf791b27f3b102669a3767af508_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a23672e2fcc95b2a766c671a6077780e8}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a23672e2fcc95b2a766c671a6077780e8}} 
+\index{MapObject@{MapObject}!MoveTo@{MoveTo}}
+\index{MoveTo@{MoveTo}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{MoveTo()}{MoveTo()}}
+{\footnotesize\ttfamily void Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+Move\+To (\begin{DoxyParamCaption}\item[{Vector3}]{location }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 19 of file Map\+Element.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a17509cb81e6bb1d81ff58d0d005e5b21}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a17509cb81e6bb1d81ff58d0d005e5b21}} 
+\index{MapObject@{MapObject}!ToString@{ToString}}
+\index{ToString@{ToString}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{ToString()}{ToString()}}
+{\footnotesize\ttfamily override string Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+To\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definition at line 175 of file Map\+Element.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_add64760c17561f5ed8b0733be2c80fb8}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_add64760c17561f5ed8b0733be2c80fb8}} 
+\index{MapObject@{MapObject}!UpdateExecutionPlans@{UpdateExecutionPlans}}
+\index{UpdateExecutionPlans@{UpdateExecutionPlans}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{UpdateExecutionPlans()}{UpdateExecutionPlans()}}
+{\footnotesize\ttfamily void Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+Update\+Execution\+Plans (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 97 of file Map\+Element.\+cs.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_add64760c17561f5ed8b0733be2c80fb8_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6761d523c3aab458609c6ea93397eaee}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6761d523c3aab458609c6ea93397eaee}} 
+\index{MapObject@{MapObject}!UpdateObjectiveAttribute@{UpdateObjectiveAttribute}}
+\index{UpdateObjectiveAttribute@{UpdateObjectiveAttribute}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{UpdateObjectiveAttribute()}{UpdateObjectiveAttribute()}}
+{\footnotesize\ttfamily void Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+Update\+Objective\+Attribute (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 106 of file Map\+Element.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6761d523c3aab458609c6ea93397eaee_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6761d523c3aab458609c6ea93397eaee_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a5c03bbb4409524f12231a0aab70ecbcd}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a5c03bbb4409524f12231a0aab70ecbcd}} 
+\index{MapObject@{MapObject}!\_currentObjectiveAttribute@{\_currentObjectiveAttribute}}
+\index{\_currentObjectiveAttribute@{\_currentObjectiveAttribute}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{\_currentObjectiveAttribute}{\_currentObjectiveAttribute}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+\_\+current\+Objective\+Attribute\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 95 of file Map\+Element.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a20d7ea24fbc380b2e02afa46463bbd39}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a20d7ea24fbc380b2e02afa46463bbd39}} 
+\index{MapObject@{MapObject}!attributeManager@{attributeManager}}
+\index{attributeManager@{attributeManager}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{attributeManager}{attributeManager}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAttributeManager}{Attribute\+Manager}} Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+attribute\+Manager = new \mbox{\hyperlink{classAttributeManager}{Attribute\+Manager}}()\hspace{0.3cm}{\ttfamily [inherited]}}
+
+
+
+Definition at line 13 of file Map\+Element.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a837cc36479b207351d8118a850a79cb5}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a837cc36479b207351d8118a850a79cb5}} 
+\index{MapObject@{MapObject}!coroutineHolder@{coroutineHolder}}
+\index{coroutineHolder@{coroutineHolder}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{coroutineHolder}{coroutineHolder}}
+{\footnotesize\ttfamily IEnumerator Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+coroutine\+Holder\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 29 of file Map\+Element.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_ad055fc364e5c8b5b010550c3a9f04191}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_ad055fc364e5c8b5b010550c3a9f04191}} 
+\index{MapObject@{MapObject}!currentExecutionPlans@{currentExecutionPlans}}
+\index{currentExecutionPlans@{currentExecutionPlans}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{currentExecutionPlans}{currentExecutionPlans}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classExecutionPlan}{Execution\+Plan}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+current\+Execution\+Plans = new List$<$\mbox{\hyperlink{classExecutionPlan}{Execution\+Plan}}$>$()\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 72 of file Map\+Element.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_acbb009aa9302341860504ac7a886d4d4}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_acbb009aa9302341860504ac7a886d4d4}} 
+\index{MapObject@{MapObject}!currentObjectiveAttribute@{currentObjectiveAttribute}}
+\index{currentObjectiveAttribute@{currentObjectiveAttribute}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{currentObjectiveAttribute}{currentObjectiveAttribute}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}? Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+current\+Objective\+Attribute\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}, {\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 74 of file Map\+Element.\+cs.
+
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6466203bf188ce36f82e391238853737}\label{classThoughts_1_1Game_1_1GameMap_1_1MapElement_a6466203bf188ce36f82e391238853737}} 
+\index{MapObject@{MapObject}!navMeshAgent@{navMeshAgent}}
+\index{navMeshAgent@{navMeshAgent}!MapObject@{MapObject}}
+\doxysubsubsection{\texorpdfstring{navMeshAgent}{navMeshAgent}}
+{\footnotesize\ttfamily Nav\+Mesh\+Agent Thoughts.\+Game.\+Game\+Map.\+Map\+Element.\+nav\+Mesh\+Agent\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}, {\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 17 of file Map\+Element.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{MapObject_8cs}{Map\+Object.\+cs}}\end{DoxyCompactItemize}

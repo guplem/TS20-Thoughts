@@ -1,0 +1,11 @@
+<map id="Thoughts.Game.GameMap.MapElement.DoNextPlanedMapEvent" name="Thoughts.Game.GameMap.MapElement.DoNextPlanedMapEvent">
+<area shape="rect" id="node1" title=" " alt="" coords="5,98,404,125"/>
+<area shape="rect" id="node2" href="$classExecutionPlan.html#a23cc2cf90a3bf919c3a211e2aa9fda4d" title="If possible, executes the" alt="" coords="568,73,727,99"/>
+<area shape="rect" id="node4" href="$classExecutionPlan.html#a655f2359f929f51acf2167dd1bc8ec1c" title=" " alt="" coords="1229,10,1483,37"/>
+<area shape="rect" id="node6" href="$classExecutionPlan.html#a276dc000818dd339f3c56169b92ab14a" title=" " alt="" coords="1259,98,1453,125"/>
+<area shape="rect" id="node9" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#add64760c17561f5ed8b0733be2c80fb8" title=" " alt="" coords="452,174,843,201"/>
+<area shape="rect" id="node3" href="$classExecutionPlan.html#aa602e66a37a75284869b7a68c8632167" title=" " alt="" coords="934,73,1138,99"/>
+<area shape="rect" id="node8" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a82c4116beecc7775ba234fa6000829ef" title=" " alt="" coords="891,22,1181,49"/>
+<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a7dad3edc686eedee03541db4aa35c8bf" title=" " alt="" coords="1531,10,1917,37"/>
+<area shape="rect" id="node7" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a525ff7d8ee812a282e3018f20b0001e3" title=" " alt="" coords="1561,98,1887,125"/>
+</map>

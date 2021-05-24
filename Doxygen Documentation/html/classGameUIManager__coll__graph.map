@@ -1,0 +1,14 @@
+<map id="GameUIManager" name="GameUIManager">
+<area shape="rect" id="node1" title=" " alt="" coords="813,1013,931,1091"/>
+<area shape="rect" id="node2" title=" " alt="" coords="693,5,803,83"/>
+<area shape="rect" id="node3" href="$classUIPovManager.html" title=" " alt="" coords="765,873,870,951"/>
+<area shape="rect" id="node5" href="$classUIPovRow.html" title=" " alt="" coords="658,182,838,318"/>
+<area shape="rect" id="node6" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html" title=" " alt="" coords="175,417,430,627"/>
+<area shape="rect" id="node11" href="$classUIPovRowElement.html" title=" " alt="" coords="505,197,633,303"/>
+<area shape="rect" id="node4" href="$classUIAttributesManager.html" title=" " alt="" coords="582,689,722,811"/>
+<area shape="rect" id="node12" href="$classUIMapEventsManager.html" title=" " alt="" coords="690,469,838,575"/>
+<area shape="rect" id="node7" href="$classAttributeManager.html" title=" " alt="" coords="5,145,229,355"/>
+<area shape="rect" id="node8" href="$classOwnedAttribute.html" title=" " alt="" coords="253,153,395,347"/>
+<area shape="rect" id="node9" title=" " alt="" coords="287,5,361,83"/>
+<area shape="rect" id="node10" href="$classUIAttribute.html" title=" " alt="" coords="477,461,603,583"/>
+</map>

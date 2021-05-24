@@ -1,0 +1,10 @@
+<map id="GameUIManager.DisplayUIFor" name="GameUIManager.DisplayUIFor">
+<area shape="rect" id="node1" title=" " alt="" coords="5,56,203,83"/>
+<area shape="rect" id="node2" href="$classUIPovManager.html#acc7eb335427e71779c98605b21528e6f" title=" " alt="" coords="251,56,423,83"/>
+<area shape="rect" id="node3" href="$classUIAttributesManager.html#ac3d5f0ada76211eabca73861e6e257f5" title=" " alt="" coords="471,56,677,83"/>
+<area shape="rect" id="node4" href="$classUIAttributesManager.html#a9de22d48366740e6a3a1225dd4a53eb0" title=" " alt="" coords="739,5,913,32"/>
+<area shape="rect" id="node5" href="$classUIPovRow.html#a674d6e101f495400ed8d3d82680c399f" title=" " alt="" coords="725,56,927,83"/>
+<area shape="rect" id="node6" href="$classUIAttribute.html#a59edcfb0473baac44816396de72d0fc1" title=" " alt="" coords="759,107,893,133"/>
+<area shape="rect" id="node7" href="$classUIAttribute.html#a444d049964d8226a754271045cb5c9de" title=" " alt="" coords="975,107,1145,133"/>
+<area shape="rect" id="node8" href="$classUIAttribute.html#ab96a84118d8ebf4aad0b85274d89bff0" title=" " alt="" coords="1193,107,1327,133"/>
+</map>

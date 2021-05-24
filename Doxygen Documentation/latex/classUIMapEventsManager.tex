@@ -1,0 +1,190 @@
+\hypertarget{classUIMapEventsManager}{}\doxysection{UIMap\+Events\+Manager Class Reference}
+\label{classUIMapEventsManager}\index{UIMapEventsManager@{UIMapEventsManager}}
+
+
+Inheritance diagram for UIMap\+Events\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classUIMapEventsManager__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for UIMap\+Events\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=215pt]{classUIMapEventsManager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classUIMapEventsManager_a908382cd1fce1a59b3c7cffe795787d8}{Show\+UIFor}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} map\+Element, \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} attribute)
+\item 
+override void \mbox{\hyperlink{classUIMapEventsManager_a5926569719dbc4312d4141adb84388f7}{Clear}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 \mbox{\hyperlink{classUIPovRow_a674d6e101f495400ed8d3d82680c399f}{Get\+Location\+Position}} (int location\+Index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classUIPovRow_a6140ef730478cfda438a2030d4c96f36}{On\+Draw\+Gizmos\+Selected}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Game\+Object \mbox{\hyperlink{classUIMapEventsManager_afdca7ccb0308aaf711d40a90f34b5726}{ui\+Map\+Event\+Prefab}}
+\item 
+List$<$ \mbox{\hyperlink{classUIMapEvent}{UIMap\+Event}} $>$ \mbox{\hyperlink{classUIMapEventsManager_a2cbe8a89bad84984a9b293f52731007e}{ui\+Map\+Events}} = new List$<$\mbox{\hyperlink{classUIMapEvent}{UIMap\+Event}}$>$()
+\item 
+int \mbox{\hyperlink{classUIPovRow_a117776d517a9a4255708e16d80854e3e}{locations\+Preview\+Amount}} = 3
+\item 
+float \mbox{\hyperlink{classUIPovRow_a734e5c63583185d8b63562e3115c047c}{elements\+Separation}} = 1.\+5f
+\item 
+float \mbox{\hyperlink{classUIPovRow_a10de089f6f36f7bb54571d57d84a199b}{pov\+Distance}} = 1f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file UIMap\+Events\+Manager.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classUIMapEventsManager_a5926569719dbc4312d4141adb84388f7}\label{classUIMapEventsManager_a5926569719dbc4312d4141adb84388f7}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!Clear@{Clear}}
+\index{Clear@{Clear}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily override void UIMap\+Events\+Manager.\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classUIPovRow_acff3e872eca1bb8f8cb44bf6a68f0b91}{UIPov\+Row}}.
+
+
+
+Definition at line 34 of file UIMap\+Events\+Manager.\+cs.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUIMapEventsManager_a5926569719dbc4312d4141adb84388f7_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUIPovRow_a674d6e101f495400ed8d3d82680c399f}\label{classUIPovRow_a674d6e101f495400ed8d3d82680c399f}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!GetLocationPosition@{GetLocationPosition}}
+\index{GetLocationPosition@{GetLocationPosition}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{GetLocationPosition()}{GetLocationPosition()}}
+{\footnotesize\ttfamily Vector3 UIPov\+Row.\+Get\+Location\+Position (\begin{DoxyParamCaption}\item[{int}]{location\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 30 of file UIPov\+Row.\+cs.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUIPovRow_a674d6e101f495400ed8d3d82680c399f_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUIPovRow_a6140ef730478cfda438a2030d4c96f36}\label{classUIPovRow_a6140ef730478cfda438a2030d4c96f36}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!OnDrawGizmosSelected@{OnDrawGizmosSelected}}
+\index{OnDrawGizmosSelected@{OnDrawGizmosSelected}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{OnDrawGizmosSelected()}{OnDrawGizmosSelected()}}
+{\footnotesize\ttfamily void UIPov\+Row.\+On\+Draw\+Gizmos\+Selected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 22 of file UIPov\+Row.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUIPovRow_a6140ef730478cfda438a2030d4c96f36_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classUIMapEventsManager_a908382cd1fce1a59b3c7cffe795787d8}\label{classUIMapEventsManager_a908382cd1fce1a59b3c7cffe795787d8}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!ShowUIFor@{ShowUIFor}}
+\index{ShowUIFor@{ShowUIFor}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{ShowUIFor()}{ShowUIFor()}}
+{\footnotesize\ttfamily void UIMap\+Events\+Manager.\+Show\+UIFor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{map\+Element,  }\item[{\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}}]{attribute }\end{DoxyParamCaption})}
+
+
+
+Definition at line 13 of file UIMap\+Events\+Manager.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classUIMapEventsManager_a908382cd1fce1a59b3c7cffe795787d8_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classUIPovRow_a734e5c63583185d8b63562e3115c047c}\label{classUIPovRow_a734e5c63583185d8b63562e3115c047c}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!elementsSeparation@{elementsSeparation}}
+\index{elementsSeparation@{elementsSeparation}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{elementsSeparation}{elementsSeparation}}
+{\footnotesize\ttfamily float UIPov\+Row.\+elements\+Separation = 1.\+5f\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 20 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{classUIPovRow_a117776d517a9a4255708e16d80854e3e}\label{classUIPovRow_a117776d517a9a4255708e16d80854e3e}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!locationsPreviewAmount@{locationsPreviewAmount}}
+\index{locationsPreviewAmount@{locationsPreviewAmount}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{locationsPreviewAmount}{locationsPreviewAmount}}
+{\footnotesize\ttfamily int UIPov\+Row.\+locations\+Preview\+Amount = 3\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 19 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{classUIPovRow_a10de089f6f36f7bb54571d57d84a199b}\label{classUIPovRow_a10de089f6f36f7bb54571d57d84a199b}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!povDistance@{povDistance}}
+\index{povDistance@{povDistance}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{povDistance}{povDistance}}
+{\footnotesize\ttfamily float UIPov\+Row.\+pov\+Distance = 1f\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 21 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{classUIMapEventsManager_afdca7ccb0308aaf711d40a90f34b5726}\label{classUIMapEventsManager_afdca7ccb0308aaf711d40a90f34b5726}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!uiMapEventPrefab@{uiMapEventPrefab}}
+\index{uiMapEventPrefab@{uiMapEventPrefab}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{uiMapEventPrefab}{uiMapEventPrefab}}
+{\footnotesize\ttfamily Game\+Object UIMap\+Events\+Manager.\+ui\+Map\+Event\+Prefab\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 10 of file UIMap\+Events\+Manager.\+cs.
+
+\mbox{\Hypertarget{classUIMapEventsManager_a2cbe8a89bad84984a9b293f52731007e}\label{classUIMapEventsManager_a2cbe8a89bad84984a9b293f52731007e}} 
+\index{UIMapEventsManager@{UIMapEventsManager}!uiMapEvents@{uiMapEvents}}
+\index{uiMapEvents@{uiMapEvents}!UIMapEventsManager@{UIMapEventsManager}}
+\doxysubsubsection{\texorpdfstring{uiMapEvents}{uiMapEvents}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classUIMapEvent}{UIMap\+Event}}$>$ UIMap\+Events\+Manager.\+ui\+Map\+Events = new List$<$\mbox{\hyperlink{classUIMapEvent}{UIMap\+Event}}$>$()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 11 of file UIMap\+Events\+Manager.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{UIMapEventsManager_8cs}{UIMap\+Events\+Manager.\+cs}}\end{DoxyCompactItemize}

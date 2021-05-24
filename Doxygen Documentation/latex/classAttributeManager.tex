@@ -1,0 +1,252 @@
+\hypertarget{classAttributeManager}{}\doxysection{Attribute\+Manager Class Reference}
+\label{classAttributeManager}\index{AttributeManager@{AttributeManager}}
+
+
+Collaboration diagram for Attribute\+Manager\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{classAttributeManager__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classAttributeManager_a08e1c922a07dfc2cb77b283966cf416e}{Initialize}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} owner)
+\item 
+override string \mbox{\hyperlink{classAttributeManager_a503dde9a5dd8343436a0d7dcde4ea6e2}{To\+String}} ()
+\item 
+void \mbox{\hyperlink{classAttributeManager_ac6d26b24f23f655fbd298e4e634a7ac9}{Execute\+Self\+Time\+Elapse\+Actions}} ()
+\item 
+void \mbox{\hyperlink{classAttributeManager_afbac5935000a9346360038d5fbcb8b17}{Update\+Attribute}} (\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}} attribute\+To\+Update, int delta\+Value)
+\item 
+List$<$ \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} $>$ \mbox{\hyperlink{classAttributeManager_a4f1cf4b739bd032754e2113b12538c36}{Get\+Attributes\+That\+Need\+Care}} ()
+\item 
+bool \mbox{\hyperlink{classAttributeManager_a6ffc16a488eb49a907b43b4b8bee197e}{Can\+Cover}} (\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}} requirement, int times, out int missing\+Value\+To\+Cover\+In\+This\+Attribute\+Manager)
+\item 
+\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} \mbox{\hyperlink{classAttributeManager_aebdbdf28109a20eb36b7fdc7b8bb3d33}{Get\+Owned\+Attribute\+Of}} (\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}} attribute)
+\item 
+\mbox{\hyperlink{classExecutionPlan}{Execution\+Plan}} \mbox{\hyperlink{classAttributeManager_abb894fe217af2ee4d9e748a970662d71}{Get\+Execution\+Plan\+To\+Cover}} (\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} owned\+Attribute\+To\+Cover, int remaining\+Value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} \mbox{\hyperlink{classAttributeManager_a5b15764a483d731c7df0e81c8be6da8f}{owner\+Map\+Element}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
+\item 
+List$<$ \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} $>$ \mbox{\hyperlink{classAttributeManager_ab3881c3705a5a10bbd3c2d9140dd4911}{owned\+Attributes}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} $>$ \mbox{\hyperlink{classAttributeManager_a45dd3426bf75f3d297bf45749cb08e0c}{\+\_\+owned\+Attributes}} = new List$<$\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}$>$()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file Attribute\+Manager.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAttributeManager_a6ffc16a488eb49a907b43b4b8bee197e}\label{classAttributeManager_a6ffc16a488eb49a907b43b4b8bee197e}} 
+\index{AttributeManager@{AttributeManager}!CanCover@{CanCover}}
+\index{CanCover@{CanCover}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{CanCover()}{CanCover()}}
+{\footnotesize\ttfamily bool Attribute\+Manager.\+Can\+Cover (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classAttributeUpdate}{Attribute\+Update}}}]{requirement,  }\item[{int}]{times,  }\item[{out int}]{missing\+Value\+To\+Cover\+In\+This\+Attribute\+Manager }\end{DoxyParamCaption})}
+
+
+
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em requirement} & \\
+\hline
+{\em times} & The amount of times the requirement will have to be met\\
+\hline
+{\em missing\+Value\+To\+Cover\+In\+This\+Attribute\+Manager} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if it contains an attribute with a value higher or equal than the one in the requirement/\+Attribute\+Update n times
+\end{DoxyReturn}
+
+
+Definition at line 83 of file Attribute\+Manager.\+cs.
+
+\mbox{\Hypertarget{classAttributeManager_ac6d26b24f23f655fbd298e4e634a7ac9}\label{classAttributeManager_ac6d26b24f23f655fbd298e4e634a7ac9}} 
+\index{AttributeManager@{AttributeManager}!ExecuteSelfTimeElapseActions@{ExecuteSelfTimeElapseActions}}
+\index{ExecuteSelfTimeElapseActions@{ExecuteSelfTimeElapseActions}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{ExecuteSelfTimeElapseActions()}{ExecuteSelfTimeElapseActions()}}
+{\footnotesize\ttfamily void Attribute\+Manager.\+Execute\+Self\+Time\+Elapse\+Actions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 31 of file Attribute\+Manager.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_ac6d26b24f23f655fbd298e4e634a7ac9_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_ac6d26b24f23f655fbd298e4e634a7ac9_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classAttributeManager_a4f1cf4b739bd032754e2113b12538c36}\label{classAttributeManager_a4f1cf4b739bd032754e2113b12538c36}} 
+\index{AttributeManager@{AttributeManager}!GetAttributesThatNeedCare@{GetAttributesThatNeedCare}}
+\index{GetAttributesThatNeedCare@{GetAttributesThatNeedCare}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{GetAttributesThatNeedCare()}{GetAttributesThatNeedCare()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}$>$ Attribute\+Manager.\+Get\+Attributes\+That\+Need\+Care (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 65 of file Attribute\+Manager.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_a4f1cf4b739bd032754e2113b12538c36_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_a4f1cf4b739bd032754e2113b12538c36_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classAttributeManager_abb894fe217af2ee4d9e748a970662d71}\label{classAttributeManager_abb894fe217af2ee4d9e748a970662d71}} 
+\index{AttributeManager@{AttributeManager}!GetExecutionPlanToCover@{GetExecutionPlanToCover}}
+\index{GetExecutionPlanToCover@{GetExecutionPlanToCover}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{GetExecutionPlanToCover()}{GetExecutionPlanToCover()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classExecutionPlan}{Execution\+Plan}} Attribute\+Manager.\+Get\+Execution\+Plan\+To\+Cover (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}}]{owned\+Attribute\+To\+Cover,  }\item[{int}]{remaining\+Value\+To\+Cover,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 123 of file Attribute\+Manager.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_abb894fe217af2ee4d9e748a970662d71_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_abb894fe217af2ee4d9e748a970662d71_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classAttributeManager_aebdbdf28109a20eb36b7fdc7b8bb3d33}\label{classAttributeManager_aebdbdf28109a20eb36b7fdc7b8bb3d33}} 
+\index{AttributeManager@{AttributeManager}!GetOwnedAttributeOf@{GetOwnedAttributeOf}}
+\index{GetOwnedAttributeOf@{GetOwnedAttributeOf}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{GetOwnedAttributeOf()}{GetOwnedAttributeOf()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}} Attribute\+Manager.\+Get\+Owned\+Attribute\+Of (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}}}]{attribute }\end{DoxyParamCaption})}
+
+
+
+Definition at line 110 of file Attribute\+Manager.\+cs.
+
+\mbox{\Hypertarget{classAttributeManager_a08e1c922a07dfc2cb77b283966cf416e}\label{classAttributeManager_a08e1c922a07dfc2cb77b283966cf416e}} 
+\index{AttributeManager@{AttributeManager}!Initialize@{Initialize}}
+\index{Initialize@{Initialize}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{Initialize()}{Initialize()}}
+{\footnotesize\ttfamily void Attribute\+Manager.\+Initialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{owner }\end{DoxyParamCaption})}
+
+
+
+Definition at line 19 of file Attribute\+Manager.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_a08e1c922a07dfc2cb77b283966cf416e_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_a08e1c922a07dfc2cb77b283966cf416e_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classAttributeManager_a503dde9a5dd8343436a0d7dcde4ea6e2}\label{classAttributeManager_a503dde9a5dd8343436a0d7dcde4ea6e2}} 
+\index{AttributeManager@{AttributeManager}!ToString@{ToString}}
+\index{ToString@{ToString}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{ToString()}{ToString()}}
+{\footnotesize\ttfamily override string Attribute\+Manager.\+To\+String (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 26 of file Attribute\+Manager.\+cs.
+
+\mbox{\Hypertarget{classAttributeManager_afbac5935000a9346360038d5fbcb8b17}\label{classAttributeManager_afbac5935000a9346360038d5fbcb8b17}} 
+\index{AttributeManager@{AttributeManager}!UpdateAttribute@{UpdateAttribute}}
+\index{UpdateAttribute@{UpdateAttribute}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{UpdateAttribute()}{UpdateAttribute()}}
+{\footnotesize\ttfamily void Attribute\+Manager.\+Update\+Attribute (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{UIMapEventsManager_8cs_ad5fe7a0f2acae1e0837453870a116c81}{Attribute}}}]{attribute\+To\+Update,  }\item[{int}]{delta\+Value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 48 of file Attribute\+Manager.\+cs.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classAttributeManager_afbac5935000a9346360038d5fbcb8b17_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classAttributeManager_a45dd3426bf75f3d297bf45749cb08e0c}\label{classAttributeManager_a45dd3426bf75f3d297bf45749cb08e0c}} 
+\index{AttributeManager@{AttributeManager}!\_ownedAttributes@{\_ownedAttributes}}
+\index{\_ownedAttributes@{\_ownedAttributes}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{\_ownedAttributes}{\_ownedAttributes}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}$>$ Attribute\+Manager.\+\_\+owned\+Attributes = new List$<$\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}$>$()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 17 of file Attribute\+Manager.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{classAttributeManager_ab3881c3705a5a10bbd3c2d9140dd4911}\label{classAttributeManager_ab3881c3705a5a10bbd3c2d9140dd4911}} 
+\index{AttributeManager@{AttributeManager}!ownedAttributes@{ownedAttributes}}
+\index{ownedAttributes@{ownedAttributes}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{ownedAttributes}{ownedAttributes}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classOwnedAttribute}{Owned\+Attribute}}$>$ Attribute\+Manager.\+owned\+Attributes\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [private set]}}
+
+
+
+Definition at line 12 of file Attribute\+Manager.\+cs.
+
+\mbox{\Hypertarget{classAttributeManager_a5b15764a483d731c7df0e81c8be6da8f}\label{classAttributeManager_a5b15764a483d731c7df0e81c8be6da8f}} 
+\index{AttributeManager@{AttributeManager}!ownerMapElement@{ownerMapElement}}
+\index{ownerMapElement@{ownerMapElement}!AttributeManager@{AttributeManager}}
+\doxysubsubsection{\texorpdfstring{ownerMapElement}{ownerMapElement}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} Attribute\+Manager.\+owner\+Map\+Element\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [private set]}}
+
+
+
+Definition at line 10 of file Attribute\+Manager.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{AttributeManager_8cs}{Attribute\+Manager.\+cs}}\end{DoxyCompactItemize}

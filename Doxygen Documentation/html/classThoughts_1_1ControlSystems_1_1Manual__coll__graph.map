@@ -1,0 +1,16 @@
+<map id="Thoughts.ControlSystems.Manual" name="Thoughts.ControlSystems.Manual">
+<area shape="rect" id="node1" title=" " alt="" coords="771,1231,989,1367"/>
+<area shape="rect" id="node2" href="$classThoughts_1_1ControlSystems_1_1ControlSystem.html" title=" " alt="" coords="980,379,1132,471"/>
+<area shape="rect" id="node3" title=" " alt="" coords="821,5,931,83"/>
+<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html" title=" " alt="" coords="222,495,477,704"/>
+<area shape="rect" id="node8" href="$classGameUIManager.html" title=" " alt="" coords="821,1091,939,1168"/>
+<area shape="rect" id="node9" href="$classUIPovManager.html" title=" " alt="" coords="798,951,903,1028"/>
+<area shape="rect" id="node11" href="$classUIPovRow.html" title=" " alt="" coords="539,182,719,318"/>
+<area shape="rect" id="node13" href="$classUIPovRowElement.html" title=" " alt="" coords="744,197,872,303"/>
+<area shape="rect" id="node10" href="$classUIAttributesManager.html" title=" " alt="" coords="542,767,682,888"/>
+<area shape="rect" id="node5" href="$classAttributeManager.html" title=" " alt="" coords="291,145,515,355"/>
+<area shape="rect" id="node6" href="$classOwnedAttribute.html" title=" " alt="" coords="5,153,147,347"/>
+<area shape="rect" id="node7" title=" " alt="" coords="39,5,113,83"/>
+<area shape="rect" id="node14" href="$classUIMapEventsManager.html" title=" " alt="" coords="573,546,721,653"/>
+<area shape="rect" id="node12" href="$classUIAttribute.html" title=" " alt="" coords="745,539,871,660"/>
+</map>
