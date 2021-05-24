@@ -27,13 +27,13 @@ namespace Thoughts.Game.GameMap
                 switch (attributeUpdate.affected)
                 {
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                        owner.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        owner.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
                     break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                        executer.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        executer.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
                     break;
                     case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                        target.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        target.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
                     break;
                     default:
                         throw new ArgumentOutOfRangeException();
