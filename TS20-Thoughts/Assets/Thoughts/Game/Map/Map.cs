@@ -24,7 +24,7 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// All the map elements' prefabs that can be spawned in the map.
         /// </summary>
-        [SerializeField] private List<GameObject> spawnableMapElement;
+        [SerializeField] private List<GameObject> spawnableMapElements;
         
         /// <summary>
         /// Generates a new map.
@@ -52,20 +52,20 @@ namespace Thoughts.Game.GameMap
         }
         
         /// <summary>
-        /// Obtains the GameObject with the given name from the "spawnableMapElement" list.
+        /// Obtains the GameObject with the given name from the spawnableMapElement list.
         /// </summary>
         /// <param name="name">The name of the GameObject.</param>
-        /// <returns>The GameObject with a matching name from inside the "spawnableMapElement" list. Null if no object is found with the given name in the list.</returns>
+        /// <returns>The GameObject with a matching name from inside the spawnableMapElements list. Null if no object is found with the given name in the list.</returns>
         private GameObject GetSpawnableGameObject(string name)
         {
-            foreach (GameObject go in spawnableMapElement)
+            foreach (GameObject go in spawnableMapElements)
             {
                 //Debug.Log($"Looking for '{name}'. Searching now object '{go.name}'. Result = {string.Compare(go.name, name, StringComparison.OrdinalIgnoreCase)}");
                 if (string.Compare(go.name, name, StringComparison.OrdinalIgnoreCase) == 0)
                     return go;
             }
             Debug.LogError($"The GameObject with name '{name}' could not be found in the list of spawnableGameObjects");
-            spawnableMapElement.DebugLog(", ","Spawnable Game Objects: ");
+            spawnableMapElements.DebugLog(", ","Spawnable Game Objects: ");
             return null;
         }
         
@@ -89,7 +89,7 @@ namespace Thoughts.Game.GameMap
         
         /// <summary>
         /// Randomly generates the MapElement with the given name a determined amount of times.
-        /// <para> The MapElement's prefab is obtained from the "spawnableMapElement" list.</para>
+        /// <para> The MapElement's prefab is obtained from the spawnableMapElement list.</para>
         /// </summary>
         /// <param name="prefabName">The name of the GameObject to generate.</param>
         /// <param name="quantity">The amount of GameObjects to generate.</param>
@@ -109,13 +109,13 @@ namespace Thoughts.Game.GameMap
         }
 
         /// <summary>
-        /// Sets up the NavMesh for all the NavMeshAgents in the "spawnableMapElement" list.
+        /// Sets up the NavMesh for all the NavMeshAgents in the spawnableMapElement list.
         /// </summary>
         private void SetupNewNavMeshes()
         {
             List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
             
-            foreach (GameObject go in spawnableMapElement)
+            foreach (GameObject go in spawnableMapElements)
             {
                 NavMeshAgent mobAgent = go.GetComponent<NavMeshAgent>();
                 
@@ -167,8 +167,8 @@ namespace Thoughts.Game.GameMap
         /// </summary>
         /// <param name="attributeToCover">The owned attribute to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
-        /// <param name="executer">Map element that is going to execute the "execution plans".</param>
-        /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the "attributeToCover" by "valueToCover")</returns>
+        /// <param name="executer">Map element that is going to execute the ExecutionPlan.</param>
+        /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</returns>
         public ExecutionPlan GetExecutionPlanToCover([NotNull] OwnedAttribute attributeToCover, int valueToCover, MapElement executer)
         {
             ExecutionPlan foundExecutionPlan = null;

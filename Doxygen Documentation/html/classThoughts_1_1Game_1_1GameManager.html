@@ -178,13 +178,13 @@ Private Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">attributeToCover</td><td>The owned attribute to increase the value of.</td></tr>
     <tr><td class="paramname">valueToCover</td><td>The amount of value needed to be covered (increased).</td></tr>
-    <tr><td class="paramname">executer</td><td>Map element that is going to execute the "execution plans".</td></tr>
-    <tr><td class="paramname">mapEventsToExecute</td><td>Execution plans wanted to be executed previously to the ones to cover the "attributeToCover".</td></tr>
+    <tr><td class="paramname">executer</td><td>Map element that is going to execute the list of ExecutionPlans.</td></tr>
+    <tr><td class="paramname">mapEventsToExecute</td><td>Execution plans wanted to be executed previously to the ones to cover the attributeToCover.</td></tr>
     <tr><td class="paramname">iteration</td><td>The iteration number of the this method's recursive execution. Should start as 0.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the "attributeToCover" by "valueToCover")</dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</dd></dl>
 
 <p class="definition">Definition at line <a class="el" href="GameManager_8cs_source.html#l00063">63</a> of file <a class="el" href="GameManager_8cs_source.html">GameManager.cs</a>.</p>
 <div class="dynheader">
@@ -232,9 +232,9 @@ Here is the call graph for this function:</div>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="348,56,637,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307" title="Generates MapElements in the map (not mobs)." alt="" coords="685,5,1029,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title="Generates Mobs in the map." alt="" coords="1079,56,1375,83"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad567ecac23ffda9dca0fdd7d7c1406be" title="Sets up the NavMesh for all the NavMeshAgents in the &quot;spawnableMapElement&quot; list." alt="" coords="689,107,1026,133"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad567ecac23ffda9dca0fdd7d7c1406be" title="Sets up the NavMesh for all the NavMeshAgents in the spawnableMapElement list." alt="" coords="689,107,1026,133"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="1077,5,1376,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title="Obtains the GameObject with the given name from the &quot;spawnableMapElement&quot; list." alt="" coords="1424,5,1792,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title="Obtains the GameObject with the given name from the spawnableMapElement list." alt="" coords="1424,5,1792,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title="Makes a map element spawn." alt="" coords="1447,56,1769,83"/>
 </map>
 </div>
@@ -244,7 +244,7 @@ Here is the caller graph for this function:</div>
 <div class="center"><img src="classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46_icgraph" id="aclassThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46_icgraph">
 <area shape="rect" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
-<area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
+<area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method StartNewGame." alt="" coords="237,5,481,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
 </map>
 </div>

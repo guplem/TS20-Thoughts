@@ -56,10 +56,10 @@ namespace Thoughts.Game
         /// </summary>
         /// <param name="attributeToCover">The owned attribute to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
-        /// <param name="executer">Map element that is going to execute the "execution plans".</param>
-        /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the "attributeToCover".</param>
+        /// <param name="executer">Map element that is going to execute the list of ExecutionPlans.</param>
+        /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the attributeToCover.</param>
         /// <param name="iteration">The iteration number of the this method's recursive execution. Should start as 0.</param>
-        /// <returns>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the "attributeToCover" by "valueToCover")</returns>
+        /// <returns>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</returns>
         public List<ExecutionPlan> GetExecutionPlanToCover(OwnedAttribute attributeToCover, int valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
         {
             if (iteration >= 50)

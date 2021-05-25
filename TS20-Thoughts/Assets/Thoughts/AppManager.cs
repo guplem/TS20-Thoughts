@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Thoughts
 {
     /// <summary>
-    /// Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current "GameManager".
+    /// Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current GameManager.
     /// </summary>
     public class AppManager : MonoBehaviour
     {
@@ -24,7 +24,7 @@ namespace Thoughts
         public static GameManager gameManager { get; private set; }
 
         /// <summary>
-        /// Tries to set up this "AppManager" as singleton instance. If possible, marks the GameObject containing this MonoBehaviour as "DontDestroyOnLoad".
+        /// Tries to set up this AppManager as singleton instance. If possible, marks the GameObject containing this MonoBehaviour as DontDestroyOnLoad.
         /// </summary>
         private void Awake()
         {
@@ -41,9 +41,9 @@ namespace Thoughts
         }
         
         /// <summary>
-        /// If there is no other instance of an "AppManager", this is set as it. Being the only one following the "singleton" pattern.
+        /// If there is no other instance of an AppManager, this is set as it. Being the only one following the Singleton pattern.
         /// </summary>
-        /// <returns>True if it became the singleton instance, false if another "AppManager" set up as the singleton instance already exists.</returns>
+        /// <returns>True if it became the singleton instance, false if another AppManager set up as the singleton instance already exists.</returns>
         private bool InitializeSingleton()
         {
 
@@ -58,7 +58,7 @@ namespace Thoughts
         }
         
         /// <summary>
-        /// Starts a new game by instantiating the GameManager prefab and triggering its method "StartNewGame"
+        /// Starts a new game by instantiating the GameManager prefab and triggering its method StartNewGame.
         /// </summary>
         private void StartNewGame()
         {
