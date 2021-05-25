@@ -16,7 +16,7 @@ namespace Thoughts.Game.GameMap
     #region MapGeneration
 
         [SerializeField] private List<GameObject> spawnableMapElement;
-        public void BuildNew(List<Participant> participants)
+        public void GenerateNew(List<Participant> participants)
         {
             mapElements.AddRange(GenerateMapObjects());
             BuildNavMeshes();

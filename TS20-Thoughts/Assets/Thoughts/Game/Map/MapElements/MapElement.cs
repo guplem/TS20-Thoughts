@@ -97,7 +97,7 @@ namespace Thoughts.Game.GameMap
                
                private void UpdateExecutionPlans()
                {
-                    currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCoverThisAttribute(currentObjectiveAttribute, 1, this);
+                    currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCover(currentObjectiveAttribute, 1, this);
                     if (currentExecutionPlans.IsNullOrEmpty())
                          Debug.LogWarning($"└> An action path to cover the attribute '{currentObjectiveAttribute.attribute}' was not found.\n");
                     else

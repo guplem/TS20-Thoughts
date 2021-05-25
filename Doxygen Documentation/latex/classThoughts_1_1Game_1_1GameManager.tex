@@ -2,7 +2,13 @@
 \label{classThoughts_1_1Game_1_1GameManager}\index{Thoughts.Game.GameManager@{Thoughts.Game.GameManager}}
 
 
-Inheritance diagram for Thoughts.\+Game.\+Game\+Manager\+:\nopagebreak
+Controls the core aspects of the a game\+: participants (control systems), map setup, ...  
+
+
+
+
+Inheritance diagram for Thoughts.\+Game.\+Game\+Manager\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,48 +29,50 @@ Collaboration diagram for Thoughts.\+Game.\+Game\+Manager\+:
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46}{Start\+New\+Game}} ()
-\item 
-List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_ac973dee3008ff37f3da111891aaa7169}{Get\+Execution\+Plan\+To\+Cover\+This\+Attribute}} (\mbox{[}Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} owned\+Attribute\+To\+Cover, int remaining\+Value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ map\+Events\+To\+Execute=null, int iteration=0)
-\begin{DoxyCompactList}\small\item\em Look for all Map\+Events that, as consequence of the event, they make the attribute value increase for the owner/executer/target (the needed participant). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Starts a new game by setting up the participants and generating a new world. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a5f4ee811095b6d69f79db98ca687e94e}{Get\+Execution\+Plan\+To\+Cover\+This\+Attribute}} (\mbox{[}Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} attribute\+To\+Cover, int value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ map\+Events\+To\+Execute=null, int iteration=0)
+\begin{DoxyCompactList}\small\item\em Recursively look for all Map\+Events available in the game\textquotesingle{}s map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map}{Map}} \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a4383320509b838c2cccb0d318b70a8ba}{map}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The map of the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 Game\+Object \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_afc29eb5917861e9f9f128fbd7a4f0910}{manual\+Control\+System\+Prefab}}
-\item 
+\begin{DoxyCompactList}\small\item\em The Game\+Object prefab of the local human (manual) control system for a participant. \end{DoxyCompactList}\item 
 readonly List$<$ \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1Participant}{Participant}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_abd717cba797997d7ae9a924e84069a46}{participants}} = new List$<$\mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1Participant}{Participant}}$>$()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The different participants (players, AI, ...) of the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+Controls the core aspects of the a game\+: participants (control systems), map setup, ... 
 
 
-Definition at line 11 of file Game\+Manager.\+cs.
+
+Definition at line 14 of file Game\+Manager.\+cs.
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_ac973dee3008ff37f3da111891aaa7169}\label{classThoughts_1_1Game_1_1GameManager_ac973dee3008ff37f3da111891aaa7169}} 
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_a5f4ee811095b6d69f79db98ca687e94e}\label{classThoughts_1_1Game_1_1GameManager_a5f4ee811095b6d69f79db98ca687e94e}} 
 \index{Thoughts.Game.GameManager@{Thoughts.Game.GameManager}!GetExecutionPlanToCoverThisAttribute@{GetExecutionPlanToCoverThisAttribute}}
 \index{GetExecutionPlanToCoverThisAttribute@{GetExecutionPlanToCoverThisAttribute}!Thoughts.Game.GameManager@{Thoughts.Game.GameManager}}
 \doxysubsubsection{\texorpdfstring{GetExecutionPlanToCoverThisAttribute()}{GetExecutionPlanToCoverThisAttribute()}}
-{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}}$>$ Thoughts.\+Game.\+Game\+Manager.\+Get\+Execution\+Plan\+To\+Cover\+This\+Attribute (\begin{DoxyParamCaption}\item[{\mbox{[}\+Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{owned\+Attribute\+To\+Cover,  }\item[{int}]{remaining\+Value\+To\+Cover,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$}]{map\+Events\+To\+Execute = {\ttfamily null},  }\item[{int}]{iteration = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}}$>$ Thoughts.\+Game.\+Game\+Manager.\+Get\+Execution\+Plan\+To\+Cover\+This\+Attribute (\begin{DoxyParamCaption}\item[{\mbox{[}\+Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{attribute\+To\+Cover,  }\item[{int}]{value\+To\+Cover,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$}]{map\+Events\+To\+Execute = {\ttfamily null},  }\item[{int}]{iteration = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
-Look for all Map\+Events that, as consequence of the event, they make the attribute value increase for the owner/executer/target (the needed participant). 
+Recursively look for all Map\+Events available in the game\textquotesingle{}s map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant). 
 
 
 \begin{DoxyParams}{Parameters}
-{\em owned\+Attribute\+To\+Cover} & \\
+{\em attribute\+To\+Cover} & The owned attribute to increase the value of.\\
 \hline
-{\em remaining\+Value\+To\+Cover} & \\
+{\em value\+To\+Cover} & The amount of value needed to be covered (increased).\\
 \hline
-{\em executer} & Map element that wants to take care of the attribute (the one that is going to execute the execution plans)\\
+{\em executer} & Map element that is going to execute the \char`\"{}execution plans)\char`\"{}execution plans\char`\"{}.$<$/param$>$ $<$param name=\char`\"{}map\+Events\+To\+Execute\char`\"{}$>$\+Execution plans wanted to be executed previously to the ones to cover the \char`\"{}attribute\+To\+Cover\char`\"{}.$<$/param$>$ $<$param name=\char`\"{}iteration"{}$>$The iteration number of the this method\textquotesingle{}s recursive execution. Should start as 0.\\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -72,13 +80,14 @@ Look for all Map\+Events that, as consequence of the event, they make the attrib
 \end{DoxyReturn}
 
 
-Definition at line 40 of file Game\+Manager.\+cs.
+Definition at line 58 of file Game\+Manager.\+cs.
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameManager_ac973dee3008ff37f3da111891aaa7169_cgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameManager_a5f4ee811095b6d69f79db98ca687e94e_cgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46}\label{classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46}} 
@@ -89,16 +98,22 @@ Here is the call graph for this function\+:\nopagebreak
 
 
 
-Definition at line 21 of file Game\+Manager.\+cs.
+Starts a new game by setting up the participants and generating a new world. 
 
-Here is the call graph for this function\+:\nopagebreak
+
+
+Definition at line 37 of file Game\+Manager.\+cs.
+
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -116,7 +131,11 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 14 of file Game\+Manager.\+cs.
+The Game\+Object prefab of the local human (manual) control system for a participant. 
+
+
+
+Definition at line 20 of file Game\+Manager.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_a4383320509b838c2cccb0d318b70a8ba}\label{classThoughts_1_1Game_1_1GameManager_a4383320509b838c2cccb0d318b70a8ba}} 
 \index{Thoughts.Game.GameManager@{Thoughts.Game.GameManager}!map@{map}}
@@ -126,7 +145,11 @@ Definition at line 14 of file Game\+Manager.\+cs.
 
 
 
-Definition at line 17 of file Game\+Manager.\+cs.
+The map of the game. 
+
+A component in a Game\+Object
+
+Definition at line 27 of file Game\+Manager.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_abd717cba797997d7ae9a924e84069a46}\label{classThoughts_1_1Game_1_1GameManager_abd717cba797997d7ae9a924e84069a46}} 
 \index{Thoughts.Game.GameManager@{Thoughts.Game.GameManager}!participants@{participants}}
@@ -136,7 +159,11 @@ Definition at line 17 of file Game\+Manager.\+cs.
 
 
 
-Definition at line 19 of file Game\+Manager.\+cs.
+The different participants (players, AI, ...) of the game. 
+
+
+
+Definition at line 32 of file Game\+Manager.\+cs.
 
 
 

@@ -1,5 +1,5 @@
 <map id="Thoughts.Game.GameManager" name="Thoughts.Game.GameManager">
-<area shape="rect" id="node1" title=" " alt="" coords="5,389,272,496"/>
+<area shape="rect" id="node1" title="Controls the core aspects of the a game: participants (control systems), map setup,..." alt="" coords="5,389,272,496"/>
 <area shape="rect" id="node2" title=" " alt="" coords="78,5,189,83"/>
 <area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html" title=" " alt="" coords="155,132,362,327"/>
 </map>

@@ -1,12 +1,12 @@
 <map id="Thoughts.AppManager.Start" name="Thoughts.AppManager.Start">
 <area shape="rect" id="node1" title="Triggers the start of a new game." alt="" coords="5,56,189,83"/>
 <area shape="rect" id="node2" href="$classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,56,481,83"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title=" " alt="" coords="529,56,824,83"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad4009688d0199fe4b581542a1ff933fb" title=" " alt="" coords="872,56,1137,83"/>
-<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a69aa2e06c1047b0e3f6ab4d51c4a562a" title=" " alt="" coords="1199,5,1506,32"/>
-<area shape="rect" id="node6" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8c4dde8a39e3986ab204f349ce8633b4" title=" " alt="" coords="1185,56,1520,83"/>
-<area shape="rect" id="node10" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title=" " alt="" coords="1569,107,1865,133"/>
-<area shape="rect" id="node7" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title=" " alt="" coords="1568,56,1867,83"/>
-<area shape="rect" id="node8" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title=" " alt="" coords="1915,56,2283,83"/>
-<area shape="rect" id="node9" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title=" " alt="" coords="1937,107,2260,133"/>
+<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,56,824,83"/>
+<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title=" " alt="" coords="872,56,1161,83"/>
+<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a69aa2e06c1047b0e3f6ab4d51c4a562a" title=" " alt="" coords="1223,5,1530,32"/>
+<area shape="rect" id="node6" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8c4dde8a39e3986ab204f349ce8633b4" title=" " alt="" coords="1209,56,1544,83"/>
+<area shape="rect" id="node10" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title=" " alt="" coords="1593,107,1889,133"/>
+<area shape="rect" id="node7" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title=" " alt="" coords="1592,56,1891,83"/>
+<area shape="rect" id="node8" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title=" " alt="" coords="1939,56,2307,83"/>
+<area shape="rect" id="node9" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title=" " alt="" coords="1961,107,2284,133"/>
 </map>
