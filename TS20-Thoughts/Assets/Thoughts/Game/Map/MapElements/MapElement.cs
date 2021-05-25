@@ -8,22 +8,22 @@ using UnityEngine.AI;
 
 namespace Thoughts.Game.GameMap
 {
+     /// <summary>
+     /// A spawned element of the map.
+     /// </summary>
      [SelectionBase]
      public abstract class MapElement : MonoBehaviour
      {
+          
+          /// <summary>
+          /// Collection (and manager) of the owned attributes of this "MapElement".
+          /// </summary>
           [SerializeField] public AttributeManager attributeManager = new AttributeManager();
           
-          #region Movement
-
-               private NavMeshAgent navMeshAgent { get; set; }
-               
-               private void MoveTo(Vector3 location)
-               {
-                    navMeshAgent.SetDestination(location);
-                    navMeshAgent.isStopped = false;
-               }
-
-          #endregion
+          /// <summary>
+          /// The location of the camera for the POV view of the MapElement.
+          /// </summary>
+          [SerializeField] public Transform povCameraPrentTransform;
           
           #region Behaviour
 
@@ -176,6 +176,25 @@ namespace Thoughts.Game.GameMap
                public override string ToString()
                {
                     return name;
+               }
+
+          #endregion
+          
+          #region Movement
+
+               /// <summary>
+               /// A reference to this MapElement's "NavMeshAgent". Can be null if the GameObject does not have it as a component.
+               /// </summary>
+               private NavMeshAgent navMeshAgent;
+
+               /// <summary>
+               /// Sets the destination of this object's "NavMeshAgent" and resumes its movement.
+               /// </summary>
+               /// <param name="location"></param>
+               private void MoveTo(Vector3 location)
+               {
+                    navMeshAgent.SetDestination(location);
+                    navMeshAgent.isStopped = false;
                }
 
           #endregion
