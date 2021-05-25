@@ -74,12 +74,15 @@ $(function() {
 <div class="title">Thoughts.Game.GameMap.Map Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>The map of the game.  
+ <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for Thoughts.Game.GameMap.Map:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map__inherit__graph.png" border="0" usemap="#aThoughts_8Game_8GameMap_8Map_inherit__map" alt="Inheritance graph"/></div>
 <map name="aThoughts_8Game_8GameMap_8Map_inherit__map" id="aThoughts_8Game_8GameMap_8Map_inherit__map">
-<area shape="rect" title=" " alt="" coords="5,131,212,325"/>
+<area shape="rect" title="The map of the game." alt="" coords="5,131,212,325"/>
 <area shape="rect" title=" " alt="" coords="53,5,164,83"/>
 </map>
 </div>
@@ -88,7 +91,7 @@ Collaboration diagram for Thoughts.Game.GameMap.Map:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map__coll__graph.png" border="0" usemap="#aThoughts_8Game_8GameMap_8Map_coll__map" alt="Collaboration graph"/></div>
 <map name="aThoughts_8Game_8GameMap_8Map_coll__map" id="aThoughts_8Game_8GameMap_8Map_coll__map">
-<area shape="rect" title=" " alt="" coords="5,131,212,325"/>
+<area shape="rect" title="The map of the game." alt="" coords="5,131,212,325"/>
 <area shape="rect" title=" " alt="" coords="53,5,164,83"/>
 </map>
 </div>
@@ -96,38 +99,49 @@ Collaboration diagram for Thoughts.Game.GameMap.Map:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8b25dde9de166fedec8979eb0c3558d7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7">GenerateNew</a> (List&lt; <a class="el" href="classThoughts_1_1ControlSystems_1_1Participant.html">Participant</a> &gt; participants)</td></tr>
+<tr class="memdesc:a8b25dde9de166fedec8979eb0c3558d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates a new map.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7">More...</a><br /></td></tr>
 <tr class="separator:a8b25dde9de166fedec8979eb0c3558d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a90ffe0fdc67821244b6c4989cec8ab"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab">GetSpawnableGameObject</a> (string name)</td></tr>
-<tr class="separator:a4a90ffe0fdc67821244b6c4989cec8ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98f60ca831f8b33644a3e6c4f2c74092"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html">ExecutionPlan</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a98f60ca831f8b33644a3e6c4f2c74092">GetExecutionPlanToCover</a> ([NotNull] <a class="el" href="classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html">OwnedAttribute</a> ownedAttributeToCover, int remainingValueToCover, <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> executer)</td></tr>
-<tr class="separator:a98f60ca831f8b33644a3e6c4f2c74092"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaeaab706752d6112da49c2642970e52c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html">ExecutionPlan</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aaeaab706752d6112da49c2642970e52c">GetExecutionPlanToCover</a> ([NotNull] <a class="el" href="classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html">OwnedAttribute</a> attributeToCover, int valueToCover, <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> executer)</td></tr>
+<tr class="memdesc:aaeaab706752d6112da49c2642970e52c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look for all MapEvents available in the map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant).  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aaeaab706752d6112da49c2642970e52c">More...</a><br /></td></tr>
+<tr class="separator:aaeaab706752d6112da49c2642970e52c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:aedcb62dc3659bb4dee190fac3ed061ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca">SpawnMapElement</a> (GameObject spawnableGameObject, Vector3 position, Quaternion rotation)</td></tr>
+<tr class="memdesc:aedcb62dc3659bb4dee190fac3ed061ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Makes a map element spawn.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca">More...</a><br /></td></tr>
 <tr class="separator:aedcb62dc3659bb4dee190fac3ed061ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c4dde8a39e3986ab204f349ce8633b4"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8c4dde8a39e3986ab204f349ce8633b4">GenerateMapObjects</a> ()</td></tr>
-<tr class="separator:a8c4dde8a39e3986ab204f349ce8633b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a90ffe0fdc67821244b6c4989cec8ab"><td class="memItemLeft" align="right" valign="top">GameObject&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab">GetSpawnableGameObject</a> (string name)</td></tr>
+<tr class="memdesc:a4a90ffe0fdc67821244b6c4989cec8ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Obtains the GameObject with the given name from the "spawnableMapElement" list.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab">More...</a><br /></td></tr>
+<tr class="separator:a4a90ffe0fdc67821244b6c4989cec8ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76b9b13bed3b4bb6ef14c7aa16502307"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307">GenerateMapElements</a> ()</td></tr>
+<tr class="memdesc:a76b9b13bed3b4bb6ef14c7aa16502307"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates MapElements in the map (not mobs).  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307">More...</a><br /></td></tr>
+<tr class="separator:a76b9b13bed3b4bb6ef14c7aa16502307"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4244c867225274151d92f26abc3a0f58"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58">SpawnRandom</a> (string prefabName, int quantity, RandomEssentials random)</td></tr>
+<tr class="memdesc:a4244c867225274151d92f26abc3a0f58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Randomly generates the <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> with the given name a determined amount of times.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58">More...</a><br /></td></tr>
 <tr class="separator:a4244c867225274151d92f26abc3a0f58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69aa2e06c1047b0e3f6ab4d51c4a562a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a69aa2e06c1047b0e3f6ab4d51c4a562a">BuildNavMeshes</a> ()</td></tr>
-<tr class="separator:a69aa2e06c1047b0e3f6ab4d51c4a562a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad567ecac23ffda9dca0fdd7d7c1406be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad567ecac23ffda9dca0fdd7d7c1406be">SetupNewNavMeshes</a> ()</td></tr>
+<tr class="memdesc:ad567ecac23ffda9dca0fdd7d7c1406be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the NavMesh for all the NavMeshAgents in the "spawnableMapElement" list.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad567ecac23ffda9dca0fdd7d7c1406be">More...</a><br /></td></tr>
+<tr class="separator:ad567ecac23ffda9dca0fdd7d7c1406be"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a542cec4f7f8e4b3923c54bc7edbe30a3"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3">GenerateMobs</a> ()</td></tr>
+<tr class="memdesc:a542cec4f7f8e4b3923c54bc7edbe30a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates Mobs in the map.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3">More...</a><br /></td></tr>
 <tr class="separator:a542cec4f7f8e4b3923c54bc7edbe30a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a5d24ead577586e2bb2d37f400f5aa559"><td class="memItemLeft" align="right" valign="top">List&lt; <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a5d24ead577586e2bb2d37f400f5aa559">mapElements</a> = new List&lt;<a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a>&gt;()</td></tr>
+<tr class="memdesc:a5d24ead577586e2bb2d37f400f5aa559"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the map elements present in the map.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a5d24ead577586e2bb2d37f400f5aa559">More...</a><br /></td></tr>
 <tr class="separator:a5d24ead577586e2bb2d37f400f5aa559"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0b232ee898cc3b6b14b0320fc488a212"><td class="memItemLeft" align="right" valign="top">List&lt; GameObject &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a0b232ee898cc3b6b14b0320fc488a212">spawnableMapElement</a></td></tr>
+<tr class="memdesc:a0b232ee898cc3b6b14b0320fc488a212"><td class="mdescLeft">&#160;</td><td class="mdescRight">All the map elements' prefabs that can be spawned in the map.  <a href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a0b232ee898cc3b6b14b0320fc488a212">More...</a><br /></td></tr>
 <tr class="separator:a0b232ee898cc3b6b14b0320fc488a212"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00012">12</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<div class="textblock"><p>The map of the game. </p>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00015">15</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a69aa2e06c1047b0e3f6ab4d51c4a562a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69aa2e06c1047b0e3f6ab4d51c4a562a">&#9670;&nbsp;</a></span>BuildNavMeshes()</h2>
+<a id="a76b9b13bed3b4bb6ef14c7aa16502307"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76b9b13bed3b4bb6ef14c7aa16502307">&#9670;&nbsp;</a></span>GenerateMapElements()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,7 +150,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void Thoughts.Game.GameMap.Map.BuildNavMeshes </td>
+          <td class="memname">List&lt;<a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a>&gt; Thoughts.Game.GameMap.Map.GenerateMapElements </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -149,64 +163,28 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00071">71</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a_icgraph" alt=""/></div>
-<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a_icgraph">
-<area shape="rect" title=" " alt="" coords="1209,5,1516,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title=" " alt="" coords="872,5,1161,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
-<area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
-<area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
-</map>
-</div>
+<p>Generates MapElements in the map (not mobs). </p>
+<dl class="section return"><dt>Returns</dt><dd>A list of the generated map elements.</dd></dl>
 
-</div>
-</div>
-<a id="a8c4dde8a39e3986ab204f349ce8633b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c4dde8a39e3986ab204f349ce8633b4">&#9670;&nbsp;</a></span>GenerateMapObjects()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">List&lt;<a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a>&gt; Thoughts.Game.GameMap.Map.GenerateMapObjects </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00045">45</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00076">76</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_cgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_cgraph" alt=""/></div>
-<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_cgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,340,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title=" " alt="" coords="388,31,687,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title=" " alt="" coords="735,5,1103,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title=" " alt="" coords="757,56,1080,83"/>
+<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_cgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_cgraph" alt=""/></div>
+<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_cgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_cgraph">
+<area shape="rect" title="Generates MapElements in the map (not mobs)." alt="" coords="5,31,349,57"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="397,31,696,57"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title="Obtains the GameObject with the given name from the &quot;spawnableMapElement&quot; list." alt="" coords="744,5,1112,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title="Makes a map element spawn." alt="" coords="767,56,1089,83"/>
 </map>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_icgraph" alt=""/></div>
-<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_icgraph">
-<area shape="rect" title=" " alt="" coords="1209,5,1544,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title=" " alt="" coords="872,5,1161,32"/>
+<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_icgraph" alt=""/></div>
+<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_icgraph">
+<area shape="rect" title="Generates MapElements in the map (not mobs)." alt="" coords="1209,5,1553,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,5,1161,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
@@ -238,15 +216,18 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00099">99</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>Generates Mobs in the map. </p>
+<dl class="section return"><dt>Returns</dt><dd>A list of the generated map elements (mobs).</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00146">146</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_cgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_cgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_cgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,301,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title=" " alt="" coords="349,5,717,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title=" " alt="" coords="372,56,695,83"/>
+<area shape="rect" title="Generates Mobs in the map." alt="" coords="5,31,301,57"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title="Obtains the GameObject with the given name from the &quot;spawnableMapElement&quot; list." alt="" coords="349,5,717,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title="Makes a map element spawn." alt="" coords="372,56,695,83"/>
 </map>
 </div>
 <div class="dynheader">
@@ -254,8 +235,8 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3_icgraph">
-<area shape="rect" title=" " alt="" coords="1209,5,1505,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title=" " alt="" coords="872,5,1161,32"/>
+<area shape="rect" title="Generates Mobs in the map." alt="" coords="1209,5,1505,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,5,1161,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
@@ -280,19 +261,27 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00019">19</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>Generates a new map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">participants</td><td>The participants of the game that must be in the map.</td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00033">33</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_cgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_cgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_cgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_cgraph">
-<area shape="rect" title=" " alt="" coords="5,56,295,83"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a69aa2e06c1047b0e3f6ab4d51c4a562a" title=" " alt="" coords="357,5,663,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8c4dde8a39e3986ab204f349ce8633b4" title=" " alt="" coords="343,56,677,83"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title=" " alt="" coords="727,107,1023,133"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title=" " alt="" coords="725,56,1024,83"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title=" " alt="" coords="1072,56,1440,83"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title=" " alt="" coords="1095,107,1417,133"/>
+<area shape="rect" title="Generates a new map." alt="" coords="5,56,295,83"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307" title="Generates MapElements in the map (not mobs)." alt="" coords="343,5,687,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title="Generates Mobs in the map." alt="" coords="736,56,1032,83"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#ad567ecac23ffda9dca0fdd7d7c1406be" title="Sets up the NavMesh for all the NavMeshAgents in the &quot;spawnableMapElement&quot; list." alt="" coords="346,107,683,133"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="735,5,1033,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title="Obtains the GameObject with the given name from the &quot;spawnableMapElement&quot; list." alt="" coords="1081,5,1449,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title="Makes a map element spawn." alt="" coords="1104,56,1427,83"/>
 </map>
 </div>
 <div class="dynheader">
@@ -300,7 +289,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_icgraph">
-<area shape="rect" title=" " alt="" coords="872,5,1161,32"/>
+<area shape="rect" title="Generates a new map." alt="" coords="872,5,1161,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
@@ -309,8 +298,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a98f60ca831f8b33644a3e6c4f2c74092"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98f60ca831f8b33644a3e6c4f2c74092">&#9670;&nbsp;</a></span>GetExecutionPlanToCover()</h2>
+<a id="aaeaab706752d6112da49c2642970e52c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaeaab706752d6112da49c2642970e52c">&#9670;&nbsp;</a></span>GetExecutionPlanToCover()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,13 +308,13 @@ Here is the caller graph for this function:</div>
           <td class="memname"><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html">ExecutionPlan</a> Thoughts.Game.GameMap.Map.GetExecutionPlanToCover </td>
           <td>(</td>
           <td class="paramtype">[NotNull] <a class="el" href="classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html">OwnedAttribute</a>&#160;</td>
-          <td class="paramname"><em>ownedAttributeToCover</em>, </td>
+          <td class="paramname"><em>attributeToCover</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>remainingValueToCover</em>, </td>
+          <td class="paramname"><em>valueToCover</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -341,13 +330,24 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00118">118</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>Look for all MapEvents available in the map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">attributeToCover</td><td>The owned attribute to increase the value of.</td></tr>
+    <tr><td class="paramname">valueToCover</td><td>The amount of value needed to be covered (increased).</td></tr>
+    <tr><td class="paramname">executer</td><td><a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html" title="The map of the game.">Map</a> element that is going to execute the "execution plans".</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The Execution Plan needed to achieve the goal (to increase the value of the "attributeToCover" by "valueToCover")</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00172">172</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_cgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_cgraph" alt=""/></div>
-<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_cgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_cgraph">
-<area shape="rect" title=" " alt="" coords="5,56,368,83"/>
+<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_cgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_cgraph" alt=""/></div>
+<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_cgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_cgraph">
+<area shape="rect" title="Look for all MapEvents available in the map that, as consequence of the event, they make a desired at..." alt="" coords="5,56,368,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html#a62b14929d230580f06775369b1844334" title=" " alt="" coords="416,56,848,83"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#abd3d08d8115b6e9885c27498973ea6d1" title=" " alt="" coords="991,5,1353,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html#addee670e736bf63848867b90462f8d50" title=" " alt="" coords="896,56,1448,83"/>
@@ -358,9 +358,9 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_icgraph" alt=""/></div>
-<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_icgraph">
-<area shape="rect" title=" " alt="" coords="412,5,775,32"/>
+<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_icgraph" alt=""/></div>
+<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_icgraph">
+<area shape="rect" title="Look for all MapEvents available in the map that, as consequence of the event, they make a desired at..." alt="" coords="412,5,775,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a1b37dca3b3a7f67261f293196dc07ac4" title="Recursively look for all MapEvents available in the game&#39;s map that, as consequence of the event,..." alt="" coords="5,5,364,32"/>
 </map>
 </div>
@@ -372,6 +372,9 @@ Here is the caller graph for this function:</div>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">GameObject Thoughts.Game.GameMap.Map.GetSpawnableGameObject </td>
@@ -381,22 +384,77 @@ Here is the caller graph for this function:</div>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00032">32</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>Obtains the GameObject with the given name from the "spawnableMapElement" list. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>The name of the GameObject.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The GameObject with a matching name from inside the "spawnableMapElement" list. Null if no object is found with the given name in the list.</dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00059">59</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab_icgraph">
-<area shape="rect" title=" " alt="" coords="1939,31,2307,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title=" " alt="" coords="1229,5,1525,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title=" " alt="" coords="1592,56,1891,83"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title=" " alt="" coords="872,31,1161,57"/>
+<area shape="rect" title="Obtains the GameObject with the given name from the &quot;spawnableMapElement&quot; list." alt="" coords="1948,31,2316,57"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title="Generates Mobs in the map." alt="" coords="1233,5,1529,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="1601,56,1900,83"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,31,1161,57"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,31,824,57"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,31,481,57"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,31,189,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8c4dde8a39e3986ab204f349ce8633b4" title=" " alt="" coords="1209,56,1544,83"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307" title="Generates MapElements in the map (not mobs)." alt="" coords="1209,56,1553,83"/>
+</map>
+</div>
+
+</div>
+</div>
+<a id="ad567ecac23ffda9dca0fdd7d7c1406be"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad567ecac23ffda9dca0fdd7d7c1406be">&#9670;&nbsp;</a></span>SetupNewNavMeshes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Thoughts.Game.GameMap.Map.SetupNewNavMeshes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets up the NavMesh for all the NavMeshAgents in the "spawnableMapElement" list. </p>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00114">114</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be_icgraph" alt=""/></div>
+<map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be_icgraph">
+<area shape="rect" title="Sets up the NavMesh for all the NavMeshAgents in the &quot;spawnableMapElement&quot; list." alt="" coords="1209,5,1547,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,5,1161,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
+<area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
+<area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
 </map>
 </div>
 
@@ -442,20 +500,31 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00026">26</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>Makes a map element spawn. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">spawnableGameObject</td><td>The map element's prefab to spawn</td></tr>
+    <tr><td class="paramname">position</td><td>Position for the new object.</td></tr>
+    <tr><td class="paramname">rotation</td><td>Orientation of the new object.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00048">48</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_aedcb62dc3659bb4dee190fac3ed061ca_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_aedcb62dc3659bb4dee190fac3ed061ca_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_aedcb62dc3659bb4dee190fac3ed061ca_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_aedcb62dc3659bb4dee190fac3ed061ca_icgraph">
-<area shape="rect" title=" " alt="" coords="1939,31,2261,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title=" " alt="" coords="1229,5,1525,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title=" " alt="" coords="1592,56,1891,83"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title=" " alt="" coords="872,31,1161,57"/>
+<area shape="rect" title="Makes a map element spawn." alt="" coords="1948,31,2271,57"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a542cec4f7f8e4b3923c54bc7edbe30a3" title="Generates Mobs in the map." alt="" coords="1233,5,1529,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4244c867225274151d92f26abc3a0f58" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="1601,56,1900,83"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,31,1161,57"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,31,824,57"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,31,481,57"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,31,189,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8c4dde8a39e3986ab204f349ce8633b4" title=" " alt="" coords="1209,56,1544,83"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307" title="Generates MapElements in the map (not mobs)." alt="" coords="1209,56,1553,83"/>
 </map>
 </div>
 
@@ -501,15 +570,27 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00058">58</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>Randomly generates the <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a> with the given name a determined amount of times. </p>
+<p>The <a class="el" href="classThoughts_1_1Game_1_1GameMap_1_1MapElement.html">MapElement</a>'s prefab is obtained from the "spawnableMapElement" list.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">prefabName</td><td>The name of the GameObject to generate.</td></tr>
+    <tr><td class="paramname">quantity</td><td>The amount of GameObjects to generate.</td></tr>
+    <tr><td class="paramname">random</td><td>Random object to be used in the process.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00098">98</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_cgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_cgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_cgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_cgraph">
-<area shape="rect" title=" " alt="" coords="5,31,304,57"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title=" " alt="" coords="352,5,720,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title=" " alt="" coords="375,56,697,83"/>
+<area shape="rect" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="5,31,304,57"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a4a90ffe0fdc67821244b6c4989cec8ab" title="Obtains the GameObject with the given name from the &quot;spawnableMapElement&quot; list." alt="" coords="352,5,720,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#aedcb62dc3659bb4dee190fac3ed061ca" title="Makes a map element spawn." alt="" coords="375,56,697,83"/>
 </map>
 </div>
 <div class="dynheader">
@@ -517,9 +598,9 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="classThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_icgraph.png" border="0" usemap="#aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_icgraph" alt=""/></div>
 <map name="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_icgraph" id="aclassThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58_icgraph">
-<area shape="rect" title=" " alt="" coords="1592,5,1891,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8c4dde8a39e3986ab204f349ce8633b4" title=" " alt="" coords="1209,5,1544,32"/>
-<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title=" " alt="" coords="872,5,1161,32"/>
+<area shape="rect" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="1601,5,1900,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307" title="Generates MapElements in the map (not mobs)." alt="" coords="1209,5,1553,32"/>
+<area shape="rect" href="classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,5,1161,32"/>
 <area shape="rect" href="classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method &quot;StartNewGame&quot;" alt="" coords="237,5,481,32"/>
 <area shape="rect" href="classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
@@ -549,7 +630,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00014">14</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>All the map elements present in the map. </p>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00020">20</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 
 </div>
 </div>
@@ -573,7 +656,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00018">18</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
+<p>All the map elements' prefabs that can be spawned in the map. </p>
+
+<p class="definition">Definition at line <a class="el" href="Map_8cs_source.html#l00027">27</a> of file <a class="el" href="Map_8cs_source.html">Map.cs</a>.</p>
 
 </div>
 </div>

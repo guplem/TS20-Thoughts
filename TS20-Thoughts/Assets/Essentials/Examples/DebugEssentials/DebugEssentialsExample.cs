@@ -30,8 +30,6 @@ namespace Essentials.Examples.Debug_Essentials
             DebugEssentials.LogEnumerable(listInts, " | "); // List with no message
             DebugEssentials.LogEnumerable(listInts, " - ", "Message printed before the list: "); // List with message
             DebugEssentials.LogEnumerable(listInts, " / ", "Message printed before the list: ", this);  // List with message and referencing the component's gameObject
-        
-}
-
+        }
     }
 }

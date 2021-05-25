@@ -2,6 +2,11 @@
 \label{classThoughts_1_1Game_1_1GameMap_1_1Map}\index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}}
 
 
+The map of the game.  
+
+
+
+
 Inheritance diagram for Thoughts.\+Game.\+Game\+Map.\+Map\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -22,80 +27,72 @@ Collaboration diagram for Thoughts.\+Game.\+Game\+Map.\+Map\+:\nopagebreak
 \begin{DoxyCompactItemize}
 \item 
 void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7}{Generate\+New}} (List$<$ \mbox{\hyperlink{classThoughts_1_1ControlSystems_1_1Participant}{Participant}} $>$ participants)
-\item 
-Game\+Object \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab}{Get\+Spawnable\+Game\+Object}} (string name)
-\item 
-\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092}{Get\+Execution\+Plan\+To\+Cover}} (\mbox{[}Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} owned\+Attribute\+To\+Cover, int remaining\+Value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer)
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Generates a new map. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c}{Get\+Execution\+Plan\+To\+Cover}} (\mbox{[}Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} attribute\+To\+Cover, int value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer)
+\begin{DoxyCompactList}\small\item\em Look for all Map\+Events available in the map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_aedcb62dc3659bb4dee190fac3ed061ca}{Spawn\+Map\+Element}} (Game\+Object spawnable\+Game\+Object, Vector3 position, Quaternion rotation)
-\item 
-List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4}{Generate\+Map\+Objects}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Makes a map element spawn. \end{DoxyCompactList}\item 
+Game\+Object \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab}{Get\+Spawnable\+Game\+Object}} (string name)
+\begin{DoxyCompactList}\small\item\em Obtains the Game\+Object with the given name from the \char`\"{}spawnable\+Map\+Element\char`\"{} list. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307}{Generate\+Map\+Elements}} ()
+\begin{DoxyCompactList}\small\item\em Generates Map\+Elements in the map (not mobs). \end{DoxyCompactList}\item 
 List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a4244c867225274151d92f26abc3a0f58}{Spawn\+Random}} (string prefab\+Name, int quantity, Random\+Essentials random)
-\item 
-void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a}{Build\+Nav\+Meshes}} ()
-\item 
+\begin{DoxyCompactList}\small\item\em Randomly generates the \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} with the given name a determined amount of times. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be}{Setup\+New\+Nav\+Meshes}} ()
+\begin{DoxyCompactList}\small\item\em Sets up the Nav\+Mesh for all the Nav\+Mesh\+Agents in the \char`\"{}spawnable\+Map\+Element\char`\"{} list. \end{DoxyCompactList}\item 
 List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3}{Generate\+Mobs}} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Generates Mobs in the map. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a5d24ead577586e2bb2d37f400f5aa559}{map\+Elements}} = new List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}$>$()
-\item 
+\begin{DoxyCompactList}\small\item\em All the map elements present in the map. \end{DoxyCompactList}\item 
 List$<$ Game\+Object $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map_a0b232ee898cc3b6b14b0320fc488a212}{spawnable\+Map\+Element}}
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em All the map elements\textquotesingle{} prefabs that can be spawned in the map. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
+The map of the game. 
 
 
-Definition at line 12 of file Map.\+cs.
+
+Definition at line 15 of file Map.\+cs.
 
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a}} 
-\index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}!BuildNavMeshes@{BuildNavMeshes}}
-\index{BuildNavMeshes@{BuildNavMeshes}!Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}}
-\doxysubsubsection{\texorpdfstring{BuildNavMeshes()}{BuildNavMeshes()}}
-{\footnotesize\ttfamily void Thoughts.\+Game.\+Game\+Map.\+Map.\+Build\+Nav\+Meshes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307}} 
+\index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}!GenerateMapElements@{GenerateMapElements}}
+\index{GenerateMapElements@{GenerateMapElements}!Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}}
+\doxysubsubsection{\texorpdfstring{GenerateMapElements()}{GenerateMapElements()}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map.\+Generate\+Map\+Elements (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 71 of file Map.\+cs.
+Generates Map\+Elements in the map (not mobs). 
 
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a69aa2e06c1047b0e3f6ab4d51c4a562a_icgraph}
-\end{center}
-\end{figure}
-\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4}} 
-\index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}!GenerateMapObjects@{GenerateMapObjects}}
-\index{GenerateMapObjects@{GenerateMapObjects}!Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}}
-\doxysubsubsection{\texorpdfstring{GenerateMapObjects()}{GenerateMapObjects()}}
-{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}$>$ Thoughts.\+Game.\+Game\+Map.\+Map.\+Generate\+Map\+Objects (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+\begin{DoxyReturn}{Returns}
+A list of the generated map elements.
+\end{DoxyReturn}
 
 
-
-Definition at line 45 of file Map.\+cs.
+Definition at line 76 of file Map.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_cgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a8c4dde8a39e3986ab204f349ce8633b4_icgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a76b9b13bed3b4bb6ef14c7aa16502307_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_a542cec4f7f8e4b3923c54bc7edbe30a3}} 
@@ -106,7 +103,14 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 99 of file Map.\+cs.
+Generates Mobs in the map. 
+
+\begin{DoxyReturn}{Returns}
+A list of the generated map elements (mobs).
+\end{DoxyReturn}
+
+
+Definition at line 146 of file Map.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -130,7 +134,16 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 19 of file Map.\+cs.
+Generates a new map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em participants} & The participants of the game that must be in the map.\\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 33 of file Map.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -146,46 +159,94 @@ Here is the caller graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a8b25dde9de166fedec8979eb0c3558d7_icgraph}
 \end{center}
 \end{figure}
-\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092}} 
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c}} 
 \index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}!GetExecutionPlanToCover@{GetExecutionPlanToCover}}
 \index{GetExecutionPlanToCover@{GetExecutionPlanToCover}!Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}}
 \doxysubsubsection{\texorpdfstring{GetExecutionPlanToCover()}{GetExecutionPlanToCover()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} Thoughts.\+Game.\+Game\+Map.\+Map.\+Get\+Execution\+Plan\+To\+Cover (\begin{DoxyParamCaption}\item[{\mbox{[}\+Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{owned\+Attribute\+To\+Cover,  }\item[{int}]{remaining\+Value\+To\+Cover,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} Thoughts.\+Game.\+Game\+Map.\+Map.\+Get\+Execution\+Plan\+To\+Cover (\begin{DoxyParamCaption}\item[{\mbox{[}\+Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{attribute\+To\+Cover,  }\item[{int}]{value\+To\+Cover,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer }\end{DoxyParamCaption})}
 
 
 
-Definition at line 118 of file Map.\+cs.
+Look for all Map\+Events available in the map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em attribute\+To\+Cover} & The owned attribute to increase the value of.\\
+\hline
+{\em value\+To\+Cover} & The amount of value needed to be covered (increased).\\
+\hline
+{\em executer} & \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map}{Map}} element that is going to execute the \char`\"{}execution plans\char`\"{}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Execution Plan needed to achieve the goal (to increase the value of the \char`\"{}attribute\+To\+Cover\char`\"{} by \char`\"{}value\+To\+Cover\char`\"{})
+\end{DoxyReturn}
+
+
+Definition at line 172 of file Map.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_cgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a98f60ca831f8b33644a3e6c4f2c74092_icgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_aaeaab706752d6112da49c2642970e52c_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab}} 
 \index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}!GetSpawnableGameObject@{GetSpawnableGameObject}}
 \index{GetSpawnableGameObject@{GetSpawnableGameObject}!Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}}
 \doxysubsubsection{\texorpdfstring{GetSpawnableGameObject()}{GetSpawnableGameObject()}}
-{\footnotesize\ttfamily Game\+Object Thoughts.\+Game.\+Game\+Map.\+Map.\+Get\+Spawnable\+Game\+Object (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily Game\+Object Thoughts.\+Game.\+Game\+Map.\+Map.\+Get\+Spawnable\+Game\+Object (\begin{DoxyParamCaption}\item[{string}]{name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 32 of file Map.\+cs.
+Obtains the Game\+Object with the given name from the \char`\"{}spawnable\+Map\+Element\char`\"{} list. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the Game\+Object.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The Game\+Object with a matching name from inside the \char`\"{}spawnable\+Map\+Element\char`\"{} list. Null if no object is found with the given name in the list.
+\end{DoxyReturn}
+
+
+Definition at line 59 of file Map.\+cs.
 
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_a4a90ffe0fdc67821244b6c4989cec8ab_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be}} 
+\index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}!SetupNewNavMeshes@{SetupNewNavMeshes}}
+\index{SetupNewNavMeshes@{SetupNewNavMeshes}!Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}}
+\doxysubsubsection{\texorpdfstring{SetupNewNavMeshes()}{SetupNewNavMeshes()}}
+{\footnotesize\ttfamily void Thoughts.\+Game.\+Game\+Map.\+Map.\+Setup\+New\+Nav\+Meshes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Sets up the Nav\+Mesh for all the Nav\+Mesh\+Agents in the \char`\"{}spawnable\+Map\+Element\char`\"{} list. 
+
+
+
+Definition at line 114 of file Map.\+cs.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameMap_1_1Map_ad567ecac23ffda9dca0fdd7d7c1406be_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_aedcb62dc3659bb4dee190fac3ed061ca}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_aedcb62dc3659bb4dee190fac3ed061ca}} 
@@ -196,7 +257,23 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 26 of file Map.\+cs.
+Makes a map element spawn. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em spawnable\+Game\+Object} & The map element\textquotesingle{}s prefab to spawn\\
+\hline
+{\em position} & Position for the new object.\\
+\hline
+{\em rotation} & Orientation of the new object.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 48 of file Map.\+cs.
 
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -213,7 +290,25 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 58 of file Map.\+cs.
+Randomly generates the \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} with the given name a determined amount of times. 
+
+The \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}\textquotesingle{}s prefab is obtained from the \char`\"{}spawnable\+Map\+Element\char`\"{} list.
+
+
+\begin{DoxyParams}{Parameters}
+{\em prefab\+Name} & The name of the Game\+Object to generate.\\
+\hline
+{\em quantity} & The amount of Game\+Objects to generate.\\
+\hline
+{\em random} & Random object to be used in the process.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+
+
+Definition at line 98 of file Map.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -240,7 +335,11 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 
-Definition at line 14 of file Map.\+cs.
+All the map elements present in the map. 
+
+
+
+Definition at line 20 of file Map.\+cs.
 
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameMap_1_1Map_a0b232ee898cc3b6b14b0320fc488a212}\label{classThoughts_1_1Game_1_1GameMap_1_1Map_a0b232ee898cc3b6b14b0320fc488a212}} 
 \index{Thoughts.Game.GameMap.Map@{Thoughts.Game.GameMap.Map}!spawnableMapElement@{spawnableMapElement}}
@@ -250,7 +349,11 @@ Definition at line 14 of file Map.\+cs.
 
 
 
-Definition at line 18 of file Map.\+cs.
+All the map elements\textquotesingle{} prefabs that can be spawned in the map. 
+
+
+
+Definition at line 27 of file Map.\+cs.
 
 
 

@@ -9,27 +9,54 @@ using UnityEngine.AI;
 namespace Thoughts.Game.GameMap
 {
 
+    /// <summary>
+    /// The map of the game.
+    /// </summary>
     public class Map : MonoBehaviour
     {
+        /// <summary>
+        /// All the map elements present in the map.
+        /// </summary>
         private List<MapElement> mapElements = new List<MapElement>();
 
     #region MapGeneration
 
+        /// <summary>
+        /// All the map elements' prefabs that can be spawned in the map.
+        /// </summary>
         [SerializeField] private List<GameObject> spawnableMapElement;
+        
+        /// <summary>
+        /// Generates a new map.
+        /// </summary>
+        /// <param name="participants">The participants of the game that must be in the map.</param>
         public void GenerateNew(List<Participant> participants)
         {
-            mapElements.AddRange(GenerateMapObjects());
-            BuildNavMeshes();
+            //Todo: use the "participants" 
+            mapElements.AddRange(GenerateMapElements());
+            SetupNewNavMeshes();
             mapElements.AddRange(GenerateMobs());
         }
 
+        /// <summary>
+        /// Makes a map element spawn.
+        /// </summary>
+        /// <param name="spawnableGameObject">The map element's prefab to spawn</param>
+        /// <param name="position">Position for the new object.</param>
+        /// <param name="rotation">Orientation of the new object.</param>
+        /// <returns></returns>
         private MapElement SpawnMapElement(GameObject spawnableGameObject, Vector3 position, Quaternion rotation)
         {
             GameObject spawnedMapElement = Instantiate(spawnableGameObject, position, rotation, this.transform);
             return spawnedMapElement.GetComponentRequired<MapElement>();
         }
         
-        public GameObject GetSpawnableGameObject(string name)
+        /// <summary>
+        /// Obtains the GameObject with the given name from the "spawnableMapElement" list.
+        /// </summary>
+        /// <param name="name">The name of the GameObject.</param>
+        /// <returns>The GameObject with a matching name from inside the "spawnableMapElement" list. Null if no object is found with the given name in the list.</returns>
+        private GameObject GetSpawnableGameObject(string name)
         {
             foreach (GameObject go in spawnableMapElement)
             {
@@ -42,7 +69,11 @@ namespace Thoughts.Game.GameMap
             return null;
         }
         
-        private List<MapElement> GenerateMapObjects()
+        /// <summary>
+        /// Generates MapElements in the map (not mobs).
+        /// </summary>
+        /// <returns>A list of the generated map elements.</returns>
+        private List<MapElement> GenerateMapElements()
         {
             List<MapElement> generatedMapObjects = new List<MapElement>();
             RandomEssentials random = new RandomEssentials();
@@ -55,6 +86,15 @@ namespace Thoughts.Game.GameMap
 
             return generatedMapObjects;
         }
+        
+        /// <summary>
+        /// Randomly generates the MapElement with the given name a determined amount of times.
+        /// <para> The MapElement's prefab is obtained from the "spawnableMapElement" list.</para>
+        /// </summary>
+        /// <param name="prefabName">The name of the GameObject to generate.</param>
+        /// <param name="quantity">The amount of GameObjects to generate.</param>
+        /// <param name="random">Random object to be used in the process.</param>
+        /// <returns></returns>
         private List<MapElement> SpawnRandom(string prefabName, int quantity, RandomEssentials random)
         {
             GameObject spawnableGameObject = GetSpawnableGameObject(prefabName);
@@ -68,7 +108,10 @@ namespace Thoughts.Game.GameMap
             return generatedMapObjects;
         }
 
-        private void BuildNavMeshes()
+        /// <summary>
+        /// Sets up the NavMesh for all the NavMeshAgents in the "spawnableMapElement" list.
+        /// </summary>
+        private void SetupNewNavMeshes()
         {
             List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
             
@@ -96,6 +139,10 @@ namespace Thoughts.Game.GameMap
             }
         }
 
+        /// <summary>
+        /// Generates Mobs in the map.
+        /// </summary>
+        /// <returns>A list of the generated map elements (mobs).</returns>
         private List<MapElement> GenerateMobs()
         {
             List<MapElement> generatedMobs = new List<MapElement>();
@@ -115,25 +162,29 @@ namespace Thoughts.Game.GameMap
 
     #endregion
 
-        public ExecutionPlan GetExecutionPlanToCover([NotNull] OwnedAttribute ownedAttributeToCover, int remainingValueToCover, MapElement executer)
+        /// <summary>
+        /// Look for all MapEvents available in the map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant).
+        /// </summary>
+        /// <param name="attributeToCover">The owned attribute to increase the value of.</param>
+        /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
+        /// <param name="executer">Map element that is going to execute the "execution plans".</param>
+        /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the "attributeToCover" by "valueToCover")</returns>
+        public ExecutionPlan GetExecutionPlanToCover([NotNull] OwnedAttribute attributeToCover, int valueToCover, MapElement executer)
         {
-            if (ownedAttributeToCover == null)
-                throw new ArgumentNullException(nameof(ownedAttributeToCover));
-            
             ExecutionPlan foundExecutionPlan = null;
             
             //Trying to cover with an attribute/mapEvent in the target
-            foundExecutionPlan = ownedAttributeToCover.ownerMapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToCover, remainingValueToCover, executer);
+            foundExecutionPlan = attributeToCover.ownerMapElement.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
                 
             //Trying to cover with an attribute/mapEvent in the caregiver/executer
             if (foundExecutionPlan == null)
-                foundExecutionPlan = executer.attributeManager.GetExecutionPlanToCover(ownedAttributeToCover, remainingValueToCover, executer);
+                foundExecutionPlan = executer.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
             
             //Trying to cover with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
                 foreach (MapElement mapElement in mapElements) // Todo: sort by distance
                 {
-                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(ownedAttributeToCover, remainingValueToCover, executer);
+                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
                     if (foundMapEvent != null)
                         return foundMapEvent;
                 }

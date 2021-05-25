@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['name_124',['name',['../classThoughts_1_1ControlSystems_1_1UI_1_1UIMapEvent.html#adce563da23aa315d325fae046257deb9',1,'Thoughts.ControlSystems.UI.UIMapEvent.name()'],['../classThoughts_1_1ControlSystems_1_1UI_1_1UIAttribute.html#a16c37adb433d0da641b231dac703c0e3',1,'Thoughts.ControlSystems.UI.UIAttribute.name()'],['../classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a3b98cd19e62d9de4d26ea2f43567d418',1,'Thoughts.Game.GameMap.MapEvent.name()']]],
-  ['navmeshagent_125',['navMeshAgent',['../classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#a6466203bf188ce36f82e391238853737',1,'Thoughts::Game::GameMap::MapElement']]],
-  ['needpriority_126',['needPriority',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#aaac06fe22f0e16957f0dfcac6d8858b1',1,'Thoughts::Game::Attributes::Attribute']]],
-  ['needpriority_127',['NeedPriority',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#a45c798f1f1f7a67f2836a5ac196e0078',1,'Thoughts::Game::Attributes::Attribute']]],
-  ['needscare_128',['NeedsCare',['../classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html#a97fb930fa64c56c00059c68261a1ac8b',1,'Thoughts::Game::Attributes::OwnedAttribute']]],
-  ['newposition_129',['newPosition',['../classThoughts_1_1ControlSystems_1_1CameraController.html#ac6fa5a880809571450eb8437bbdb0eb1',1,'Thoughts::ControlSystems::CameraController']]],
-  ['newrotation_130',['newRotation',['../classThoughts_1_1ControlSystems_1_1CameraController.html#a7b371c1470f99d2e553b9160503e6692',1,'Thoughts::ControlSystems::CameraController']]],
-  ['none_131',['None',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#a45c798f1f1f7a67f2836a5ac196e0078a6adf97f83acf6453d4a6a4b1070f3754',1,'Thoughts::Game::Attributes::Attribute']]]
+  ['ondrawgizmosselected_131',['OnDrawGizmosSelected',['../classThoughts_1_1ControlSystems_1_1UI_1_1UIPovRow.html#a93b201df75a90df55d4dbc33736149b3',1,'Thoughts::ControlSystems::UI::UIPovRow']]],
+  ['operator_21_3d_132',['operator!=',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#a726d47b71c3469d4abfadcadb8b02dc3',1,'Thoughts::Game::Attributes::Attribute']]],
+  ['operator_3d_3d_133',['operator==',['../classThoughts_1_1Game_1_1Attributes_1_1Attribute.html#ac3209f87be14f3822be64ae4e64e6899',1,'Thoughts::Game::Attributes::Attribute']]],
+  ['overworld_134',['overworld',['../classThoughts_1_1ControlSystems_1_1CameraController.html#aecb59def0c99f3e9f6f33a618aa148eca6d886540bba0d7ff5af96d12a5831469',1,'Thoughts::ControlSystems::CameraController']]],
+  ['overworldcamera_135',['overworldCamera',['../classThoughts_1_1ControlSystems_1_1CameraController.html#a3aca09e275f69cda38d67bc6e6143f4a',1,'Thoughts::ControlSystems::CameraController']]],
+  ['ownedattribute_136',['OwnedAttribute',['../classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html#a3d7808b525201c5d84b3d02ef4346143',1,'Thoughts.Game.Attributes.OwnedAttribute.OwnedAttribute()'],['../classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html',1,'Thoughts.Game.Attributes.OwnedAttribute']]],
+  ['ownedattribute_2ecs_137',['OwnedAttribute.cs',['../OwnedAttribute_8cs.html',1,'']]],
+  ['ownedattributes_138',['ownedAttributes',['../classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html#ae9d397ac02364b5f5f9d233ac79f508e',1,'Thoughts::Game::Attributes::AttributeManager']]],
+  ['ownermapelement_139',['ownerMapElement',['../classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html#a5b32351a0e4ac73a4a205c9e06185add',1,'Thoughts.Game.Attributes.AttributeManager.ownerMapElement()'],['../classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html#a0633a2789a51b8e9a563fb0a98b5d05f',1,'Thoughts.Game.Attributes.OwnedAttribute.ownerMapElement()']]]
 ];
