@@ -1,8 +1,0 @@
-<map id="Thoughts.Game.GameMap.Map.SpawnRandom" name="Thoughts.Game.GameMap.Map.SpawnRandom">
-<area shape="rect" id="node1" title="Randomly generates the MapElement with the given name a determined amount of times." alt="" coords="1601,5,1900,32"/>
-<area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a76b9b13bed3b4bb6ef14c7aa16502307" title="Generates MapElements in the map (not mobs)." alt="" coords="1209,5,1553,32"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,5,1161,32"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameManager.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
-<area shape="rect" id="node5" href="$classThoughts_1_1AppManager.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method StartNewGame." alt="" coords="237,5,481,32"/>
-<area shape="rect" id="node6" href="$classThoughts_1_1AppManager.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
-</map>

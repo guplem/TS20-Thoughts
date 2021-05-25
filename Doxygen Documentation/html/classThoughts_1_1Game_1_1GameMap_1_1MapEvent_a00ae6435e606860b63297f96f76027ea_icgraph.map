@@ -1,8 +1,0 @@
-<map id="Execute" name="Execute">
-<area shape="rect" id="node1" title=" " alt="" coords="1345,31,1416,57"/>
-<area shape="rect" id="node2" href="$classExecutionPlan.html#a671ae032c1d7bf212793a5d62507a5e7" title="If possible, executes the" alt="" coords="1139,5,1297,32"/>
-<area shape="rect" id="node6" href="$classAttributeManager.html#aa7fe126c78bb0f101d82da10764e856a" title=" " alt="" coords="738,56,1045,83"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#a846a390c975930d9e18f8e9e8b404cf2" title=" " alt="" coords="692,5,1091,32"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#a9d2daabe85caa9ca31512d83431fd72e" title=" " alt="" coords="352,31,644,57"/>
-<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1GameMap_1_1MapElement.html#ae4b513cddd594f1c359e4f0a3e79a8c6" title=" " alt="" coords="5,31,304,57"/>
-</map>

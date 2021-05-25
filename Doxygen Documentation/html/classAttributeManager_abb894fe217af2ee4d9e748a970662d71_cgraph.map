@@ -1,7 +1,0 @@
-<map id="AttributeManager.GetExecutionPlanToCover" name="AttributeManager.GetExecutionPlanToCover">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,281,83"/>
-<area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#abd3d08d8115b6e9885c27498973ea6d1" title=" " alt="" coords="345,5,706,32"/>
-<area shape="rect" id="node3" href="$classExecutionPlan.html#a28eafbfc72f60eb9b3c65666eb3d4ac2" title=" " alt="" coords="329,56,721,83"/>
-<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a7dad3edc686eedee03541db4aa35c8bf" title=" " alt="" coords="332,107,719,133"/>
-<area shape="rect" id="node4" href="$classExecutionPlan.html#ae8ef16ffbf71195ce3814c1f15d5e98b" title=" " alt="" coords="769,56,1088,83"/>
-</map>

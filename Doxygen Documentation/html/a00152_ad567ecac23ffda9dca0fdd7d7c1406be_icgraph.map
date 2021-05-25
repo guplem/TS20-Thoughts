@@ -1,0 +1,7 @@
+<map id="Thoughts.Game.GameMap.Map.SetupNewNavMeshes" name="Thoughts.Game.GameMap.Map.SetupNewNavMeshes">
+<area shape="rect" id="node1" title="Sets up the NavMesh for all the NavMeshAgents in the spawnableMapElement list." alt="" coords="1209,5,1547,32"/>
+<area shape="rect" id="node2" href="$a00152.html#a8b25dde9de166fedec8979eb0c3558d7" title="Generates a new map." alt="" coords="872,5,1161,32"/>
+<area shape="rect" id="node3" href="$a00148.html#a8d515fc1b62a4b466a2247ed1f6cee46" title="Starts a new game by setting up the participants and generating a new world." alt="" coords="529,5,824,32"/>
+<area shape="rect" id="node4" href="$a00092.html#aa6b4098e23afcb973848216e995e00ae" title="Starts a new game by instantiating the GameManager prefab and triggering its method StartNewGame." alt="" coords="237,5,481,32"/>
+<area shape="rect" id="node5" href="$a00092.html#a0bb22cc2b3cc5aa16c793157c0bef3b1" title="Triggers the start of a new game." alt="" coords="5,5,189,32"/>
+</map>

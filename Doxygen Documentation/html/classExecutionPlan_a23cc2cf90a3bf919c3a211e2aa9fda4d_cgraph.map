@@ -1,9 +1,0 @@
-<map id="ExecutionPlan.Execute" name="ExecutionPlan.Execute">
-<area shape="rect" id="node1" title="If possible, executes the" alt="" coords="5,56,164,83"/>
-<area shape="rect" id="node2" href="$classExecutionPlan.html#aa602e66a37a75284869b7a68c8632167" title=" " alt="" coords="255,31,459,57"/>
-<area shape="rect" id="node7" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a82c4116beecc7775ba234fa6000829ef" title=" " alt="" coords="212,81,503,108"/>
-<area shape="rect" id="node3" href="$classExecutionPlan.html#a655f2359f929f51acf2167dd1bc8ec1c" title=" " alt="" coords="551,5,804,32"/>
-<area shape="rect" id="node5" href="$classExecutionPlan.html#a276dc000818dd339f3c56169b92ab14a" title=" " alt="" coords="581,56,774,83"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a7dad3edc686eedee03541db4aa35c8bf" title=" " alt="" coords="852,5,1239,32"/>
-<area shape="rect" id="node6" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a525ff7d8ee812a282e3018f20b0001e3" title=" " alt="" coords="882,56,1209,83"/>
-</map>

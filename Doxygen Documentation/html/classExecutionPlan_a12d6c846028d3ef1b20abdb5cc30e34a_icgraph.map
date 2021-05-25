@@ -1,6 +1,0 @@
-<map id="GetAndSetExecutionTimesToExecutionsToCover" name="GetAndSetExecutionTimesToExecutionsToCover">
-<area shape="rect" id="node1" title=" " alt="" coords="1219,5,1523,32"/>
-<area shape="rect" id="node2" href="$classAttributeManager.html#a49073798c39b1d17af8b784f6303c995" title=" " alt="" coords="895,5,1171,32"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a08221306be4f05f5f02947ad73cc2988" title=" " alt="" coords="484,5,847,32"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameManager.html#afc2f906fb0859302d2b6662839de0f6c" title="Look for all MapEvents that, as consequence of the event, they make the attribute value increase for ..." alt="" coords="5,5,436,32"/>
-</map>

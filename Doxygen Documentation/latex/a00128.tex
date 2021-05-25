@@ -1,0 +1,248 @@
+\hypertarget{a00128}{}\doxysection{Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager Class Reference}
+\label{a00128}\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+
+
+Collaboration diagram for Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00126}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{a00128_a60b46a3995cbe3264a6752ec36e65668}{Show\+UIFor}} (\mbox{\hyperlink{a00180}{Map\+Element}} map\+Element)
+\item 
+override void \mbox{\hyperlink{a00128_a5e86d755a1ded201d99208621c1847fb}{Clear}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Vector3 \mbox{\hyperlink{a00136_a864868eda015c1a9a6b160e6e09ad8d3}{Get\+Location\+Position}} (int location\+Index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a00124}{UIAttribute}}? \mbox{\hyperlink{a00128_abe9b7b5f642607ba24e02f806c68ba1d}{selected\+Attribute}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{a00136_a93b201df75a90df55d4dbc33736149b3}{On\+Draw\+Gizmos\+Selected}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Game\+Object \mbox{\hyperlink{a00128_a3b474bcebdf9c3137572b7832a6152fb}{ui\+Attribute\+Prefab}}
+\item 
+List$<$ \mbox{\hyperlink{a00124}{UIAttribute}} $>$ \mbox{\hyperlink{a00128_a666cb09b16b5571c33ffcd7475a9d639}{ui\+Attributes}} = new List$<$\mbox{\hyperlink{a00124}{UIAttribute}}$>$()
+\item 
+\mbox{\hyperlink{a00120}{UIMap\+Events\+Manager}} \mbox{\hyperlink{a00128_a25cb643ab22d8e15df4912ef28ffc2c8}{ui\+Map\+Events\+Manager}}
+\item 
+\mbox{\hyperlink{a00124}{UIAttribute}} \mbox{\hyperlink{a00128_a92d386c3a528843b438c8b68c7bf50ac}{\+\_\+selected\+Attribute}}
+\item 
+\mbox{\hyperlink{a00180}{Map\+Element}} \mbox{\hyperlink{a00128_a238da2d0e7c6cdc716ad73ff17481675}{current\+Map\+Element}}
+\item 
+int \mbox{\hyperlink{a00136_a4aea7d4b8d3fce6b75769f346a35ea2c}{locations\+Preview\+Amount}} = 3
+\item 
+float \mbox{\hyperlink{a00136_a38485441fbdd587ded0221209dec06dc}{elements\+Separation}} = 1.\+5f
+\item 
+float \mbox{\hyperlink{a00136_a17943362b8a872e646de15bc30fd9bc5}{pov\+Distance}} = 1f
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 7 of file UIAttributes\+Manager.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{a00128_a5e86d755a1ded201d99208621c1847fb}\label{a00128_a5e86d755a1ded201d99208621c1847fb}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!Clear@{Clear}}
+\index{Clear@{Clear}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{Clear()}{Clear()}}
+{\footnotesize\ttfamily override void Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+Clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{a00136_ae1309e1f84e51ab6dc69aeeb43b627a4}{Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row}}.
+
+
+
+Definition at line 55 of file UIAttributes\+Manager.\+cs.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00128_a5e86d755a1ded201d99208621c1847fb_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a00136_a864868eda015c1a9a6b160e6e09ad8d3}\label{a00136_a864868eda015c1a9a6b160e6e09ad8d3}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!GetLocationPosition@{GetLocationPosition}}
+\index{GetLocationPosition@{GetLocationPosition}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{GetLocationPosition()}{GetLocationPosition()}}
+{\footnotesize\ttfamily Vector3 Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+Get\+Location\+Position (\begin{DoxyParamCaption}\item[{int}]{location\+Index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 28 of file UIPov\+Row.\+cs.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00136_a864868eda015c1a9a6b160e6e09ad8d3_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a00136_a93b201df75a90df55d4dbc33736149b3}\label{a00136_a93b201df75a90df55d4dbc33736149b3}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!OnDrawGizmosSelected@{OnDrawGizmosSelected}}
+\index{OnDrawGizmosSelected@{OnDrawGizmosSelected}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{OnDrawGizmosSelected()}{OnDrawGizmosSelected()}}
+{\footnotesize\ttfamily void Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+On\+Draw\+Gizmos\+Selected (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 20 of file UIPov\+Row.\+cs.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00136_a93b201df75a90df55d4dbc33736149b3_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a00128_a60b46a3995cbe3264a6752ec36e65668}\label{a00128_a60b46a3995cbe3264a6752ec36e65668}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!ShowUIFor@{ShowUIFor}}
+\index{ShowUIFor@{ShowUIFor}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{ShowUIFor()}{ShowUIFor()}}
+{\footnotesize\ttfamily void Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+Show\+UIFor (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{a00180}{Map\+Element}}}]{map\+Element }\end{DoxyParamCaption})}
+
+
+
+Definition at line 31 of file UIAttributes\+Manager.\+cs.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00128_a60b46a3995cbe3264a6752ec36e65668_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00128_a60b46a3995cbe3264a6752ec36e65668_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a00128_a92d386c3a528843b438c8b68c7bf50ac}\label{a00128_a92d386c3a528843b438c8b68c7bf50ac}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!\_selectedAttribute@{\_selectedAttribute}}
+\index{\_selectedAttribute@{\_selectedAttribute}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{\_selectedAttribute}{\_selectedAttribute}}
+{\footnotesize\ttfamily \mbox{\hyperlink{a00124}{UIAttribute}} Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+\_\+selected\+Attribute\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 27 of file UIAttributes\+Manager.\+cs.
+
+\mbox{\Hypertarget{a00128_a238da2d0e7c6cdc716ad73ff17481675}\label{a00128_a238da2d0e7c6cdc716ad73ff17481675}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!currentMapElement@{currentMapElement}}
+\index{currentMapElement@{currentMapElement}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{currentMapElement}{currentMapElement}}
+{\footnotesize\ttfamily \mbox{\hyperlink{a00180}{Map\+Element}} Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+current\+Map\+Element\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 29 of file UIAttributes\+Manager.\+cs.
+
+\mbox{\Hypertarget{a00136_a38485441fbdd587ded0221209dec06dc}\label{a00136_a38485441fbdd587ded0221209dec06dc}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!elementsSeparation@{elementsSeparation}}
+\index{elementsSeparation@{elementsSeparation}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{elementsSeparation}{elementsSeparation}}
+{\footnotesize\ttfamily float Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+elements\+Separation = 1.\+5f\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 18 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{a00136_a4aea7d4b8d3fce6b75769f346a35ea2c}\label{a00136_a4aea7d4b8d3fce6b75769f346a35ea2c}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!locationsPreviewAmount@{locationsPreviewAmount}}
+\index{locationsPreviewAmount@{locationsPreviewAmount}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{locationsPreviewAmount}{locationsPreviewAmount}}
+{\footnotesize\ttfamily int Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+locations\+Preview\+Amount = 3\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 17 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{a00136_a17943362b8a872e646de15bc30fd9bc5}\label{a00136_a17943362b8a872e646de15bc30fd9bc5}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!povDistance@{povDistance}}
+\index{povDistance@{povDistance}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{povDistance}{povDistance}}
+{\footnotesize\ttfamily float Thoughts.\+Control\+Systems.\+UI.\+UIPov\+Row.\+pov\+Distance = 1f\hspace{0.3cm}{\ttfamily [private]}, {\ttfamily [inherited]}}
+
+
+
+Definition at line 19 of file UIPov\+Row.\+cs.
+
+\mbox{\Hypertarget{a00128_a3b474bcebdf9c3137572b7832a6152fb}\label{a00128_a3b474bcebdf9c3137572b7832a6152fb}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!uiAttributePrefab@{uiAttributePrefab}}
+\index{uiAttributePrefab@{uiAttributePrefab}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{uiAttributePrefab}{uiAttributePrefab}}
+{\footnotesize\ttfamily Game\+Object Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+ui\+Attribute\+Prefab\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 9 of file UIAttributes\+Manager.\+cs.
+
+\mbox{\Hypertarget{a00128_a666cb09b16b5571c33ffcd7475a9d639}\label{a00128_a666cb09b16b5571c33ffcd7475a9d639}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!uiAttributes@{uiAttributes}}
+\index{uiAttributes@{uiAttributes}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{uiAttributes}{uiAttributes}}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{a00124}{UIAttribute}}$>$ Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+ui\+Attributes = new List$<$\mbox{\hyperlink{a00124}{UIAttribute}}$>$()\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 10 of file UIAttributes\+Manager.\+cs.
+
+\mbox{\Hypertarget{a00128_a25cb643ab22d8e15df4912ef28ffc2c8}\label{a00128_a25cb643ab22d8e15df4912ef28ffc2c8}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!uiMapEventsManager@{uiMapEventsManager}}
+\index{uiMapEventsManager@{uiMapEventsManager}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{uiMapEventsManager}{uiMapEventsManager}}
+{\footnotesize\ttfamily \mbox{\hyperlink{a00120}{UIMap\+Events\+Manager}} Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+ui\+Map\+Events\+Manager\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 11 of file UIAttributes\+Manager.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{a00128_abe9b7b5f642607ba24e02f806c68ba1d}\label{a00128_abe9b7b5f642607ba24e02f806c68ba1d}} 
+\index{Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}!selectedAttribute@{selectedAttribute}}
+\index{selectedAttribute@{selectedAttribute}!Thoughts.ControlSystems.UI.UIAttributesManager@{Thoughts.ControlSystems.UI.UIAttributesManager}}
+\doxysubsubsection{\texorpdfstring{selectedAttribute}{selectedAttribute}}
+{\footnotesize\ttfamily \mbox{\hyperlink{a00124}{UIAttribute}}? Thoughts.\+Control\+Systems.\+UI.\+UIAttributes\+Manager.\+selected\+Attribute\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Definition at line 13 of file UIAttributes\+Manager.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a00029}{UIAttributes\+Manager.\+cs}}\end{DoxyCompactItemize}

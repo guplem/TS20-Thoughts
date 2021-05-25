@@ -1,0 +1,204 @@
+\hypertarget{a00092}{}\doxysection{Thoughts.\+App\+Manager Class Reference}
+\label{a00092}\index{Thoughts.AppManager@{Thoughts.AppManager}}
+
+
+Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current Game\+Manager.  
+
+
+
+
+Collaboration diagram for Thoughts.\+App\+Manager\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{a00090}
+\end{center}
+\end{figure}
+\doxysubsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{a00092}{App\+Manager}} \mbox{\hyperlink{a00092_abdaa9a67d31da294cb6a85381ca8b72d}{instance}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The singleton instance of this class (\mbox{\hyperlink{a00092}{App\+Manager}}) \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{a00148}{Game\+Manager}} \mbox{\hyperlink{a00092_a86b879d360baeac08ee9ea1f45ca00ef}{game\+Manager}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The current Game\+Manager of the game/app \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{a00092_a4cdaadd22e5c3f4136991f02afe33298}{Awake}} ()
+\begin{DoxyCompactList}\small\item\em Tries to set up this \mbox{\hyperlink{a00092}{App\+Manager}} as singleton instance. If possible, marks the Game\+Object containing this Mono\+Behaviour as Dont\+Destroy\+On\+Load. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{a00092_a0bb22cc2b3cc5aa16c793157c0bef3b1}{Start}} ()
+\begin{DoxyCompactList}\small\item\em Triggers the start of a new game. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{a00092_a0f1cf13d1debe8f7974e2e39ae621533}{Initialize\+Singleton}} ()
+\begin{DoxyCompactList}\small\item\em If there is no other instance of an \mbox{\hyperlink{a00092}{App\+Manager}}, this is set as it. Being the only one following the Singleton pattern. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{a00092_aa6b4098e23afcb973848216e995e00ae}{Start\+New\+Game}} ()
+\begin{DoxyCompactList}\small\item\em Starts a new game by instantiating the Game\+Manager prefab and triggering its method Start\+New\+Game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Game\+Object \mbox{\hyperlink{a00092_a5a549870df0329b83ce69a4621eece45}{game\+Manager\+Prefab}}
+\begin{DoxyCompactList}\small\item\em The Game\+Object prefab that is going to be spawned to initialize a new game process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Object that must be kept always alive while running the app. It initializes the game process and keeps track of the current Game\+Manager. 
+
+
+
+Definition at line 9 of file App\+Manager.\+cs.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{a00092_a4cdaadd22e5c3f4136991f02afe33298}\label{a00092_a4cdaadd22e5c3f4136991f02afe33298}} 
+\index{Thoughts.AppManager@{Thoughts.AppManager}!Awake@{Awake}}
+\index{Awake@{Awake}!Thoughts.AppManager@{Thoughts.AppManager}}
+\doxysubsubsection{\texorpdfstring{Awake()}{Awake()}}
+{\footnotesize\ttfamily void Thoughts.\+App\+Manager.\+Awake (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Tries to set up this \mbox{\hyperlink{a00092}{App\+Manager}} as singleton instance. If possible, marks the Game\+Object containing this Mono\+Behaviour as Dont\+Destroy\+On\+Load. 
+
+
+
+Definition at line 29 of file App\+Manager.\+cs.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00092_a4cdaadd22e5c3f4136991f02afe33298_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a00092_a0f1cf13d1debe8f7974e2e39ae621533}\label{a00092_a0f1cf13d1debe8f7974e2e39ae621533}} 
+\index{Thoughts.AppManager@{Thoughts.AppManager}!InitializeSingleton@{InitializeSingleton}}
+\index{InitializeSingleton@{InitializeSingleton}!Thoughts.AppManager@{Thoughts.AppManager}}
+\doxysubsubsection{\texorpdfstring{InitializeSingleton()}{InitializeSingleton()}}
+{\footnotesize\ttfamily bool Thoughts.\+App\+Manager.\+Initialize\+Singleton (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+If there is no other instance of an \mbox{\hyperlink{a00092}{App\+Manager}}, this is set as it. Being the only one following the Singleton pattern. 
+
+\begin{DoxyReturn}{Returns}
+True if it became the singleton instance, false if another \mbox{\hyperlink{a00092}{App\+Manager}} set up as the singleton instance already exists.
+\end{DoxyReturn}
+
+
+Definition at line 47 of file App\+Manager.\+cs.
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00092_a0f1cf13d1debe8f7974e2e39ae621533_icgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a00092_a0bb22cc2b3cc5aa16c793157c0bef3b1}\label{a00092_a0bb22cc2b3cc5aa16c793157c0bef3b1}} 
+\index{Thoughts.AppManager@{Thoughts.AppManager}!Start@{Start}}
+\index{Start@{Start}!Thoughts.AppManager@{Thoughts.AppManager}}
+\doxysubsubsection{\texorpdfstring{Start()}{Start()}}
+{\footnotesize\ttfamily void Thoughts.\+App\+Manager.\+Start (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Triggers the start of a new game. 
+
+
+
+Definition at line 38 of file App\+Manager.\+cs.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00092_a0bb22cc2b3cc5aa16c793157c0bef3b1_cgraph}
+\end{center}
+\end{figure}
+\mbox{\Hypertarget{a00092_aa6b4098e23afcb973848216e995e00ae}\label{a00092_aa6b4098e23afcb973848216e995e00ae}} 
+\index{Thoughts.AppManager@{Thoughts.AppManager}!StartNewGame@{StartNewGame}}
+\index{StartNewGame@{StartNewGame}!Thoughts.AppManager@{Thoughts.AppManager}}
+\doxysubsubsection{\texorpdfstring{StartNewGame()}{StartNewGame()}}
+{\footnotesize\ttfamily void Thoughts.\+App\+Manager.\+Start\+New\+Game (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Starts a new game by instantiating the Game\+Manager prefab and triggering its method Start\+New\+Game. 
+
+
+
+Definition at line 63 of file App\+Manager.\+cs.
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00092_aa6b4098e23afcb973848216e995e00ae_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{a00092_aa6b4098e23afcb973848216e995e00ae_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{a00092_a5a549870df0329b83ce69a4621eece45}\label{a00092_a5a549870df0329b83ce69a4621eece45}} 
+\index{Thoughts.AppManager@{Thoughts.AppManager}!gameManagerPrefab@{gameManagerPrefab}}
+\index{gameManagerPrefab@{gameManagerPrefab}!Thoughts.AppManager@{Thoughts.AppManager}}
+\doxysubsubsection{\texorpdfstring{gameManagerPrefab}{gameManagerPrefab}}
+{\footnotesize\ttfamily Game\+Object Thoughts.\+App\+Manager.\+game\+Manager\+Prefab\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The Game\+Object prefab that is going to be spawned to initialize a new game process. 
+
+
+
+Definition at line 19 of file App\+Manager.\+cs.
+
+
+
+\doxysubsection{Property Documentation}
+\mbox{\Hypertarget{a00092_a86b879d360baeac08ee9ea1f45ca00ef}\label{a00092_a86b879d360baeac08ee9ea1f45ca00ef}} 
+\index{Thoughts.AppManager@{Thoughts.AppManager}!gameManager@{gameManager}}
+\index{gameManager@{gameManager}!Thoughts.AppManager@{Thoughts.AppManager}}
+\doxysubsubsection{\texorpdfstring{gameManager}{gameManager}}
+{\footnotesize\ttfamily \mbox{\hyperlink{a00148}{Game\+Manager}} Thoughts.\+App\+Manager.\+game\+Manager\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [get]}, {\ttfamily [private set]}}
+
+
+
+The current Game\+Manager of the game/app 
+
+
+
+Definition at line 24 of file App\+Manager.\+cs.
+
+\mbox{\Hypertarget{a00092_abdaa9a67d31da294cb6a85381ca8b72d}\label{a00092_abdaa9a67d31da294cb6a85381ca8b72d}} 
+\index{Thoughts.AppManager@{Thoughts.AppManager}!instance@{instance}}
+\index{instance@{instance}!Thoughts.AppManager@{Thoughts.AppManager}}
+\doxysubsubsection{\texorpdfstring{instance}{instance}}
+{\footnotesize\ttfamily \mbox{\hyperlink{a00092}{App\+Manager}} Thoughts.\+App\+Manager.\+instance\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [get]}, {\ttfamily [private set]}}
+
+
+
+The singleton instance of this class (\mbox{\hyperlink{a00092}{App\+Manager}}) 
+
+
+
+Definition at line 14 of file App\+Manager.\+cs.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{a00002}{App\+Manager.\+cs}}\end{DoxyCompactItemize}

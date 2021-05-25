@@ -1,8 +1,0 @@
-<map id="GetLocationPosition" name="GetLocationPosition">
-<area shape="rect" id="node1" title=" " alt="" coords="733,56,872,83"/>
-<area shape="rect" id="node2" href="$classUIPovRow.html#ae7e5103e242d1fbf4a03afe96d3947ef" title=" " alt="" coords="496,5,660,32"/>
-<area shape="rect" id="node3" href="$classUIAttributesManager.html#aa42d256e05edd5c6ed508aa7a8a495db" title=" " alt="" coords="475,56,681,83"/>
-<area shape="rect" id="node6" href="$classUIMapEventsManager.html#af66517c5fb52c62a46d3662ba511b189" title=" " alt="" coords="471,107,685,133"/>
-<area shape="rect" id="node4" href="$classUIPovManager.html#af7f03839899c0dce73537deeeb444112" title=" " alt="" coords="251,56,423,83"/>
-<area shape="rect" id="node5" href="$classGameUIManager.html#abd879f8ddab8b46bb14e91d09a7ea98c" title=" " alt="" coords="5,56,203,83"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="Thoughts.Game.GameMap.Map.GetExecutionPlanToCover" name="Thoughts.Game.GameMap.Map.GetExecutionPlanToCover">
-<area shape="rect" id="node1" title="Look for all MapEvents available in the map that, as consequence of the event, they make a desired at..." alt="" coords="5,56,368,83"/>
-<area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html#a62b14929d230580f06775369b1844334" title=" " alt="" coords="416,56,848,83"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#abd3d08d8115b6e9885c27498973ea6d1" title=" " alt="" coords="991,5,1353,32"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html#addee670e736bf63848867b90462f8d50" title=" " alt="" coords="896,56,1448,83"/>
-<area shape="rect" id="node6" href="$classThoughts_1_1Game_1_1GameMap_1_1MapEvent.html#a7dad3edc686eedee03541db4aa35c8bf" title=" " alt="" coords="979,107,1365,133"/>
-<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan.html#a7407ee80c8c2afa2494d33ee8b9212b6" title=" " alt="" coords="1496,56,1975,83"/>
-</map>

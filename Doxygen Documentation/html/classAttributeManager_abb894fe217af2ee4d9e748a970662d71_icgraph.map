@@ -1,5 +1,0 @@
-<map id="AttributeManager.GetExecutionPlanToCover" name="AttributeManager.GetExecutionPlanToCover">
-<area shape="rect" id="node1" title=" " alt="" coords="895,5,1171,32"/>
-<area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#a98f60ca831f8b33644a3e6c4f2c74092" title=" " alt="" coords="484,5,847,32"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameManager.html#ac973dee3008ff37f3da111891aaa7169" title="Look for all MapEvents that, as consequence of the event, they make the attribute value increase for ..." alt="" coords="5,5,436,32"/>
-</map>
