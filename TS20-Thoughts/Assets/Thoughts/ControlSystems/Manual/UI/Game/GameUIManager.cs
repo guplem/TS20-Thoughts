@@ -10,8 +10,7 @@ namespace Thoughts.ControlSystems.UI
         public void DisplayUIFor(MapElement mapElement)
         {
             Debug.Log($"DisplayUIFor '{mapElement}'");
-            Mob mobMapElement = mapElement as Mob;
-            uiPovManager.ShowUIFor(mobMapElement);
+            uiPovManager.ShowUIFor(mapElement);
         }
     
     }

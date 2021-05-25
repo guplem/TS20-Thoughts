@@ -78,11 +78,11 @@ namespace Thoughts.Game.GameMap
             List<MapElement> generatedMapObjects = new List<MapElement>();
             RandomEssentials random = new RandomEssentials();
             
-            //generatedMapObjects.AddRange(SpawnRandom("river", 1, random));
-            //generatedMapObjects.AddRange(SpawnRandom("rock", 10, random));
+            generatedMapObjects.AddRange(SpawnRandom("river", 3, random));
+            generatedMapObjects.AddRange(SpawnRandom("rock", 10, random));
             generatedMapObjects.AddRange(SpawnRandom("tree", 1, random));
             generatedMapObjects.AddRange(SpawnRandom("bonfire", 1, random));
-            //generatedMapObjects.AddRange(SpawnRandom("Berry Plant", 3, random));
+            generatedMapObjects.AddRange(SpawnRandom("Berry Plant", 3, random));
 
             return generatedMapObjects;
         }

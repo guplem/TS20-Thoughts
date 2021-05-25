@@ -1,12 +1,12 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!208 &7492784129591393688
+--- !u!208 &6984347118404179421
 NavMeshObstacle:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5022316054504370077}
+  m_GameObject: {fileID: 3981719456449971147}
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
@@ -16,21 +16,7 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
---- !u!114 &2562710155873659894
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5022316054504370077}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1400de9073d52404da30091ed6e00411, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attributeManager:
-    _attributes: []
---- !u!1001 &5863722872147554148
+--- !u!1001 &2563411901488759602
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -39,7 +25,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1500535632396108025, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
       propertyPath: m_Name
-      value: MapObject
+      value: _Obstacle - MapElement Base
       objectReference: {fileID: 0}
     - target: {fileID: 2272055139512341424, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
       propertyPath: m_RootOrder
@@ -87,8 +73,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
---- !u!1 &5022316054504370077 stripped
+--- !u!1 &3981719456449971147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1500535632396108025, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
-  m_PrefabInstance: {fileID: 5863722872147554148}
+  m_PrefabInstance: {fileID: 2563411901488759602}
   m_PrefabAsset: {fileID: 0}

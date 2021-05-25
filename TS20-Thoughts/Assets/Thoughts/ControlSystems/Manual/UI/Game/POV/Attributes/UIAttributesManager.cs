@@ -42,10 +42,7 @@ namespace Thoughts.ControlSystems.UI
             for (int attributeIndex = 0; attributeIndex < mapElement.attributeManager.ownedAttributes.Count; attributeIndex++)
             {
                 UIAttribute attribute = Instantiate(uiAttributePrefab, GetLocationPosition(attributeIndex),Quaternion.identity , this.transform).GetComponentRequired<UIAttribute>();
-                Transform visualizer = mapElement.transform;
-                if (mapElement is Mob mobMapElement)
-                    visualizer = mobMapElement.povCameraPrentTransform;
-                attribute.Initialize(mapElement.attributeManager.ownedAttributes[attributeIndex], visualizer);
+                attribute.Initialize(mapElement.attributeManager.ownedAttributes[attributeIndex], mapElement.povCameraPosition);
                 uiAttributes.Add(attribute);
             
                 //ToDo: remove next 2 lines to disable automatic selection of an attribute

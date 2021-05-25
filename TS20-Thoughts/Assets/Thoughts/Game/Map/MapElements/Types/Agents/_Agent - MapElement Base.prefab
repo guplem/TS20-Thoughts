@@ -1,27 +1,12 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-2139886508288943460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19653566977561346}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61b93221cbedc1a48826c04cf4ed8e48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attributeManager:
-    _attributes: []
-  povCameraPrentTransform: {fileID: 7547358702181739799}
---- !u!195 &5867742582867922924
+--- !u!195 &8952936618760787739
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19653566977561346}
+  m_GameObject: {fileID: 2569988574890878605}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -37,37 +22,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!1 &4343226079023726297
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7547358702181739799}
-  m_Layer: 0
-  m_Name: PovCameraTransformParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7547358702181739799
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4343226079023726297}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 797381196487508043}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1483702867935958011
+--- !u!1001 &3997111567675532916
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -76,7 +31,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1500535632396108025, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
       propertyPath: m_Name
-      value: Mob
+      value: Agent - MapElement
       objectReference: {fileID: 0}
     - target: {fileID: 2272055139512341424, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
       propertyPath: m_RootOrder
@@ -124,13 +79,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
---- !u!1 &19653566977561346 stripped
+--- !u!1 &2569988574890878605 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1500535632396108025, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
-  m_PrefabInstance: {fileID: 1483702867935958011}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &797381196487508043 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2272055139512341424, guid: a9c8df83adb6fce4fbe282d93de0c423, type: 3}
-  m_PrefabInstance: {fileID: 1483702867935958011}
+  m_PrefabInstance: {fileID: 3997111567675532916}
   m_PrefabAsset: {fileID: 0}

@@ -8,13 +8,13 @@ namespace Thoughts.ControlSystems.UI
         [SerializeField]
         public UIAttributesManager uiAttributesManager;
 
-        public void ShowUIFor(Mob mob)
+        public void ShowUIFor(MapElement mapElement)
         {
-            if (mob != null)
-                this.transform.parent = mob.povCameraPrentTransform;
+            if (mapElement != null)
+                this.transform.parent = mapElement.povCameraPosition;
             this.transform.localPosition = Vector3.zero;
             this.transform.localRotation = Quaternion.identity;
-            uiAttributesManager.ShowUIFor(mob);
+            uiAttributesManager.ShowUIFor(mapElement);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Thoughts.Game.GameMap
      /// A spawned element of the map.
      /// </summary>
      [SelectionBase]
-     public abstract class MapElement : MonoBehaviour
+     public class MapElement : MonoBehaviour
      {
           
           /// <summary>
@@ -23,7 +23,7 @@ namespace Thoughts.Game.GameMap
           /// <summary>
           /// The location of the camera for the POV view of the MapElement.
           /// </summary>
-          [SerializeField] public Transform povCameraPrentTransform;
+          [SerializeField] public Transform povCameraPosition;
           
           #region Behaviour
 

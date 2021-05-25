@@ -23,10 +23,7 @@ namespace Thoughts.ControlSystems.UI
             for (int mapEventIndex = 0; mapEventIndex < attribute.attribute.mapEvents.Count; mapEventIndex++)
             {
                 UIMapEvent uiMapEvent = Instantiate(uiMapEventPrefab, GetLocationPosition(mapEventIndex),Quaternion.identity , this.transform).GetComponentRequired<UIMapEvent>();
-                Transform visualizer = mapElement.transform;
-                if (mapElement is Mob mobMapElement)
-                    visualizer = mobMapElement.povCameraPrentTransform;
-                uiMapEvent.Initialize(mapEvents[mapEventIndex], visualizer);
+                uiMapEvent.Initialize(mapEvents[mapEventIndex], mapElement.povCameraPosition);
                 uiMapEvents.Add(uiMapEvent);
             }
         
