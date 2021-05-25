@@ -1,7 +1,9 @@
 <map id="Thoughts.Game.GameMap.MapElement" name="Thoughts.Game.GameMap.MapElement">
-<area shape="rect" id="node1" title=" " alt="" coords="152,417,407,627"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,211,116,289"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html" title=" " alt="" coords="141,145,418,355"/>
-<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html" title=" " alt="" coords="442,153,709,347"/>
-<area shape="rect" id="node5" title=" " alt="" coords="547,5,604,83"/>
+<area shape="rect" id="node1" title="A spawned element of the map." alt="" coords="129,676,448,915"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,470,116,547"/>
+<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1Attributes_1_1AttributeManager.html" title=" " alt="" coords="141,404,437,613"/>
+<area shape="rect" id="node4" href="$classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute.html" title=" " alt="" coords="461,411,727,606"/>
+<area shape="rect" id="node5" href="$classThoughts_1_1Game_1_1Attributes_1_1Attribute.html" title=" " alt="" coords="481,132,707,341"/>
+<area shape="rect" id="node6" title=" " alt="" coords="455,5,573,83"/>
+<area shape="rect" id="node7" title=" " alt="" coords="597,5,753,83"/>
 </map>

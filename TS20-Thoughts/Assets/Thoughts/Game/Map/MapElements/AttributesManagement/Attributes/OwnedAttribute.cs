@@ -9,7 +9,7 @@ namespace Thoughts.Game.Attributes
     public class OwnedAttribute
     {
         public MapElement ownerMapElement { get; private set; }
-        [SerializeField] public Thoughts.Game.Attributes.Attribute attribute;
+        [SerializeField] public Attribute attribute;
         [SerializeField] private int _value;
         public int value { get => _value; private set { _value = value; } }
         [SerializeField] private bool _takeCare;

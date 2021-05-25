@@ -6,17 +6,17 @@ Collaboration diagram for Thoughts.\+Game.\+Attributes.\+Attribute\+Manager\+:\n
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=288pt]{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager__coll__graph}
+\includegraphics[width=302pt]{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-void \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_ae96eef2441e33c6fc8bad5b947a5b9ff}{Initialize}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} owner)
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_ae96eef2441e33c6fc8bad5b947a5b9ff}{Initialize}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a026cdf8aa7fc32c1b9038e50c1823523}{owner}})
 \item 
 override string \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a36b4b4bbc76abf4bf9e05b6b532a1a99}{To\+String}} ()
 \item 
-void \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a09202c0be3b6c168691ac251bbe0028a}{Execute\+Self\+Time\+Elapse\+Actions}} ()
+void \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_aa85b1ecfb57d63b4bca4ed6bfbd786a7}{Execute\+Map\+Events\+With\+Time\+Elapse\+Enabled}} ()
 \item 
 void \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_abbede99c0c0a70fb079efbcda9ea0603}{Update\+Attribute}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1Attribute}{Attributes.\+Attribute}} attribute\+To\+Update, int delta\+Value)
 \item 
@@ -31,7 +31,7 @@ bool \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_ab
 \doxysubsection*{Properties}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a5b32351a0e4ac73a4a205c9e06185add}{owner\+Map\+Element}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
+\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a026cdf8aa7fc32c1b9038e50c1823523}{owner}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
 \item 
 List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_ae9d397ac02364b5f5f9d233ac79f508e}{owned\+Attributes}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, private set\mbox{]}}
 \end{DoxyCompactItemize}
@@ -76,11 +76,11 @@ True if it contains an attribute with a value higher or equal than the one in th
 
 Definition at line 84 of file Attribute\+Manager.\+cs.
 
-\mbox{\Hypertarget{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a09202c0be3b6c168691ac251bbe0028a}\label{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a09202c0be3b6c168691ac251bbe0028a}} 
-\index{Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}!ExecuteSelfTimeElapseActions@{ExecuteSelfTimeElapseActions}}
-\index{ExecuteSelfTimeElapseActions@{ExecuteSelfTimeElapseActions}!Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}}
-\doxysubsubsection{\texorpdfstring{ExecuteSelfTimeElapseActions()}{ExecuteSelfTimeElapseActions()}}
-{\footnotesize\ttfamily void Thoughts.\+Game.\+Attributes.\+Attribute\+Manager.\+Execute\+Self\+Time\+Elapse\+Actions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_aa85b1ecfb57d63b4bca4ed6bfbd786a7}\label{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_aa85b1ecfb57d63b4bca4ed6bfbd786a7}} 
+\index{Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}!ExecuteMapEventsWithTimeElapseEnabled@{ExecuteMapEventsWithTimeElapseEnabled}}
+\index{ExecuteMapEventsWithTimeElapseEnabled@{ExecuteMapEventsWithTimeElapseEnabled}!Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}}
+\doxysubsubsection{\texorpdfstring{ExecuteMapEventsWithTimeElapseEnabled()}{ExecuteMapEventsWithTimeElapseEnabled()}}
+{\footnotesize\ttfamily void Thoughts.\+Game.\+Attributes.\+Attribute\+Manager.\+Execute\+Map\+Events\+With\+Time\+Elapse\+Enabled (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -90,14 +90,14 @@ Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a09202c0be3b6c168691ac251bbe0028a_cgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_aa85b1ecfb57d63b4bca4ed6bfbd786a7_cgraph}
 \end{center}
 \end{figure}
 Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a09202c0be3b6c168691ac251bbe0028a_icgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_aa85b1ecfb57d63b4bca4ed6bfbd786a7_icgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a26d41e83e61d212125233cc28b9c069f}\label{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a26d41e83e61d212125233cc28b9c069f}} 
@@ -117,7 +117,8 @@ Here is the call graph for this function\+:\nopagebreak
 \includegraphics[width=350pt]{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a26d41e83e61d212125233cc28b9c069f_cgraph}
 \end{center}
 \end{figure}
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -235,11 +236,11 @@ Definition at line 18 of file Attribute\+Manager.\+cs.
 
 Definition at line 13 of file Attribute\+Manager.\+cs.
 
-\mbox{\Hypertarget{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a5b32351a0e4ac73a4a205c9e06185add}\label{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a5b32351a0e4ac73a4a205c9e06185add}} 
-\index{Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}!ownerMapElement@{ownerMapElement}}
-\index{ownerMapElement@{ownerMapElement}!Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}}
-\doxysubsubsection{\texorpdfstring{ownerMapElement}{ownerMapElement}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} Thoughts.\+Game.\+Attributes.\+Attribute\+Manager.\+owner\+Map\+Element\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [private set]}}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a026cdf8aa7fc32c1b9038e50c1823523}\label{classThoughts_1_1Game_1_1Attributes_1_1AttributeManager_a026cdf8aa7fc32c1b9038e50c1823523}} 
+\index{Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}!owner@{owner}}
+\index{owner@{owner}!Thoughts.Game.Attributes.AttributeManager@{Thoughts.Game.Attributes.AttributeManager}}
+\doxysubsubsection{\texorpdfstring{owner}{owner}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} Thoughts.\+Game.\+Attributes.\+Attribute\+Manager.\+owner\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [private set]}}
 
 
 

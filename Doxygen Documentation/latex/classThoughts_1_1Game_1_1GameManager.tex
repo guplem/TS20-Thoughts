@@ -28,13 +28,15 @@ Collaboration diagram for Thoughts.\+Game.\+Game\+Manager\+:\nopagebreak
 \item 
 void \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46}{Start\+New\+Game}} ()
 \begin{DoxyCompactList}\small\item\em Starts a new game by setting up the participants and generating a new world. \end{DoxyCompactList}\item 
-List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a1b37dca3b3a7f67261f293196dc07ac4}{Get\+Execution\+Plan\+To\+Cover}} (\mbox{[}Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} attribute\+To\+Cover, int value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ map\+Events\+To\+Execute=null, int iteration=0)
+List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a681979efa883e7985a9243c5345c4b09}{Get\+Execution\+Plan\+To\+Cover}} (\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}} attribute\+To\+Cover, int value\+To\+Cover, \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}} executer, List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$ map\+Events\+To\+Execute=null, int iteration=0)
 \begin{DoxyCompactList}\small\item\em Recursively look for all Map\+Events available in the game\textquotesingle{}s map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant). \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1Map}{Map}} \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a4383320509b838c2cccb0d318b70a8ba}{map}}
-\begin{DoxyCompactList}\small\item\em The map of the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em The map of the game. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classThoughts_1_1Game_1_1GameManager_a8913b44c8b4c1d27683facdbdf06a512}{game\+Clock\+Interval}} = 1f
+\begin{DoxyCompactList}\small\item\em The amount of time between each update of the Map\+Elements of the game \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
@@ -54,11 +56,11 @@ Definition at line 14 of file Game\+Manager.\+cs.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_a1b37dca3b3a7f67261f293196dc07ac4}\label{classThoughts_1_1Game_1_1GameManager_a1b37dca3b3a7f67261f293196dc07ac4}} 
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_a681979efa883e7985a9243c5345c4b09}\label{classThoughts_1_1Game_1_1GameManager_a681979efa883e7985a9243c5345c4b09}} 
 \index{Thoughts.Game.GameManager@{Thoughts.Game.GameManager}!GetExecutionPlanToCover@{GetExecutionPlanToCover}}
 \index{GetExecutionPlanToCover@{GetExecutionPlanToCover}!Thoughts.Game.GameManager@{Thoughts.Game.GameManager}}
 \doxysubsubsection{\texorpdfstring{GetExecutionPlanToCover()}{GetExecutionPlanToCover()}}
-{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}}$>$ Thoughts.\+Game.\+Game\+Manager.\+Get\+Execution\+Plan\+To\+Cover (\begin{DoxyParamCaption}\item[{\mbox{[}\+Not\+Null\mbox{]} \mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{attribute\+To\+Cover,  }\item[{int}]{value\+To\+Cover,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$}]{map\+Events\+To\+Execute = {\ttfamily null},  }\item[{int}]{iteration = {\ttfamily 0} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily List$<$\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}}$>$ Thoughts.\+Game.\+Game\+Manager.\+Get\+Execution\+Plan\+To\+Cover (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1Attributes_1_1OwnedAttribute}{Owned\+Attribute}}}]{attribute\+To\+Cover,  }\item[{int}]{value\+To\+Cover,  }\item[{\mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1MapElement}{Map\+Element}}}]{executer,  }\item[{List$<$ \mbox{\hyperlink{classThoughts_1_1Game_1_1GameMap_1_1ExecutionPlan}{Execution\+Plan}} $>$}]{map\+Events\+To\+Execute = {\ttfamily null},  }\item[{int}]{iteration = {\ttfamily 0} }\end{DoxyParamCaption})}
 
 
 
@@ -82,13 +84,13 @@ An ordered list of the Execution Plans needed to achieve the goal (to increase t
 \end{DoxyReturn}
 
 
-Definition at line 58 of file Game\+Manager.\+cs.
+Definition at line 63 of file Game\+Manager.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameManager_a1b37dca3b3a7f67261f293196dc07ac4_cgraph}
+\includegraphics[width=350pt]{classThoughts_1_1Game_1_1GameManager_a681979efa883e7985a9243c5345c4b09_cgraph}
 \end{center}
 \end{figure}
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46}\label{classThoughts_1_1Game_1_1GameManager_a8d515fc1b62a4b466a2247ed1f6cee46}} 
@@ -103,7 +105,7 @@ Starts a new game by setting up the participants and generating a new world.
 
 
 
-Definition at line 37 of file Game\+Manager.\+cs.
+Definition at line 42 of file Game\+Manager.\+cs.
 
 Here is the call graph for this function\+:\nopagebreak
 \begin{figure}[H]
@@ -122,6 +124,20 @@ Here is the caller graph for this function\+:\nopagebreak
 
 
 \doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_a8913b44c8b4c1d27683facdbdf06a512}\label{classThoughts_1_1Game_1_1GameManager_a8913b44c8b4c1d27683facdbdf06a512}} 
+\index{Thoughts.Game.GameManager@{Thoughts.Game.GameManager}!gameClockInterval@{gameClockInterval}}
+\index{gameClockInterval@{gameClockInterval}!Thoughts.Game.GameManager@{Thoughts.Game.GameManager}}
+\doxysubsubsection{\texorpdfstring{gameClockInterval}{gameClockInterval}}
+{\footnotesize\ttfamily float Thoughts.\+Game.\+Game\+Manager.\+game\+Clock\+Interval = 1f}
+
+
+
+The amount of time between each update of the Map\+Elements of the game 
+
+
+
+Definition at line 37 of file Game\+Manager.\+cs.
+
 \mbox{\Hypertarget{classThoughts_1_1Game_1_1GameManager_afc29eb5917861e9f9f128fbd7a4f0910}\label{classThoughts_1_1Game_1_1GameManager_afc29eb5917861e9f9f128fbd7a4f0910}} 
 \index{Thoughts.Game.GameManager@{Thoughts.Game.GameManager}!manualControlSystemPrefab@{manualControlSystemPrefab}}
 \index{manualControlSystemPrefab@{manualControlSystemPrefab}!Thoughts.Game.GameManager@{Thoughts.Game.GameManager}}

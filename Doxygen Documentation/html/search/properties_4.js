@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['inputhandler_398',['inputHandler',['../classThoughts_1_1ControlSystems_1_1Manual.html#a83a744dfbb0c49862265993e07475974',1,'Thoughts::ControlSystems::Manual']]],
-  ['instance_399',['instance',['../classThoughts_1_1AppManager.html#abdaa9a67d31da294cb6a85381ca8b72d',1,'Thoughts::AppManager']]]
+  ['inputhandler_393',['inputHandler',['../classThoughts_1_1ControlSystems_1_1Manual.html#a83a744dfbb0c49862265993e07475974',1,'Thoughts::ControlSystems::Manual']]],
+  ['instance_394',['instance',['../classThoughts_1_1AppManager.html#abdaa9a67d31da294cb6a85381ca8b72d',1,'Thoughts::AppManager']]]
 ];

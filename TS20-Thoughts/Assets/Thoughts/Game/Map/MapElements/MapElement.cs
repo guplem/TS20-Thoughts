@@ -16,8 +16,9 @@ namespace Thoughts.Game.GameMap
      {
           
           /// <summary>
-          /// Collection (and manager) of the owned attributes of this "MapElement".
+          /// Collection (and manager) of the owned attributes of this MapElement.
           /// </summary>
+          [Tooltip("Collection (and manager) of the owned attributes of this 'MapElement'")]
           [SerializeField] public AttributeManager attributeManager = new AttributeManager();
           
           /// <summary>
@@ -26,41 +27,55 @@ namespace Thoughts.Game.GameMap
           [SerializeField] public Transform povCameraPosition;
           
           #region Behaviour
-
-               private IEnumerator coroutineHolder;
-               
+          
+               /// <summary>
+               /// Sets up and the MapElement
+               /// <para>Initializes its attribute manager and looks up for its NavMeshAgent (initializes the variable).</para>
+               /// </summary>
                private void Awake()
                {
                     attributeManager.Initialize(this);
-                    
-                    // Ensure that we are not going to lose the track of a previous coroutine 
-                    // if we lose it, we'll not be able to stop it.
-                    if (coroutineHolder != null)
-                         StopCoroutine(coroutineHolder);
-
-                    //Assign the coroutine to the holder
-                    coroutineHolder = Clock();
-                    //Run the coroutine
-                    StartCoroutine(coroutineHolder);
-
-
-                    //If you are not going yo need to stop the coroutine, you do not need the "coroutineHolder":
-                    /*
-                     * StartCoroutine(CourutineMethod());
-                    */
-                    
                     navMeshAgent = GetComponent<NavMeshAgent>();
                }
                
-               private IEnumerator Clock()
+               /// <summary>
+               /// Starts running the MapElement's clock.
+               /// <para>Starts the "UpdateCoroutine" coroutine.</para>
+               /// </summary>
+               private void Start()
+               {
+                    // Ensure that we are not going to lose the track of a previous coroutine 
+                    // if we lose it, we'll not be able to stop it.
+                    if (updateCoroutineHolder != null)
+                         StopCoroutine(updateCoroutineHolder);
+
+                    //Assign the coroutine to the holder
+                    updateCoroutineHolder = UpdateCoroutine();
+                    //Run the coroutine
+                    StartCoroutine(updateCoroutineHolder);
+               }
+               
+               /// <summary>
+               /// Holder of the UpdateCoroutine of this MapElement
+               /// </summary>
+               private IEnumerator updateCoroutineHolder;
+               
+               /// <summary>
+               /// Controls the internal clock of the MapElement.
+               /// <para>Executes the map events with "execute with time elapse" enabled, updates the objective attribute to cover and tries to execute the next planned event.</para>
+               /// </summary>
+               private IEnumerator UpdateCoroutine()
                {
                     while (true)
                     {
-                         // Set the time to wait until continuing the execution
-                         yield return new WaitForSeconds(1f);
-                         attributeManager.ExecuteSelfTimeElapseActions();
-                         UpdateObjectiveAttribute();
-                         DoNextPlanedMapEvent();
+                         yield return new WaitForSeconds(AppManager.gameManager.gameClockInterval);
+                         
+                         attributeManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         UpdateObjectiveAttributeToCover();
+                         if (!DoNextPlanedMapEvents())
+                         {
+                              Debug.LogError("The next planned event could not be executed for unexpected reasons.");
+                         }
                     }
                     
                     // ReSharper disable once IteratorNeverReturns
@@ -70,103 +85,114 @@ namespace Thoughts.Game.GameMap
           
           #region Objective Attribute 
           
-               private List<ExecutionPlan> currentExecutionPlans = new List<ExecutionPlan>();
+               /// <summary>
+               /// Remaining execution plans to cover the objective attribute to cover
+               /// </summary>
+               private List<ExecutionPlan> executionPlans = new List<ExecutionPlan>();
                
-               private OwnedAttribute currentObjectiveAttribute
+               /// <summary>
+               /// The current MAIN goal of the MapElement. After setting it, an overwrite of the executionPlans is going to be done.
+               /// <para>Attribute whose value is to be increased. The attribute's value that is going to be increased must be owned by this MapElement.</para>
+               /// </summary>
+               private OwnedAttribute objectiveAttributeToCover
                {
-                    get => _currentObjectiveAttribute;
+                    get => _objectiveAttributeToCover;
                     set
                     {
-                         if (_currentObjectiveAttribute == value)
+                         if (_objectiveAttributeToCover == value)
                               return;
+                         _objectiveAttributeToCover = value;
                          
-                         _currentObjectiveAttribute = value;
-                         Debug.Log($"► Updating current objective attribute for '{this}' to '{(value!=null?value.attribute.name:"null")}'.");
-                         if (value != null)
-                         {
-                              UpdateExecutionPlans();
-                         }
-                         else
-                         {
-                              currentExecutionPlans = null;
-                         }
-
+                         Debug.Log($"► Updating current objective attribute for '{this.ToString()}' to '{(value!=null?value.attribute.name:"null")}'.");
+                         
+                         UpdateExecutionPlansToCoverObjectiveAttribute();
                     }
                }
-               [CanBeNull] private OwnedAttribute _currentObjectiveAttribute;
+               [CanBeNull] private OwnedAttribute _objectiveAttributeToCover;
                
-               private void UpdateExecutionPlans()
+               /// <summary>
+               /// Overwrites the executionPlans with a plan to cover (at least increasing the value by 1) of the current objectiveAttributeToCover (in this MapElement).
+               /// </summary>
+               private void UpdateExecutionPlansToCoverObjectiveAttribute()
                {
-                    currentExecutionPlans = AppManager.gameManager.GetExecutionPlanToCover(currentObjectiveAttribute, 1, this);
-                    if (currentExecutionPlans.IsNullOrEmpty())
-                         Debug.LogWarning($"└> An action path to cover the attribute '{currentObjectiveAttribute.attribute}' was not found.\n");
+                    if (objectiveAttributeToCover == null)
+                    {
+                         executionPlans = null;
+                    }
                     else
-                         Debug.Log($"└> Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● {currentExecutionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
+                    {
+                         executionPlans = AppManager.gameManager.GetExecutionPlanToCover(objectiveAttributeToCover, 1, this);
+                    
+                         if (executionPlans.IsNullOrEmpty())
+                              Debug.LogWarning($"└> An action path to cover the attribute '{objectiveAttributeToCover.attribute}' was not found.\n");
+                         else
+                              Debug.Log($"└> Map Events to execute to cover '{objectiveAttributeToCover.attribute}':\n    ● {executionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
+                    }
+                    
                }
                
-               private void UpdateObjectiveAttribute()
+               /// <summary>
+               /// Sets the objectiveAttributeToCover to the most needy attribute owned by this MapElement.
+               /// </summary>
+               private void UpdateObjectiveAttributeToCover()
                {
                     List<OwnedAttribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
+                    
                     if (attributesThatNeedCare.IsNullOrEmpty())
                     {
-                         currentObjectiveAttribute = null;      
+                         objectiveAttributeToCover = null;      
                     }
                     else
                     {
-                         foreach (OwnedAttribute ownedAttribute in attributesThatNeedCare)
+                         foreach (OwnedAttribute needyAttribute in attributesThatNeedCare)
                          {
-                              OwnedAttribute mostPrioritary = currentObjectiveAttribute;
+                              OwnedAttribute mostPrioritaryAttribute = objectiveAttributeToCover;
 
-                              if (mostPrioritary == null)
-                                   mostPrioritary = ownedAttribute;
-                              else if (!mostPrioritary.NeedsCare() || ownedAttribute.attribute.IsMorePrioritaryThan(mostPrioritary.attribute))
-                                   mostPrioritary = ownedAttribute;
+                              if (mostPrioritaryAttribute == null)
+                                   mostPrioritaryAttribute = needyAttribute;
+                              
+                              else if (!mostPrioritaryAttribute.NeedsCare() || needyAttribute.attribute.IsMorePrioritaryThan(mostPrioritaryAttribute.attribute))
+                                   mostPrioritaryAttribute = needyAttribute;
 
-                              currentObjectiveAttribute = mostPrioritary;
+                              objectiveAttributeToCover = mostPrioritaryAttribute;
                          }
                     }
-                         
                }
                
-               private void DoNextPlanedMapEvent()
+               /// <summary>
+               /// Tries to execute the next planned even in the executionPlans list.
+               /// <para>If the distance to execute the MapEvent is not met, an order to move this MapElement is given instead.</para>
+               /// <para>After executing the next planned event, an order to execute the next one is going to be given immediately.</para>
+               /// <para>It is considered the "next" map event the last one added in the list.</para>
+               /// </summary>
+               /// <returns>True if the behaviour was expected (the planned event was executed successfully, the distance was not met so the object was moved, ...). False if the planned event could not be executed due to unexpected reasons.</returns>
+               private bool DoNextPlanedMapEvents()
                {
-                    if (currentExecutionPlans.IsNullOrEmpty())
+                    if (executionPlans.IsNullOrEmpty())
                     {
                          // Debug.LogError($"Trying to execute the next map event in the execution plan of '{this}', but it does not exist. The Execution Plan is null or empty.");
-                         return;
+                         return true;
                     }
                     
                     // new MoveAction(elementToCoverNeed.gameObject.transform.position)
-                    int indexNextAction = currentExecutionPlans.Count-1;
-                    ExecutionPlan executionPlan = currentExecutionPlans.ElementAt(indexNextAction);
-
-                    List<OwnedAttribute> requirementsNotMet = executionPlan.GetRequirementsNotMet(out List<int> temp);
-                    if (!requirementsNotMet.IsNullOrEmpty())
-                    {
-                         //ToDo: Do something when the requirements are not met
-                         Debug.LogWarning($" > Not executing planed map event {executionPlan}.", gameObject);
-                         requirementsNotMet.DebugLog("\n    ● ", $" > Requirements not met:\n    ● ", gameObject);
-                    }
-                    else if (!executionPlan.IsDistanceMet())
+                    int indexNextAction = executionPlans.Count-1;
+                    ExecutionPlan executionPlan = executionPlans.ElementAt(indexNextAction);
+                    
+                    if (!executionPlan.IsDistanceMet())
                     {
                          // Debug.Log($"Moving '{this}' to '{executionPlan.executionLocation}' to execute '{executionPlan.mapEvent}'");
                          executionPlan.executer.MoveTo(executionPlan.executionLocation);
+                         return true;
                     }
-                    else
-                    {
-                         Debug.Log($"        ◯ Executing next planed map event: {executionPlan}.", gameObject);
-                         if (executionPlan.Execute())
-                         {
-                              currentExecutionPlans.RemoveAt(indexNextAction);
-                              DoNextPlanedMapEvent(); // To enable chain of actions automatically done like "drop and use (before the materials are consumed)"
-                              //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
-                         }
-                         else
-                         {
-                              UpdateExecutionPlans();
-                         }
+                    
+                    Debug.Log($"        ◯ Executing next planed map event: {executionPlan}.", gameObject);
                          
-                    }
+                    if (!executionPlan.Execute())
+                         return false;
+                         
+                    executionPlans.RemoveAt(indexNextAction);
+                    //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
+                    return DoNextPlanedMapEvents(); // To enable chain of actions automatically done like "drop and use (before the materials are consumed)"
                }
           
           #endregion
@@ -183,16 +209,21 @@ namespace Thoughts.Game.GameMap
           #region Movement
 
                /// <summary>
-               /// A reference to this MapElement's "NavMeshAgent". Can be null if the GameObject does not have it as a component.
+               /// A reference to this MapElement's NavMeshAgent. Can be null if the GameObject does not have it as a component.
                /// </summary>
                private NavMeshAgent navMeshAgent;
 
                /// <summary>
-               /// Sets the destination of this object's "NavMeshAgent" and resumes its movement.
+               /// Sets the destination of this object's NavMeshAgent and resumes its movement.
                /// </summary>
                /// <param name="location"></param>
                private void MoveTo(Vector3 location)
                {
+                    if (navMeshAgent == null)
+                    {
+                         Debug.LogWarning($"Trying to move a MapElement ({this.ToString()}) that can not be moved (NavMeshAgent == null).");
+                         return;
+                    }
                     navMeshAgent.SetDestination(location);
                     navMeshAgent.isStopped = false;
                }

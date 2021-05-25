@@ -8,7 +8,7 @@ namespace Thoughts.Game.Attributes
     [Serializable]
     public class AttributeManager
     {
-        public MapElement ownerMapElement { get; private set; }
+        public MapElement owner { get; private set; }
 
         public List<OwnedAttribute> ownedAttributes
         {
@@ -19,17 +19,17 @@ namespace Thoughts.Game.Attributes
 
         public void Initialize(MapElement owner)
         {
-            ownerMapElement = owner;
-            foreach (OwnedAttribute attributeStats in ownedAttributes)
-                attributeStats.UpdateOwner(ownerMapElement);
+            this.owner = owner;
+            foreach (OwnedAttribute attribute in ownedAttributes)
+                attribute.UpdateOwner(this.owner);
         }
 
         public override string ToString()
         {
-            return $"AttributeManager of {ownerMapElement} with attributes '{ownedAttributes}'";
+            return $"AttributeManager of {owner} with attributes '{ownedAttributes}'";
         }
 
-        public void ExecuteSelfTimeElapseActions()
+        public void ExecuteMapEventsWithTimeElapseEnabled()
         {
             if (!ownedAttributes.IsNullOrEmpty())
                 foreach (OwnedAttribute attribute in ownedAttributes)
@@ -37,10 +37,10 @@ namespace Thoughts.Game.Attributes
                     foreach (MapEvent attributeMapEvent in attribute.attribute.mapEvents)
                     {
                         if (attributeMapEvent.executeWithTimeElapse &&
-                            attributeMapEvent.GetRequirementsNotMet(ownerMapElement, ownerMapElement, ownerMapElement, 1, out List<int> temp).IsNullOrEmpty())
+                            attributeMapEvent.GetRequirementsNotMet(owner, owner, owner, 1, out List<int> temp).IsNullOrEmpty())
                         {
                             //Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
-                            attributeMapEvent.Execute(ownerMapElement, ownerMapElement, ownerMapElement);
+                            attributeMapEvent.Execute(owner, owner, owner);
                         }
                     }
                 }
@@ -60,7 +60,7 @@ namespace Thoughts.Game.Attributes
             }
             if (!found)
             {
-                ownedAttributes.Add(new OwnedAttribute(attributeToUpdate, deltaValue, ownerMapElement, false));
+                ownedAttributes.Add(new OwnedAttribute(attributeToUpdate, deltaValue, owner, false));
             }
         }
         public List<OwnedAttribute> GetAttributesThatNeedCare()
@@ -86,7 +86,7 @@ namespace Thoughts.Game.Attributes
             missingValueToCoverInThisAttributeManager = requirement.value * times;
 
             if (times <= 0)
-                Debug.LogWarning($"   - Attention: Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times!.\n");
+                Debug.LogWarning($"   - Attention: Checking if the AttributeManager of '{owner}' can cover the requirement '{requirement.ToString()}' {times} times!.\n");
             //else Debug.Log($"   - Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times. Amount of value to gain: {missingValueToCoverInThisAttributeManager}\n");
 
 
@@ -116,8 +116,8 @@ namespace Thoughts.Game.Attributes
                     return ownedAttribute;
             }
             //ToDo: adding the attribute (next lines) should be done in another method. Maybe calling a new method calling 'GetOwnedAttributeAndAddItIfNotFound' should  be created to call them both
-            Debug.Log($"   Attribute '{attribute}' not found in '{ownerMapElement}' owned attributes. Adding the attribute with a value of 0.\n", ownerMapElement);
-            OwnedAttribute newAttribute = new OwnedAttribute(attribute, 0, ownerMapElement, false);
+            Debug.Log($"   Attribute '{attribute}' not found in '{owner}' owned attributes. Adding the attribute with a value of 0.\n", owner);
+            OwnedAttribute newAttribute = new OwnedAttribute(attribute, 0, owner, false);
             ownedAttributes.Add(newAttribute);
             return newAttribute;
         }
@@ -140,7 +140,7 @@ namespace Thoughts.Game.Attributes
                         if (executionsToCover < 0) // The executionPlan can not cover the attribute
                             continue;
 
-                        List<OwnedAttribute> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(ownerMapElement, executer, target, executionPlan.executionTimes, out List<int> temp);
+                        List<OwnedAttribute> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(owner, executer, target, executionPlan.executionTimes, out List<int> temp);
 
                         if (mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()))
                         {

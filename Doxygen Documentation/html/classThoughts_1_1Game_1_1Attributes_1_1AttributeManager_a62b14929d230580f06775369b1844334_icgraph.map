@@ -1,5 +1,5 @@
 <map id="Thoughts.Game.Attributes.AttributeManager.GetExecutionPlanToCover" name="Thoughts.Game.Attributes.AttributeManager.GetExecutionPlanToCover">
 <area shape="rect" id="node1" title=" " alt="" coords="823,5,1255,32"/>
 <area shape="rect" id="node2" href="$classThoughts_1_1Game_1_1GameMap_1_1Map.html#aaeaab706752d6112da49c2642970e52c" title="Look for all MapEvents available in the map that, as consequence of the event, they make a desired at..." alt="" coords="412,5,775,32"/>
-<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameManager.html#a1b37dca3b3a7f67261f293196dc07ac4" title="Recursively look for all MapEvents available in the game&#39;s map that, as consequence of the event,..." alt="" coords="5,5,364,32"/>
+<area shape="rect" id="node3" href="$classThoughts_1_1Game_1_1GameManager.html#a681979efa883e7985a9243c5345c4b09" title="Recursively look for all MapEvents available in the game&#39;s map that, as consequence of the event,..." alt="" coords="5,5,364,32"/>
 </map>
