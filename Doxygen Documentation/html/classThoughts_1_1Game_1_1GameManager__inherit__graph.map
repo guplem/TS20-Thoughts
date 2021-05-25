@@ -1,4 +1,4 @@
 <map id="Thoughts.Game.GameManager" name="Thoughts.Game.GameManager">
-<area shape="rect" id="node1" title="Controls the core aspects of the a game: participants (control systems), map setup,..." alt="" coords="5,131,272,252"/>
-<area shape="rect" id="node2" title=" " alt="" coords="83,5,194,83"/>
+<area shape="rect" id="node1" title="Controls the core aspects of the a game: participants (control systems), map setup,..." alt="" coords="5,131,208,252"/>
+<area shape="rect" id="node2" title=" " alt="" coords="51,5,162,83"/>
 </map>

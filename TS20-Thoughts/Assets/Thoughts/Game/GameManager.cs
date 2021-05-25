@@ -51,16 +51,12 @@ namespace Thoughts.Game
         /// </summary>
         /// <param name="attributeToCover">The owned attribute to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
-        /// <param name="executer">Map element that is going to execute the "execution plans)"execution plans".</param>
+        /// <param name="executer">Map element that is going to execute the "execution plans".</param>
         /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the "attributeToCover".</param>
         /// <param name="iteration">The iteration number of the this method's recursive execution. Should start as 0.</param>
         /// <returns></returns>
         public List<ExecutionPlan> GetExecutionPlanToCover([NotNull] OwnedAttribute attributeToCover, int valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
         {
-            if (attributeToCover == null)
-                throw new ArgumentNullException(nameof(attributeToCover));
-            
-            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{attributeToCover.attribute}' owned by '{attributeToCover.ownerMapElement}' executed by '{executer}'.    Iteration {iteration}.\n");
             
             if (iteration >= 50)
             {
@@ -68,6 +64,8 @@ namespace Thoughts.Game
                 mapEventsToExecute.DebugLog("\n - ", " ◙ So far, the execution path found was: \n");
                 return null;
             }
+            
+            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{attributeToCover.attribute}' owned by '{attributeToCover.ownerMapElement}' executed by '{executer}'.    Iteration {iteration}.\n");
             
             if (mapEventsToExecute == null) 
                 mapEventsToExecute = new List<ExecutionPlan>();
