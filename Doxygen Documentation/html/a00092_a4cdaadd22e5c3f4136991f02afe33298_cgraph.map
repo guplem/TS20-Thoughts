@@ -1,4 +1,0 @@
-<map id="Thoughts.AppManager.Awake" name="Thoughts.AppManager.Awake">
-<area shape="rect" id="node1" title="Tries to set up this AppManager as singleton instance. If possible, marks the GameObject containing t..." alt="" coords="5,5,200,32"/>
-<area shape="rect" id="node2" href="$a00092.html#a0f1cf13d1debe8f7974e2e39ae621533" title="If there is no other instance of an AppManager, this is set as it. Being the only one following the S..." alt="" coords="248,5,505,32"/>
-</map>

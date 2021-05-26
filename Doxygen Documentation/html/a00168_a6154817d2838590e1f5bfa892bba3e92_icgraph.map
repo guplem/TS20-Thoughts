@@ -1,6 +1,0 @@
-<map id="Thoughts.Game.GameMap.ExecutionPlan.Execute" name="Thoughts.Game.GameMap.ExecutionPlan.Execute">
-<area shape="rect" id="node1" title="If possible, executes the" alt="" coords="1197,5,1516,32"/>
-<area shape="rect" id="node2" href="$a00180.html#a12d0c94d46387b1b6d6438a18abe1ae1" title="Tries to execute the next planned even in the executionPlans list." alt="" coords="743,5,1149,32"/>
-<area shape="rect" id="node3" href="$a00180.html#adee97d919cd347b64624b88c0803b304" title="Controls the internal clock of the MapElement." alt="" coords="340,5,695,32"/>
-<area shape="rect" id="node4" href="$a00180.html#a7ea4d63b54905bfb93e1236242ee6afe" title="Starts running the MapElement&#39;s clock." alt="" coords="5,5,292,32"/>
-</map>
