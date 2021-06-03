@@ -1,6 +1,5 @@
 ﻿#if UNITY_EDITOR
 using System;
-using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
@@ -18,28 +17,27 @@ namespace Essentials.EssentialsSettings
             if (!InternalEditorUtility.isHumanControllingUs || InternalEditorUtility.inBatchMode)
                 return;
 
-            if (!EssentialsSettings.settingsShown)
+            if (!SavedData.settingsShown)
             {
                 EditorApplication.delayCall += () =>
                 {
                     OpenWindow();
-                    EssentialsSettings.settingsShown = true;
+                    SavedData.settingsShown = true;
                 };
             }
 
         }
-
-        // Add menu named "My Window" to the Window menu
+        
         [MenuItem("Window/Essentials/Settings")]
         static void OpenWindow()
         {
             // Get existing open window or if none, make a new one:
             SettingsWindow window = CreateWindow<SettingsWindow>();
-            //SettingsWindow window = (SettingsWindow)EditorWindow.GetWindow(typeof(SettingsWindow), false, "Essentials' Settings and Modifications");
+            //SettingsWindow window = (SettingsWindow)EditorWindow.GetWindow(typeof(SettingsWindow), false, "Essentials' Settings and Adjustments");
             var windowSize = new Vector2(600f, 420f);
             window.minSize = window.maxSize = windowSize;
-            window.position = Utils.GetWindowCenteredPosition(windowSize);
-            window.titleContent = new GUIContent("Essentials' Settings and Modifications");
+            window.position = Utils.GetEditorWindowCenteredPosition(windowSize);
+            window.titleContent = new GUIContent("Essentials' Settings and Adjustments");
             window.Show();
             window.Focus();
         }
@@ -56,39 +54,39 @@ namespace Essentials.EssentialsSettings
             if (implementations != null && implementations.Length != 0)
             {
                 
-                GUILayout.Label("Recommended modifications:");
+                GUILayout.Label("Available adjustments:");
                 
                 EditorGUILayout.BeginHorizontal();
                 
                 EditorGUILayout.BeginVertical();
-                foreach (var modificationType in implementations)
+                foreach (Type adjustmentType in implementations)
                 {
-                    IModification modification = (IModification) Activator.CreateInstance(modificationType);
-                    if (!modification.showInSettingsWindow)
+                    IAdjustment adjustment = (IAdjustment) Activator.CreateInstance(adjustmentType);
+                    if (!adjustment.showInSettingsWindow)
                         continue;
-                    GUILayout.Label($" • {modification.title}");
+                    GUILayout.Label($" • {adjustment.title}");
                 }
                 EditorGUILayout.EndVertical();
                 
                 EditorGUILayout.BeginVertical();
-                foreach (var modificationType in implementations)
+                foreach (Type adjustmentType in implementations)
                 {
                     
-                    IModification modification = (IModification) Activator.CreateInstance(modificationType);
-                    if (!modification.showInSettingsWindow)
+                    IAdjustment adjustment = (IAdjustment) Activator.CreateInstance(adjustmentType);
+                    if (!adjustment.showInSettingsWindow)
                         continue;
                     
                     EditorGUILayout.BeginHorizontal();
                     
-                    if (GUILayout.Button(new GUIContent(modification.infoButtonText, $"Open {modification.infoURL}")))
-                        modification.OpenInfoURL();
+                    if (GUILayout.Button(new GUIContent(adjustment.infoButtonText, $"Open {adjustment.infoURL}")))
+                        adjustment.OpenInfoURL();
                     GUILayout.Label(""); //Separation
                     GUILayout.Label(""); //Separation
                     
-                    if (GUILayout.Button(new GUIContent(modification.applyButtonText, modification.applyModificationShortEplanation)))
-                        modification.Apply();
-                    if (GUILayout.Button(new GUIContent(modification.revertButtonText, modification.revertModificationShortEplanation)))
-                        modification.Revert();
+                    if (GUILayout.Button(new GUIContent(adjustment.applyButtonText, adjustment.applyAdjustmentShortExplanation)))
+                        adjustment.Apply();
+                    if (GUILayout.Button(new GUIContent(adjustment.revertButtonText, adjustment.revertAdjustmentShortExplanation)))
+                        adjustment.Revert();
 
                     EditorGUILayout.EndHorizontal();
                 }
@@ -102,19 +100,19 @@ namespace Essentials.EssentialsSettings
                 EditorGUILayout.BeginHorizontal();
                 if (GUILayout.Button("Apply all"))
                 {
-                    foreach (var modificationType in implementations)
+                    foreach (Type adjustmentType in implementations)
                     {
-                        IModification modification = (IModification) Activator.CreateInstance(modificationType);
-                        modification.Apply();
+                        IAdjustment adjustment = (IAdjustment) Activator.CreateInstance(adjustmentType);
+                        adjustment.Apply();
                     }
                 }
 
                 if (GUILayout.Button("Revert all"))
                 {
-                    foreach (var modificationType in implementations)
+                    foreach (Type adjustmentType in implementations)
                     {
-                        IModification modification = (IModification) Activator.CreateInstance(modificationType);
-                        modification.Revert();
+                        IAdjustment adjustment = (IAdjustment) Activator.CreateInstance(adjustmentType);
+                        adjustment.Revert();
                     }
                 }
                 EditorGUILayout.EndHorizontal();
@@ -133,14 +131,14 @@ namespace Essentials.EssentialsSettings
                 style.alignment = defaultAlignment;
             #endregion
             
-            #region ModificationsSearch
+            /*
             EditorGUILayout.BeginHorizontal();
-            if (implementations != null) EditorGUILayout.LabelField($"Found {implementations.Count()} modifications", EditorStyles.helpBox);
+            if (implementations != null) EditorGUILayout.LabelField($"Found {implementations.Count()} adjustments", EditorStyles.helpBox);
             if (implementations == null) EditorGUILayout.LabelField($"NO IMPLEMENTATIONS FOUND");
-            if (GUILayout.Button(new GUIContent("Search for modifications", "Search for any implementation of the abstract class 'Modification' to be displayed in this window." )) && implementations == null)
+            if (GUILayout.Button(new GUIContent("Search for adjustments", "Search for any implementation of the abstract class 'Adjustment' to be displayed in this window." )) && implementations == null)
                 SearchConfigurationModifiers();
             EditorGUILayout.EndHorizontal();
-            #endregion
+            */
             
             GUILayout.Label("");
             EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -149,11 +147,17 @@ namespace Essentials.EssentialsSettings
             #region Links
             EditorGUILayout.BeginHorizontal();
             if (GUILayout.Button(new GUIContent("Rate the asset! ❤️", "Open the Asset Store page of the asset, so you can rate it, share it or give any kind of love you want!" )))
-                Application.OpenURL("https://assetstore.unity.com/packages/slug/161141");
+                EssentialsHelp.OpenLinkRateAsset();
             if (GUILayout.Button(new GUIContent("Give feedback or any ideas! 💡", "Open a form to share any thoughts you have about the asset, so we can keep improving." )))
-                Application.OpenURL("https://forms.gle/diuUu6nZHAf5T67C9");
+                EssentialsHelp.OpenLinkFeedback();
             if (GUILayout.Button(new GUIContent("About me  : )", "Open my personal webpage where you can know more about me!" )))
-                Application.OpenURL("https://TriunityStudios.com");
+                EssentialsHelp.OpenLinkAboutMe();
+            EditorGUILayout.EndHorizontal();
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button(new GUIContent("Quick Documentation", "Open the online document containing the quick documentation of the latest version of the asset." )))
+                EssentialsHelp.OpenLinkDocumentation();
+            if (GUILayout.Button(new GUIContent("Scripting Documentation", "Open the online scripting documentation of the latest version of the asset." )))
+                EssentialsHelp.OpenLinkScriptingDocumentation();
             EditorGUILayout.EndHorizontal();
             #endregion
         }
@@ -163,7 +167,7 @@ namespace Essentials.EssentialsSettings
         /// </summary>
         private void SearchConfigurationModifiers()
         {
-            implementations = Essentials.Utils.GetTypeImplementationsNotUnityObject<IModification>();
+            implementations = Utils.GetTypeImplementationsNotUnityObject<IAdjustment>();
         }
     }
 }

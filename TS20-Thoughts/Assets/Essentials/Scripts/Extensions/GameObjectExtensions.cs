@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-
-namespace UnityEngine
+﻿namespace UnityEngine
 {
+    /// <summary>
+    /// Extensions for GameObject
+    /// </summary>
     public static class GameObjectExtensions
     {
         /// <summary>

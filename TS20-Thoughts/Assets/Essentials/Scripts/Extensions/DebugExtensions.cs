@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 
 namespace UnityEngine
 {
+    /// <summary>
+    /// Extensions for Debug
+    /// </summary>
+    /// 
     public static class DebugExtensions
     {
-
         /// <summary>
         /// Creates a 'Debug.Log' message with all the contents in the enumerable.
         /// </summary>

@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace UnityEngine
 {
+    /// <summary>
+    /// An easier to use and a feature-rich class to generate pseudo-random results.
+    /// </summary>
     public class RandomEssentials : System.Random
     {
+
+        #region Constructors
+        
         /// <summary>
         /// Creates a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.
         /// <para>Initializes pseudo-random number generator using a default seed value.</para>
@@ -19,12 +22,35 @@ namespace UnityEngine
         /// Creates a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.
         /// <para>Initializes pseudo-random number generator, using the specified seed value.</para>
         /// <para>Using a custom seed ensures that the generated results will be the same (in the same order) all the times the same seed is used.</para>
+        /// <param name="seed">A number used to calculate a starting value for the pseudo-random number sequence. If a negative number is specified, the absolute value of the number is used. </param>
         /// </summary>
         public RandomEssentials(int seed) : base(seed)
         {
         }
+        
+        /// <summary>
+        /// Creates a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.
+        /// <para>Initializes pseudo-random number generator using a default seed value.</para>
+        /// </summary>
+        /// <returns>A new instance a pseudo-random number generator of type "RandomEssentials".</returns>
+        public static RandomEssentials GetNew()
+        {
+            return new RandomEssentials();
+        }
+        
+        /// <summary>
+        /// Creates a pseudo-random number generator, which is an algorithm that produces a sequence of numbers that meet certain statistical requirements for randomness.
+        /// </summary>
+        /// <param name="seed">A number used to calculate a starting value for the pseudo-random number sequence. If a negative number is specified, the absolute value of the number is used. </param>
+        /// <returns>A new instance a pseudo-random number generator of type "RandomEssentials".</returns>
+        public static RandomEssentials GetNew(int seed)
+        {
+            return new RandomEssentials(seed);
+        }
+        
+        #endregion
 
-
+        #region Int
 
         /// <summary>
         /// <para>Returns a non-negative random integer between 0 (included) and Int32.MaxValue (excluded).</para>
@@ -57,6 +83,10 @@ namespace UnityEngine
             return Next(inclusiveMinimum, exclusiveMaximum);
         }
 
+        #endregion
+
+        #region Sign
+
         /// <summary>
         /// Returns a random sign as -1 or +1.
         /// </summary>
@@ -67,7 +97,9 @@ namespace UnityEngine
             return GetRandomBool(negativeProbability) ? -1 : 1;
         }
 
+        #endregion
 
+        #region Bool
 
         /// <summary>
         /// Returns a random bool.
@@ -130,7 +162,9 @@ namespace UnityEngine
              */
         }
 
+        #endregion
 
+        #region Float
 
         /// <summary>
         /// Returns a random float between 0 (included) and 1 (excluded)
@@ -162,8 +196,10 @@ namespace UnityEngine
             return Convert.ToSingle(NextDouble() * (exclusiveMaximum - inclusiveMinimum)) + inclusiveMinimum;
         }
 
-       
-        
+        #endregion
+
+        #region Vectors
+
         /// <summary>
         /// Returns a random Vector3 with each parameter within a specified range.
         /// </summary>
@@ -185,17 +221,95 @@ namespace UnityEngine
         {
             return new Vector2(GetRandomFloat(inclusiveMinimum, exclusiveMaximum), GetRandomFloat(inclusiveMinimum, exclusiveMaximum));
         }
-        
 
-        
+        #endregion
+
+        #region Bytes
+
         /// <summary>
         /// Fills the elements of a specified array of bytes with random numbers.
         /// </summary>
-        /// <param name="buffer">The array to be filled with random numbers.</param>
-        public void GetRandomBytes(Byte[] buffer)
+        /// <param name="bytesArray">The array to be filled with random numbers.</param>
+        public void SetRandomBytes(Byte[] bytesArray)
         {
-            NextBytes(buffer);
+            NextBytes(bytesArray);
         }
+        
+        #endregion
+
+        #region Geometry
+        
+        /// <summary>
+        /// Returns a random point inside a circle.
+        /// </summary>
+        /// <param name="center">The center of the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <returns></returns>
+        public Vector2 GetPointInsideCircle(Vector2 center, float radius = 1f)
+        {
+            double angle = this.NextDouble() * 2 * Math.PI;
+            double r = radius * Math.Sqrt(NextDouble());
+            double x = center.x + r * Math.Cos(angle);
+            double y = center.y + r * Math.Sin(angle);
+            return new Vector2( Convert.ToSingle(x), Convert.ToSingle(y) );
+        }	
+        
+        /// <summary>
+        /// Returns a random point inside a circle with center (0, 0).
+        /// </summary>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <returns></returns>
+        public Vector2 GetPointInsideCircle( float radius = 1f)
+        {
+            return GetPointInsideCircle(Vector2.zero, radius);
+        }	
+        
+        
+        /// <summary>
+        /// Returns a random point on a circle.
+        /// </summary>
+        /// <param name="center">The center of the circle.</param>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <returns></returns>
+        public Vector2 GetPointOnCircle(Vector2 center, float radius = 1f)
+        {
+            double angle = 2.0 * Math.PI * this.NextDouble();
+            double x = center.x + radius * Math.Cos(angle);
+            double y = center.y + radius * Math.Sin(angle);
+            return new Vector2( Convert.ToSingle(x), Convert.ToSingle(y) );
+        }	
+        
+        /// <summary>
+        /// Returns a random point inside a circle with center (0, 0).
+        /// </summary>
+        /// <param name="radius">The radius of the circle.</param>
+        /// <returns></returns>
+        public Vector2 GetPointOnCircle( float radius = 1f)
+        {
+            return GetPointInsideCircle(Vector2.zero, radius);
+        }	
+        
+        // Similar methods to the ones Unity's Random class has
+        //To-do: public Vector3 GetPointInsideSphere(float radius = 1){}	//Returns a random point inside a sphere
+        //To-do: public Vector3 GetPointOnSphere(float radius = 1){}	//Returns a random point on the surface of a sphere
+        
+        // Similar methods to the ones Unity's Random class has
+        //To-do: public Quaternion GetRotation(){}	//Returns a random rotation
+        //To-do: public Quaternion GetRotationUniform(){}	//Returns a random rotation with uniform distribution
+
+        #endregion
+
+        #region Color
+
+        public Color GetColorHSV(float hueMin = 0.0f, float hueMax = 1f, float saturationMin = 0.0f, float saturationMax = 1f, float valueMin = 0.0f, float valueMax = 1f, float alphaMin = 1f, float alphaMax = 1f)
+        {
+            Color rgb = Color.HSVToRGB(Mathf.Lerp(hueMin, hueMax, GetRandomFloat()), Mathf.Lerp(saturationMin, saturationMax, GetRandomFloat()), Mathf.Lerp(valueMin, valueMax, GetRandomFloat()), true);
+            rgb.a = Mathf.Lerp(alphaMin, alphaMax, GetRandomFloat());
+            return rgb;
+        }
+        
+        #endregion
+
 
     }
 }

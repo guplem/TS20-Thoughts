@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace UnityEngine
 {
+    /// <summary>
+    /// Extensions for the Camera component
+    /// </summary>
+    
     public static class CameraExtensions
     {
         /// <summary>

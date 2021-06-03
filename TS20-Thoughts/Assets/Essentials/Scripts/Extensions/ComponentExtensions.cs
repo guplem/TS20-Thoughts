@@ -1,7 +1,9 @@
-﻿using UnityEngine;
-
-namespace UnityEngine
+﻿namespace UnityEngine
 {
+    /// <summary>
+    /// Extensions for Component
+    /// </summary>
+    /// 
     public static class ComponentExtensions
     {
         /// <summary>

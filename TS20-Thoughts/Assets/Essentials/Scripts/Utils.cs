@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEditor;
-using UnityEngine;
+using System.IO;
 
-namespace Essentials
+namespace UnityEngine
 {
+    /// <summary>
+    /// A collection of useful methods that did not fit into any of the other sections of the asset.
+    /// <para>Please, if you can think of any improvement for the organization (or any other matter), report it on the feedback form: https://forms.gle/diuUu6nZHAf5T67C9</para>
+    /// </summary>
     public static class Utils
     {
+
+        #region Types
+
         /// <summary>
         /// Find all implementations of the given parameter type except from those that are a subclass of 'UnityEngine.Object'.
         /// </summary>
@@ -32,14 +39,17 @@ namespace Essentials
             return types.Where(p => interfaceType.IsAssignableFrom(p) && !p.IsAbstract).ToArray();
         }
 
-    #region GetMainWindowCenteredPosition
+        #endregion
+
+        #region GetMainWindowCenteredPosition
+        
         #if UNITY_EDITOR
         /// <summary>
         /// Returns a Rect containing the configuration to center a window.
         /// </summary>
         /// <param name="windowSize">Size of the window that wants to be centered.</param>
         /// <returns></returns>
-        public static Rect GetWindowCenteredPosition(Vector2 windowSize)
+        public static Rect GetEditorWindowCenteredPosition(Vector2 windowSize)
         {
             Rect mainWindowRect = GetEditorMainWindowPos();
             return GetCenteredWindowPosition(mainWindowRect, windowSize);
@@ -98,7 +108,63 @@ namespace Essentials
             return pos;
         }
         #endif
-    #endregion
+        
+        #endregion
+
+        #region Project
+
+        /// <summary>
+        /// Returns the name of the project
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProjectName()
+        {
+            string[] s = Application.dataPath.Split('/');
+            string projectName = s[s.Length - 2];
+            return projectName;
+        }
+        
+        /// <summary>
+        /// Checks if the IO is supported on current platform or not.
+        /// </summary>
+        /// <returns><c>true</c>, if supported was IOed, <c>false</c> otherwise.</returns>
+        public static bool IsIOSupported()
+        {
+            return Application.platform != RuntimePlatform.WebGLPlayer &&
+                   Application.platform != RuntimePlatform.WSAPlayerARM &&
+                   Application.platform != RuntimePlatform.WSAPlayerX64 &&
+                   Application.platform != RuntimePlatform.WSAPlayerX86 &&
+                   Application.platform != RuntimePlatform.tvOS &&
+                   Application.platform != RuntimePlatform.PS4;
+        }
+
+        /// <summary>
+        /// Determines if the string is file path.
+        /// </summary>
+        /// <returns><c>true</c> if is file path the specified str; otherwise, <c>false</c>.</returns>
+        /// <param name="str">String.</param>
+        public static bool IsFilePath(string str)
+        {
+            bool result = false;
+            #if !UNITY_SAMSUNGTV && !UNITY_TVOS && !UNITY_WEBGL
+            if (Path.IsPathRooted(str))
+            {
+                try
+                {
+                    string fullPath = Path.GetFullPath(str);
+                    result = true;
+                }
+                catch (System.Exception)
+                {
+                    result = false;
+                }
+            }
+            #endif
+            return result;
+        }
+        
+        #endregion
+
         
     }
 }

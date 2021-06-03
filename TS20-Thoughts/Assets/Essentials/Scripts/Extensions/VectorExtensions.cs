@@ -1,5 +1,8 @@
 ﻿namespace UnityEngine
 {
+    /// <summary>
+    /// Extensions for Vector
+    /// </summary>
     public static class VectorExtensions
     {
         /// <summary>
@@ -57,16 +60,6 @@
         /// <param name="z">The desired value for the 'z' component on the new Vector 3.</param>
         /// <returns>A new Vector3 with the 'x' and 'y' values equal to the original Vector2.</returns>
         public static Vector3 ToVector3NewZ(this Vector2 v, float z = 0f)
-        {
-            return new Vector3(v.x, v.y, z);
-        }
-
-        /// <summary>
-        /// Creates a new Vector3 keeping the values from the 'x' and 'y' parameters of the original Vector2 in that order.
-        /// </summary>
-        /// <param name="z">The desired value for the 'z' component on the new Vector 3.</param>
-        /// <returns>A new Vector3 with the 'x' and 'y' values equal to the original Vector2.</returns>
-        public static Vector3 ToVector3(this Vector2 v, float z = 0f)
         {
             return new Vector3(v.x, v.y, z);
         }
@@ -186,6 +179,7 @@
                 return new Vector2Int(Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y));
             return new Vector2Int((int) v.x, (int) v.y);
         }
+        
 
     }
 }
