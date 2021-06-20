@@ -125,12 +125,12 @@ namespace Thoughts.Game.GameMap
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
         /// <param name="executionTimes">The amount of times that is desired to execute the event.</param>
-        /// <param name="remainingValueToCoverRequirementsNotMet"></param>
+        /// <param name="remainingValueToCoverInRequirementsNotMet">A list of the value missing for each one of the requirements that are not met (in the same order than the returned list of requirements not met)</param>
         /// <returns>A list of the requirements that are not met at the moment to execute the event.</returns>
-        public List<OwnedAttribute> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes, out List<int> remainingValueToCoverRequirementsNotMet)
+        public List<OwnedAttribute> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes, out List<int> remainingValueToCoverInRequirementsNotMet)
         {
             List<OwnedAttribute> requirementsNotMet = new List<OwnedAttribute>();
-            remainingValueToCoverRequirementsNotMet = new List<int>();
+            remainingValueToCoverInRequirementsNotMet = new List<int>();
             
             foreach (AttributeUpdate requirement in requirements)
             {
@@ -144,21 +144,21 @@ namespace Thoughts.Game.GameMap
                         meets = owner.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(owner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
-                            remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                            remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
                         meets = executer.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(executer.attributeManager.GetOwnedAttributeOf(requirement.attribute));
-                            remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                            remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AttributeUpdate.AttributeUpdateAffected.eventTarget:
                         meets = target.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(target.attributeManager.GetOwnedAttributeOf(requirement.attribute));
-                            remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                            remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     default:

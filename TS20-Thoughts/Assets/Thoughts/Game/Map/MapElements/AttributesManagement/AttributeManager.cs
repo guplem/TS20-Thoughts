@@ -138,7 +138,8 @@ namespace Thoughts.Game.Attributes
                     {
                         MapElement eventOwner = ownedAttribute.ownerMapElement;
                         ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
-                        int executionsToCover = executionPlan.GetAndSetExecutionTimesToExecutionsToCover(attributeToCover, remainingValueToCover);
+                        executionPlan.SetExecutionTimesToCover(attributeToCover, remainingValueToCover);
+                        int executionsToCover = executionPlan.executionTimes;
                         if (executionsToCover < 0) // The executionPlan can not cover the attribute
                             continue;
 
@@ -163,7 +164,7 @@ namespace Thoughts.Game.Attributes
                         if (mapEvent.ConsequencesCover(attributeToCover, target, executer, executer))
                         {
                             ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer);
-                            executionPlan.GetAndSetExecutionTimesToExecutionsToCover(attributeToCover, remainingValueToCover);
+                            executionPlan.SetExecutionTimesToCover(attributeToCover, remainingValueToCover);
                             Debug.Log($" ● Found 'forced' Execution Plan: {executionPlan}\n");
                             return executionPlan;
                         }

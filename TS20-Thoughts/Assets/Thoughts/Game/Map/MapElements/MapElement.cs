@@ -128,7 +128,6 @@ namespace Thoughts.Game.GameMap
                          else
                               Debug.Log($"└> Map Events to execute to cover '{objectiveAttributeToCover.attribute}':\n    ● {executionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
                     }
-                    
                }
                
                /// <summary>
