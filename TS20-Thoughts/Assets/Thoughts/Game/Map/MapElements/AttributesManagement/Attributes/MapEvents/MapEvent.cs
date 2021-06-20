@@ -90,7 +90,7 @@ namespace Thoughts.Game.GameMap
         }
         
         /// <summary>
-        /// Determines if the maximum distance allowed to execute the event is met or not.
+        /// Indicates if the maximum distance allowed to execute the event is met or not.
         /// <para>The distance is checked between the executer and the target, and between the executer and the event owner.</para>
         /// <para>The distance will be always considered as met if the field maxDistance of the event is less than 0 or if the field executeWithTimeElapse of the event is true.</para>
         /// </summary>
@@ -186,7 +186,7 @@ namespace Thoughts.Game.GameMap
         }
 
         /// <summary>
-        /// Checks if the consequences of the execution of this event will increase the value of an attribute owned by a map element.
+        /// Indicates if the consequences of the execution of this event will increase the value of an attribute owned by a map element.
         /// </summary>
         /// <param name="attributeToCover">The desired attribute owned by a MapElement to cover.</param>
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>

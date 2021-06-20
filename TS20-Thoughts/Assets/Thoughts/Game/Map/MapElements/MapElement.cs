@@ -9,7 +9,7 @@ using UnityEngine.AI;
 namespace Thoughts.Game.GameMap
 {
      /// <summary>
-     /// A spawned element of the map.
+     /// A spawned element of the Map.
      /// </summary>
      [SelectionBase]
      public class MapElement : MonoBehaviour
