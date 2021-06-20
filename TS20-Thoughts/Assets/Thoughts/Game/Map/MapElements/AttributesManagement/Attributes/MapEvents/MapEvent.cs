@@ -6,19 +6,61 @@ using UnityEngine;
 namespace Thoughts.Game.GameMap
 {
 
+    /// <summary>
+    /// An event that must be executed by a MapElement. It is part of an attribute.
+    /// </summary>
     [Serializable]
     public class MapEvent
     {
+        /// <summary>
+        /// The name of the event
+        /// </summary>
+        [Tooltip("The name of the event")]
         [SerializeField] public string name = "";
-        [SerializeField] public float maxDistance = 5f; // Ignored if it is <0 or if 'executeWithTimeElapse' is true
+        
+        /// <summary>
+        /// The maximum distance allowed to execute the event. The distance is checked between the executer and the target, and between the executer and the event owner. Ignored if it is less than 0 or if executeWithTimeElapse is true.
+        /// </summary>
+        [Tooltip("The maximum distance allowed to execute the event. The distance is checked between the executer and the target, and between the executer and the event owner. Ignored if it is <0 or if executeWithTimeElapse is true.")]
+        [SerializeField] public float maxDistance = 5f;
+        
+        /// <summary>
+        /// Determines if the event should be executed every time the time elapses in the map.
+        /// </summary>
+        [Tooltip("Determines if the event should be executed every time the time elapses in the map.")]
         [SerializeField] public bool executeWithTimeElapse = false;
-        [SerializeField] public bool executerMustOwnAttribute = false; //TODO. Check if needed. It is used in "Drop"
+        
+        /// <summary>
+        /// Determines if the executer of the event must own the attribute where this event lives in.
+        /// </summary>
+        [Tooltip("Determines if the executer of the event must own the attribute where this event lives in.")]
+        [SerializeField] public bool executerMustOwnAttribute = false;
+        
+        /// <summary>
+        /// List of update to attributes that will be triggered as a consequence of the execution of the MapEvent.
+        /// </summary>
+        [Tooltip("List of update to attributes that will be triggered as a consequence of the execution of the MapEvent.")]
         [SerializeField] public List<AttributeUpdate> consequences = new List<AttributeUpdate>();
-        [Tooltip("If false, in case the requirements are not met and the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed.")]
+        
+        /// <summary>
+        /// Determines whether a plan should be made to cover requirements that are not met at the time of attempting to execute the event.
+        /// <para>If false, in case the requirements are not met and the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed).</para>
+        /// </summary>
+        [Tooltip("If false, in case the requirements are not met and the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed).")]
         [SerializeField] public bool tryToCoverRequirementsIfNotMet = true;
+        
+        /// <summary>
+        /// List of attributes with specific values that must be met in order to execute the event..
+        /// </summary>
+        [Tooltip("List of attributes with specific values that must be met in order to execute the event.")]
         [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
 
-
+        /// <summary>
+        /// Executes the event applying the consequences of it.
+        /// </summary>
+        /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
+        /// <param name="target">The MapElement target of the execution of the event.</param>
+        /// <param name="owner">The MapElement that owns the event.</param>
         public void Execute(MapElement executer, MapElement target, MapElement owner)
         {
             // Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{ownerAttribute}' with target '{target}'.");
@@ -47,26 +89,45 @@ namespace Thoughts.Game.GameMap
             return  (name.IsNullEmptyOrWhiteSpace() ? (this.GetType().Name + " (no name)") : name) ;
         }
         
-        public bool IsDistanceMet(MapElement target, MapElement eventOwner, MapElement executer)
+        /// <summary>
+        /// Determines if the maximum distance allowed to execute the event is met or not.
+        /// <para>The distance is checked between the executer and the target, and between the executer and the event owner.</para>
+        /// <para>The distance will be always considered as met if the field maxDistance of the event is less than 0 or if the field executeWithTimeElapse of the event is true.</para>
+        /// </summary>
+        /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
+        /// <param name="target">The MapElement target of the execution of the event.</param>
+        /// <param name="owner">The MapElement that owns the event.</param>
+        /// <returns></returns>
+        public bool IsDistanceMet(MapElement executer, MapElement target, MapElement owner)
         {
             if (maxDistance < 0)
                 return true;
         
-            Vector3 eventOwnerPosition = eventOwner.transform.position;
+            Vector3 eventOwnerPosition = owner.transform.position;
             
             Vector3 executerPosition = executer.transform.position;
             float distanceOwnerExecuter = Vector3.Distance(eventOwnerPosition, executerPosition);
             
-
             Vector3 targetPosition = target.transform.position;
             float distanceTargetExecuter = Vector3.Distance(eventOwnerPosition, targetPosition);
 
             float currentMaxDistance = Mathf.Max(distanceTargetExecuter, distanceOwnerExecuter);
             //Debug.Log($"CURRENT MAX DISTANCE = {currentMaxDistance}");
+            
             return currentMaxDistance <= maxDistance;
         }
         
-        public List<OwnedAttribute> GetRequirementsNotMet(MapElement eventOwner, MapElement executer, MapElement target, int executionTimes, out List<int> remainingValueToCoverRequirementsNotMet)
+        //ToDo: refactor so instead of returning 2 lists, returns a dictionary
+        /// <summary>
+        /// Returns a list of the requirements that are not met at the moment to execute the event, it and outputs a list of the value missing for each one of the requirements that are not met (in the same order).
+        /// </summary>
+        /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
+        /// <param name="target">The MapElement target of the execution of the event.</param>
+        /// <param name="owner">The MapElement that owns the event.</param>
+        /// <param name="executionTimes">The amount of times that is desired to execute the event.</param>
+        /// <param name="remainingValueToCoverRequirementsNotMet"></param>
+        /// <returns>A list of the requirements that are not met at the moment to execute the event.</returns>
+        public List<OwnedAttribute> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes, out List<int> remainingValueToCoverRequirementsNotMet)
         {
             List<OwnedAttribute> requirementsNotMet = new List<OwnedAttribute>();
             remainingValueToCoverRequirementsNotMet = new List<int>();
@@ -80,9 +141,9 @@ namespace Thoughts.Game.GameMap
                 switch (requirement.affected)
                 {
                     case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                        meets = eventOwner.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = owner.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(eventOwner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
+                            requirementsNotMet.Add(owner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
@@ -124,25 +185,33 @@ namespace Thoughts.Game.GameMap
             return requirementsNotMet;
         }
 
-        public bool ConsequencesCover(OwnedAttribute ownedAttribute, MapElement target, MapElement executer, MapElement owner)
+        /// <summary>
+        /// Checks if the consequences of the execution of this event will increase the value of an attribute owned by a map element.
+        /// </summary>
+        /// <param name="attributeToCover">The desired attribute owned by a MapElement to cover.</param>
+        /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
+        /// <param name="target">The MapElement target of the execution of the event.</param>
+        /// <param name="owner">The MapElement that owns the event.</param>
+        /// <returns>True, if the execution of this MapEvent with this target, executer and owner would increase the value of the given attribute. False, otherwise.</returns>
+        public bool ConsequencesCover(OwnedAttribute attributeToCover, MapElement target, MapElement executer, MapElement owner)
         {
             bool consequenceCoversOwnerOfAttribute = false;
             // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{ownedAttribute.attribute}'.\n");
             foreach (AttributeUpdate consequence in consequences)
             {
                 //Debug.Log($"    $$$$$ Current consequence's attribute = '{consequence.attribute}'.\n");
-                if (consequence.attribute == ownedAttribute.attribute && consequence.value > 0)
+                if (consequence.attribute == attributeToCover.attribute && consequence.value > 0)
                 {
                     switch (consequence.affected)
                     {
                         case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                            consequenceCoversOwnerOfAttribute = ownedAttribute.ownerMapElement == owner;
+                            consequenceCoversOwnerOfAttribute = attributeToCover.ownerMapElement == owner;
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                            consequenceCoversOwnerOfAttribute = ownedAttribute.ownerMapElement == executer;
+                            consequenceCoversOwnerOfAttribute = attributeToCover.ownerMapElement == executer;
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                            consequenceCoversOwnerOfAttribute = ownedAttribute.ownerMapElement == target;
+                            consequenceCoversOwnerOfAttribute = attributeToCover.ownerMapElement == target;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();

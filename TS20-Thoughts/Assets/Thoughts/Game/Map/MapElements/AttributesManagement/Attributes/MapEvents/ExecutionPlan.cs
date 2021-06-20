@@ -78,12 +78,12 @@ public class ExecutionPlan
     
     public bool IsDistanceMet()
     {
-        return mapEvent.IsDistanceMet(target, eventOwner, executer);
+        return mapEvent.IsDistanceMet(executer, target, eventOwner);
     }
     
     public List<OwnedAttribute> GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet)
     {
-        return mapEvent.GetRequirementsNotMet(eventOwner, executer, target, executionTimes, out remainingValueToCoverInRequirementsNotMet);
+        return mapEvent.GetRequirementsNotMet(executer, target, eventOwner, executionTimes, out remainingValueToCoverInRequirementsNotMet);
     }
 
     private int CalculateExecutionsNeededToCover(OwnedAttribute ownedAttributeToCover, int remainingValueToCover)
