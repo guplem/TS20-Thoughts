@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Thoughts.Game
 {
     /// <summary>
-    /// Controls the core aspects of the a game: participants (control systems), map setup, ... 
+    /// Controls the core aspects of the a game: Participant (with ControlSystem), Map setup, ... 
     /// </summary>
     public class GameManager : MonoBehaviour
     {
