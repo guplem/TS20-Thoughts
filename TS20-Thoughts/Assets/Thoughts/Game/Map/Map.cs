@@ -174,7 +174,7 @@ namespace Thoughts.Game.GameMap
             ExecutionPlan foundExecutionPlan = null;
             
             //Trying to cover with an attribute/mapEvent in the target
-            foundExecutionPlan = attributeToCover.ownerMapElement.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
+            foundExecutionPlan = attributeToCover.owner.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
                 
             //Trying to cover with an attribute/mapEvent in the caregiver/executer
             if (foundExecutionPlan == null)

@@ -151,17 +151,17 @@ namespace Thoughts.Game.GameMap
                     switch (consequence.affected)
                     {
                         case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                            if (this.eventOwner == attributeToCover.ownerMapElement)
+                            if (this.eventOwner == attributeToCover.owner)
                                 coveredPerExecution += consequence.value;
 
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                            if (this.executer == attributeToCover.ownerMapElement)
+                            if (this.executer == attributeToCover.owner)
                                 coveredPerExecution += consequence.value;
 
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                            if (this.target == attributeToCover.ownerMapElement)
+                            if (this.target == attributeToCover.owner)
                                 coveredPerExecution += consequence.value;
 
                             break;

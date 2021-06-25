@@ -125,7 +125,7 @@ namespace Thoughts.Game.Attributes
         }
         public ExecutionPlan GetExecutionPlanToCover(OwnedAttribute attributeToCover, int remainingValueToCover, MapElement executer)
         {
-            MapElement target = attributeToCover.ownerMapElement;
+            MapElement target = attributeToCover.owner;
 
             // Debug.Log($" >>> Searching for an execution plan to cover '{remainingValueToCover}' of '{attributeToCover.attribute}' owned by '{attributeToCover.ownerMapElement}' executed by '{executer}'.\n");
 
@@ -134,9 +134,9 @@ namespace Thoughts.Game.Attributes
                 foreach (MapEvent mapEvent in ownedAttribute.attribute.mapEvents)
                 {
                     // Debug.Log($" >>> In '{ownerMapElement}', checking if mapEvent '{mapEvent}' in attribute '{currentOwnedAttribute.attribute}' can cover {remainingValueToCover} missing of the attribute '{ownedAttributeToCover.attribute}'.\nTarget: {target}, Executer: {executer}, EventOwner still unknown.\n");
-                    if (!mapEvent.executerMustOwnAttribute || (mapEvent.executerMustOwnAttribute && ownedAttribute.ownerMapElement == executer))
+                    if (!mapEvent.executerMustOwnAttribute || (mapEvent.executerMustOwnAttribute && ownedAttribute.owner == executer))
                     {
-                        MapElement eventOwner = ownedAttribute.ownerMapElement;
+                        MapElement eventOwner = ownedAttribute.owner;
                         ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
                         executionPlan.SetExecutionTimesToCover(attributeToCover, remainingValueToCover);
                         int executionsToCover = executionPlan.executionTimes;

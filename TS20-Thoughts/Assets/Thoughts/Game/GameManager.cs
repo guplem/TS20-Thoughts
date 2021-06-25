@@ -69,7 +69,7 @@ namespace Thoughts.Game
                 return null;
             }
             
-            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{attributeToCover.attribute}' owned by '{attributeToCover.ownerMapElement}' executed by '{executer}'.    Iteration {iteration}.\n");
+            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{attributeToCover.attribute}' owned by '{attributeToCover.owner}' executed by '{executer}'.    Iteration {iteration}.\n");
             
             if (mapEventsToExecute == null) 
                 mapEventsToExecute = new List<ExecutionPlan>();

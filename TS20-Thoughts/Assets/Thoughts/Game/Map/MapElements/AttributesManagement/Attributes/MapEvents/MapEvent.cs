@@ -205,13 +205,13 @@ namespace Thoughts.Game.GameMap
                     switch (consequence.affected)
                     {
                         case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                            consequenceCoversOwnerOfAttribute = attributeToCover.ownerMapElement == owner;
+                            consequenceCoversOwnerOfAttribute = attributeToCover.owner == owner;
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                            consequenceCoversOwnerOfAttribute = attributeToCover.ownerMapElement == executer;
+                            consequenceCoversOwnerOfAttribute = attributeToCover.owner == executer;
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                            consequenceCoversOwnerOfAttribute = attributeToCover.ownerMapElement == target;
+                            consequenceCoversOwnerOfAttribute = attributeToCover.owner == target;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
