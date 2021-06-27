@@ -67,15 +67,15 @@ namespace Thoughts.Game.GameMap
 
             foreach (AttributeUpdate attributeUpdate in consequences)
             {
-                switch (attributeUpdate.affected)
+                switch (attributeUpdate.affectedMapElement)
                 {
-                    case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                    case AffectedMapElement.eventOwner:
                         owner.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
                     break;
-                    case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                    case AffectedMapElement.eventExecuter:
                         executer.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
                     break;
-                    case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                    case AffectedMapElement.eventTarget:
                         target.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
                     break;
                     default:
@@ -138,23 +138,23 @@ namespace Thoughts.Game.GameMap
                 int remainingValueToCoverRequirementNotMet;
                 bool meets = true;
 
-                switch (requirement.affected)
+                switch (requirement.affectedMapElement)
                 {
-                    case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                    case AffectedMapElement.eventOwner:
                         meets = owner.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(owner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
-                    case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                    case AffectedMapElement.eventExecuter:
                         meets = executer.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(executer.attributeManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
-                    case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                    case AffectedMapElement.eventTarget:
                         meets = target.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
                             requirementsNotMet.Add(target.attributeManager.GetOwnedAttributeOf(requirement.attribute));
@@ -202,15 +202,15 @@ namespace Thoughts.Game.GameMap
                 //Debug.Log($"    $$$$$ Current consequence's attribute = '{consequence.attribute}'.\n");
                 if (consequence.attribute == attributeOwnershipToCover.attribute && consequence.value > 0)
                 {
-                    switch (consequence.affected)
+                    switch (consequence.affectedMapElement)
                     {
-                        case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                        case AffectedMapElement.eventOwner:
                             consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == owner;
                             break;
-                        case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                        case AffectedMapElement.eventExecuter:
                             consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == executer;
                             break;
-                        case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                        case AffectedMapElement.eventTarget:
                             consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == target;
                             break;
                         default:
@@ -219,7 +219,7 @@ namespace Thoughts.Game.GameMap
 
                     if (consequenceCoversOwnerOfAttribute)
                     {
-                        if (consequence.affected == AttributeUpdate.AttributeUpdateAffected.eventTarget)
+                        if (consequence.affectedMapElement == AffectedMapElement.eventTarget)
                         {
                             // The 'target' must not be the 'executer' neither the 'owner'
                             if (target == executer || target == owner)
@@ -237,5 +237,26 @@ namespace Thoughts.Game.GameMap
             
             return false;
         }
+        
     }
+    
+    /// <summary>
+    /// Lists the possible MapElements related to the MapEvent that can be the affected ones to the event execution, requirements, consequences, ...
+    /// </summary>
+    public enum AffectedMapElement
+    {
+        /// <summary>
+        /// The owner of the event
+        /// </summary>
+        eventOwner,
+        /// <summary>
+        /// The executer of the event
+        /// </summary>
+        eventExecuter,
+        /// <summary>
+        /// The target of the event
+        /// </summary>
+        eventTarget
+    }
+    
 }

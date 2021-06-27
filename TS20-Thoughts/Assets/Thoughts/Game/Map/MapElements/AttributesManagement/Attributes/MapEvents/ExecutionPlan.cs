@@ -148,19 +148,19 @@ namespace Thoughts.Game.GameMap
                 //Debug.Log($"CHECKING {consequence.attribute} against {ownedAttributeToCover.attribute}");
                 if (consequence.attribute == attributeOwnershipToCover.attribute)
                 {
-                    switch (consequence.affected)
+                    switch (consequence.affectedMapElement)
                     {
-                        case AttributeUpdate.AttributeUpdateAffected.eventOwner:
+                        case AffectedMapElement.eventOwner:
                             if (this.eventOwner == attributeOwnershipToCover.owner)
                                 coveredPerExecution += consequence.value;
 
                             break;
-                        case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
+                        case AffectedMapElement.eventExecuter:
                             if (this.executer == attributeOwnershipToCover.owner)
                                 coveredPerExecution += consequence.value;
 
                             break;
-                        case AttributeUpdate.AttributeUpdateAffected.eventTarget:
+                        case AffectedMapElement.eventTarget:
                             if (this.target == attributeOwnershipToCover.owner)
                                 coveredPerExecution += consequence.value;
 
