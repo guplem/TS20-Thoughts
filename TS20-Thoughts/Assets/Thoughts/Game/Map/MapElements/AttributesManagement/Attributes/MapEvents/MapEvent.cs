@@ -40,7 +40,7 @@ namespace Thoughts.Game.GameMap
         /// List of update to attributes that will be triggered as a consequence of the execution of the MapEvent.
         /// </summary>
         [Tooltip("List of update to attributes that will be triggered as a consequence of the execution of the MapEvent.")]
-        [SerializeField] public List<AttributeUpdate> consequences = new List<AttributeUpdate>();
+        [SerializeField] public List<Consequence> consequences = new List<Consequence>();
         
         /// <summary>
         /// Determines whether a plan should be made to cover requirements that are not met at the time of attempting to execute the event.
@@ -53,7 +53,7 @@ namespace Thoughts.Game.GameMap
         /// List of attributes with specific values that must be met in order to execute the event..
         /// </summary>
         [Tooltip("List of attributes with specific values that must be met in order to execute the event.")]
-        [SerializeField] public List<AttributeUpdate> requirements = new List<AttributeUpdate>();
+        [SerializeField] public List<Requirement> requirements = new List<Requirement>();
 
         /// <summary>
         /// Executes the event applying the consequences of it.
@@ -65,18 +65,18 @@ namespace Thoughts.Game.GameMap
         {
             // Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{ownerAttribute}' with target '{target}'.");
 
-            foreach (AttributeUpdate attributeUpdate in consequences)
+            foreach (Consequence consequence in consequences)
             {
-                switch (attributeUpdate.affectedMapElement)
+                switch (consequence.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        owner.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        owner.attributeManager.UpdateAttribute(consequence.attribute, consequence.value);
                     break;
                     case AffectedMapElement.eventExecuter:
-                        executer.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        executer.attributeManager.UpdateAttribute(consequence.attribute, consequence.value);
                     break;
                     case AffectedMapElement.eventTarget:
-                        target.attributeManager.UpdateAttribute(attributeUpdate.attribute, attributeUpdate.value);
+                        target.attributeManager.UpdateAttribute(consequence.attribute, consequence.value);
                     break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -132,7 +132,7 @@ namespace Thoughts.Game.GameMap
             List<AttributeOwnership> requirementsNotMet = new List<AttributeOwnership>();
             remainingValueToCoverInRequirementsNotMet = new List<int>();
             
-            foreach (AttributeUpdate requirement in requirements)
+            foreach (Requirement requirement in requirements)
             {
                 //OwnedAttribute attributeThatMostCloselyMeetsTheRequirement;
                 int remainingValueToCoverRequirementNotMet;
@@ -197,7 +197,7 @@ namespace Thoughts.Game.GameMap
         {
             bool consequenceCoversOwnerOfAttribute = false;
             // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{ownedAttribute.attribute}'.\n");
-            foreach (AttributeUpdate consequence in consequences)
+            foreach (Consequence consequence in consequences)
             {
                 //Debug.Log($"    $$$$$ Current consequence's attribute = '{consequence.attribute}'.\n");
                 if (consequence.attribute == attributeOwnershipToCover.attribute && consequence.value > 0)

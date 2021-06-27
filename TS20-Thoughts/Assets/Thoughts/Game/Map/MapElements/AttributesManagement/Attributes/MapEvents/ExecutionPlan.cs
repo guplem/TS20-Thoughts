@@ -143,7 +143,7 @@ namespace Thoughts.Game.GameMap
 
             //Debug.LogWarning($"Calculating how many times '{this.mapEvent}' must be executed to cover '{ownedAttributeToCover.attribute}'...");
 
-            foreach (AttributeUpdate consequence in mapEvent.consequences)
+            foreach (Consequence consequence in mapEvent.consequences)
             {
                 //Debug.Log($"CHECKING {consequence.attribute} against {ownedAttributeToCover.attribute}");
                 if (consequence.attribute == attributeOwnershipToCover.attribute)

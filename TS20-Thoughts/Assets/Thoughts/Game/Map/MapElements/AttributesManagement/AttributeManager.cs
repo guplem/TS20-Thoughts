@@ -83,7 +83,7 @@ namespace Thoughts.Game.Attributes
         /// <param name="times">The amount of times the requirement will have to be met</param>
         /// <param name="missingValueToCoverInThisAttributeManager"></param>
         /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate n times</returns>
-        public bool CanCover(AttributeUpdate requirement, int times, /*out OwnedAttribute attributeInThisAttributeManagerThatCanCoverTheMostTheRequirement, */out int missingValueToCoverInThisAttributeManager)
+        public bool CanCover(Requirement requirement, int times, /*out OwnedAttribute attributeInThisAttributeManagerThatCanCoverTheMostTheRequirement, */out int missingValueToCoverInThisAttributeManager)
         {
             missingValueToCoverInThisAttributeManager = requirement.value * times;
 
