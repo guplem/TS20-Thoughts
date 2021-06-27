@@ -163,9 +163,9 @@ namespace Thoughts.Game.GameMap
     #endregion
 
         /// <summary>
-        /// Look for all MapEvents available in the map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant).
+        /// Look for all MapEvents available in the map that, as consequence of a MapEvent in an Attribute they own, they make a desired AttributeOwnership's value increase for the owner/executer/target (the needed participant).
         /// </summary>
-        /// <param name="attributeOwnershipToCovered attribute to increase the value of.</param>
+        /// <param name="attributeOwnershipToCover"> The AttributeOwnership to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
         /// <param name="executer">Map element that is going to execute the ExecutionPlan.</param>
         /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</returns>

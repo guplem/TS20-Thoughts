@@ -39,10 +39,10 @@ namespace Thoughts.ControlSystems.UI
 
             Clear();
         
-            for (int attributeIndex = 0; attributeIndex < mapElement.attributeManager.ownedAttributes.Count; attributeIndex++)
+            for (int attributeIndex = 0; attributeIndex < mapElement.attributeManager.attributeOwnerships.Count; attributeIndex++)
             {
                 UIAttribute attribute = Instantiate(uiAttributePrefab, GetLocationPosition(attributeIndex),Quaternion.identity , this.transform).GetComponentRequired<UIAttribute>();
-                attribute.Initialize(mapElement.attributeManager.ownedAttributes[attributeIndex], mapElement.povCameraPosition);
+                attribute.Initialize(mapElement.attributeManager.attributeOwnerships[attributeIndex], mapElement.povCameraPosition);
                 uiAttributes.Add(attribute);
             
                 //ToDo: remove next 2 lines to disable automatic selection of an attribute

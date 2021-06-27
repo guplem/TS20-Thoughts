@@ -188,7 +188,7 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// Indicates if the consequences of the execution of this event will increase the value of an attribute owned by a map element.
         /// </summary>
-        /// <param name="attributeOwnershipToCoverired attribute owned by a MapElement to cover.</param>
+        /// <param name="attributeOwnershipToCover">AttributeOwnership to cover.</param>
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>

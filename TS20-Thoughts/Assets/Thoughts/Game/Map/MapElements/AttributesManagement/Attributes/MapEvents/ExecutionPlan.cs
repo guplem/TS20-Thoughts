@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Thoughts.Game.GameMap
 {
     /// <summary>
-    /// The execution configuration for a MapEvent. A plan to execute a MapEvent owned by a MapElement, executed by a MapElement and with a targeted MapElement.
+    /// The execution configuration for a MapEvent. A plan to execute a MapEvent (of an Attribute) owned by a MapElement, executed by a MapElement and with a targeted MapElement.
     /// </summary>
     public class ExecutionPlan
     {
@@ -56,6 +56,11 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// Initializes a new instance of the <see cref="ExecutionPlan"/> class.
         /// </summary>
+        /// <param name="mapEvent">The MapEvent to execute</param>
+        /// <param name="executer">The executor MapElement of the MapEvent</param>
+        /// <param name="target">The targeted MapElement with the execution of the MapEvent</param>
+        /// <param name="eventOwner">The MapElement that owns the MapEvent to execute (in one of its owned Attributes)</param>
+        /// <param name="executionTimes">The amount of times remaining to execute this plan's MapEvent. 1 by default.</param>
         public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner, int executionTimes = 1)
         {
             this.mapEvent = mapEvent;
@@ -134,7 +139,7 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// Calculates the amount of times that the execution of this ExecutionPlan's MapElement is needed to cover a given attribute (to increase its value a defined amount).
         /// </summary>
-        /// <param name="attributeOwnershipToCoverribute that is desired to cover (to increase its value in the MapElement's AttributeManager)</param>
+        /// <param name="attributeOwnershipToCover">AttributeOwnership that is desired to cover (to increase its value in the MapElement's AttributeManager)</param>
         /// <param name="remainingValueToCover">The remaining value to cover for the given Attribute.</param>
         /// <returns></returns>
         private int CalculateExecutionsNeededToCover(AttributeOwnership attributeOwnershipToCover, int remainingValueToCover)
@@ -189,7 +194,7 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// Sets the amount of times remaining to execute this plan's MapEvent to the same amount needed to to cover a given attribute (to increase its value a defined amount).
         /// </summary>
-        /// <param name="attributeOwnershipToCoverribute that is desired to cover (to increase its value in the MapElement's AttributeManager)</param>
+        /// <param name="attributeOwnershipToCover">AttributeOwnership that is desired to cover (to increase its value in the MapElement's AttributeManager)</param>
         /// <param name="remainingValueToCover">The remaining value to cover for the given Attribute.</param>
         public void SetExecutionTimesToCover(AttributeOwnership attributeOwnershipToCover, int remainingValueToCover)
         {

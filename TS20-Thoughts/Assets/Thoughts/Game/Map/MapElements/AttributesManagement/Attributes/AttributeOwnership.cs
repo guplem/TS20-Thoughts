@@ -63,6 +63,9 @@ namespace Thoughts.Game.Attributes
             this.value = value;
             this.owner = owner;
             this.takeCare = takeCare;
+            
+            if (value < 0)
+                Debug.LogWarning($"A new AttributeOwnership has been created with a negative value: {this.ToString()}");
         }
 
         /// <summary>

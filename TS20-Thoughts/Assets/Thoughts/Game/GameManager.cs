@@ -54,7 +54,7 @@ namespace Thoughts.Game
         /// <summary>
         /// Recursively look for all MapEvents available in the game's map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant).
         /// </summary>
-        /// <param name="attributeOwnershipToCovered attribute to increase the value of.</param>
+        /// <param name="attributeOwnershipToCover">AttributeOwnership to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
         /// <param name="executer">Map element that is going to execute the list of ExecutionPlans.</param>
         /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the attributeToCover.</param>
