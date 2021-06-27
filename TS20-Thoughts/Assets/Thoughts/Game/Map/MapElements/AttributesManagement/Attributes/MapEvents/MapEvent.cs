@@ -70,13 +70,13 @@ namespace Thoughts.Game.GameMap
                 switch (consequence.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        owner.attributeManager.UpdateAttribute(consequence.attribute, consequence.value);
+                        owner.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
                     break;
                     case AffectedMapElement.eventExecuter:
-                        executer.attributeManager.UpdateAttribute(consequence.attribute, consequence.value);
+                        executer.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
                     break;
                     case AffectedMapElement.eventTarget:
-                        target.attributeManager.UpdateAttribute(consequence.attribute, consequence.value);
+                        target.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
                     break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -200,7 +200,7 @@ namespace Thoughts.Game.GameMap
             foreach (Consequence consequence in consequences)
             {
                 //Debug.Log($"    $$$$$ Current consequence's attribute = '{consequence.attribute}'.\n");
-                if (consequence.attribute == attributeOwnershipToCover.attribute && consequence.value > 0)
+                if (consequence.attribute == attributeOwnershipToCover.attribute && consequence.deltaValue > 0)
                 {
                     switch (consequence.affectedMapElement)
                     {

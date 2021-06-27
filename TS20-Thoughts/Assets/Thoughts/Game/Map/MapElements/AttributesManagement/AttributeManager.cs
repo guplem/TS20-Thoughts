@@ -85,7 +85,7 @@ namespace Thoughts.Game.Attributes
         /// <returns>True if it contains an attribute with a value higher or equal than the one in the requirement/AttributeUpdate n times</returns>
         public bool CanCover(Requirement requirement, int times, /*out OwnedAttribute attributeInThisAttributeManagerThatCanCoverTheMostTheRequirement, */out int missingValueToCoverInThisAttributeManager)
         {
-            missingValueToCoverInThisAttributeManager = requirement.value * times;
+            missingValueToCoverInThisAttributeManager = requirement.minValue * times;
 
             if (times <= 0)
                 Debug.LogWarning($"   - Attention: Checking if the AttributeManager of '{owner}' can cover the requirement '{requirement.ToString()}' {times} times!.\n");

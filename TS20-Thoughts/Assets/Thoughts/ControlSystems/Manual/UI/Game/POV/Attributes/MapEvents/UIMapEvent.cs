@@ -25,12 +25,12 @@ namespace Thoughts.ControlSystems.UI
             if (mapEvent.requirements.Count > 0)
                 ret += "Requirements:\n";
             foreach (Requirement requirement in mapEvent.requirements)
-                ret += $" - {requirement.attribute}: {requirement.value}\n";
+                ret += $" - {requirement.attribute}: {requirement.minValue}\n";
         
             if (mapEvent.consequences.Count > 0)
                 ret += "Consequences:\n";
             foreach (Consequence consequence in mapEvent.consequences)
-                ret += $" - {consequence.attribute} ({consequence.value})\n";
+                ret += $" - {consequence.attribute} ({consequence.deltaValue})\n";
         
             return ret;
         }

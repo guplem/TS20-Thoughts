@@ -152,17 +152,17 @@ namespace Thoughts.Game.GameMap
                     {
                         case AffectedMapElement.eventOwner:
                             if (this.eventOwner == attributeOwnershipToCover.owner)
-                                coveredPerExecution += consequence.value;
+                                coveredPerExecution += consequence.deltaValue;
 
                             break;
                         case AffectedMapElement.eventExecuter:
                             if (this.executer == attributeOwnershipToCover.owner)
-                                coveredPerExecution += consequence.value;
+                                coveredPerExecution += consequence.deltaValue;
 
                             break;
                         case AffectedMapElement.eventTarget:
                             if (this.target == attributeOwnershipToCover.owner)
-                                coveredPerExecution += consequence.value;
+                                coveredPerExecution += consequence.deltaValue;
 
                             break;
                         default:
