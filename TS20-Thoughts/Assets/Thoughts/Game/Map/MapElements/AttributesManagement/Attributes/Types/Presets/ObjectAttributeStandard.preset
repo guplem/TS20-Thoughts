@@ -25,6 +25,10 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: _needPriority
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: mapEvents.Array.size
     value: 3
     objectReference: {fileID: 0}
@@ -53,11 +57,11 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].value
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].deltaValue
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].affected
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].affectedMapElement
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -65,11 +69,15 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].value
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].deltaValue
     value: -1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].affected
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].affectedMapElement
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].tryToCoverRequirementsIfNotMet
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -81,15 +89,11 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].value
+    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].minValue
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].affected
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].tryToCoverRequirementsIfNotMet
+    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].affectedMapElement
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -117,11 +121,11 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].value
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].deltaValue
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].affected
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].affectedMapElement
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -129,11 +133,15 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].value
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].deltaValue
     value: -1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].affected
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].affectedMapElement
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].tryToCoverRequirementsIfNotMet
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -145,15 +153,11 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].value
+    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].minValue
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].affected
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].tryToCoverRequirementsIfNotMet
+    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].affectedMapElement
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -181,11 +185,15 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].value
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].deltaValue
     value: 30
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].affected
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].affectedMapElement
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].tryToCoverRequirementsIfNotMet
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -197,15 +205,11 @@ Preset:
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].value
+    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].minValue
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].affected
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].tryToCoverRequirementsIfNotMet
+    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].affectedMapElement
     value: 1
     objectReference: {fileID: 0}
   m_ExcludedProperties: []

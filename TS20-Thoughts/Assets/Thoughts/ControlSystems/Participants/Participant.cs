@@ -2,9 +2,14 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems
 {
-    [RequireComponent(typeof(ControlSystem))]
+    /// <summary>
+    /// Each of the members of the the game.
+    /// </summary>
     public class Participant
     {
+        /// <summary>
+        /// The control system of the participant.
+        /// </summary>
         public ControlSystem controlSystem
         {
             get
@@ -24,6 +29,10 @@ namespace Thoughts.ControlSystems
         }
         private ControlSystem _controlSystem;
         
+        /// <summary>
+        /// The class constructor.
+        /// </summary>
+        /// <param name="controlSystem">The control system of the participant.</param>
         public Participant(GameObject controlSystem)
         {
             this.controlSystem = controlSystem.GetComponentRequired<ControlSystem>();

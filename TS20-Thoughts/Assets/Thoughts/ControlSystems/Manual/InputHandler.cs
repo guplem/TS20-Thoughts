@@ -3,11 +3,20 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems
 {
+    /// <summary>
+    /// Handles the input for a Manual ControlSystem
+    /// </summary>
     [RequireComponent(typeof(Manual))]
     public class InputHandler : MonoBehaviour
     {
+        /// <summary>
+        /// Reference to the Manual ControlSystem using the input handled by this InputHandler
+        /// </summary>
         private Manual manualControlSystem;
         
+        /// <summary>
+        /// Initial setup
+        /// </summary>
         private void Awake()
         {
             manualControlSystem = this.GetComponentRequired<Thoughts.ControlSystems.Manual>();
@@ -21,6 +30,9 @@ namespace Thoughts.ControlSystems
             HandleCameraInput();
         }
         
+        /// <summary>
+        /// Handles the input to control the selection
+        /// </summary>
         private void HandleSelection()
         {
             if( Input.GetMouseButtonDown(0) )
@@ -38,16 +50,28 @@ namespace Thoughts.ControlSystems
             }
         }
         
-        private Vector3 mouseStartRotation, mouseCurrentRotation;
+        /// <summary>
+        /// The start rotation of the mouse.
+        /// </summary>
+        private Vector3 mouseStartRotation;
+        
+        /// <summary>
+        /// The current rotation of the mouse.
+        /// </summary>
+        private Vector3 mouseCurrentRotation;
+        
+        /// <summary>
+        /// Handles the input to control the camera
+        /// </summary>
         private void HandleCameraInput()
         {
             bool isFastSpeed = Input.GetButton("Shift");
             
-            // Movement
-            Vector3 desiredTranslation = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
-            manualControlSystem.cameraController.Move(desiredTranslation, isFastSpeed);
+            // Movement of the camera
+            Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")).normalized;
+            manualControlSystem.cameraController.Move(direction, isFastSpeed);
 
-            // Horizontal rotation
+            // Rotation holding middle mouse click
             if (Input.GetButtonDown("Rotation Engager"))
             {
                 mouseStartRotation = Input.mousePosition;
@@ -57,8 +81,10 @@ namespace Thoughts.ControlSystems
                 mouseCurrentRotation = Input.mousePosition;
                 Vector3 difference = mouseStartRotation - mouseCurrentRotation;
                 mouseStartRotation = mouseCurrentRotation;
-                manualControlSystem.cameraController.Rotate(new Vector2(difference.x, difference.y) / 5f, false); // isFastSpeed = false because there is no need for boost when the velocity is controlled by the user's mouse speed
+                manualControlSystem.cameraController.Rotate(new Vector2(difference.x, difference.y) / 5f, false); // isFastSpeed = false, because there is no need for boost when the velocity is controlled by the user's mouse speed
             }
+            
+            // Rotation using Q/E keys
             else
                 manualControlSystem.cameraController.Rotate(new Vector2(-Input.GetAxis("Rotation"), Input.GetAxis("Zoom")*-100), isFastSpeed);
         }

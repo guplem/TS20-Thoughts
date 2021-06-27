@@ -4,10 +4,16 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems
 {
+    /// <summary>
+    /// A local manual control of a participant.
+    /// </summary>
     [RequireComponent(typeof(CameraController))]
     [RequireComponent(typeof(InputHandler))]
     public class Manual : ControlSystem
     {
+        /// <summary>
+        /// The map element selected by the participant using this ControlSystem.
+        /// </summary>
         public MapElement selectedMapElement
         {
             get => _selectedMapElement;
@@ -24,11 +30,26 @@ namespace Thoughts.ControlSystems
             }
         }
         private MapElement _selectedMapElement;
+        
+        /// <summary>
+        /// The Manager of the UI used by this ControlSystem.
+        /// </summary>
+        [Tooltip("The Manager of the UI used by this ControlSystem")]
         [SerializeField] private GameUIManager gameUIManager;
 
+        /// <summary>
+        /// The CameraController used by this ControlSystem.
+        /// </summary>
         public CameraController cameraController { get; private set; }
+        
+        /// <summary>
+        /// The InputHandler used by this ControlSystem.
+        /// </summary>
         public InputHandler inputHandler { get; private set; }
 
+        /// <summary>
+        /// Initial setup of the ControlSystem
+        /// </summary>
         private void Awake()
         {
             cameraController = this.GetComponentRequired<CameraController>();

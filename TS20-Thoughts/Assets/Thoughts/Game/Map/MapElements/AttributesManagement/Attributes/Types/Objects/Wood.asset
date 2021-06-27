@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
   m_Name: Wood
   m_EditorClassIdentifier: 
+  _needPriority: 0
   mapEvents:
   - name: Pick Up
     maxDistance: 2
@@ -19,29 +20,29 @@ MonoBehaviour:
     executerMustOwnAttribute: 0
     consequences:
     - attribute: {fileID: 11400000}
-      value: 10
-      affected: 1
+      deltaValue: 10
+      affectedMapElement: 1
     - attribute: {fileID: 11400000}
-      value: -10
-      affected: 0
+      deltaValue: -10
+      affectedMapElement: 0
+    tryToCoverRequirementsIfNotMet: 0
     requirements:
     - attribute: {fileID: 11400000}
-      value: 10
-      affected: 0
-    tryToCoverRequirementsIfNotMet: 0
+      minValue: 10
+      affectedMapElement: 0
   - name: Drop
     maxDistance: 2
     executeWithTimeElapse: 0
     executerMustOwnAttribute: 1
     consequences:
     - attribute: {fileID: 11400000}
-      value: 10
-      affected: 2
+      deltaValue: 10
+      affectedMapElement: 2
     - attribute: {fileID: 11400000}
-      value: -10
-      affected: 1
+      deltaValue: -10
+      affectedMapElement: 1
+    tryToCoverRequirementsIfNotMet: 1
     requirements:
     - attribute: {fileID: 11400000}
-      value: 10
-      affected: 1
-    tryToCoverRequirementsIfNotMet: 1
+      minValue: 10
+      affectedMapElement: 1
