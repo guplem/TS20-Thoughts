@@ -19,7 +19,7 @@ namespace Thoughts.ControlSystems.UI
                 {
                     _selectedAttribute = value;
                     Debug.Log($"Attribute Selected: {selectedAttribute}");
-                    uiMapEventsManager.ShowUIFor(currentMapElement, selectedAttribute != null? selectedAttribute.attribute : null);
+                    uiMapEventsManager.ShowUIFor(currentMapElement, selectedAttribute != null? selectedAttribute.attributeOwnership : null);
                 }
                     
             }

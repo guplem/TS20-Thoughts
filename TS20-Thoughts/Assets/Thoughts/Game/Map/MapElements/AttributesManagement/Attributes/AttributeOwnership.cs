@@ -8,7 +8,7 @@ namespace Thoughts.Game.Attributes
     /// A relation between an Attribute and a MapElement that owns it.
     /// </summary>
     [Serializable]
-    public class OwnedAttribute
+    public class AttributeOwnership
     {
         /// <summary>
         /// The MapElement that owns the attribute.
@@ -57,7 +57,7 @@ namespace Thoughts.Game.Attributes
         /// <param name="value">The initial value of this relationship.</param>
         /// <param name="owner">The MapEvent that is going to be set as the owner in this relation.</param>
         /// <param name="takeCare">Should the owner try to keep the value of this relationship higher than 0?</param>
-        public OwnedAttribute(Attributes.Attribute attribute, int value, MapElement owner, bool takeCare = false)
+        public AttributeOwnership(Attributes.Attribute attribute, int value, MapElement owner, bool takeCare = false)
         {
             this.attribute = attribute;
             this.value = value;

@@ -94,39 +94,39 @@ namespace Thoughts.Game.GameMap
                /// The current MAIN goal of the MapElement. After setting it, an overwrite of the executionPlans is going to be done.
                /// <para>Attribute whose value is to be increased. The attribute's value that is going to be increased must be owned by this MapElement.</para>
                /// </summary>
-               private OwnedAttribute objectiveAttributeToCover
+               private AttributeOwnership attributeOwnershipToCover
                {
-                    get => _objectiveAttributeToCover;
+                    get => _attributeOwnershipToCover;
                     set
                     {
-                         if (_objectiveAttributeToCover == value)
+                         if (_attributeOwnershipToCover == value)
                               return;
-                         _objectiveAttributeToCover = value;
+                         _attributeOwnershipToCover = value;
                          
                          Debug.Log($"► Updating current objective attribute for '{this.ToString()}' to '{(value!=null?value.attribute.name:"null")}'.");
                          
                          UpdateExecutionPlansToCoverObjectiveAttribute();
                     }
                }
-               [CanBeNull] private OwnedAttribute _objectiveAttributeToCover;
+               [CanBeNull] private AttributeOwnership _attributeOwnershipToCover;
                
                /// <summary>
                /// Overwrites the executionPlans with a plan to cover (at least increasing the value by 1) of the current objectiveAttributeToCover (in this MapElement).
                /// </summary>
                private void UpdateExecutionPlansToCoverObjectiveAttribute()
                {
-                    if (objectiveAttributeToCover == null)
+                    if (attributeOwnershipToCover == null)
                     {
                          executionPlans = null;
                     }
                     else
                     {
-                         executionPlans = AppManager.gameManager.GetExecutionPlanToCover(objectiveAttributeToCover, 1, this);
+                         executionPlans = AppManager.gameManager.GetExecutionPlanToCover(attributeOwnershipToCover, 1, this);
                     
                          if (executionPlans.IsNullOrEmpty())
-                              Debug.LogWarning($"└> An action path to cover the attribute '{objectiveAttributeToCover.attribute}' was not found.\n");
+                              Debug.LogWarning($"└> An action path to cover the attribute '{attributeOwnershipToCover.attribute}' was not found.\n");
                          else
-                              Debug.Log($"└> Map Events to execute to cover '{objectiveAttributeToCover.attribute}':\n    ● {executionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
+                              Debug.Log($"└> Map Events to execute to cover '{attributeOwnershipToCover.attribute}':\n    ● {executionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
                     }
                }
                
@@ -135,25 +135,25 @@ namespace Thoughts.Game.GameMap
                /// </summary>
                private void UpdateObjectiveAttributeToCover()
                {
-                    List<OwnedAttribute> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
+                    List<AttributeOwnership> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
                     
                     if (attributesThatNeedCare.IsNullOrEmpty())
                     {
-                         objectiveAttributeToCover = null;      
+                         attributeOwnershipToCover = null;      
                     }
                     else
                     {
-                         foreach (OwnedAttribute needyAttribute in attributesThatNeedCare)
+                         foreach (AttributeOwnership needyAttribute in attributesThatNeedCare)
                          {
-                              OwnedAttribute mostPrioritaryAttribute = objectiveAttributeToCover;
+                              AttributeOwnership mostPrioritaryAttributeOwnership = attributeOwnershipToCover;
 
-                              if (mostPrioritaryAttribute == null)
-                                   mostPrioritaryAttribute = needyAttribute;
+                              if (mostPrioritaryAttributeOwnership == null)
+                                   mostPrioritaryAttributeOwnership = needyAttribute;
                               
-                              else if (!mostPrioritaryAttribute.NeedsCare() || needyAttribute.attribute.IsMorePrioritaryThan(mostPrioritaryAttribute.attribute))
-                                   mostPrioritaryAttribute = needyAttribute;
+                              else if (!mostPrioritaryAttributeOwnership.NeedsCare() || needyAttribute.attribute.IsMorePrioritaryThan(mostPrioritaryAttributeOwnership.attribute))
+                                   mostPrioritaryAttributeOwnership = needyAttribute;
 
-                              objectiveAttributeToCover = mostPrioritaryAttribute;
+                              attributeOwnershipToCover = mostPrioritaryAttributeOwnership;
                          }
                     }
                }

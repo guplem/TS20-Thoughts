@@ -165,26 +165,26 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// Look for all MapEvents available in the map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant).
         /// </summary>
-        /// <param name="attributeToCover">The owned attribute to increase the value of.</param>
+        /// <param name="attributeOwnershipToCovered attribute to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
         /// <param name="executer">Map element that is going to execute the ExecutionPlan.</param>
         /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</returns>
-        public ExecutionPlan GetExecutionPlanToCover([NotNull] OwnedAttribute attributeToCover, int valueToCover, MapElement executer)
+        public ExecutionPlan GetExecutionPlanToCover([NotNull] AttributeOwnership attributeOwnershipToCover, int valueToCover, MapElement executer)
         {
             ExecutionPlan foundExecutionPlan = null;
             
             //Trying to cover with an attribute/mapEvent in the target
-            foundExecutionPlan = attributeToCover.owner.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
+            foundExecutionPlan = attributeOwnershipToCover.owner.attributeManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
                 
             //Trying to cover with an attribute/mapEvent in the caregiver/executer
             if (foundExecutionPlan == null)
-                foundExecutionPlan = executer.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
+                foundExecutionPlan = executer.attributeManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
             
             //Trying to cover with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
                 foreach (MapElement mapElement in mapElements) // Todo: sort by distance
                 {
-                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
+                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
                     if (foundMapEvent != null)
                         return foundMapEvent;
                 }

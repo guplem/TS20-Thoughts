@@ -54,27 +54,27 @@ namespace Thoughts.Game
         /// <summary>
         /// Recursively look for all MapEvents available in the game's map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant).
         /// </summary>
-        /// <param name="attributeToCover">The owned attribute to increase the value of.</param>
+        /// <param name="attributeOwnershipToCovered attribute to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
         /// <param name="executer">Map element that is going to execute the list of ExecutionPlans.</param>
         /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the attributeToCover.</param>
         /// <param name="iteration">The iteration number of the this method's recursive execution. Should start as 0.</param>
         /// <returns>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</returns>
-        public List<ExecutionPlan> GetExecutionPlanToCover(OwnedAttribute attributeToCover, int valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
+        public List<ExecutionPlan> GetExecutionPlanToCover(AttributeOwnership attributeOwnershipToCover, int valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
         {
             if (iteration >= 50)
             {
-                Debug.LogWarning($" ◙ Stopping the search of an execution plan to cover '{valueToCover}' of '{attributeToCover.attribute}' after {iteration} iterations.\n");
+                Debug.LogWarning($" ◙ Stopping the search of an execution plan to cover '{valueToCover}' of '{attributeOwnershipToCover.attribute}' after {iteration} iterations.\n");
                 mapEventsToExecute.DebugLog("\n - ", " ◙ So far, the execution path found was: \n");
                 return null;
             }
             
-            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{attributeToCover.attribute}' owned by '{attributeToCover.owner}' executed by '{executer}'.    Iteration {iteration}.\n");
+            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{attributeOwnershipToCover.attribute}' owned by '{attributeOwnershipToCover.owner}' executed by '{executer}'.    Iteration {iteration}.\n");
             
             if (mapEventsToExecute == null) 
                 mapEventsToExecute = new List<ExecutionPlan>();
 
-            ExecutionPlan lastExecutionPlan = map.GetExecutionPlanToCover(attributeToCover, valueToCover, executer);
+            ExecutionPlan lastExecutionPlan = map.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
             
             //if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
             //else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
@@ -83,13 +83,13 @@ namespace Thoughts.Game
             {
                 mapEventsToExecute.Add(lastExecutionPlan);
 
-                List<OwnedAttribute> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet);
+                List<AttributeOwnership> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet);
                 if (!requirementsNotMet.IsNullOrEmpty())
                     mapEventsToExecute = GetExecutionPlanToCover(requirementsNotMet[0], remainingValueToCoverInRequirementsNotMet[0], executer, mapEventsToExecute, iteration+1);
             }
             else
             {
-                Debug.LogWarning($" ◙ An execution plan to cover '{valueToCover}' of '{attributeToCover.attribute}' was not found (at the iteration: {iteration}).   The previously found execution plans were:\n    ● {mapEventsToExecute.ToStringAllElements("\n    ● ")}\n", gameObject);
+                Debug.LogWarning($" ◙ An execution plan to cover '{valueToCover}' of '{attributeOwnershipToCover.attribute}' was not found (at the iteration: {iteration}).   The previously found execution plans were:\n    ● {mapEventsToExecute.ToStringAllElements("\n    ● ")}\n", gameObject);
                 return null;
             }
 

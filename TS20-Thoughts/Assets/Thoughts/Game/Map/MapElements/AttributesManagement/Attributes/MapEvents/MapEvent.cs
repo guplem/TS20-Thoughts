@@ -127,9 +127,9 @@ namespace Thoughts.Game.GameMap
         /// <param name="executionTimes">The amount of times that is desired to execute the event.</param>
         /// <param name="remainingValueToCoverInRequirementsNotMet">A list of the value missing for each one of the requirements that are not met (in the same order than the returned list of requirements not met)</param>
         /// <returns>A list of the requirements that are not met at the moment to execute the event.</returns>
-        public List<OwnedAttribute> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes, out List<int> remainingValueToCoverInRequirementsNotMet)
+        public List<AttributeOwnership> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes, out List<int> remainingValueToCoverInRequirementsNotMet)
         {
-            List<OwnedAttribute> requirementsNotMet = new List<OwnedAttribute>();
+            List<AttributeOwnership> requirementsNotMet = new List<AttributeOwnership>();
             remainingValueToCoverInRequirementsNotMet = new List<int>();
             
             foreach (AttributeUpdate requirement in requirements)
@@ -188,30 +188,30 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// Indicates if the consequences of the execution of this event will increase the value of an attribute owned by a map element.
         /// </summary>
-        /// <param name="attributeToCover">The desired attribute owned by a MapElement to cover.</param>
+        /// <param name="attributeOwnershipToCoverired attribute owned by a MapElement to cover.</param>
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
         /// <returns>True, if the execution of this MapEvent with this target, executer and owner would increase the value of the given attribute. False, otherwise.</returns>
-        public bool ConsequencesCover(OwnedAttribute attributeToCover, MapElement target, MapElement executer, MapElement owner)
+        public bool ConsequencesCover(AttributeOwnership attributeOwnershipToCover, MapElement target, MapElement executer, MapElement owner)
         {
             bool consequenceCoversOwnerOfAttribute = false;
             // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{ownedAttribute.attribute}'.\n");
             foreach (AttributeUpdate consequence in consequences)
             {
                 //Debug.Log($"    $$$$$ Current consequence's attribute = '{consequence.attribute}'.\n");
-                if (consequence.attribute == attributeToCover.attribute && consequence.value > 0)
+                if (consequence.attribute == attributeOwnershipToCover.attribute && consequence.value > 0)
                 {
                     switch (consequence.affected)
                     {
                         case AttributeUpdate.AttributeUpdateAffected.eventOwner:
-                            consequenceCoversOwnerOfAttribute = attributeToCover.owner == owner;
+                            consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == owner;
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventExecuter:
-                            consequenceCoversOwnerOfAttribute = attributeToCover.owner == executer;
+                            consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == executer;
                             break;
                         case AttributeUpdate.AttributeUpdateAffected.eventTarget:
-                            consequenceCoversOwnerOfAttribute = attributeToCover.owner == target;
+                            consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == target;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();

@@ -6,23 +6,23 @@ namespace Thoughts.ControlSystems.UI
 {
     public class UIAttribute : UIPovRowElement
     {
-        public OwnedAttribute attribute { get; private set; }
+        public AttributeOwnership attributeOwnership { get; private set; }
         [SerializeField] private new TextMeshPro name;
     
-        public void Initialize(OwnedAttribute attribute, Transform visualizer)
+        public void Initialize(AttributeOwnership attributeOwnership, Transform visualizer)
         {
             Initialize(visualizer);
-            this.attribute = attribute;
+            this.attributeOwnership = attributeOwnership;
             UpdateVisuals();
         }
     
     
         private string GetText()
         {
-            string ret = attribute.attribute.name;
+            string ret = attributeOwnership.attribute.name;
             ret += '\n';
 
-            ret += $"{attribute.value}";
+            ret += $"{attributeOwnership.value}";
         
             return ret;
         }

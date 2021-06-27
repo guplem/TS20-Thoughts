@@ -11,16 +11,16 @@ namespace Thoughts.ControlSystems.UI
         [SerializeField] private GameObject uiMapEventPrefab;
         private List<UIMapEvent> uiMapEvents = new List<UIMapEvent>();
 
-        public void ShowUIFor(MapElement mapElement, OwnedAttribute attribute)
+        public void ShowUIFor(MapElement mapElement, AttributeOwnership attributeOwnership)
         {
-            this.gameObject.SetActive(mapElement != null && attribute != null);
-            if (mapElement == null || attribute == null )
+            this.gameObject.SetActive(mapElement != null && attributeOwnership != null);
+            if (mapElement == null || attributeOwnership == null )
                 return;
 
             Clear();
 
-            List<MapEvent> mapEvents = attribute.attribute.mapEvents.Cast<MapEvent>().ToList();
-            for (int mapEventIndex = 0; mapEventIndex < attribute.attribute.mapEvents.Count; mapEventIndex++)
+            List<MapEvent> mapEvents = attributeOwnership.attribute.mapEvents.Cast<MapEvent>().ToList();
+            for (int mapEventIndex = 0; mapEventIndex < attributeOwnership.attribute.mapEvents.Count; mapEventIndex++)
             {
                 UIMapEvent uiMapEvent = Instantiate(uiMapEventPrefab, GetLocationPosition(mapEventIndex),Quaternion.identity , this.transform).GetComponentRequired<UIMapEvent>();
                 uiMapEvent.Initialize(mapEvents[mapEventIndex], mapElement.povCameraPosition);

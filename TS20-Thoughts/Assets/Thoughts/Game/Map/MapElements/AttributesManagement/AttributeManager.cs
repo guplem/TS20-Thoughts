@@ -10,17 +10,17 @@ namespace Thoughts.Game.Attributes
     {
         public MapElement owner { get; private set; }
 
-        public List<OwnedAttribute> ownedAttributes
+        public List<AttributeOwnership> ownedAttributes
         {
             get { return _ownedAttributes; }
             private set { _ownedAttributes = value; }
         }
-        [SerializeField] private List<OwnedAttribute> _ownedAttributes = new List<OwnedAttribute>();
+        [SerializeField] private List<AttributeOwnership> _ownedAttributes = new List<AttributeOwnership>();
 
         public void Initialize(MapElement owner)
         {
             this.owner = owner;
-            foreach (OwnedAttribute attribute in ownedAttributes)
+            foreach (AttributeOwnership attribute in ownedAttributes)
                 attribute.UpdateOwner(this.owner);
         }
 
@@ -34,7 +34,7 @@ namespace Thoughts.Game.Attributes
             if (ownedAttributes.IsNullOrEmpty())
                 return;
             
-            foreach (OwnedAttribute attribute in ownedAttributes)
+            foreach (AttributeOwnership attribute in ownedAttributes)
             {
                 foreach (MapEvent attributeMapEvent in attribute.attribute.mapEvents)
                 {
@@ -51,7 +51,7 @@ namespace Thoughts.Game.Attributes
         public void UpdateAttribute(Attributes.Attribute attributeToUpdate, int deltaValue)
         {
             bool found = false;
-            foreach (OwnedAttribute managerAttribute in ownedAttributes)
+            foreach (AttributeOwnership managerAttribute in ownedAttributes)
             {
                 if (managerAttribute.attribute == attributeToUpdate)
                 {
@@ -62,13 +62,13 @@ namespace Thoughts.Game.Attributes
             }
             if (!found)
             {
-                ownedAttributes.Add(new OwnedAttribute(attributeToUpdate, deltaValue, owner, false));
+                ownedAttributes.Add(new AttributeOwnership(attributeToUpdate, deltaValue, owner, false));
             }
         }
-        public List<OwnedAttribute> GetAttributesThatNeedCare()
+        public List<AttributeOwnership> GetAttributesThatNeedCare()
         {
-            List<OwnedAttribute> attributesThatNeedCare = new List<OwnedAttribute>();
-            foreach (OwnedAttribute attribute in ownedAttributes)
+            List<AttributeOwnership> attributesThatNeedCare = new List<AttributeOwnership>();
+            foreach (AttributeOwnership attribute in ownedAttributes)
             {
                 if (attribute.NeedsCare())
                     attributesThatNeedCare.Add(attribute);
@@ -92,7 +92,7 @@ namespace Thoughts.Game.Attributes
             //else Debug.Log($"   - Checking if the AttributeManager of '{ownerMapElement}' can cover the requirement '{requirement.ToString()}' {times} times. Amount of value to gain: {missingValueToCoverInThisAttributeManager}\n");
 
 
-            foreach (OwnedAttribute ownedAttribute in ownedAttributes)
+            foreach (AttributeOwnership ownedAttribute in ownedAttributes)
             {
                 if (requirement.attribute != ownedAttribute.attribute)
                     continue;
@@ -110,26 +110,26 @@ namespace Thoughts.Game.Attributes
             return false;
         }
 
-        public OwnedAttribute GetOwnedAttributeOf(Attributes.Attribute attribute)
+        public AttributeOwnership GetOwnedAttributeOf(Attributes.Attribute attribute)
         {
-            foreach (OwnedAttribute ownedAttribute in ownedAttributes)
+            foreach (AttributeOwnership ownedAttribute in ownedAttributes)
             {
                 if (ownedAttribute.attribute == attribute)
                     return ownedAttribute;
             }
             //ToDo: adding the attribute (next lines) should be done in another method. Maybe calling a new method calling 'GetOwnedAttributeAndAddItIfNotFound' should  be created to call them both
             Debug.Log($"   Attribute '{attribute}' not found in '{owner}' owned attributes. Adding the attribute with a value of 0.\n", owner);
-            OwnedAttribute newAttribute = new OwnedAttribute(attribute, 0, owner, false);
-            ownedAttributes.Add(newAttribute);
-            return newAttribute;
+            AttributeOwnership newAttributeOwnership = new AttributeOwnership(attribute, 0, owner, false);
+            ownedAttributes.Add(newAttributeOwnership);
+            return newAttributeOwnership;
         }
-        public ExecutionPlan GetExecutionPlanToCover(OwnedAttribute attributeToCover, int remainingValueToCover, MapElement executer)
+        public ExecutionPlan GetExecutionPlanToCover(AttributeOwnership attributeOwnershipToCover, int remainingValueToCover, MapElement executer)
         {
-            MapElement target = attributeToCover.owner;
+            MapElement target = attributeOwnershipToCover.owner;
 
             // Debug.Log($" >>> Searching for an execution plan to cover '{remainingValueToCover}' of '{attributeToCover.attribute}' owned by '{attributeToCover.ownerMapElement}' executed by '{executer}'.\n");
 
-            foreach (OwnedAttribute ownedAttribute in ownedAttributes)
+            foreach (AttributeOwnership ownedAttribute in ownedAttributes)
             {
                 foreach (MapEvent mapEvent in ownedAttribute.attribute.mapEvents)
                 {
@@ -138,19 +138,19 @@ namespace Thoughts.Game.Attributes
                     {
                         MapElement eventOwner = ownedAttribute.owner;
                         ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
-                        executionPlan.SetExecutionTimesToCover(attributeToCover, remainingValueToCover);
+                        executionPlan.SetExecutionTimesToCover(attributeOwnershipToCover, remainingValueToCover);
                         int executionsToCover = executionPlan.executionTimes;
                         if (executionsToCover < 0) // The executionPlan can not cover the attribute
                             continue;
 
-                        List<OwnedAttribute> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(executer, target, owner, executionPlan.executionTimes, out List<int> temp);
+                        List<AttributeOwnership> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(executer, target, owner, executionPlan.executionTimes, out List<int> temp);
 
                         if (mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()))
                         {
                             // If reached here, the mapEvent can be executed - Now choose if it is the appropriate one
                             Debug.Log($"   > The mapEvent '{mapEvent}' can be executed ({mapEventRequirementsNotMet.Count} requirements must be covered before):\n    - {mapEventRequirementsNotMet.ToStringAllElements("\n    - ")}\n");
 
-                            if (mapEvent.ConsequencesCover(attributeToCover, target, executer, eventOwner))
+                            if (mapEvent.ConsequencesCover(attributeOwnershipToCover, target, executer, eventOwner))
                             {
                                 Debug.Log($" ● Found Execution Plan: {executionPlan}\n");
                                 return executionPlan;
@@ -161,10 +161,10 @@ namespace Thoughts.Game.Attributes
                     else
                     {
                         // Debug.Log($"    The executer ({executer}) must own the attribute '{currentOwnedAttribute.attribute}' to execute '{mapEvent}' but it does not. MapEvent owned by '{currentOwnedAttribute.ownerMapElement}'.\n");
-                        if (mapEvent.ConsequencesCover(attributeToCover, target, executer, executer))
+                        if (mapEvent.ConsequencesCover(attributeOwnershipToCover, target, executer, executer))
                         {
                             ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer);
-                            executionPlan.SetExecutionTimesToCover(attributeToCover, remainingValueToCover);
+                            executionPlan.SetExecutionTimesToCover(attributeOwnershipToCover, remainingValueToCover);
                             Debug.Log($" ● Found 'forced' Execution Plan: {executionPlan}\n");
                             return executionPlan;
                         }
