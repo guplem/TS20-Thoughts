@@ -31,6 +31,12 @@ namespace Thoughts.Game.Attributes
         public AffectedMapElement affectedMapElement = AffectedMapElement.eventOwner;
 
         /// <summary>
+        /// The new State and duration of it for the affected MapElement
+        /// </summary>
+        [Tooltip("The new State and duration of it for the affected MapElement")]
+        public StateUpdate stateUpdate;
+
+        /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         /// <returns>A string that represents the current object.</returns>
@@ -39,5 +45,22 @@ namespace Thoughts.Game.Attributes
             return $"{attribute} (val={deltaValue})";
         }
 
+    }
+
+    /// <summary>
+    /// An update of the State of a MapElement
+    /// </summary>
+    [Serializable]
+    public class StateUpdate
+    {
+        /// <summary>
+        /// The new state of the affected MapElement
+        /// </summary>
+        public State newState;
+        
+        /// <summary>
+        /// The duration of the new state of the affected MapElement
+        /// </summary>
+        public float newStateDuration;
     }
 }

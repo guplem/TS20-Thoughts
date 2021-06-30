@@ -25,7 +25,12 @@ namespace Thoughts.Game.GameMap
           /// The location of the camera for the POV view of the MapElement.
           /// </summary>
           [SerializeField] public Transform povCameraPosition;
-          
+
+          /// <summary>
+          /// The manager of the current state of this MapElement
+          /// </summary>
+          public StateManager stateManager { get; private set; }
+
           #region Behaviour
           
                /// <summary>
@@ -34,6 +39,7 @@ namespace Thoughts.Game.GameMap
                /// </summary>
                private void Awake()
                {
+                    stateManager = new StateManager();
                     attributeManager.Initialize(this);
                     navMeshAgent = GetComponent<NavMeshAgent>();
                }
@@ -70,11 +76,15 @@ namespace Thoughts.Game.GameMap
                     {
                          yield return new WaitForSeconds(AppManager.gameManager.gameClockInterval);
                          
+                         stateManager.Step(AppManager.gameManager.gameClockInterval);
                          attributeManager.ExecuteMapEventsWithTimeElapseEnabled();
-                         UpdateObjectiveAttributeToCover();
-                         if (!DoNextPlanedMapEvents())
+                         if (stateManager.currentState == State.None)
                          {
-                              Debug.LogError("The next planned event could not be executed for unexpected reasons.");
+                              UpdateObjectiveAttributeToCover();
+                              if (!DoNextPlanedMapEvents())
+                              {
+                                   Debug.LogError("The next planned event could not be executed for unexpected reasons.");
+                              }
                          }
                     }
                     
@@ -198,6 +208,10 @@ namespace Thoughts.Game.GameMap
           
           #region Default methods Overrides
 
+               /// <summary>
+               /// Returns a string that represents the current object.
+               /// </summary>
+               /// <returns>A string that represents the current object.</returns>
                public override string ToString()
                {
                     return name;

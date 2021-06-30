@@ -63,7 +63,8 @@ namespace Thoughts.Game.GameMap
         /// <param name="owner">The MapElement that owns the event.</param>
         public void Execute(MapElement executer, MapElement target, MapElement owner)
         {
-            // Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{ownerAttribute}' with target '{target}'.");
+            if (!executeWithTimeElapse)
+                Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{owner}' with target '{target}'.");
 
             foreach (Consequence consequence in consequences)
             {
@@ -71,13 +72,21 @@ namespace Thoughts.Game.GameMap
                 {
                     case AffectedMapElement.eventOwner:
                         owner.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
-                    break;
+                        if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
+                            owner.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
+                        break;
+                    
                     case AffectedMapElement.eventExecuter:
                         executer.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
-                    break;
+                        if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
+                            executer.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
+                        break;
+                    
                     case AffectedMapElement.eventTarget:
                         target.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
-                    break;
+                        if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
+                            target.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
+                        break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
