@@ -1,13 +1,15 @@
  -------------- BLENDER -------------- 
 
-Right click parent part > Select Hierachy
+1. Apply the transforms in blender by selecting all (A) and using the shortcut Ctrl+A, then choose "Rotation & Scale"
 
+2. Right click parent part > Select Hierachy
 
-File > Export > FBX
+3. File > Export > FBX
 
 Settings:
  - Include > Selected Objects
  - Transform > Apply Scalings: FBX All
+ //NO!, Usually doesn't work// - Transform > Apply Transform
 
 Folder: C:\Users\guple\Documents\GitHub\TS20-Thoughts\TS20-Thoughts\Assets\Thoughts\Game\Map\MapElements\Types\ ........
 

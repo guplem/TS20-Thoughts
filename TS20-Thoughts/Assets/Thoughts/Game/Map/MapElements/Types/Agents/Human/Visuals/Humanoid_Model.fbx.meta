@@ -1,14 +1,9 @@
 fileFormatVersion: 2
-guid: b14bfc510536889409536a4630ec4dd7
+guid: c0791cc96fa949548ba6390eba838f1e
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Humanoid
-    second: {fileID: 2100000, guid: 1633cf7d78e48fe49b9289aaf6571dcd, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
