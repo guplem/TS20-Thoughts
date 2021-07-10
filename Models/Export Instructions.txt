@@ -1,0 +1,32 @@
+ -------------- BLENDER -------------- 
+
+Right click parent part > Select Hierachy
+
+
+File > Export > FBX
+
+Settings:
+ - Include > Selected Objects
+ - Transform > Apply Scalings: FBX All
+
+Folder: C:\Users\guple\Documents\GitHub\TS20-Thoughts\TS20-Thoughts\Assets\Thoughts\Game\Map\MapElements\Types\ ........
+
+
+
+
+
+
+
+ -------------- UNITY -------------- 
+
+1. With the Asset selected:
+    - Materials > Materials > Extract Materials... 
+        In Folder: C:\Users\guple\Documents\GitHub\TS20-Thoughts\TS20-Thoughts\Assets\Thoughts\Game\Map\MapElements\Types\ ........ \Visuals\Materials\
+
+2. Import the textures in Unity
+    In Folder: C:\Users\guple\Documents\GitHub\TS20-Thoughts\TS20-Thoughts\Assets\Thoughts\Game\Map\MapElements\Types\ ........ \Visuals\Textures\
+
+3. Configure the materials
+    - Workflow Mode: Specular
+    - Ensure that the textures (maps) are used
+    - Smoothness: 0
