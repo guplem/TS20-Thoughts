@@ -31,4 +31,4 @@ Folder: C:\Users\guple\Documents\GitHub\TS20-Thoughts\TS20-Thoughts\Assets\Thoug
 3. Configure the materials
     - Workflow Mode: Specular
     - Ensure that the textures (maps) are used
-    - Smoothness: 0
+    - Smoothness: 0.1

@@ -155,10 +155,6 @@ namespace Thoughts.Game.GameMap
             spawnedElement = SpawnMapElement(spawnableGameObject, Vector3.zero, Quaternion.identity);
             spawnedElement.gameObject.name = "Guillermo";
             generatedMobs.Add(spawnedElement);
-            
-            spawnedElement = SpawnMapElement(spawnableGameObject, Vector3.zero, Quaternion.identity);
-            spawnedElement.gameObject.name = "Omar";
-            generatedMobs.Add(spawnedElement);
 
             //ToDo: add ownership
 
