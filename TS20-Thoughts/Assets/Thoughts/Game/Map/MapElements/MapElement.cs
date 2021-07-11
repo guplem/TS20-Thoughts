@@ -24,7 +24,14 @@ namespace Thoughts.Game.GameMap
           /// <summary>
           /// The location of the camera for the POV view of the MapElement.
           /// </summary>
+          [Tooltip("The location of the camera for the POV view of the MapElement")]
           [SerializeField] public Transform povCameraPosition;
+          
+          /// <summary>
+          /// Reference to the Animator handling the animations of this MapElement.
+          /// </summary>
+          [Tooltip("Reference to the Animator handling the animations of this MapElement")]
+          [SerializeField] public Animator animator;
 
           /// <summary>
           /// The manager of the current state of this MapElement
@@ -39,7 +46,7 @@ namespace Thoughts.Game.GameMap
                /// </summary>
                private void Awake()
                {
-                    stateManager = new StateManager();
+                    stateManager = new StateManager(this);
                     attributeManager.Initialize(this);
                     navMeshAgent = GetComponent<NavMeshAgent>();
                }
@@ -227,18 +234,45 @@ namespace Thoughts.Game.GameMap
                private NavMeshAgent navMeshAgent;
 
                /// <summary>
-               /// Sets the destination of this object's NavMeshAgent and resumes its movement.
+               /// The last location requested as destination for this MapElement. 
                /// </summary>
-               /// <param name="location"></param>
-               private void MoveTo(Vector3 location)
+               private Vector3 lastRequestedDestination;
+               
+               /// <summary>
+               /// Id of the trigger for the animation 'Move' used in the Animator 
+               /// </summary>
+               private static readonly int moveAnimTriggerId = Animator.StringToHash("Move");
+
+               /// <summary>
+               /// Sets the destination of this object's NavMeshAgent, resumes its movement and plays the 'Move' animation.
+               /// </summary>
+               /// <param name="location">The location to move to.</param>
+               /// <returns>True if the destination was requested successfully. Otherwise, false.</returns>
+               private bool MoveTo(Vector3 location)
                {
+                    if (location == lastRequestedDestination && !navMeshAgent.isStopped)
+                         return true;
+                    
+                    Debug.Log($"Moving MapElement ({this.ToString()}) to {location}. Previous destination = {navMeshAgent.destination}");;
                     if (navMeshAgent == null)
                     {
                          Debug.LogWarning($"Trying to move a MapElement ({this.ToString()}) that can not be moved (NavMeshAgent == null).");
-                         return;
+                         return false;
                     }
-                    navMeshAgent.SetDestination(location);
-                    navMeshAgent.isStopped = false;
+                    
+                    if (navMeshAgent.SetDestination(location))
+                    {
+                         lastRequestedDestination = location;
+                         navMeshAgent.isStopped = false;
+                         animator.SetTrigger(moveAnimTriggerId);
+                         return true;
+                    }
+                    else
+                    {
+                         Debug.LogWarning($"The location {location} could not be requested successfully as a destination for {this.ToString()}");
+                         return false;
+                    }
+                    
                }
 
           #endregion

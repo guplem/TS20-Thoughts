@@ -893,6 +893,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 7742373854863719243}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.size
       value: 3
       objectReference: {fileID: 0}

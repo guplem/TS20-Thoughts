@@ -17,14 +17,21 @@ namespace Thoughts.Game.GameMap
         /// The remaining time (in seconds) of the current state. When the remining time is 0, the state switches to "None". 
         /// </summary>
         public float remainingStateTime { get; private set; }
+        
+        /// <summary>
+        /// The MapElement hosting this StateManager. 
+        /// </summary>
+        private MapElement owner;
 
         /// <summary>
         /// The constructor of the class
         /// </summary>
+        /// <param name="owner">The MapElement hosting this StateManager</param>
         /// <param name="currentState">The initial state of the owner of this StateManager</param>
         /// <param name="remainingStateTime">The initial remaining time of the initial state of this StateManager</param>
-        public StateManager(State currentState = State.None, float remainingStateTime = 0)
+        public StateManager(MapElement owner, State currentState = State.None, float remainingStateTime = 0)
         {
+            this.owner = owner;
             this.currentState = currentState;
             this.remainingStateTime = remainingStateTime;
         }
@@ -52,7 +59,7 @@ namespace Thoughts.Game.GameMap
         }
 
         /// <summary>
-        /// Sets a new State with a remaining time to finish it
+        /// Sets a new State with a remaining time to finish it and plays the animation of the given state at this StateManager owner MapElement
         /// </summary>
         /// <param name="newState">The new State of the StateManager</param>
         /// <param name="timeInState">The remaining time in the new State</param>
@@ -62,6 +69,8 @@ namespace Thoughts.Game.GameMap
             
             currentState = newState;
             remainingStateTime = timeInState;
+            
+            owner.animator.SetTrigger(GetAnimationTriggerId(newState));
         }
 
         /// <summary>
@@ -72,6 +81,38 @@ namespace Thoughts.Game.GameMap
         {
             return $"State '{Enum.GetName(typeof(State), currentState)}' with {remainingStateTime} seconds remaining";
         }
+
+        #region Animations
+
+        /// <summary>
+        /// Id of the trigger for the animation 'Move' used in the Animator 
+        /// </summary>
+        private static readonly int idleAnimTriggerId = Animator.StringToHash("Idle");
+        /// <summary>
+        /// Id of the trigger for the animation 'Work' used in the Animator 
+        /// </summary>
+        private static readonly int workAnimTriggerId = Animator.StringToHash("Work");
+        /// <summary>
+        /// Id of the trigger for the animation 'Work' used in the Animator 
+        /// </summary>
+        private static readonly int restAnimTriggerId = Animator.StringToHash("Rest");
+
+        /// <summary>
+        /// Returns the id of the trigger for the animation of the given state
+        /// </summary>
+        /// <param name="state">The state for which it is wanted to know the trigger id of its animation</param>
+        /// <returns>The id of the trigger for the animation of the given state</returns>
+        private int GetAnimationTriggerId(State state)
+        {
+            switch (state)
+            {
+                case State.Resting: return restAnimTriggerId;
+                case State.Working: return workAnimTriggerId;
+            }
+            return idleAnimTriggerId;
+        }
+
+        #endregion
 
     }
 
