@@ -100,21 +100,22 @@ namespace Thoughts.Game.GameMap
 
           #endregion
           
-          #region Objective Attribute 
-          
+          #region Objective Attribute
+
                /// <summary>
                /// Remaining execution plans to cover the objective attribute to cover
                /// </summary>
-               private List<ExecutionPlan> executionPlans = new List<ExecutionPlan>();
+               public List<ExecutionPlan> executionPlans { get => _executionPlans; private set { _executionPlans = value; } }
+               private List<ExecutionPlan> _executionPlans = new List<ExecutionPlan>();
                
                /// <summary>
                /// The current MAIN goal of the MapElement. After setting it, an overwrite of the executionPlans is going to be done.
                /// <para>Attribute whose value is to be increased. The attribute's value that is going to be increased must be owned by this MapElement.</para>
                /// </summary>
-               private AttributeOwnership attributeOwnershipToCover
+               public AttributeOwnership attributeOwnershipToCover
                {
                     get => _attributeOwnershipToCover;
-                    set
+                    private set
                     {
                          if (_attributeOwnershipToCover == value)
                               return;
