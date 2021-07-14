@@ -51,7 +51,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
@@ -850,7 +850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2905880225441178971, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}
       propertyPath: m_fontSize
-      value: 33.35
+      value: 34.3
       objectReference: {fileID: 0}
     - target: {fileID: 6150282241684315164, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}
       propertyPath: m_Pivot.x
