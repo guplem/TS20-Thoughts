@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Thoughts.Game.Attributes;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 
@@ -9,28 +10,36 @@ public class ExecutionPlanWithObjectiveUI : MonoBehaviour
     /// Reference to the visualization of the objective attribute to cover
     /// </summary>
     [Tooltip("Reference to the visualization of the objective attribute to cover")]
-    [SerializeField] private AttributeUI objectiveAttribute;
+    [SerializeField] private AttributeUI objectiveAttributeUI;
     
     /// <summary>
     /// Reference to the visualization of all the execution plans
     /// </summary>
     [Tooltip("Reference to the visualization of all the execution plans")]
-    [SerializeField] private ExecutionPlansUI executionPlans;
+    [SerializeField] private ExecutionPlansUI executionPlansUI;
 
     /// <summary>
-    /// Displays the objective attribute with the execution plan related to the given MapElement.
+    /// Displays the execution plan 
     /// </summary>
-    /// <param name="mapElement">The MapElement from which you want to display the information in the UI.</param>
-    public void Setup(MapElement mapElement)
+    /// <param name="executionPlans">The ExecutionPlans to display in the UI.</param>
+    public void DisplayExecutionPlans(List<ExecutionPlan> executionPlans)
     {
-        bool showMapElementUI = mapElement != null;
-        
-        this.gameObject.SetActive(showMapElementUI);
+        bool showExecutionPlansUI = executionPlans != null;
+        executionPlansUI.gameObject.SetActive(showExecutionPlansUI);
+        if (showExecutionPlansUI)
+            executionPlansUI.Setup(executionPlans);
+    }
 
-        if (showMapElementUI)
-        {
-            objectiveAttribute.Setup(mapElement.attributeOwnershipToCover);
-            executionPlans.Setup(mapElement.executionPlans);
-        }
+    /// <summary>
+    /// Displays the objective attribute
+    /// </summary>
+    /// <param name="newObjectiveAttribute">The AttributeOwnership that is the objective Attribute to display in the UI.</param>
+    public void DisplayObjectiveAttribute(AttributeOwnership newObjectiveAttribute)
+    {
+        bool showObjectiveAttributeUI = newObjectiveAttribute != null;
+        objectiveAttributeUI.gameObject.SetActive(showObjectiveAttributeUI);
+        if (showObjectiveAttributeUI)
+            objectiveAttributeUI.Setup(newObjectiveAttribute);
+
     }
 }

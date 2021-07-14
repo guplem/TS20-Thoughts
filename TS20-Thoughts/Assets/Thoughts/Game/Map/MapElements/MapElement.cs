@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,13 +21,7 @@ namespace Thoughts.Game.GameMap
           /// </summary>
           [Tooltip("Collection (and manager) of the owned attributes of this 'MapElement'")]
           [SerializeField] public AttributeManager attributeManager = new AttributeManager();
-          
-          /// <summary>
-          /// The location of the camera for the POV view of the MapElement.
-          /// </summary>
-          [Tooltip("The location of the camera for the POV view of the MapElement")]
-          [SerializeField] public Transform povCameraPosition;
-          
+
           /// <summary>
           /// Reference to the Animator handling the animations of this MapElement.
           /// </summary>
@@ -105,8 +100,9 @@ namespace Thoughts.Game.GameMap
                /// <summary>
                /// Remaining execution plans to cover the objective attribute to cover
                /// </summary>
-               public List<ExecutionPlan> executionPlans { get => _executionPlans; private set { _executionPlans = value; } }
+               public List<ExecutionPlan> executionPlans { get => _executionPlans; private set { _executionPlans = value; onExecutionPlansUpdated?.Invoke(_executionPlans); } }
                private List<ExecutionPlan> _executionPlans = new List<ExecutionPlan>();
+               public Action<List<ExecutionPlan>> onExecutionPlansUpdated;
                
                /// <summary>
                /// The current MAIN goal of the MapElement. After setting it, an overwrite of the executionPlans is going to be done.
@@ -122,11 +118,14 @@ namespace Thoughts.Game.GameMap
                          _attributeOwnershipToCover = value;
                          
                          Debug.Log($"► Updating current objective attribute for '{this.ToString()}' to '{(value!=null?value.attribute.name:"null")}'.");
-                         
+
+                         onObjectiveAttributeUpdated?.Invoke(_attributeOwnershipToCover);
+
                          UpdateExecutionPlansToCoverObjectiveAttribute();
                     }
                }
                [CanBeNull] private AttributeOwnership _attributeOwnershipToCover;
+               public Action<AttributeOwnership> onObjectiveAttributeUpdated;
                
                /// <summary>
                /// Overwrites the executionPlans with a plan to cover (at least increasing the value by 1) of the current objectiveAttributeToCover (in this MapElement).

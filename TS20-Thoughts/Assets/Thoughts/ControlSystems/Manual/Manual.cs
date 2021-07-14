@@ -24,7 +24,7 @@ namespace Thoughts.ControlSystems
                     _selectedMapElement = value;
                     gameUIManager.DisplayUIFor(selectedMapElement);
                     Debug.Log($"New Map Element Selected: {selectedMapElement}");
-                    cameraController.SwitchCamera(selectedMapElement == null? CameraController.CameraView.overworld : CameraController.CameraView.pov, selectedMapElement != null ? selectedMapElement.povCameraPosition.transform : null);
+                    //cameraController.SwitchCamera(selectedMapElement == null? CameraController.CameraView.overworld : CameraController.CameraView.pov, selectedMapElement != null ? selectedMapElement.povCameraPosition.transform : null);
                 }
                     
             }
