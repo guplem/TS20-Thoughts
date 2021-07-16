@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Thoughts.Game.Attributes;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 
