@@ -5,6 +5,9 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems.UI
 {
+    /// <summary>
+    /// Controls the display of the information in the UI related to the behavior of a MapElement (objective Attribute and planned ExecutionPlans)
+    /// </summary>
     public class BehaviorUI : MonoBehaviour
     {
         /// <summary>

@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems.UI
 {
+    /// <summary>
+    /// Controls the display of a single Attribute in the UI 
+    /// </summary>
     public class AttributeUI : MonoBehaviour
     {
 

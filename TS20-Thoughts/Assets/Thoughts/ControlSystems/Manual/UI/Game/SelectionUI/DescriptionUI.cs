@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems.UI
 {
+    /// <summary>
+    /// Controls the display of the descriptive information of a MapElement (name, description ...)
+    /// </summary>
     public class DescriptionUI : MonoBehaviour
     {
         /// <summary>

@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems.UI
 {
+    /// <summary>
+    /// Controls the display of the information related to a MapElement (needs -Attributes-, name, description, objects -Attributes-, ...)
+    /// </summary>
     public class SelectionUI : MonoBehaviour
     {
 

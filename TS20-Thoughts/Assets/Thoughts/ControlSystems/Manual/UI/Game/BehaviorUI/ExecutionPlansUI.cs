@@ -4,6 +4,9 @@ using UnityEngine;
 
 namespace Thoughts.ControlSystems.UI
 {
+    /// <summary>
+    /// Controls the display of the planned ExecutionPlans in the UI 
+    /// </summary>
     public class ExecutionPlansUI : MonoBehaviour
     {
 
