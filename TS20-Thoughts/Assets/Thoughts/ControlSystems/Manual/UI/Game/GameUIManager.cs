@@ -24,53 +24,53 @@ namespace Thoughts.ControlSystems.UI
         [SerializeField] private BehaviorUI behaviorUI;
         
         /// <summary>
+        /// Reference to the section of the UI holding the information of the currently selected MapElement
+        /// </summary>
+        [Tooltip("Reference to the section of the UI holding the information of the currently selected MapElement")]
+        [SerializeField] private SelectionUI selectionUI;
+        
+        /// <summary>
         /// Setup of the initial UI for the game (displays the UI for nothing, so no UI)
         /// </summary>
         private void Awake()
         {
-            DisplayUIFor(null);
+            DisplayUIFor(null, true);
         }
 
         /// <summary>
-        /// Displays the UI related to the given MapElement.
+        /// Displays the UI related to the given MapElement and subscribes the UI to changes on that mapElement that should be reflected.
+        /// <para>It also unsubscribes the UI to the changes from the previous map element</para>
         /// </summary>
         /// <param name="mapElement">The MapElement from which you want to display the information in the UI.</param>
-        public void DisplayUIFor(MapElement mapElement)
+        /// <param name="forceUpdate">Ignore if the currently selected MapElement is the same as the new selected MapElement and update the UI as if they were different.</param>
+        public void DisplayUIFor(MapElement mapElement, bool forceUpdate = false)
         {
             Debug.Log($"Displaying UI of '{mapElement}'");
-
-            if (selectedMapElement != null)
+            
+            if (selectedMapElement != mapElement || forceUpdate)
             {
-                selectedMapElement.onExecutionPlansUpdated -= UpdateExecutionPlanUI;
-                selectedMapElement.onObjectiveAttributeUpdated -= UpdateObjectiveAttribute;
-            }
-            selectedMapElement = mapElement;
-            if (selectedMapElement != null)
-            {
-                selectedMapElement.onExecutionPlansUpdated += UpdateExecutionPlanUI;
-                selectedMapElement.onObjectiveAttributeUpdated += UpdateObjectiveAttribute;
+                // Unsubscribe to updates
+                if (selectedMapElement != null)
+                {
+                    selectedMapElement.onExecutionPlansUpdated -= behaviorUI.DisplayExecutionPlans;
+                    selectedMapElement.onObjectiveAttributeUpdated -= behaviorUI.DisplayObjectiveAttribute;
+                }
                 
-                UpdateExecutionPlanUI(selectedMapElement.executionPlans);
-                UpdateObjectiveAttribute(selectedMapElement.attributeOwnershipToCover);
+                // Update
+                selectedMapElement = mapElement;
+                
+                // Activate/Deactivate, get ready and show the current information
+                selectionUI.Setup(selectedMapElement);
+                behaviorUI.Setup(selectedMapElement);
+                
+                // Subscribe to updates
+                if (selectedMapElement != null)
+                {
+                    selectedMapElement.onExecutionPlansUpdated += behaviorUI.DisplayExecutionPlans;
+                    selectedMapElement.onObjectiveAttributeUpdated += behaviorUI.DisplayObjectiveAttribute;
+                }
             }
         }
         
-        /// <summary>
-        /// Updates the currently displayed UI related to the current Attribute objective and the ExecutionPlans of the selected MapElement.
-        /// </summary>
-        private void UpdateExecutionPlanUI(List<ExecutionPlan> newExecutionPlan)
-        {
-            //Debug.Log("*** UPDATE UpdateExecutionPlanUI");
-            behaviorUI.DisplayExecutionPlans(newExecutionPlan);
-        }
-        
-        /// <summary>
-        /// Updates the currently displayed UI related to the objective Attribute 
-        /// </summary>
-        private void UpdateObjectiveAttribute(AttributeOwnership newObjectiveAttribute)
-        {
-            behaviorUI.DisplayObjectiveAttribute(newObjectiveAttribute);
-        }
-
     }
 }

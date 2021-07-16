@@ -7,15 +7,21 @@ using UnityEngine;
 public class AttributeUI : MonoBehaviour
 {
 
-    private AttributeOwnership attributeOwnership;
+    /// <summary>
+    /// A reference to the text component that displays the name of the displayed Attribute
+    /// </summary>
+    [Tooltip("A reference to the text component that displays the name of the displayed Attribute")]
     [SerializeField] private TMP_Text attributeText;
     
+    /// <summary>
+    /// Displays the given Attribute in the UI 
+    /// </summary>
+    /// <param name="attributeOwnership">The AttributeOwnership to display in the UI.</param>
     public void Setup(AttributeOwnership attributeOwnership)
     {
         if (attributeOwnership == null)
             return;
         
-        this.attributeOwnership = attributeOwnership;
         attributeText.text = attributeOwnership.attribute.name;
     }
     

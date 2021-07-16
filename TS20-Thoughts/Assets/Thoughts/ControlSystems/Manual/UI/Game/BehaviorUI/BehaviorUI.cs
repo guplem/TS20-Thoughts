@@ -19,6 +19,19 @@ public class BehaviorUI : MonoBehaviour
     [SerializeField] private ExecutionPlansUI executionPlansUI;
 
     /// <summary>
+    /// Displays the given Attribute as the objective in the UI
+    /// </summary>
+    /// <param name="newObjectiveAttribute">The AttributeOwnership that is the objective Attribute to display in the UI.</param>
+    public void DisplayObjectiveAttribute(AttributeOwnership newObjectiveAttribute)
+    {
+        bool showObjectiveAttributeUI = newObjectiveAttribute != null;
+        objectiveAttributeUI.gameObject.SetActive(showObjectiveAttributeUI);
+        if (showObjectiveAttributeUI)
+            objectiveAttributeUI.Setup(newObjectiveAttribute);
+
+    }
+    
+    /// <summary>
     /// Displays the given execution plan in the UI 
     /// </summary>
     /// <param name="executionPlans">The ExecutionPlans to display in the UI.</param>
@@ -31,15 +44,19 @@ public class BehaviorUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Displays the given Attribute as the objective in the UI
+    /// Displays the behavior information regarding the given selected MapElement
     /// </summary>
-    /// <param name="newObjectiveAttribute">The AttributeOwnership that is the objective Attribute to display in the UI.</param>
-    public void DisplayObjectiveAttribute(AttributeOwnership newObjectiveAttribute)
+    /// <param name="selectedMapElement">The MapElement to show the behavior information of</param>
+    public void Setup(MapElement selectedMapElement)
     {
-        bool showObjectiveAttributeUI = newObjectiveAttribute != null;
-        objectiveAttributeUI.gameObject.SetActive(showObjectiveAttributeUI);
-        if (showObjectiveAttributeUI)
-            objectiveAttributeUI.Setup(newObjectiveAttribute);
+        bool showUI = selectedMapElement != null;
+        
+        gameObject.SetActive(showUI);
 
+        if (showUI)
+        {
+            DisplayExecutionPlans(selectedMapElement.executionPlans);
+            DisplayObjectiveAttribute(selectedMapElement.attributeOwnershipToCover);
+        }
     }
 }
