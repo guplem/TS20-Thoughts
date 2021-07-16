@@ -4,7 +4,7 @@ using Thoughts.Game.Attributes;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 
-public class ExecutionPlanWithObjectiveUI : MonoBehaviour
+public class BehaviorUI : MonoBehaviour
 {
     /// <summary>
     /// Reference to the visualization of the objective attribute to cover
@@ -19,7 +19,7 @@ public class ExecutionPlanWithObjectiveUI : MonoBehaviour
     [SerializeField] private ExecutionPlansUI executionPlansUI;
 
     /// <summary>
-    /// Displays the execution plan 
+    /// Displays the given execution plan in the UI 
     /// </summary>
     /// <param name="executionPlans">The ExecutionPlans to display in the UI.</param>
     public void DisplayExecutionPlans(List<ExecutionPlan> executionPlans)
@@ -31,7 +31,7 @@ public class ExecutionPlanWithObjectiveUI : MonoBehaviour
     }
 
     /// <summary>
-    /// Displays the objective attribute
+    /// Displays the given Attribute as the objective in the UI
     /// </summary>
     /// <param name="newObjectiveAttribute">The AttributeOwnership that is the objective Attribute to display in the UI.</param>
     public void DisplayObjectiveAttribute(AttributeOwnership newObjectiveAttribute)

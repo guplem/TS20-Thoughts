@@ -100,10 +100,10 @@ namespace Thoughts.Game.GameMap
                /// <summary>
                /// Remaining execution plans to cover the objective attribute to cover
                /// </summary>
-               public List<ExecutionPlan> executionPlans { get => _executionPlans; private set { _executionPlans = value; onExecutionPlansUpdated?.Invoke(_executionPlans); } }
+               public List<ExecutionPlan> executionPlans { get => _executionPlans; private set { _executionPlans = value; /*Debug.Log("*** UPDATE ORIGIN - New execution plan"); */onExecutionPlansUpdated?.Invoke(_executionPlans); } }
                private List<ExecutionPlan> _executionPlans = new List<ExecutionPlan>();
                public Action<List<ExecutionPlan>> onExecutionPlansUpdated;
-               
+
                /// <summary>
                /// The current MAIN goal of the MapElement. After setting it, an overwrite of the executionPlans is going to be done.
                /// <para>Attribute whose value is to be increased. The attribute's value that is going to be increased must be owned by this MapElement.</para>
@@ -205,12 +205,24 @@ namespace Thoughts.Game.GameMap
                          
                     if (!executionPlan.Execute())
                          return false;
-                         
-                    executionPlans.RemoveAt(indexNextAction);
+
+                    RemoveExecutionPlanElement(indexNextAction);
+                    
                     //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
                     return DoNextPlanedMapEvents(); // To enable chain of actions automatically done like "drop and use (before the materials are consumed)"
                }
           
+               /// <summary>
+               /// Removes an ExecutonPlan from the executionPlans list 
+               /// </summary>
+               /// <param name="elementIndex">The index of the ExecutionPlan to remove from the executionPlans list</param>
+               public void RemoveExecutionPlanElement(int elementIndex)
+               {
+                    //Debug.Log("*** UPDATE ORIGIN - Element removed");
+                    executionPlans.RemoveAt(elementIndex);
+                    onExecutionPlansUpdated?.Invoke(_executionPlans); 
+               }
+               
           #endregion
           
           #region Default methods Overrides

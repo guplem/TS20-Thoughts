@@ -289,7 +289,7 @@ GameObject:
   - component: {fileID: 2960767228442951274}
   - component: {fileID: 2710079273416255352}
   m_Layer: 0
-  m_Name: ExecutionPlanWithObjective
+  m_Name: BehaviorUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ae7247d5059174b91087d63d40cc5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  executionPlanWithObjective: {fileID: 2710079273416255352}
+  behaviorUI: {fileID: 2710079273416255352}
 --- !u!1001 &5096546478675989607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -422,7 +422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2905880225441178971, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}
       propertyPath: m_fontSize
-      value: 34.3
+      value: 28.05
       objectReference: {fileID: 0}
     - target: {fileID: 6150282241684315164, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}
       propertyPath: m_Pivot.x

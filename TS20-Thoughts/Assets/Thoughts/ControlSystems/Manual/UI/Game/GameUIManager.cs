@@ -18,10 +18,10 @@ namespace Thoughts.ControlSystems.UI
         private MapElement selectedMapElement;
         
         /// <summary>
-        /// Reference to the section of the UI holding the information of the execution plans related to the Attribute objective
+        /// Reference to the section of the UI holding the information of the current ExecutionPlans related to the objective Attribute
         /// </summary>
         [Tooltip("Reference to the section of the UI holding the information of the execution plans related to the Attribute objective")]
-        [SerializeField] private ExecutionPlanWithObjectiveUI executionPlanWithObjective;
+        [SerializeField] private BehaviorUI behaviorUI;
         
         /// <summary>
         /// Setup of the initial UI for the game (displays the UI for nothing, so no UI)
@@ -60,7 +60,8 @@ namespace Thoughts.ControlSystems.UI
         /// </summary>
         private void UpdateExecutionPlanUI(List<ExecutionPlan> newExecutionPlan)
         {
-            executionPlanWithObjective.DisplayExecutionPlans(newExecutionPlan);
+            //Debug.Log("*** UPDATE UpdateExecutionPlanUI");
+            behaviorUI.DisplayExecutionPlans(newExecutionPlan);
         }
         
         /// <summary>
@@ -68,7 +69,7 @@ namespace Thoughts.ControlSystems.UI
         /// </summary>
         private void UpdateObjectiveAttribute(AttributeOwnership newObjectiveAttribute)
         {
-            executionPlanWithObjective.DisplayObjectiveAttribute(newObjectiveAttribute);
+            behaviorUI.DisplayObjectiveAttribute(newObjectiveAttribute);
         }
 
     }
