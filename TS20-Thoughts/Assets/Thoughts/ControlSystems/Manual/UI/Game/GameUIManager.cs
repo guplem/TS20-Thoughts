@@ -43,7 +43,7 @@ namespace Thoughts.ControlSystems.UI
         public void DisplayUIFor(MapElement mapElement, bool forceUpdate = false)
         {
             Debug.Log($"Displaying UI of '{mapElement}'");
-            
+
             if (selectedMapElement != mapElement || forceUpdate)
             {
                 // Unsubscribe to updates

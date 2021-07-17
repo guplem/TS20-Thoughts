@@ -1,5 +1,6 @@
 using Thoughts.Game.GameMap;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Thoughts.ControlSystems
 {
@@ -35,6 +36,9 @@ namespace Thoughts.ControlSystems
         /// </summary>
         private void HandleSelection()
         {
+            if (IsMouseOverUI())
+                return;
+            
             if( Input.GetMouseButtonDown(0) )
             {
                 Ray ray = manualControlSystem.cameraController.camera.ScreenPointToRay( Input.mousePosition );
@@ -50,6 +54,15 @@ namespace Thoughts.ControlSystems
             }
         }
         
+        /// <summary>
+        /// Checks if the mouse is over a UI element
+        /// </summary>
+        /// <returns>True if the mouse is over a UI element, otherwise, false .</returns>
+        private bool IsMouseOverUI()
+        {
+            return EventSystem.current.IsPointerOverGameObject();
+        }
+
         /// <summary>
         /// The start rotation of the mouse.
         /// </summary>
