@@ -17,15 +17,17 @@ namespace Thoughts.ControlSystems.UI
         [SerializeField] private TMP_Text attributeText;
 
         /// <summary>
-        /// Displays the given Attribute in the UI 
+        /// Displays the given Attribute in the UI. Disables the GameObject if the Attribute is null.
         /// </summary>
         /// <param name="attributeOwnership">The AttributeOwnership to display in the UI.</param>
         public void Setup(AttributeOwnership attributeOwnership)
         {
-            if (attributeOwnership == null)
-                return;
+            bool display = attributeOwnership != null;
 
-            attributeText.text = attributeOwnership.attribute.name;
+            gameObject.SetActive(display);
+
+            if (display)
+                attributeText.text = attributeOwnership.attribute.name;
         }
 
     }

@@ -222,5 +222,22 @@ namespace Thoughts.Game.Attributes
 
             return null;
         }
+        
+        
+        /// <summary>
+        /// Looks for all the Attributes that have the same level of priority as the given one
+        /// </summary>
+        /// <param name="priority">The priority that all the returned Attributes must have</param>
+        /// <returns>A list of AttributeOwnership where all Attributes have the given level of priority</returns>
+        public List<AttributeOwnership> GetAttributesWithPriority(Attribute.NeedPriority priority)
+        {
+            List<AttributeOwnership> matchingAttributeOwnerships = new List<AttributeOwnership>();
+            foreach (AttributeOwnership attributeOwnership in this.attributeOwnerships)
+            {
+                if (attributeOwnership.attribute.needPriority == priority)
+                    matchingAttributeOwnerships.Add(attributeOwnership);
+            }
+            return matchingAttributeOwnerships;
+        }
     }
 }

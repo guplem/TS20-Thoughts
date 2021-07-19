@@ -14,6 +14,12 @@ namespace Thoughts.ControlSystems.UI
         /// </summary>
         [Tooltip("Reference to the visualization of the descriptive information of the selected MapElement")]
         [SerializeField] private DescriptionUI descriptionUI;
+        
+        /// <summary>
+        /// Reference to the visualization of the need of the selected MapElement
+        /// </summary>
+        [Tooltip("Reference to the visualization of the need of the selected MapElement")]
+        [SerializeField] private NeedsUI needsUI;
 
         /// <summary>
         /// Displays the information regarding the given selected MapElement
@@ -28,6 +34,7 @@ namespace Thoughts.ControlSystems.UI
             if (showUI)
             {
                 descriptionUI.DisplayInformationOf(selectedMapElement);
+                needsUI.Setup(selectedMapElement);
             }
         }
     }

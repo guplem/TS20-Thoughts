@@ -1,29 +1,42 @@
 using System;
 using UnityEngine;
 
-[RequireComponent(typeof(SimpleAnimationsManager))]
-public abstract class SimpleAnimationUIElement : MonoBehaviour
+namespace Thoughts.ControlSystems.UI
 {
-    protected SimpleAnimationsManager simpleAnimationsManager;
-
-    private void Awake()
+    [RequireComponent(typeof(SimpleAnimationsManager))]
+    public abstract class SimpleAnimationUIElement : MonoBehaviour
     {
-        simpleAnimationsManager = gameObject.GetComponentRequired<SimpleAnimationsManager>();
-        
-        
-    }
+        /// <summary>
+        /// A reference to the SimpleAnimationsManager used for the animations of thi UI Eement
+        /// </summary>
+        protected SimpleAnimationsManager simpleAnimationsManager;
 
-    public void Show()
-    {
-        Debug.Log($"Showing {gameObject.name}");
-        simpleAnimationsManager.Play("Show", true);
-    }
+        /// <summary>
+        /// Prepares this UI Element to perform its basic functionallity
+        /// </summary>
+        private void Awake()
+        {
+            simpleAnimationsManager = gameObject.GetComponentRequired<SimpleAnimationsManager>();
+        }
 
-    public void Hide()
-    {
-        Debug.Log($"Hiding {gameObject.name}");
-        simpleAnimationsManager.Play("Hide", true);
+        /// <summary>
+        /// Plays the animation to show/display this UI Element
+        /// </summary>
+        public void Show()
+        {
+            Debug.Log($"Showing {gameObject.name}");
+            simpleAnimationsManager.Play("Show", true);
+        }
+
+        /// <summary>
+        /// Plays the animation to hide this UI Element
+        /// </summary>
+        public void Hide()
+        {
+            Debug.Log($"Hiding {gameObject.name}");
+            simpleAnimationsManager.Play("Hide", true);
+        }
+
+
     }
-    
-    
 }
