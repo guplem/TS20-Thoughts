@@ -53,11 +53,10 @@ namespace Thoughts.ControlSystems.UI
         }
 
         /// <summary>
-        /// Shows/displays the NeedsUI with all its elements populated/refreshed
+        /// Populates the NeedGroupUIs with all the needed elements
         /// </summary>
-        public new void Show()
+        public void SetupNeedGroups()
         {
-            base.Show();
             if (lastShownMapElement != selectedMapElement)
             {
                 lastShownMapElement = selectedMapElement;
@@ -67,6 +66,18 @@ namespace Thoughts.ControlSystems.UI
                 needGroup2.Setup(selectedMapElement, Attribute.NeedPriority.Safety, nameof(Attribute.NeedPriority.Safety));
                 needGroup1.Setup(selectedMapElement, Attribute.NeedPriority.Physiological, nameof(Attribute.NeedPriority.Physiological));
             }
+        }
+
+        /// <summary>
+        /// Plays the Show or the Hide animation depending on the current state of the UI Element. If state is Show, it plays the Hide animation and vice-versa.
+        /// </summary>
+        /// <param name="initialStateIsShowing">Should the fist call set the UI Element to the state "hide"?</param>
+        public new void SwitchState(bool initialStateIsShowing = false)
+        {
+            base.SwitchState(initialStateIsShowing);
+            
+            if (state == VisualizationState.Showing)
+                SetupNeedGroups();
         }
         
     }
