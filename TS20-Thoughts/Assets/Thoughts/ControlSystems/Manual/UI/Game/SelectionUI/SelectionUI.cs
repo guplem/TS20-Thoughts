@@ -20,6 +20,12 @@ namespace Thoughts.ControlSystems.UI
         /// </summary>
         [Tooltip("Reference to the visualization of the need of the selected MapElement")]
         [SerializeField] private NeedsUI needsUI;
+                
+        /// <summary>
+        /// Reference to the visualization of the objects of the selected MapElement
+        /// </summary>
+        [Tooltip("Reference to the visualization of the objects of the selected MapElement")]
+        [SerializeField] private ObjectsUI objectsUI;
 
         /// <summary>
         /// Displays the information regarding the given selected MapElement
@@ -35,6 +41,7 @@ namespace Thoughts.ControlSystems.UI
             {
                 descriptionUI.DisplayInformationOf(selectedMapElement);
                 needsUI.Setup(selectedMapElement);
+                objectsUI.Setup(selectedMapElement);
             }
         }
     }
