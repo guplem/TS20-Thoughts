@@ -1,4 +1,5 @@
 using Cinemachine;
+using Thoughts.Game.GameMap;
 using UnityEngine;
 
 namespace Thoughts.ControlSystems
@@ -55,7 +56,7 @@ namespace Thoughts.ControlSystems
         /// The speed of the camera rotating
         /// </summary>
         [Tooltip("The speed of the camera rotating")]
-        [SerializeField] private float rotationSpeed = 2f;
+        [SerializeField] private float rotationSpeed = 1.5f;
         
         /// <summary>
         /// Multiplier of the speed when the camera is moved in "fast speed" mode
@@ -80,6 +81,11 @@ namespace Thoughts.ControlSystems
         /// </summary>
         private Vector2 desiredRotation;
         
+        /// <summary>
+        /// The MapElement followed by the camera
+        /// </summary>
+        private MapElement followedMapElement;
+
         /// <summary>
         /// Initial setup
         /// </summary>
@@ -121,6 +127,10 @@ namespace Thoughts.ControlSystems
         /// </summary>
         private void HandleTransformUpdates()
         {
+
+            if (followedMapElement != null)
+                desiredPosition = followedMapElement.transform.position;
+            
             cameraRig.position = Vector3.Lerp( cameraRig.position, desiredPosition, Time.deltaTime * (100.1f-movementSmoothing) );
         }
         
@@ -159,6 +169,14 @@ namespace Thoughts.ControlSystems
                 povCamera.Follow = followTransform;
             }
         }
-        
+
+        /// <summary>
+        /// Forces the camera to follow a MapElement or to stop following it.
+        /// </summary>
+        /// <param name="followedMapElement">The MapElement to follow, or null if no more following is desired.</param>
+        public void FollowMapElement(MapElement followedMapElement)
+        {
+            this.followedMapElement = followedMapElement;
+        }
     }
 }
