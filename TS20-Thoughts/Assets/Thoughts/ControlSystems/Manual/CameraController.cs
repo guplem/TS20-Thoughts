@@ -1,6 +1,8 @@
+using System;
 using Cinemachine;
 using Thoughts.Game.GameMap;
 using UnityEngine;
+using Console = System.Console;
 
 namespace Thoughts.ControlSystems
 {
@@ -63,6 +65,12 @@ namespace Thoughts.ControlSystems
         /// </summary>
         [Tooltip("Multiplier of the speed when the camera is moved in 'fast speed' mode")]
         [SerializeField] private float fastSpeedMultiplier = 2f;
+        
+        /// <summary>
+        /// Multiplier of the speed when the camera is at its highest position. 0 is none, 1 is double.
+        /// </summary>
+        [Tooltip("Multiplier of the speed when the camera is at its highest position. 0 is none, 1 is double.")]
+        [SerializeField] private float heightBoost = 1.2f;
         
         /// <summary>
         /// The smoothness on the movement of the camera
@@ -141,7 +149,15 @@ namespace Thoughts.ControlSystems
         /// <param name="isFastSpeed">If true, the amount of movement (moveSpeed) will be multiplied by fastSpeedMultiplier</param>
         public void Move(Vector3 direction, bool isFastSpeed)
         {
-            desiredPosition += ((camera.transform.rotation * direction).WithY(0f).normalized * (isFastSpeed? moveSpeed*fastSpeedMultiplier : moveSpeed) ) /50;
+            float cameraHeight = 0f;
+
+            try
+            {
+                CinemachineFreeLook freeLookCamera = (CinemachineFreeLook) overworldCamera;
+                cameraHeight = freeLookCamera.m_YAxis.Value;
+            } catch (Exception e) { }
+            
+            desiredPosition += ((camera.transform.rotation * direction).WithY(0f).normalized * ( (isFastSpeed? moveSpeed*fastSpeedMultiplier : moveSpeed) * (1f+(cameraHeight*heightBoost)) ) ) /50;
         }
         
         /// <summary>
