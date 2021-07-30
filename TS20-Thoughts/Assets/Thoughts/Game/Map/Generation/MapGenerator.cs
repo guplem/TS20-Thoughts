@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public int width = 100;
-    public int height = 100;
+    public int widthResolution = 150;
+    public int heightResolution = 150;
     public Vector2 offset;
     
     [Space]
@@ -26,15 +26,15 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
-        terrainGenerator.GenerateTerrain(width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        terrainGenerator.GenerateTerrain(widthResolution, heightResolution, seed, noiseScale, octaves, persistance, lacunarity, offset);
     }
 
     private void OnValidate()
     {
-        if (width < 1)
-            width = 1;
-        if (height < 1)
-            height = 1;
+        if (widthResolution < 1)
+            widthResolution = 1;
+        if (heightResolution < 1)
+            heightResolution = 1;
         if (lacunarity < 1)
             lacunarity = 1;
         if (octaves < 0)

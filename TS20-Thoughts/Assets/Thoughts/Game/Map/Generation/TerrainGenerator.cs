@@ -14,28 +14,29 @@ public class TerrainGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
-    public void GenerateTerrain(int width, int height, int seed, float noiseScale, int octaves, float persistance, float lacunarity, Vector2 offset)
+    public void GenerateTerrain(int widthResolution, int heightResolution, int seed, float noiseScale, int octaves, float persistance, float lacunarity, Vector2 offset)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(width, height, seed, noiseScale, octaves, persistance, lacunarity, offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(widthResolution, heightResolution, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
-        Color[] colourMap = new Color[width * height];
-        for (int y = 0; y < height; y++)
+        Color[] colourMap = new Color[widthResolution * heightResolution];
+        for (int y = 0; y < heightResolution; y++)
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < widthResolution; x++)
             {
                 float currentHeight = noiseMap[x, y];
                 for (int i = 0; i < regions.Length; i++)
                 {
                     if (currentHeight <= regions[i].maxHeight)
                     {
-                        colourMap[y * width + x] = regions[i].color;
+                        colourMap[y * widthResolution + x] = regions[i].color;
                         break;
                     }
                 }
             }
         }
         
-        terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(colourMap, width, height));
+        //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(colourMap, widthResolution, heightResolution));
+        terrainDrawer.DrawMesh(noiseMap, TextureGenerator.TextureFromColorMap(colourMap, widthResolution, heightResolution));
     }
 }
 

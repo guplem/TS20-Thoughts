@@ -310,7 +310,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6464316453108154879}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!23 &2238141415517451291
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -330,7 +330,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 85909321a52ae2c488bedac6b065aa6e, type: 2}
+  - {fileID: 2100000, guid: d320c0d7a1f62674cad8ccc611805e36, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -365,6 +365,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textureRenderer: {fileID: 2238141415517451291}
+  meshFilter: {fileID: 7887216284595668804}
+  meshRenderer: {fileID: 2238141415517451291}
 --- !u!1 &6997258926127376635
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,14 +434,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ad8c1cf578a1b4b8c7cd441e430bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 300
-  height: 300
+  widthResolution: 100
+  heightResolution: 100
   offset: {x: 0, y: 0}
-  noiseScale: 98.7
+  noiseScale: 25.98
   octaves: 5
   persistance: 0.598
   lacunarity: 1.49
-  seed: 69
+  seed: 420
   autoRegenerate: 1
   terrainGenerator: {fileID: 5466451008028546110}
 --- !u!1 &8134068418080193284
