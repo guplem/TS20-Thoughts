@@ -434,7 +434,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 100
   height: 100
-  noiseScale: 2.9
+  offset: {x: 4, y: 20}
+  noiseScale: 17
+  octaves: 4
+  persistance: 0.59
+  lacunarity: 1.8
+  seed: 69
   autoRegenerate: 1
   terrainGenerator: {fileID: 5466451008028546110}
 --- !u!1 &8134068418080193284
