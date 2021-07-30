@@ -14,7 +14,7 @@ public class TerrainGenerator : MonoBehaviour
 
     public TerrainType[] regions;
 
-    public void GenerateTerrain(int widthResolution, int heightResolution, int seed, float noiseScale, int octaves, float persistance, float lacunarity, Vector2 offset)
+    public void GenerateTerrain(int widthResolution, int heightResolution, int seed, float noiseScale, int octaves, float persistance, float lacunarity, Vector2 offset, float maxHeight, AnimationCurve heightCurve)
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(widthResolution, heightResolution, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
@@ -36,7 +36,7 @@ public class TerrainGenerator : MonoBehaviour
         }
         
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(colourMap, widthResolution, heightResolution));
-        terrainDrawer.DrawMesh(noiseMap, TextureGenerator.TextureFromColorMap(colourMap, widthResolution, heightResolution));
+        terrainDrawer.DrawMesh(noiseMap, maxHeight, heightCurve, TextureGenerator.TextureFromColorMap(colourMap, widthResolution, heightResolution));
     }
 }
 

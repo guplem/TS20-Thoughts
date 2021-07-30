@@ -12,14 +12,14 @@ public class MapDisplay : MonoBehaviour
         //textureRenderer.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
 
-    public void DrawMesh(float[,] heightMap, Texture2D texture)
+    public void DrawMesh(float[,] heightMap, float maxHeight, AnimationCurve heightCurve, Texture2D texture)
     {
-        MeshData mesh = GenerateTerrainMesh(heightMap);
+        MeshData mesh = GenerateTerrainMesh(heightMap, heightCurve, maxHeight);
         meshFilter.sharedMesh = mesh.CreateMesh();
         meshRenderer.sharedMaterial.mainTexture = texture;
     }
     
-    public static MeshData GenerateTerrainMesh(float[,] heightMap) {
+    public static MeshData GenerateTerrainMesh(float[,] heightMap, AnimationCurve heightCurve, float heightMultiplier) {
         int width = heightMap.GetLength (0);
         int height = heightMap.GetLength (1);
         float topLeftX = (width - 1) / -2f;
@@ -31,7 +31,7 @@ public class MapDisplay : MonoBehaviour
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
 
-                meshData.vertices [vertexIndex] = new Vector3 (topLeftX + x, heightMap [x, y], topLeftZ - y);
+                meshData.vertices [vertexIndex] = new Vector3 (topLeftX + x, heightCurve.Evaluate(heightMap [x, y]) * heightMultiplier, topLeftZ - y);
                 meshData.uvs [vertexIndex] = new Vector2 (x / (float)width, y / (float)height);
 
                 if (x < width - 1 && y < height - 1) {
