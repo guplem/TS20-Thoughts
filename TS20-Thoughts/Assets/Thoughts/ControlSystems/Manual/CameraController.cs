@@ -155,7 +155,7 @@ namespace Thoughts.ControlSystems
             {
                 CinemachineFreeLook freeLookCamera = (CinemachineFreeLook) overworldCamera;
                 cameraHeight = freeLookCamera.m_YAxis.Value;
-            } catch (Exception e) { }
+            } catch (Exception ) { }
             
             desiredPosition += ((camera.transform.rotation * direction).WithY(0f).normalized * ( (isFastSpeed? moveSpeed*fastSpeedMultiplier : moveSpeed) * (1f+(cameraHeight*heightBoost)) ) ) /50;
         }
