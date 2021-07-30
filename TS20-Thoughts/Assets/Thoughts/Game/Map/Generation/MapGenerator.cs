@@ -4,8 +4,14 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    public int widthResolution = 150;
-    public int heightResolution = 150;
+    private const int mapChunckSize = 241;
+    
+    
+    public int chunkSize = 150;
+    [Range(0,6)]
+    public int levelOfDetail;
+    
+    
     public Vector2 offset;
     
     [Space]
@@ -35,15 +41,13 @@ public class MapGenerator : MonoBehaviour
 
     public void GenerateMap()
     {
-        terrainGenerator.GenerateTerrain(widthResolution, heightResolution, seed, noiseScale, octaves, persistance, lacunarity, offset, maxHeight, heightCurve);
+        terrainGenerator.GenerateTerrain(chunkSize, levelOfDetail, seed, noiseScale, octaves, persistance, lacunarity, offset, maxHeight, heightCurve);
     }
 
     private void OnValidate()
     {
-        if (widthResolution < 1)
-            widthResolution = 1;
-        if (heightResolution < 1)
-            heightResolution = 1;
+        if (chunkSize < 1)
+            chunkSize = 1;
         if (lacunarity < 1)
             lacunarity = 1;
         if (octaves < 0)

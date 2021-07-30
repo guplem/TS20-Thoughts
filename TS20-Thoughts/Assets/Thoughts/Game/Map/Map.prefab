@@ -516,8 +516,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ad8c1cf578a1b4b8c7cd441e430bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  widthResolution: 100
-  heightResolution: 100
+  chunkSize: 150
+  levelOfDetail: 2
   offset: {x: 0, y: 0}
   noiseScale: 25.98
   octaves: 5
@@ -540,19 +540,19 @@ MonoBehaviour:
       time: 0.3
       value: 0
       inSlope: Infinity
-      outSlope: 0.49476552
+      outSlope: 0.032664567
       tangentMode: 7
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.10014002
+      outWeight: 0.12640055
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 4.716759
-      outSlope: 4.716759
+      inSlope: 4.5371256
+      outSlope: 4.5371256
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.03676474
+      inWeight: 0.045678616
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
