@@ -10,6 +10,7 @@ public class MapGenerator : MonoBehaviour
     
     [Space]
     public float noiseScale = 27f;
+    [Range(0,20)]
     public int octaves = 4;
     [Range(0,1)]
     public float persistance = 0.5f;

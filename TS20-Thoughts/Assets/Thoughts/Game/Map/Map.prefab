@@ -432,13 +432,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ad8c1cf578a1b4b8c7cd441e430bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 100
-  height: 100
-  offset: {x: 4, y: 20}
-  noiseScale: 17
-  octaves: 4
-  persistance: 0.59
-  lacunarity: 1.8
+  width: 300
+  height: 300
+  offset: {x: 0, y: 0}
+  noiseScale: 98.7
+  octaves: 5
+  persistance: 0.598
+  lacunarity: 1.49
   seed: 69
   autoRegenerate: 1
   terrainGenerator: {fileID: 5466451008028546110}
@@ -487,3 +487,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainDrawer: {fileID: 1772945675136043650}
+  regions:
+  - name: Water Deep
+    maxHeight: 0.17
+    color: {r: 0.15881987, g: 0.36688632, b: 0.7830189, a: 1}
+  - name: Water
+    maxHeight: 0.3
+    color: {r: 0.2627451, g: 0.44705883, b: 0.8156863, a: 1}
+  - name: Beach
+    maxHeight: 0.4
+    color: {r: 0.81568635, g: 0.8196079, b: 0.5019608, a: 1}
+  - name: Grass Field
+    maxHeight: 0.58
+    color: {r: 0.3189403, g: 0.56, b: 0.092715204, a: 1}
+  - name: High Grass
+    maxHeight: 0.68
+    color: {r: 0.25962263, g: 0.43, b: 0.077075474, a: 1}
+  - name: Rocky
+    maxHeight: 0.8
+    color: {r: 0.376, g: 0.2846355, b: 0.24949533, a: 1}
+  - name: Mountain
+    maxHeight: 0.93
+    color: {r: 0.324, g: 0.262481, b: 0.25837973, a: 1}
+  - name: Snow
+    maxHeight: 1
+    color: {r: 0.82745105, g: 0.82745105, b: 0.82745105, a: 1}
