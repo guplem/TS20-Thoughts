@@ -7,17 +7,17 @@ public static class Noise
     /// <summary>
     /// Generates a perlin noise map of a given width and height.
     /// </summary>
-    /// <param name="widthResolution">Width of the NoiseMap</param>
-    /// <param name="heightResolution">Height of the NoiseMap</param>
+    /// <param name="size">Width and Height of the noise map</param>
     /// <param name="seed"></param>
     /// <param name="scale">The scale of the noise. The bigger it is, the ToDo: Finish </param>
     /// <param name="octaves"></param>
     /// <param name="persistance"></param>
     /// <param name="lacunarity"></param>
+    /// <param name="offset"></param>
     /// <returns>An 2D array of floats containing the perlin noise map.</returns>
-    public static float[,] GenerateNoiseMap(int widthResolution, int levelOfDetail, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
+    public static float[,] GenerateNoiseMap(int size, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset)
     {
-        float[,] noiseMap = new float[widthResolution, widthResolution];
+        float[,] noiseMap = new float[size, size];
         RandomEssentials rng = new RandomEssentials(seed);
         Vector2[] octaveOffsets = new Vector2[octaves];
         for (int i = 0; i < octaves; i++)
@@ -35,12 +35,12 @@ public static class Noise
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;
 
-        float halfWidth = widthResolution / 2f;
-        float halfHeight = widthResolution / 2f;
+        float halfWidth = size / 2f;
+        float halfHeight = size / 2f;
         
-        for (int y = 0; y < widthResolution; y++)
+        for (int y = 0; y < size; y++)
         {
-            for (int x = 0; x < widthResolution; x++)
+            for (int x = 0; x < size; x++)
             {
                 float amplitude = 1f;
                 float frequency = 1f;
@@ -69,9 +69,9 @@ public static class Noise
         }
 
         //Normalization of the noise map
-        for (int y = 0; y < widthResolution; y++)
+        for (int y = 0; y < size; y++)
         {
-            for (int x = 0; x < widthResolution; x++)
+            for (int x = 0; x < size; x++)
             {
                 noiseMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
             }

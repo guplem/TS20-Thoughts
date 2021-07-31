@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    private const int mapChunckSize = 241;
-    
-    
-    public int chunkSize = 150;
+
+    private int chunkSize = 241; // Max size for unity
     [Range(0,6)]
     public int levelOfDetail;
-    
-    
+
     public Vector2 offset;
     
     [Space]
@@ -25,7 +22,7 @@ public class MapGenerator : MonoBehaviour
     /// For how much each cell height will be multiplied.
     /// <para>The height of the cell is by default [0,1], multiplying it by 5, the maximum height will be 5 (cell height [0,5]</para>
     /// </summary>
-    public float maxHeight = 5f;
+    public float maxHeight = 15f;
     /// <summary>
     /// How much the height of the mesh should be affected by the maxHeight (AKA: "height multiplier")
     /// </summary>
@@ -46,8 +43,6 @@ public class MapGenerator : MonoBehaviour
 
     private void OnValidate()
     {
-        if (chunkSize < 1)
-            chunkSize = 1;
         if (lacunarity < 1)
             lacunarity = 1;
         if (octaves < 0)

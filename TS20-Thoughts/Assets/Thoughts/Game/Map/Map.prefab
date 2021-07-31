@@ -516,12 +516,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ad8c1cf578a1b4b8c7cd441e430bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkSize: 150
-  levelOfDetail: 2
+  levelOfDetail: 0
   offset: {x: 0, y: 0}
   noiseScale: 25.98
-  octaves: 5
-  persistance: 0.651
+  octaves: 6
+  persistance: 0.675
   lacunarity: 1.49
   maxHeight: 20
   heightCurve:
