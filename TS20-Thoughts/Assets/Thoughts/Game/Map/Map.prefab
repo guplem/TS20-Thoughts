@@ -516,49 +516,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36ad8c1cf578a1b4b8c7cd441e430bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelOfDetail: 0
-  offset: {x: 0, y: 0}
-  noiseScale: 25.98
-  octaves: 6
-  persistance: 0.675
-  lacunarity: 1.49
-  maxHeight: 20
-  heightCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.3
-      value: 0
-      inSlope: Infinity
-      outSlope: 0.032664567
-      tangentMode: 7
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.12640055
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 4.5371256
-      outSlope: 4.5371256
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.045678616
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  seed: 420
   autoRegenerate: 1
   terrainGenerator: {fileID: 5466451008028546110}
+  mapConfiguration:
+    levelOfDetail: 0
+    offset: {x: 0, y: 0}
+    noiseScale: 27
+    octaves: 7
+    persistance: 0.363
+    lacunarity: 2.14
+    maxHeight: 13.91
+    heightCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.3
+        value: 0
+        inSlope: Infinity
+        outSlope: 0.7590568
+        tangentMode: 7
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.6714434
+        value: 0.18565108
+        inSlope: 0.77787626
+        outSlope: 0.77787626
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.91649705
+        value: 0.62923557
+        inSlope: 2.070323
+        outSlope: 1.8475591
+        tangentMode: 1
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.6138472
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 5.0115604
+        outSlope: 5.0115604
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.028011203
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    seed: 0
 --- !u!1 &8134068418080193284
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,3 +661,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a431fae9e6762ac479ad70b7d7591a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewer: {fileID: 0}
+  mapGenerator: {fileID: 1236081435967817107}

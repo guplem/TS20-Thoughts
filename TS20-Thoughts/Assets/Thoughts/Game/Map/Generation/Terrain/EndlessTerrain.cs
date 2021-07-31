@@ -17,6 +17,7 @@ public class EndlessTerrain : MonoBehaviour
     public Transform viewer;
 
     public static Vector2 viewerPosition;
+    public MapGenerator mapGenerator;
     private int chunkSize;
     /// <summary>
     /// Based on the chunkSize and the maxViewDistance, how many chunks are visible
@@ -31,7 +32,7 @@ public class EndlessTerrain : MonoBehaviour
     {
         isviewerNull = viewer == null;
 
-        chunkSize = MapGenerator.chunkSize-1; // Because a mesh of dimensions of chunkSize-1 (240) is generated
+        chunkSize = MapConfiguration.chunkSize-1; // Because a mesh of dimensions of chunkSize-1 (240) is generated
         chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / chunkSize);
     }
 
@@ -73,7 +74,7 @@ public class EndlessTerrain : MonoBehaviour
                 }
                 else
                 {
-                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, this.transform));
+                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, this.transform, mapGenerator.terrainGenerator, mapGenerator.mapConfiguration));
                 }
             }
         }
@@ -86,7 +87,7 @@ public class EndlessTerrain : MonoBehaviour
         private GameObject meshObject;
         private Bounds bounds;
         
-        public TerrainChunk(Vector2 coord, int size, Transform parent)
+        public TerrainChunk(Vector2 coord, int size, Transform parent, TerrainGenerator terrainGenerator, MapConfiguration mapConfiguration)
         {
             position = coord * size;
             bounds = new Bounds(position, Vector3.one * size);
@@ -97,8 +98,15 @@ public class EndlessTerrain : MonoBehaviour
             meshObject.transform.localScale = Vector3.one * size / 10f; //To correct the default scale of the Plane (which is 10)
             meshObject.transform.parent = parent;
             SetVisible(false);
+            
+            terrainGenerator.RequestTerrainData(OnMapDataRecieved, mapConfiguration);
         }
 
+        void OnMapDataRecieved(MapData mapData)
+        {
+            Debug.Log($"MapData recieved!: {mapData.ToString()}");
+        }
+        
         public void UpdateChunkVisibility()
         {
             float viewerDistanceFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosition));
@@ -106,7 +114,6 @@ public class EndlessTerrain : MonoBehaviour
             SetVisible(visible);
         }
 
-        
         public void SetVisible(bool state)
         {
             meshObject.SetActive(state);
