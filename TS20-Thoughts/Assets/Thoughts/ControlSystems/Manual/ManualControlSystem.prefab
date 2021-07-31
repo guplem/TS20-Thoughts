@@ -509,7 +509,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683022035963781032}
-  m_LocalRotation: {x: 0.36675104, y: -0.000000021814518, z: 0.000000008599734, w: 0.93031913}
+  m_LocalRotation: {x: 0.36675104, y: 0.00000001543667, z: -0.0000000060854544, w: 0.93031913}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1196,8 +1196,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5315538285022102934}
-  m_LocalRotation: {x: 0.51626575, y: 0.0000000271344, z: -0.000000016356955, w: 0.85642844}
-  m_LocalPosition: {x: 0.0000000024612001, y: 8.803024, z: -2.0079365}
+  m_LocalRotation: {x: 0.4364534, y: -5.514139e-10, z: 2.6748836e-10, w: 0.89972687}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6627071555679936703}
@@ -1694,7 +1694,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7567955944288930170}
-  m_LocalRotation: {x: 0.40474474, y: -5.6042637e-10, z: 2.4805683e-10, w: 0.9144297}
+  m_LocalRotation: {x: 0.4047447, y: 0.000000026691707, z: -0.000000011814278, w: 0.9144297}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1822,6 +1822,7 @@ MonoBehaviour:
   moveSpeed: 2
   rotationSpeed: 0.65
   fastSpeedMultiplier: 2
+  heightBoost: 1.2
   movementSmoothing: 97
 --- !u!1 &7920776376382676147
 GameObject:
@@ -1838,7 +1839,7 @@ GameObject:
   - component: {fileID: 2003735975750617815}
   m_Layer: 0
   m_Name: Camera and Brain
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1850,7 +1851,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7920776376382676147}
-  m_LocalRotation: {x: 0.40474477, y: -0.000000027812558, z: 0.000000012310391, w: 0.9144297}
+  m_LocalRotation: {x: 0.4047447, y: 0.000000046641656, z: -0.00000002064452, w: 0.9144298}
   m_LocalPosition: {x: 0.000000009805889, y: 11, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -2201,7 +2202,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2010435008786798257, guid: a5d0ab6d08d6c4443a0085579ef688e0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -17
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2429823039788366241, guid: a5d0ab6d08d6c4443a0085579ef688e0, type: 3}
       propertyPath: m_IsActive

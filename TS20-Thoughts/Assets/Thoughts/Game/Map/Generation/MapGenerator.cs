@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
 
-    private int chunkSize = 241; // Max size for unity
+    public const int chunkSize = 241; // Max size for unity. It will generate a mesh of dimensions of chunkSize-1 => 240
     [Range(0,6)]
     public int levelOfDetail;
 

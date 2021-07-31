@@ -12,6 +12,7 @@ namespace Thoughts.Game.GameMap
     /// <summary>
     /// The map of the game.
     /// </summary>
+    [RequireComponent(typeof(MapGenerator))]
     public class Map : MonoBehaviour
     {
         /// <summary>
@@ -25,7 +26,7 @@ namespace Thoughts.Game.GameMap
         /// All the map elements' prefabs that can be spawned in the map.
         /// </summary>
         [SerializeField] private List<GameObject> spawnableMapElements;
-        
+
         /// <summary>
         /// Generates a new map.
         /// </summary>
@@ -33,9 +34,11 @@ namespace Thoughts.Game.GameMap
         public void GenerateNew(List<Participant> participants)
         {
             //Todo: use the "participants" 
-            mapElements.AddRange(GenerateMapElements());
-            SetupNewNavMeshes();
-            mapElements.AddRange(GenerateMobs());
+            //mapElements.AddRange(GenerateMapElements());
+            //SetupNewNavMeshes();
+            //mapElements.AddRange(GenerateMobs());
+            
+            gameObject.GetComponentRequired<MapGenerator>().GenerateMap();
         }
 
         /// <summary>
