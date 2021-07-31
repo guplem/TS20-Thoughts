@@ -16,6 +16,8 @@ public class EndlessTerrain : MonoBehaviour
     [Tooltip("Reference to the viewer (usually the player) of the terrain. If null at Start, it will be set to 'Camera.main' on Update")]
     public Transform viewer;
 
+    [SerializeField] private Material material;
+
     public static Vector2 viewerPosition;
     public MapGenerator mapGenerator;
     private int chunkSize;
@@ -74,7 +76,7 @@ public class EndlessTerrain : MonoBehaviour
                 }
                 else
                 {
-                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, this.transform, mapGenerator.terrainGenerator, mapGenerator.mapConfiguration));
+                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, this.transform, mapGenerator.terrainGenerator, mapGenerator.mapConfiguration, material));
                 }
             }
         }
@@ -86,16 +88,30 @@ public class EndlessTerrain : MonoBehaviour
         private Vector2 position;
         private GameObject meshObject;
         private Bounds bounds;
+
+        private MapData mapData;
+
+        private MeshRenderer meshRenderer;
+        private MeshFilter meshFilter;
+
+        private TerrainGenerator terrainGenerator;
+        private MapConfiguration mapConfiguration;
         
-        public TerrainChunk(Vector2 coord, int size, Transform parent, TerrainGenerator terrainGenerator, MapConfiguration mapConfiguration)
+        public TerrainChunk(Vector2 coord, int size, Transform parent, TerrainGenerator terrainGenerator, MapConfiguration mapConfiguration, Material material)
         {
+            this.terrainGenerator = terrainGenerator;
+            this.mapConfiguration = mapConfiguration;
+            
             position = coord * size;
             bounds = new Bounds(position, Vector3.one * size);
             Vector3 position3D = new Vector3(position.x, 0, position.y);
             
-            meshObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+            meshObject = new GameObject("Terrain Chunk");
+            meshRenderer = meshObject.AddComponent<MeshRenderer>();
+            meshFilter = meshObject.AddComponent<MeshFilter>();
+            meshRenderer.material = material;
+            
             meshObject.transform.position = position3D;
-            meshObject.transform.localScale = Vector3.one * size / 10f; //To correct the default scale of the Plane (which is 10)
             meshObject.transform.parent = parent;
             SetVisible(false);
             
@@ -104,7 +120,12 @@ public class EndlessTerrain : MonoBehaviour
 
         void OnMapDataRecieved(MapData mapData)
         {
-            Debug.Log($"MapData recieved!: {mapData.ToString()}");
+            terrainGenerator.RequestMeshData(mapData, mapConfiguration, OnMeshDataRecieved);
+        }
+
+        void OnMeshDataRecieved(MeshData meshData)
+        {
+            meshFilter.mesh = meshData.CreateMesh();
         }
         
         public void UpdateChunkVisibility()

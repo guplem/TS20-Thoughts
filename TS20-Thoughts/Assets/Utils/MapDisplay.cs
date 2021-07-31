@@ -19,7 +19,9 @@ public class MapDisplay : MonoBehaviour
         meshRenderer.sharedMaterial.mainTexture = texture;
     }
     
-    public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve heightCurve, int levelOfDetail) {
+    public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail)
+    {
+        AnimationCurve heightCurve = new AnimationCurve( _heightCurve.keys); // Because working with the same AnimationCurve in different threads makes the evaluation return wrong results. Issues without synchronization.
         int width = heightMap.GetLength (0);
         int height = heightMap.GetLength (1);
         float topLeftX = (width - 1) / -2f;
@@ -48,8 +50,7 @@ public class MapDisplay : MonoBehaviour
         return meshData;
 
     }
-
-
+    
 }
 
 

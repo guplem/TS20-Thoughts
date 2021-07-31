@@ -369,7 +369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1284683969905496826
 Transform:
   m_ObjectHideFlags: 0
@@ -662,4 +662,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewer: {fileID: 0}
+  material: {fileID: 2100000, guid: d320c0d7a1f62674cad8ccc611805e36, type: 2}
   mapGenerator: {fileID: 1236081435967817107}

@@ -16,6 +16,7 @@ public class TerrainGenerator : MonoBehaviour
     public TerrainType[] regions;
 
     private Queue<ThreadInfo<MapData>> terrainDataThreadInfoQueue = new Queue<ThreadInfo<MapData>>();
+    private Queue<ThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<ThreadInfo<MeshData>>();
 
     public void DrawTerrainInEditor(MapConfiguration mapConfiguration)
     {
@@ -25,16 +26,19 @@ public class TerrainGenerator : MonoBehaviour
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
     }
 
+    
+    
+    
     public void RequestTerrainData(Action<MapData> callback, MapConfiguration mapConfiguration)
     {
         ThreadStart threadStart = delegate
         {
-            RequestTerrainDataThread(callback, mapConfiguration);
+            TerrainDataThread(callback, mapConfiguration);
         };
         
         new Thread(threadStart).Start();
     }
-    private void RequestTerrainDataThread(Action<MapData> callback, MapConfiguration mapConfiguration)
+    private void TerrainDataThread(Action<MapData> callback, MapConfiguration mapConfiguration)
     {
         MapData mapData = GenerateTerrainData(mapConfiguration);
         lock (terrainDataThreadInfoQueue)
@@ -43,6 +47,30 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
+
+
+
+    public void RequestMeshData(MapData mapData, MapConfiguration mapConfiguration, Action<MeshData> callback)
+    {
+        ThreadStart threadStart = delegate
+        {
+            MeshDataThread(mapData, mapConfiguration, callback);
+        };
+        
+        new Thread(threadStart).Start();
+    }
+    public void MeshDataThread(MapData mapData, MapConfiguration mapConfiguration, Action<MeshData> callback)
+    {
+        MeshData meshData = MapDisplay.GenerateTerrainMesh(mapData.heightMap, mapConfiguration.maxHeight, mapConfiguration.heightCurve, mapConfiguration.levelOfDetail);
+        lock (terrainDataThreadInfoQueue)
+        {
+            meshDataThreadInfoQueue.Enqueue(new ThreadInfo<MeshData>(callback, meshData));
+        }
+    }
+    
+    
+    
+
     private void Update()
     {
         if (terrainDataThreadInfoQueue.Count > 0)
@@ -50,6 +78,14 @@ public class TerrainGenerator : MonoBehaviour
             for (int i = 0; i < terrainDataThreadInfoQueue.Count; i++)
             {
                 ThreadInfo<MapData> threadInfo = terrainDataThreadInfoQueue.Dequeue();
+                threadInfo.callback(threadInfo.parameter);
+            }
+        }
+        if (meshDataThreadInfoQueue.Count > 0)
+        {
+            for (int i = 0; i < meshDataThreadInfoQueue.Count; i++)
+            {
+                ThreadInfo<MeshData> threadInfo = meshDataThreadInfoQueue.Dequeue();
                 threadInfo.callback(threadInfo.parameter);
             }
         }
