@@ -519,7 +519,7 @@ MonoBehaviour:
   autoRegenerate: 1
   terrainGenerator: {fileID: 5466451008028546110}
   mapConfiguration:
-    levelOfDetail: 0
+    editorPreviewLOD: 0
     offset: {x: 0, y: 0}
     noiseScale: 27
     octaves: 7
@@ -661,6 +661,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a431fae9e6762ac479ad70b7d7591a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  detailLevels:
+  - lod: 0
+    visibleDistanceThreshold: 200
+  - lod: 2
+    visibleDistanceThreshold: 300
+  - lod: 4
+    visibleDistanceThreshold: 450
+  - lod: 6
+    visibleDistanceThreshold: 600
   viewer: {fileID: 0}
   material: {fileID: 2100000, guid: d320c0d7a1f62674cad8ccc611805e36, type: 2}
   mapGenerator: {fileID: 1236081435967817107}

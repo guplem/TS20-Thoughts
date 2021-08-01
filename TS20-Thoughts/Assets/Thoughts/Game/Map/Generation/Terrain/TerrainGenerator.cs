@@ -22,7 +22,7 @@ public class TerrainGenerator : MonoBehaviour
     {
         MapData mapData = GenerateTerrainData( mapConfiguration);
         
-        terrainDrawer.DrawMesh(mapData.heightMap, mapConfiguration.maxHeight, mapConfiguration.heightCurve, TextureGenerator.TextureFromColorMap(mapData.colorMap, MapConfiguration.chunkSize, MapConfiguration.chunkSize), mapConfiguration.levelOfDetail);
+        terrainDrawer.DrawMesh(mapData.heightMap, mapConfiguration.maxHeight, mapConfiguration.heightCurve, TextureGenerator.TextureFromColorMap(mapData.colorMap, MapConfiguration.chunkSize, MapConfiguration.chunkSize), mapConfiguration.editorPreviewLOD);
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
     }
 
@@ -50,18 +50,18 @@ public class TerrainGenerator : MonoBehaviour
 
 
 
-    public void RequestMeshData(MapData mapData, MapConfiguration mapConfiguration, Action<MeshData> callback)
+    public void RequestMeshData(MapData mapData, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
         ThreadStart threadStart = delegate
         {
-            MeshDataThread(mapData, mapConfiguration, callback);
+            MeshDataThread(mapData, mapConfiguration, LOD, callback);
         };
         
         new Thread(threadStart).Start();
     }
-    public void MeshDataThread(MapData mapData, MapConfiguration mapConfiguration, Action<MeshData> callback)
+    public void MeshDataThread(MapData mapData, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
-        MeshData meshData = MapDisplay.GenerateTerrainMesh(mapData.heightMap, mapConfiguration.maxHeight, mapConfiguration.heightCurve, mapConfiguration.levelOfDetail);
+        MeshData meshData = MapDisplay.GenerateTerrainMesh(mapData.heightMap, mapConfiguration.maxHeight, mapConfiguration.heightCurve, LOD);
         lock (terrainDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new ThreadInfo<MeshData>(callback, meshData));

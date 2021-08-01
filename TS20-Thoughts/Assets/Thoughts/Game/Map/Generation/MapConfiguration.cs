@@ -7,7 +7,8 @@ public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration>
 {
     
     [Range(0,6)]
-    public int levelOfDetail;
+    [Tooltip("Max level of detail (LOD) for the terrain is 0 (editorPreviewLOD = 0)")]
+    public int editorPreviewLOD = 0; //Not the one used during the dynamic optimization/terrain generation
     public Vector2 offset;
     [Space]
     public float noiseScale = 27f;
