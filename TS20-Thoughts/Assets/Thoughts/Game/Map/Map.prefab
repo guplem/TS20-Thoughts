@@ -369,7 +369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1284683969905496826
 Transform:
   m_ObjectHideFlags: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.3
+        time: 0.45
         value: 0
         inSlope: Infinity
         outSlope: 0.7590568
@@ -557,23 +557,14 @@ MonoBehaviour:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.91649705
-        value: 0.62923557
-        inSlope: 2.070323
+        time: 1.3246793
+        value: 0.83127165
+        inSlope: 2.098801
         outSlope: 1.8475591
         tangentMode: 1
         weightedMode: 0
-        inWeight: 0.33333334
+        inWeight: 0.16656175
         outWeight: 0.6138472
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 5.0115604
-        outSlope: 5.0115604
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.028011203
-        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -625,9 +616,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   terrainDrawer: {fileID: 1772945675136043650}
   regions:
-  - name: Water Deep
-    maxHeight: 0.17
-    color: {r: 0.15881987, g: 0.36688632, b: 0.7830189, a: 1}
+  - name: 'Very deep Water (min required: 0)'
+    maxHeight: 0
+    color: {r: 0.10117648, g: 0.33173537, b: 0.78431374, a: 1}
+  - name: Deep Water
+    maxHeight: 0.1
+    color: {r: 0.16476859, g: 0.38174126, b: 0.8156863, a: 1}
   - name: Water
     maxHeight: 0.3
     color: {r: 0.2627451, g: 0.44705883, b: 0.8156863, a: 1}

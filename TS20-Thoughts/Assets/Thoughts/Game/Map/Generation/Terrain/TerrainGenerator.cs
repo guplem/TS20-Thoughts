@@ -93,7 +93,7 @@ public class TerrainGenerator : MonoBehaviour
 
     public MapData GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.noiseScale, mapConfiguration.octaves, mapConfiguration.persistance, mapConfiguration.lacunarity, center+mapConfiguration.offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.noiseScale, mapConfiguration.octaves, mapConfiguration.persistance, mapConfiguration.lacunarity, center+mapConfiguration.offset, Noise.NormalizeMode.Global);
 
         Color[] colourMap = new Color[MapConfiguration.chunkSize * MapConfiguration.chunkSize];
         for (int y = 0; y < MapConfiguration.chunkSize; y++)
@@ -103,9 +103,12 @@ public class TerrainGenerator : MonoBehaviour
                 float currentHeight = noiseMap[x, y];
                 for (int i = 0; i < regions.Length; i++)
                 {
-                    if (currentHeight <= regions[i].maxHeight)
+                    if (currentHeight >= regions[i].maxHeight)
                     {
                         colourMap[y * MapConfiguration.chunkSize + x] = regions[i].color;
+                    }
+                    else
+                    {
                         break;
                     }
                 }
