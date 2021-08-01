@@ -364,12 +364,12 @@ GameObject:
   - component: {fileID: 2238141415517451291}
   - component: {fileID: 1772945675136043650}
   m_Layer: 0
-  m_Name: Visuals
-  m_TagString: Untagged
+  m_Name: Editor Visuals
+  m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1284683969905496826
 Transform:
   m_ObjectHideFlags: 0
@@ -520,9 +520,9 @@ MonoBehaviour:
   terrainGenerator: {fileID: 5466451008028546110}
   mapConfiguration:
     editorPreviewLOD: 0
-    offset: {x: 0, y: 0}
+    offset: {x: -23.44, y: -172.55}
     noiseScale: 27
-    octaves: 7
+    octaves: 5
     persistance: 0.363
     lacunarity: 2.14
     maxHeight: 13.91

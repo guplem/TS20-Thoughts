@@ -16,6 +16,7 @@ public class MapGenerator : MonoBehaviour
     {
         Debug.LogWarning("TODO: GenerateMap");
         //terrainGenerator.GenerateTerrainData(mapConfiguration);
+        GenerateMapInEditor();
     }
 
     public void GenerateMapInEditor()
