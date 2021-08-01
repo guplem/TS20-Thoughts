@@ -20,7 +20,7 @@ public class TerrainGenerator : MonoBehaviour
 
     public void DrawTerrainInEditor(MapConfiguration mapConfiguration)
     {
-        MapData mapData = GenerateTerrainData( mapConfiguration);
+        MapData mapData = GenerateTerrainData( Vector2.zero, mapConfiguration);
         
         terrainDrawer.DrawMesh(mapData.heightMap, mapConfiguration.maxHeight, mapConfiguration.heightCurve, TextureGenerator.TextureFromColorMap(mapData.colorMap, MapConfiguration.chunkSize, MapConfiguration.chunkSize), mapConfiguration.editorPreviewLOD);
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
@@ -29,18 +29,18 @@ public class TerrainGenerator : MonoBehaviour
     
     
     
-    public void RequestTerrainData(Action<MapData> callback, MapConfiguration mapConfiguration)
+    public void RequestTerrainData(Vector2 centre, Action<MapData> callback, MapConfiguration mapConfiguration)
     {
         ThreadStart threadStart = delegate
         {
-            TerrainDataThread(callback, mapConfiguration);
+            TerrainDataThread(centre, callback, mapConfiguration);
         };
         
         new Thread(threadStart).Start();
     }
-    private void TerrainDataThread(Action<MapData> callback, MapConfiguration mapConfiguration)
+    private void TerrainDataThread(Vector2 centre, Action<MapData> callback, MapConfiguration mapConfiguration)
     {
-        MapData mapData = GenerateTerrainData(mapConfiguration);
+        MapData mapData = GenerateTerrainData(centre, mapConfiguration);
         lock (terrainDataThreadInfoQueue)
         {
             terrainDataThreadInfoQueue.Enqueue(new ThreadInfo<MapData>(callback, mapData));
@@ -91,9 +91,9 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
-    public MapData GenerateTerrainData(MapConfiguration mapConfiguration)
+    public MapData GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.noiseScale, mapConfiguration.octaves, mapConfiguration.persistance, mapConfiguration.lacunarity, mapConfiguration.offset);
+        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.noiseScale, mapConfiguration.octaves, mapConfiguration.persistance, mapConfiguration.lacunarity, center+mapConfiguration.offset);
 
         Color[] colourMap = new Color[MapConfiguration.chunkSize * MapConfiguration.chunkSize];
         for (int y = 0; y < MapConfiguration.chunkSize; y++)
