@@ -6,6 +6,8 @@ using UnityEngine;
 public class EndlessTerrain : MonoBehaviour
 {
 
+    
+    
     private const float viewerMoveThresholdForChunkUpdate = 25f;
     private const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
     
@@ -59,7 +61,7 @@ public class EndlessTerrain : MonoBehaviour
 
     private void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z);
+        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.scale;
 
         if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
         {
@@ -94,7 +96,7 @@ public class EndlessTerrain : MonoBehaviour
                 }
                 else
                 {
-                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, this.transform, mapGenerator.terrainGenerator, mapGenerator.mapConfiguration, material));
+                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, this.transform, mapGenerator, material));
                 }
             }
         }
@@ -120,10 +122,10 @@ public class EndlessTerrain : MonoBehaviour
         private bool mapDataReceived = false;
         private int previousLODIndex = -1;
         
-        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, TerrainGenerator terrainGenerator, MapConfiguration mapConfiguration, Material material)
+        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, Transform parent, MapGenerator mapGenerator, Material material)
         {
-            this.terrainGenerator = terrainGenerator;
-            this.mapConfiguration = mapConfiguration;
+            this.terrainGenerator = mapGenerator.terrainGenerator;
+            this.mapConfiguration = mapGenerator. mapConfiguration;
             this.detailLevels = detailLevels;
             
             position = coord * size;
@@ -135,8 +137,9 @@ public class EndlessTerrain : MonoBehaviour
             meshFilter = meshObject.AddComponent<MeshFilter>();
             meshRenderer.material = material;
             
-            meshObject.transform.position = position3D;
+            meshObject.transform.position = position3D * mapGenerator.scale;
             meshObject.transform.parent = parent;
+            meshObject.transform.localScale = Vector3.one * mapGenerator.scale;
             SetVisible(false);
 
             lodMeshes = new LODMesh[detailLevels.Length];

@@ -10,7 +10,7 @@ public class MapGeneratorEditor : Editor
 
         if (DrawDefaultInspector())
         {
-            if (mapGenerator.autoRegenerate)
+            if (mapGenerator.autoRegenerateInEditor)
             {
                 mapGenerator.GenerateMapInEditor ();
             }

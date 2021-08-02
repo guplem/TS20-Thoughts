@@ -12,11 +12,12 @@ public class MapDisplay : MonoBehaviour
         //textureRenderer.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
 
-    public void DrawMesh(float[,] heightMap, float maxHeight, AnimationCurve heightCurve, Texture2D texture, int levelOfDetail)
+    public void DrawMesh(float[,] heightMap, float maxHeight, AnimationCurve heightCurve, Texture2D texture, int levelOfDetail, float scale)
     {
         MeshData mesh = GenerateTerrainMesh(heightMap, maxHeight, heightCurve, levelOfDetail);
         meshFilter.sharedMesh = mesh.CreateMesh();
         meshRenderer.sharedMaterial.mainTexture = texture;
+        meshFilter.transform.localScale = scale * Vector3.one;
     }
     
     public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail)
