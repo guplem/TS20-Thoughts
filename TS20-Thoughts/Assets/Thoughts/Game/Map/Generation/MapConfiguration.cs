@@ -30,6 +30,9 @@ public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration>
     public int seed;
     public const int chunkSize = 241; // Max size for unity. It will generate a mesh of dimensions of chunkSize-1 => 240
 
+    [SerializeField] public bool useFalloff;
+    [NonSerialized] public float[,] falloffMap = FalloffGenerator.GenerateFalloffMap(chunkSize);
+
     
     
     private void OnValidate()

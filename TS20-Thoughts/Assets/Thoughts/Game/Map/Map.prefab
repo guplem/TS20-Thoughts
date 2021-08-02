@@ -536,7 +536,7 @@ MonoBehaviour:
   scale: 0.5
   mapConfiguration:
     editorPreviewLOD: 0
-    offset: {x: 67.2, y: 0}
+    offset: {x: 78.23, y: 0}
     noiseScale: 200
     octaves: 15
     persistance: 0.354
@@ -594,6 +594,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     seed: 0
+    useFalloff: 1
 --- !u!1 &8134068418080193284
 GameObject:
   m_ObjectHideFlags: 0

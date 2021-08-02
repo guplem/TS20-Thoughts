@@ -100,6 +100,10 @@ public class TerrainGenerator : MonoBehaviour
         {
             for (int x = 0; x < MapConfiguration.chunkSize; x++)
             {
+                if (mapConfiguration.useFalloff)
+                {
+                    noiseMap[x, y] = Mathf.Clamp(noiseMap[x, y] - mapConfiguration.falloffMap[x, y], 0, float.MaxValue) ;
+                }
                 float currentHeight = noiseMap[x, y];
                 for (int i = 0; i < regions.Length; i++)
                 {
