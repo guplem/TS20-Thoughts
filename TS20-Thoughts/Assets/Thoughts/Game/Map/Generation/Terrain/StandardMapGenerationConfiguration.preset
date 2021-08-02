@@ -25,7 +25,7 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: autoRegenerate
+    propertyPath: autoRegenerateInEditor
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -33,12 +33,16 @@ Preset:
     value: 
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: scale
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: mapConfiguration.editorPreviewLOD
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.offset.x
-    value: 0
+    value: 67.2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.offset.y
@@ -46,15 +50,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.noiseScale
-    value: 27
+    value: 200
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.octaves
-    value: 7
+    value: 15
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.persistance
-    value: 0.363
+    value: 0.354
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.lacunarity
@@ -62,11 +66,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.maxHeight
-    value: 13.91
+    value: 60
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.size
-    value: 4
+    value: 5
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[0].time
@@ -102,7 +106,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[1].time
-    value: 0.45
+    value: 0.4
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[1].value
@@ -114,7 +118,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[1].outSlope
-    value: 0.7590568
+    value: 0.28026083
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[1].tangentMode
@@ -130,15 +134,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[1].outWeight
-    value: 0.33333334
+    value: 0.15521604
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[2].time
-    value: 0.6714434
+    value: 0.5805222
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[2].value
-    value: 0.18565108
+    value: 0.05089638
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[2].inSlope
@@ -146,7 +150,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[2].outSlope
-    value: 0.77787626
+    value: 0.13029943
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[2].tangentMode
@@ -162,23 +166,23 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[2].outWeight
-    value: 0.33333334
+    value: 0.13957515
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[3].time
-    value: 1.3246793
+    value: 0.86522716
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[3].value
-    value: 0.83127165
+    value: 0.14244193
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[3].inSlope
-    value: 2.098801
+    value: 1.2202263
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[3].outSlope
-    value: 1.8475591
+    value: -0.07730273
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[3].tangentMode
@@ -190,10 +194,42 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[3].inWeight
-    value: 0.16656175
+    value: 0.33333334
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[3].outWeight
+    value: 0.22833285
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].time
+    value: 1.1834439
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].value
+    value: 0.8937373
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].inSlope
+    value: 1.7186507
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].outSlope
+    value: 1.8475591
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].tangentMode
+    value: 1
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].weightedMode
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].inWeight
+    value: 0.07703925
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapConfiguration.heightCurve.m_Curve.Array.data[4].outWeight
     value: 0.6138472
     objectReference: {fileID: 0}
   - target: {fileID: 0}
