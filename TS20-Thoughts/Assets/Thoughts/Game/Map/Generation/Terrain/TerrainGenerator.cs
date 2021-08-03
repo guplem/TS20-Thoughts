@@ -93,7 +93,7 @@ public class TerrainGenerator : MonoBehaviour
 
     public MapData GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.noiseScale, mapConfiguration.octaves, mapConfiguration.persistance, mapConfiguration.lacunarity, center+mapConfiguration.offset, Noise.NormalizeMode.Global);
+        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize + 2, mapConfiguration.seed, mapConfiguration.noiseScale, mapConfiguration.octaves, mapConfiguration.persistance, mapConfiguration.lacunarity, center+mapConfiguration.offset, Noise.NormalizeMode.Global);
 
         Color[] colourMap = new Color[MapConfiguration.chunkSize * MapConfiguration.chunkSize];
         for (int y = 0; y < MapConfiguration.chunkSize; y++)

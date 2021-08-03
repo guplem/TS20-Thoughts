@@ -594,7 +594,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     seed: 0
-    useFalloff: 1
+    useFalloff: 0
 --- !u!1 &8134068418080193284
 GameObject:
   m_ObjectHideFlags: 0

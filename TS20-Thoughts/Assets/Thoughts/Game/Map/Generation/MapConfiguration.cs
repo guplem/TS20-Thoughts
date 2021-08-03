@@ -28,7 +28,7 @@ public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration>
     public AnimationCurve heightCurve;
     [Space]
     public int seed;
-    public const int chunkSize = 241; // Max size for unity. It will generate a mesh of dimensions of chunkSize-1 => 240
+    public const int chunkSize = 239; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1 (+2) = 240
 
     [SerializeField] public bool useFalloff;
     [NonSerialized] public float[,] falloffMap = FalloffGenerator.GenerateFalloffMap(chunkSize);
