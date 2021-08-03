@@ -177,7 +177,6 @@ public class EndlessTerrain : MonoBehaviour
         
         public void UpdateChunkVisibility()
         {
-            Debug.Log($"Update chunk visibility: {mapDataReceived}");
             if (!mapDataReceived) 
                 return;
             

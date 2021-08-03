@@ -78,6 +78,8 @@ public class MapDisplay : MonoBehaviour
 			}
 		}
 
+		meshData.BakeNormals(); // Called now because this code runs in a separate thread, not in the main thread. So the Normals are calculated and stored in the mesh before being used by the main thread.
+		
 		return meshData;
 
     }
@@ -89,6 +91,7 @@ public class MeshData {
 	Vector3[] vertices;
 	int[] triangles;
 	Vector2[] uvs;
+	private Vector3[] bakedNormals;
 
 	Vector3[] borderVertices;
 	int[] borderTriangles;
@@ -182,12 +185,17 @@ public class MeshData {
 		return Vector3.Cross (sideAB, sideAC).normalized;
 	}
 
+	public void BakeNormals()
+	{
+		bakedNormals = CalculateNormals();
+	}
+	
 	public Mesh CreateMesh() {
 		Mesh mesh = new Mesh ();
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
 		mesh.uv = uvs;
-		mesh.normals = CalculateNormals ();
+		mesh.normals = bakedNormals;
 		return mesh;
 	}
 
