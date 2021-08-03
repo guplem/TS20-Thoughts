@@ -111,12 +111,14 @@ public class EndlessTerrain : MonoBehaviour
 
         private MeshRenderer meshRenderer;
         private MeshFilter meshFilter;
+        private MeshCollider meshCollider;
 
         private TerrainGenerator terrainGenerator;
         private MapConfiguration mapConfiguration;
 
         private LODInfo[] detailLevels;
         private LODMesh[] lodMeshes;
+        private LODMesh collisionLODMesh;
         
         private MapData mapData;
         private bool mapDataReceived = false;
@@ -126,6 +128,7 @@ public class EndlessTerrain : MonoBehaviour
         {
             this.terrainGenerator = mapGenerator.terrainGenerator;
             this.mapConfiguration = mapGenerator. mapConfiguration;
+            
             this.detailLevels = detailLevels;
             
             position = coord * size;
@@ -135,6 +138,7 @@ public class EndlessTerrain : MonoBehaviour
             meshObject = new GameObject("Terrain Chunk");
             meshRenderer = meshObject.AddComponent<MeshRenderer>();
             meshFilter = meshObject.AddComponent<MeshFilter>();
+            meshCollider = meshObject.AddComponent<MeshCollider>();
             meshRenderer.material = material;
             
             meshObject.transform.position = position3D * mapGenerator.scale;
@@ -146,6 +150,10 @@ public class EndlessTerrain : MonoBehaviour
             for (int i = 0; i < detailLevels.Length; i++)
             {
                 lodMeshes[i] = new LODMesh(detailLevels[i].lod, UpdateChunkVisibility);
+                if (detailLevels[i].useForCollider)
+                {
+                    collisionLODMesh = lodMeshes[i];
+                }
             }
             
             terrainGenerator.RequestTerrainData(position, OnMapDataRecieved, mapConfiguration);
@@ -206,6 +214,19 @@ public class EndlessTerrain : MonoBehaviour
                         lodMesh.RequestMesh(mapData, terrainGenerator, mapConfiguration);
                     }
                 }
+
+                if (lodIndex == 0) // Only add the collisions if the terrain is at the maximum resolution (LOD, so the closest) //ToDo => Check if should be changed to (TBD): lodIndex <= 2
+                {
+                    if (collisionLODMesh.hasMesh)
+                    {
+                        meshCollider.sharedMesh = collisionLODMesh.mesh;
+                    }
+                    else if (!collisionLODMesh.hasRequestedMesh)
+                    {
+                        collisionLODMesh.RequestMesh(mapData, terrainGenerator, mapConfiguration);
+                    }
+                    
+                }
                 
                 terrainChunksVisibleAtLastUpdate.Add(this);
             }
@@ -261,6 +282,8 @@ public class EndlessTerrain : MonoBehaviour
         /// </summary>
         [Tooltip("Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)")]
         [SerializeField] public float visibleDistanceThreshold;
+
+        public bool useForCollider;
     }
 
 }

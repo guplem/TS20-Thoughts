@@ -683,13 +683,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detailLevels:
   - lod: 0
-    visibleDistanceThreshold: 200
+    visibleDistanceThreshold: 150
+    useForCollider: 0
+  - lod: 1
+    visibleDistanceThreshold: 250
+    useForCollider: 1
   - lod: 2
-    visibleDistanceThreshold: 300
+    visibleDistanceThreshold: 400
+    useForCollider: 0
   - lod: 4
-    visibleDistanceThreshold: 450
+    visibleDistanceThreshold: 500
+    useForCollider: 0
   - lod: 6
     visibleDistanceThreshold: 600
+    useForCollider: 0
   viewer: {fileID: 0}
   material: {fileID: 2100000, guid: d320c0d7a1f62674cad8ccc611805e36, type: 2}
   mapGenerator: {fileID: 1236081435967817107}
