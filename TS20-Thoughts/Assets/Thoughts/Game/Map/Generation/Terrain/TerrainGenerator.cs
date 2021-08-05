@@ -93,19 +93,21 @@ public class TerrainGenerator : MonoBehaviour
 
     public MapData GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize + 2, mapConfiguration.seed, mapConfiguration.terrainData.noiseData.noiseScale, mapConfiguration.terrainData.noiseData.octaves, mapConfiguration.terrainData.noiseData.persistance, mapConfiguration.terrainData.noiseData.lacunarity, center+mapConfiguration.terrainData.noiseData.offset, Noise.NormalizeMode.Global);
-        
-        for (int y = 0; y < MapConfiguration.chunkSize; y++)
+        float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.terrainData.noiseData.noiseScale, mapConfiguration.terrainData.noiseData.octaves, mapConfiguration.terrainData.noiseData.persistance, mapConfiguration.terrainData.noiseData.lacunarity, center+mapConfiguration.terrainData.noiseData.offset, Noise.NormalizeMode.Global);
+
+        if (mapConfiguration.useFalloff)
         {
-            for (int x = 0; x < MapConfiguration.chunkSize; x++)
+            for (int y = 0; y < MapConfiguration.chunkSize; y++)
             {
-                if (mapConfiguration.useFalloff)
+                for (int x = 0; x < MapConfiguration.chunkSize; x++)
                 {
-                    noiseMap[x, y] = Mathf.Clamp(noiseMap[x, y] - mapConfiguration.falloffMap[x, y], 0, float.MaxValue) ;
+                    if (mapConfiguration.useFalloff)
+                    {
+                        noiseMap[x, y] = Mathf.Clamp(noiseMap[x, y] - mapConfiguration.falloffMap[x, y], 0, float.MaxValue) ;
+                    }
                 }
             }
         }
-        
         
         return new MapData(noiseMap);
     }

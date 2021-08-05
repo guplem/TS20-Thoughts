@@ -30,7 +30,7 @@ public class EndlessTerrain : MonoBehaviour
     public static Vector2 viewerPosition;
     public static Vector2 viewerPositionOld;
     public MapGenerator mapGenerator;
-    private int chunkSize;
+    private int meshSize;
     /// <summary>
     /// Based on the chunkSize and the maxViewDistance, how many chunks are visible
     /// </summary>
@@ -51,8 +51,8 @@ public class EndlessTerrain : MonoBehaviour
         }
 
         maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
-        chunkSize = MapConfiguration.chunkSize-1; // Because a mesh of dimensions of chunkSize-1 (240) is generated
-        chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / chunkSize);
+        meshSize = MapConfiguration.chunkSizeWithoutBorder-1; // Because a mesh of dimensions of chunkSize-1 (240) is generated
+        chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / meshSize);
         
         UpdateVisibleChunks();
     }
@@ -76,8 +76,8 @@ public class EndlessTerrain : MonoBehaviour
         }
         terrainChunksVisibleAtLastUpdate.Clear();
         
-        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / chunkSize);
-        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / chunkSize);
+        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / meshSize);
+        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / meshSize);
         for (int yOffset = -chunkVisibleInViewDistance; yOffset <= chunkVisibleInViewDistance; yOffset ++)
         {
             for (int xOffset = -chunkVisibleInViewDistance; xOffset <= chunkVisibleInViewDistance; xOffset ++)
@@ -94,7 +94,7 @@ public class EndlessTerrain : MonoBehaviour
                 }
                 else
                 {
-                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, chunkSize, detailLevels, this.transform, mapGenerator, material));
+                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, meshSize, detailLevels, this.transform, mapGenerator, material));
                 }
             }
         }

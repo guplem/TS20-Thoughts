@@ -580,34 +580,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainDrawer: {fileID: 1772945675136043650}
-  regions:
-  - name: 'Very deep Water (min required: 0)'
-    maxHeight: 0
-    color: {r: 0.10117648, g: 0.33173537, b: 0.78431374, a: 1}
-  - name: Deep Water
-    maxHeight: 0.1
-    color: {r: 0.16476859, g: 0.38174126, b: 0.8156863, a: 1}
-  - name: Water
-    maxHeight: 0.3
-    color: {r: 0.2627451, g: 0.44705883, b: 0.8156863, a: 1}
-  - name: Beach
-    maxHeight: 0.4
-    color: {r: 0.81568635, g: 0.8196079, b: 0.5019608, a: 1}
-  - name: Grass Field
-    maxHeight: 0.58
-    color: {r: 0.3189403, g: 0.56, b: 0.092715204, a: 1}
-  - name: High Grass
-    maxHeight: 0.68
-    color: {r: 0.25962263, g: 0.43, b: 0.077075474, a: 1}
-  - name: Rocky
-    maxHeight: 0.8
-    color: {r: 0.376, g: 0.2846355, b: 0.24949533, a: 1}
-  - name: Mountain
-    maxHeight: 0.93
-    color: {r: 0.324, g: 0.262481, b: 0.25837973, a: 1}
-  - name: Snow
-    maxHeight: 1
-    color: {r: 0.82745105, g: 0.82745105, b: 0.82745105, a: 1}
 --- !u!114 &1652022765444931318
 MonoBehaviour:
   m_ObjectHideFlags: 0
