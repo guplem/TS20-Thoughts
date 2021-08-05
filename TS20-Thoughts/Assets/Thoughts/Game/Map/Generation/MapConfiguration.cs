@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 
-//[CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map Configuration", order = 1)]
-[System.Serializable]
-public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration> *///todo: make serializable and live preview work at the same time
+[CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map Configuration", order = 1)]
+public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
 {
     
     [Range(0,6)]
@@ -19,8 +18,22 @@ public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration>
     [NonSerialized] public float[,] falloffMap = FalloffGenerator.GenerateFalloffMap(chunkSize);
 
     [SerializeField] public TerrainData terrainData;
+    private TerrainData _oldTerrainData;
 
-    /*
+    protected override void OnValidate()
+    {
+        if (terrainData != _oldTerrainData)
+        {
+            _oldTerrainData = terrainData;
+            Debug.LogWarning("TerrainData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
+        }
+        else
+        {
+            base.OnValidate();
+        } 
+    }
+    
+    
     #region EqualityComparer
         
         /// <summary>
@@ -86,6 +99,6 @@ public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration>
             return !(left == right);
         }
     #endregion
-    */
+    
 
 }

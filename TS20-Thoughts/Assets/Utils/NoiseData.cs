@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NoiseData", menuName = "Thoughts/NoiseData", order = 10)]
-public class NoiseData : ScriptableObject
+public class NoiseData : UpdatableData
 {
     
     [Space]
@@ -15,12 +15,14 @@ public class NoiseData : ScriptableObject
     public float lacunarity = 2f;  
         
     public Vector2 offset;
-    
-    private void OnValidate()
+
+    protected override void OnValidate()
     {
         if (lacunarity < 1)
             lacunarity = 1;
         if (octaves < 0)
             octaves = 0;
+        
+        base.OnValidate();
     }
 }

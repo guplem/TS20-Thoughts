@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0156b3f0b90f074385c16463b9ad7dc, type: 3}
   m_Name: DefaultTerrainData
   m_EditorClassIdentifier: 
-  maxHeight: 15
+  autoUpdate: 1
+  maxHeight: 30
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -25,6 +26,33 @@ MonoBehaviour:
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.38031012
+      value: 0.0012773722
+      inSlope: Infinity
+      outSlope: 1.09884
+      tangentMode: 7
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.61478287
+      value: 0.1316475
+      inSlope: 1.4458317
+      outSlope: 1.4458317
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8759175
+      value: 0.46270633
+      inSlope: 2.532982
+      outSlope: 2.532982
+      tangentMode: 1
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1

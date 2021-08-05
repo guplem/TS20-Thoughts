@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TerrainData", menuName = "Thoughts/TerrainData", order = 11)]
-public class TerrainData : ScriptableObject
+public class TerrainData : UpdatableData
 {
     /// <summary>
     /// For how much each cell height will be multiplied.
@@ -16,4 +16,18 @@ public class TerrainData : ScriptableObject
     public AnimationCurve heightCurve;
 
     public NoiseData noiseData;
+    private NoiseData _oldNoiseData;
+
+    protected override void OnValidate()
+    {
+        if (_oldNoiseData != noiseData)
+        {
+            _oldNoiseData = noiseData;
+            Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
+        }
+        else
+        {
+            base.OnValidate();
+        }
+    }
 }

@@ -380,7 +380,7 @@ Transform:
   m_GameObject: {fileID: 6464316453108154879}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4390041510973282630}
   m_RootOrder: 0
@@ -533,12 +533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoRegenerateInEditor: 1
   terrainGenerator: {fileID: 5466451008028546110}
-  mapConfiguration:
-    editorPreviewLOD: 1
-    terrainScale: 0.5
-    seed: 0
-    useFalloff: 0
-    terrainData: {fileID: 11400000, guid: 912ea1590b3446f419f2bbd507d0f4fb, type: 2}
+  mapConfiguration: {fileID: 11400000, guid: 9078c34bfb519ba47a49fbc477186a6a, type: 2}
 --- !u!1 &8134068418080193284
 GameObject:
   m_ObjectHideFlags: 0
