@@ -12,11 +12,16 @@ public class MapDisplay : MonoBehaviour
         //textureRenderer.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
 
-    public void DrawMesh(float[,] heightMap, float maxHeight, AnimationCurve heightCurve, Texture2D texture, int levelOfDetail, float scale)
+    public void DrawMesh(float[,] heightMap, float maxHeight, AnimationCurve heightCurve, int levelOfDetail, float scale)
     {
+	    if (meshFilter == null)
+	    {
+		    Debug.LogError($"Null meshFilter in ({gameObject.name}'s MapDisplay)", this);
+		    return;
+	    }
+	    
         MeshData mesh = GenerateTerrainMesh(heightMap, maxHeight, heightCurve, levelOfDetail);
         meshFilter.sharedMesh = mesh.CreateMesh();
-        meshRenderer.sharedMaterial.mainTexture = texture;
         meshFilter.transform.localScale = scale * Vector3.one;
     }
     

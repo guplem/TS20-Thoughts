@@ -13,8 +13,6 @@ public class TerrainGenerator : MonoBehaviour
     /// </summary>
     [SerializeField] private MapDisplay terrainDrawer;
 
-    public TerrainType[] regions;
-
     private Queue<ThreadInfo<MapData>> terrainDataThreadInfoQueue = new Queue<ThreadInfo<MapData>>();
     private Queue<ThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<ThreadInfo<MeshData>>();
     
@@ -24,7 +22,7 @@ public class TerrainGenerator : MonoBehaviour
     {
         MapData mapData = GenerateTerrainData( Vector2.zero, mapConfiguration);
         
-        terrainDrawer.DrawMesh(mapData.heightMap, mapConfiguration.terrainData.maxHeight, mapConfiguration.terrainData.heightCurve, TextureGenerator.TextureFromColorMap(mapData.colorMap, MapConfiguration.chunkSize, MapConfiguration.chunkSize), mapConfiguration.editorPreviewLOD, mapConfiguration.terrainScale);
+        terrainDrawer.DrawMesh(mapData.heightMap, mapConfiguration.terrainData.maxHeight, mapConfiguration.terrainData.heightCurve, mapConfiguration.editorPreviewLOD, mapConfiguration.terrainScale);
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
     }
 
@@ -96,8 +94,7 @@ public class TerrainGenerator : MonoBehaviour
     public MapData GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
     {
         float[,] noiseMap = Noise.GenerateNoiseMap(MapConfiguration.chunkSize + 2, mapConfiguration.seed, mapConfiguration.terrainData.noiseData.noiseScale, mapConfiguration.terrainData.noiseData.octaves, mapConfiguration.terrainData.noiseData.persistance, mapConfiguration.terrainData.noiseData.lacunarity, center+mapConfiguration.terrainData.noiseData.offset, Noise.NormalizeMode.Global);
-
-        Color[] colourMap = new Color[MapConfiguration.chunkSize * MapConfiguration.chunkSize];
+        
         for (int y = 0; y < MapConfiguration.chunkSize; y++)
         {
             for (int x = 0; x < MapConfiguration.chunkSize; x++)
@@ -106,44 +103,21 @@ public class TerrainGenerator : MonoBehaviour
                 {
                     noiseMap[x, y] = Mathf.Clamp(noiseMap[x, y] - mapConfiguration.falloffMap[x, y], 0, float.MaxValue) ;
                 }
-                float currentHeight = noiseMap[x, y];
-                for (int i = 0; i < regions.Length; i++)
-                {
-                    if (currentHeight >= regions[i].maxHeight)
-                    {
-                        colourMap[y * MapConfiguration.chunkSize + x] = regions[i].color;
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
             }
         }
         
         
-        return new MapData(noiseMap, colourMap);
+        return new MapData(noiseMap);
     }
     
-}
-
-[System.Serializable]
-public struct TerrainType
-{
-    public string name;
-    [Range(0,1)]
-    public float maxHeight;
-    public Color color;
 }
 
 public struct MapData
 {
     public readonly float[,] heightMap;
-    public readonly Color[] colorMap;
     
-    public MapData(float[,] heightMap, Color[] colorMap)
+    public MapData(float[,] heightMap)
     {
         this.heightMap = heightMap;
-        this.colorMap = colorMap;
     }
 }
