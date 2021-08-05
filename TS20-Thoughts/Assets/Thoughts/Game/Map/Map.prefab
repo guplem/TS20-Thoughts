@@ -533,68 +533,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoRegenerateInEditor: 1
   terrainGenerator: {fileID: 5466451008028546110}
-  scale: 0.5
   mapConfiguration:
-    editorPreviewLOD: 0
-    offset: {x: 78.23, y: 0}
-    noiseScale: 200
-    octaves: 15
-    persistance: 0.354
-    lacunarity: 2.14
-    maxHeight: 60
-    heightCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.4
-        value: 0
-        inSlope: Infinity
-        outSlope: 0.28026083
-        tangentMode: 7
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.15521604
-      - serializedVersion: 3
-        time: 0.5805222
-        value: 0.05089638
-        inSlope: 0.77787626
-        outSlope: 0.13029943
-        tangentMode: 1
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.13957515
-      - serializedVersion: 3
-        time: 0.86522716
-        value: 0.14244193
-        inSlope: 1.2202263
-        outSlope: -0.07730273
-        tangentMode: 1
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.22833285
-      - serializedVersion: 3
-        time: 1.1834439
-        value: 0.8937373
-        inSlope: 1.7186507
-        outSlope: 1.8475591
-        tangentMode: 1
-        weightedMode: 0
-        inWeight: 0.07703925
-        outWeight: 0.6138472
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+    editorPreviewLOD: 1
+    terrainScale: 0.5
     seed: 0
     useFalloff: 0
+    terrainData: {fileID: 11400000, guid: 912ea1590b3446f419f2bbd507d0f4fb, type: 2}
 --- !u!1 &8134068418080193284
 GameObject:
   m_ObjectHideFlags: 0

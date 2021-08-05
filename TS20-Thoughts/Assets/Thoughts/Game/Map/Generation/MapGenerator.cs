@@ -12,19 +12,19 @@ public class MapGenerator : MonoBehaviour
     public bool autoRegenerateInEditor = false;
 
     [SerializeField] public TerrainGenerator terrainGenerator;
-    public float scale = 1f; //todo: set the proper scale
+
     [SerializeField] public MapConfiguration mapConfiguration;
     
 
     public void GenerateMap()
     {
         Debug.LogWarning("TODO: GenerateMap");
-        //terrainGenerator.GenerateTerrainData(mapConfiguration);
+        //BringMapToLife(); // Enable auto update of "endlessTerrain"
     }
 
     public void GenerateMapInEditor()
     {
-        terrainGenerator.DrawTerrainInEditor(mapConfiguration, scale);
+        terrainGenerator.DrawTerrainInEditor(mapConfiguration);
     }
 
 }

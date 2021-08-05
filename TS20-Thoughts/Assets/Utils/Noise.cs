@@ -28,7 +28,7 @@ public static class Noise
     /// <param name="lacunarity"></param>
     /// <param name="offset"></param>
     /// <returns>An 2D array of floats containing the perlin noise map.</returns>
-    public static float[,] GenerateNoiseMap(int size, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode)
+    public static float[,] GenerateNoiseMap(int size, int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode = Noise.NormalizeMode.Global)
     {
         float[,] noiseMap = new float[size, size];
         RandomEssentials rng = new RandomEssentials(seed);

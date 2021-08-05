@@ -9,40 +9,17 @@ public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration>
     [Range(0,6)]
     [Tooltip("Max level of detail (LOD) for the terrain is 0 (editorPreviewLOD = 0)")]
     public int editorPreviewLOD = 0; //Not the one used during the dynamic optimization/terrain generation
-    public Vector2 offset;
-    [Space]
-    public float noiseScale = 27f;
-    [Range(0,20)]
-    public int octaves = 4;
-    [Range(0,1)]
-    public float persistance = 0.5f;
-    public float lacunarity = 2f;
-    /// <summary>
-    /// For how much each cell height will be multiplied.
-    /// <para>The height of the cell is by default [0,1], multiplying it by 5, the maximum height will be 5 (cell height [0,5]</para>
-    /// </summary>
-    public float maxHeight = 15f;
-    /// <summary>
-    /// How much the height of the mesh should be affected by the maxHeight (AKA: "height multiplier")
-    /// </summary>
-    public AnimationCurve heightCurve;
+    
+    public float terrainScale = 0.5f; //ToDo: Do it so the noise scale and max height of the terrain dynamically adapts to this value so it becomes a "terrain resolution" slider. Small scale = more triangles
+    
     [Space]
     public int seed;
     public const int chunkSize = 239; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1 (+2) = 240
-
     [SerializeField] public bool useFalloff;
     [NonSerialized] public float[,] falloffMap = FalloffGenerator.GenerateFalloffMap(chunkSize);
 
-    
-    
-    private void OnValidate()
-    {
-        if (lacunarity < 1)
-            lacunarity = 1;
-        if (octaves < 0)
-            octaves = 0;
-    }
-    
+    [SerializeField] public TerrainData terrainData;
+
     /*
     #region EqualityComparer
         
@@ -110,5 +87,5 @@ public class MapConfiguration /*: ScriptableObject, IEquatable<MapConfiguration>
         }
     #endregion
     */
-    
+
 }
