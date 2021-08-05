@@ -17,6 +17,10 @@ public class TerrainData : UpdatableData
 
     public NoiseData noiseData;
     private NoiseData _oldNoiseData;
+    
+    public TextureData textureData;
+    private TextureData _oldTextureData;
+
 
     protected override void OnValidate()
     {
@@ -25,9 +29,16 @@ public class TerrainData : UpdatableData
             _oldNoiseData = noiseData;
             Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
         }
+        else if (_oldTextureData != textureData)
+        {
+            _oldTextureData = textureData;
+            Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
+        }
         else
         {
             base.OnValidate();
         }
     }
+    
+    
 }

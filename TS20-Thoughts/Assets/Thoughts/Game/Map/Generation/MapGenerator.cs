@@ -15,6 +15,8 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] public MapConfiguration mapConfiguration;
 
+    [SerializeField] public Material material;
+
     private void OnValuesUpdated()
     {
         if (!Application.isPlaying)
@@ -40,6 +42,16 @@ public class MapGenerator : MonoBehaviour
             return;
         mapConfiguration.terrainData.noiseData.OnValuesUpdated -= OnValuesUpdated; // So the subscription count stays at 1
         mapConfiguration.terrainData.noiseData.OnValuesUpdated += OnValuesUpdated;
+        
+        if (mapConfiguration.terrainData.textureData == null)
+            return;
+        mapConfiguration.terrainData.textureData.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
+        mapConfiguration.terrainData.textureData.OnValuesUpdated += OnTextureValuesUpdated;
+    }
+
+    void OnTextureValuesUpdated()
+    {
+        mapConfiguration.terrainData.textureData.ApplyToMaterial(material);
     }
 
 
