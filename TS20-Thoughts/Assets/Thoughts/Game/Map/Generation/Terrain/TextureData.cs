@@ -6,6 +6,11 @@ using UnityEngine;
 public class TextureData : UpdatableData
 {
 
+    public Color color0;
+    public Color color1;
+    [Range(0, 1)]
+    public float color1Start;
+
     private float minHeight;
     private float maxHeight;
     
@@ -13,6 +18,10 @@ public class TextureData : UpdatableData
     
     public void ApplyToMaterial()
     {
+        material.SetColor("color0", color0);
+        material.SetColor("color1", color1);
+        material.SetFloat("color1Start", color1Start);
+        
         UpdateMeshHeights(minHeight, maxHeight);
     }
 

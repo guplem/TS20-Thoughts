@@ -13,4 +13,7 @@ MonoBehaviour:
   m_Name: TerrainTextureData
   m_EditorClassIdentifier: 
   autoUpdate: 1
+  color0: {r: 0.2691349, g: 0.4627451, b: 0.9056604, a: 0}
+  color1: {r: 0.21693665, g: 0.59607846, b: 0.30629486, a: 0}
+  color1Start: 0.011
   material: {fileID: 2100000, guid: eacd2db31b0251c418a8e075ab3fb7bd, type: 2}
