@@ -25,8 +25,6 @@ public class EndlessTerrain : MonoBehaviour
     [Tooltip("Reference to the viewer (usually the player) of the terrain. If null at Start, it will be set to 'Camera.main'")]
     public Transform viewer;
 
-    [SerializeField] private Material material;
-
     public static Vector2 viewerPosition;
     public static Vector2 viewerPositionOld;
     public MapGenerator mapGenerator;
@@ -94,7 +92,7 @@ public class EndlessTerrain : MonoBehaviour
                 }
                 else
                 {
-                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, meshSize, detailLevels, this.transform, mapGenerator, material));
+                    terrainChunks.Add(viewedChunkCoord, new TerrainChunk(viewedChunkCoord, meshSize, detailLevels, this.transform, mapGenerator, mapGenerator.mapConfiguration.terrainData.textureData.material));
                 }
             }
         }
