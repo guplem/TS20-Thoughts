@@ -20,6 +20,8 @@ public class TerrainGenerator : MonoBehaviour
 
     public void DrawTerrainInEditor(MapConfiguration mapConfiguration)
     {
+        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.minHeight, mapConfiguration.maxHeight);
+        
         MapData mapData = GenerateTerrainData( Vector2.zero, mapConfiguration);
         
         terrainDrawer.DrawMesh(mapData.heightMap, mapConfiguration.terrainData.maxHeight, mapConfiguration.terrainData.heightCurve, mapConfiguration.editorPreviewLOD, mapConfiguration.terrainScale);
@@ -31,6 +33,8 @@ public class TerrainGenerator : MonoBehaviour
     
     public void RequestTerrainData(Vector2 centre, Action<MapData> callback, MapConfiguration mapConfiguration)
     {
+        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.minHeight, mapConfiguration.maxHeight);
+        
         ThreadStart threadStart = delegate
         {
             TerrainDataThread(centre, callback, mapConfiguration);
@@ -109,8 +113,6 @@ public class TerrainGenerator : MonoBehaviour
             }
         }
 
-        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.minHeight, mapConfiguration.maxHeight);
-        
         return new MapData(noiseMap);
     }
     
