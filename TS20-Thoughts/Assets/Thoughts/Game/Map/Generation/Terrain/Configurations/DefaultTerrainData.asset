@@ -27,33 +27,6 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.38031012
-      value: 0.0012773722
-      inSlope: Infinity
-      outSlope: 1.09884
-      tangentMode: 7
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.61478287
-      value: 0.1316475
-      inSlope: 1.4458317
-      outSlope: 1.4458317
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.83179986
-      value: 0.52050984
-      inSlope: 2.532982
-      outSlope: 2.532982
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 2
@@ -66,3 +39,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   noiseData: {fileID: 11400000, guid: 69cd2cda440307b409c8ebaf7f2cc04d, type: 2}
+  textureData: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}

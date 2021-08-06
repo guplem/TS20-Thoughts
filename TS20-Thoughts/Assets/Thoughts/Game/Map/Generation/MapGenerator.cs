@@ -15,8 +15,6 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] public MapConfiguration mapConfiguration;
 
-    [SerializeField] public Material material;
-
     private void OnValuesUpdated()
     {
         if (!Application.isPlaying)
@@ -51,7 +49,7 @@ public class MapGenerator : MonoBehaviour
 
     void OnTextureValuesUpdated()
     {
-        mapConfiguration.terrainData.textureData.ApplyToMaterial(material);
+        mapConfiguration.terrainData.textureData.ApplyToMaterial();
     }
 
 

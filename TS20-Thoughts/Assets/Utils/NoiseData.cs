@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NoiseData", menuName = "Thoughts/NoiseData", order = 10)]
+[CreateAssetMenu(fileName = "NoiseData", menuName = "Thoughts/Utils/NoiseData", order = 100)]
 public class NoiseData : UpdatableData
 {
     

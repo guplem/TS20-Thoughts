@@ -412,7 +412,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d320c0d7a1f62674cad8ccc611805e36, type: 2}
+  - {fileID: 2100000, guid: eacd2db31b0251c418a8e075ab3fb7bd, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -609,7 +609,7 @@ MonoBehaviour:
     visibleDistanceThreshold: 600
     useForCollider: 0
   viewer: {fileID: 0}
-  material: {fileID: 2100000, guid: d320c0d7a1f62674cad8ccc611805e36, type: 2}
+  material: {fileID: 0}
   mapGenerator: {fileID: 1236081435967817107}
 --- !u!1 &8631221223841576117
 GameObject:

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map Configuration", order = 1)]
+[CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map/Map Configuration", order = 20)]
 public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
 {
     
@@ -34,6 +34,28 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
         {
             base.OnValidate();
         } 
+    }
+    
+    /// <summary>
+    /// The minimum height of the terrain
+    /// </summary>
+    public float minHeight{
+        get
+        {
+            float ret = terrainScale * terrainData.maxHeight * terrainData.heightCurve.Evaluate(0);
+            //Debug.Log($"MIN: {ret}");
+            return ret;
+        }
+    }
+    /// <summary>
+    /// The maximum height of the terrain
+    /// </summary>
+    public float maxHeight{
+        get {
+            float ret = terrainScale * terrainData.maxHeight * terrainData.heightCurve.Evaluate(1);
+            //Debug.Log($"MAX: {ret}");
+            return ret;
+        }
     }
     
     

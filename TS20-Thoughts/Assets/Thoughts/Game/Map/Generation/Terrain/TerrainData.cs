@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TerrainData", menuName = "Thoughts/TerrainData", order = 11)]
+[CreateAssetMenu(fileName = "TerrainData", menuName = "Thoughts/Map/Terrain/TerrainData", order = 21)]
 public class TerrainData : UpdatableData
 {
     /// <summary>
@@ -39,6 +39,7 @@ public class TerrainData : UpdatableData
             base.OnValidate();
         }
     }
+    
     
     
 }
