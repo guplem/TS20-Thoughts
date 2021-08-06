@@ -21,7 +21,8 @@ public class TerrainData : UpdatableData
     public TextureData textureData;
     private TextureData _oldTextureData;
 
-
+    #if UNITY_EDITOR
+    
     protected override void OnValidate()
     {
         if (_oldNoiseData != noiseData)
@@ -40,6 +41,6 @@ public class TerrainData : UpdatableData
         }
     }
     
-    
-    
+    #endif
+
 }

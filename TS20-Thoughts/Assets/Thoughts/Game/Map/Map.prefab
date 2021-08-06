@@ -640,7 +640,6 @@ MonoBehaviour:
     visibleDistanceThreshold: 600
     useForCollider: 0
   viewer: {fileID: 0}
-  material: {fileID: 0}
   mapGenerator: {fileID: 1236081435967817107}
 --- !u!1 &8631221223841576117
 GameObject:

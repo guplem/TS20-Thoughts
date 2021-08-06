@@ -28,12 +28,16 @@ public class TerrainGenerator : MonoBehaviour
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
     }
 
-    
-    
+
+    private void SetupTerrainMaterial(MapConfiguration mapConfiguration)
+    {
+        mapConfiguration.terrainData.textureData.ApplyToMaterial();
+        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.minHeight, mapConfiguration.maxHeight);
+    }
     
     public void RequestTerrainData(Vector2 centre, Action<MapData> callback, MapConfiguration mapConfiguration)
     {
-        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.minHeight, mapConfiguration.maxHeight);
+         // Maybe not the best place to put it. Awake would so the trick as well, but this seemed more "controlled"
         
         ThreadStart threadStart = delegate
         {

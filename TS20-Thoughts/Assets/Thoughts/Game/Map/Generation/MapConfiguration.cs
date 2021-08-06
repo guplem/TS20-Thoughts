@@ -23,6 +23,8 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     [SerializeField] public TerrainData terrainData;
     private TerrainData _oldTerrainData;
 
+    #if UNITY_EDITOR
+    
     protected override void OnValidate()
     {
         if (terrainData != _oldTerrainData)
@@ -35,6 +37,8 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
             base.OnValidate();
         } 
     }
+    
+    #endif
     
     /// <summary>
     /// The minimum height of the terrain

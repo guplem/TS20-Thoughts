@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -25,3 +27,4 @@ public class MapGeneratorEditor : Editor
 
     }
 }
+#endif
