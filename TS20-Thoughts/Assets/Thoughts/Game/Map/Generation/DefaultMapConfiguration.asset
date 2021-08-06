@@ -15,6 +15,6 @@ MonoBehaviour:
   autoUpdate: 1
   editorPreviewLOD: 0
   seed: 1
-  useFalloff: 1
+  useFalloff: 0
   terrainScale: 1
   terrainData: {fileID: 11400000, guid: 912ea1590b3446f419f2bbd507d0f4fb, type: 2}

@@ -17,6 +17,10 @@ public class TextureData : UpdatableData
     [Range(0, 1)]
     public float color2Start;
     public Color color2;
+    [Space]
+    [Range(0, 1)]
+    public float color3Start;
+    public Color color3;
 
     private float minHeight;
     private float maxHeight;
@@ -28,6 +32,8 @@ public class TextureData : UpdatableData
         material.SetColor("color1", color1);
         material.SetFloat("color2Start", color2Start);
         material.SetColor("color2", color2);
+        material.SetFloat("color3Start", color3Start);
+        material.SetColor("color3", color3);
         
         UpdateMeshHeights(minHeight, maxHeight);
     }
