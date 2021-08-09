@@ -631,9 +631,9 @@ MonoBehaviour:
     visibleDistanceThreshold: 250
   - lod: 2
     visibleDistanceThreshold: 400
-  - lod: 4
+  - lod: 3
     visibleDistanceThreshold: 500
-  - lod: 6
+  - lod: 4
     visibleDistanceThreshold: 600
   viewer: {fileID: 0}
   mapGenerator: {fileID: 1236081435967817107}

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class MapDisplay : MonoBehaviour
 {
+	public const int numSupportedLODs = 5;
+	
     [SerializeField] private Renderer textureRenderer;
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;

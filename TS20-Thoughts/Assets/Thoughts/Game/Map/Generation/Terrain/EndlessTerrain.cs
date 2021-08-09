@@ -293,6 +293,7 @@ public class EndlessTerrain : MonoBehaviour
     [System.Serializable]
     public struct LODInfo
     {
+        [Range(0,MapDisplay.numSupportedLODs-1)]
         [SerializeField]public int lod;
         /// <summary>
         /// Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)

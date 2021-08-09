@@ -5,7 +5,7 @@ using UnityEngine;
 public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
 {
     
-    [Range(0,6)]
+    [Range(0,MapDisplay.numSupportedLODs-1)]
     [Tooltip("Max level of detail (LOD) for the terrain is 0 (editorPreviewLOD = 0)")]
     public int editorPreviewLOD = 0; //Not the one used during the dynamic optimization/terrain generation
     
