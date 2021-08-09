@@ -623,22 +623,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a431fae9e6762ac479ad70b7d7591a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  colliderLODIndex: 3
   detailLevels:
   - lod: 0
     visibleDistanceThreshold: 150
-    useForCollider: 0
   - lod: 1
     visibleDistanceThreshold: 250
-    useForCollider: 1
   - lod: 2
     visibleDistanceThreshold: 400
-    useForCollider: 0
   - lod: 4
     visibleDistanceThreshold: 500
-    useForCollider: 0
   - lod: 6
     visibleDistanceThreshold: 600
-    useForCollider: 0
   viewer: {fileID: 0}
   mapGenerator: {fileID: 1236081435967817107}
 --- !u!1 &8631221223841576117
