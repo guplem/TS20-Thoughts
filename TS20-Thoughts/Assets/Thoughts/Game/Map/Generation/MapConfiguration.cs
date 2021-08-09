@@ -11,13 +11,15 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     
     [Space]
     public int seed;
-    
-    public const int chunkSize = 241; // This is the max size for unity. It will generate a mesh of dimensions of chunkSize-1 = 240
-    public const int chunkSizeWithoutBorder = chunkSize-2; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1 (+2) = 240
+
+    [Range(0, MapDisplay.numSupportedChunkSizes-1)]
+    public int chunkSizeIndex;
+    public int chunkSize => MapDisplay.supportedChunkSizes[chunkSizeIndex] +1; // This is the max size for unity. It will generate a mesh of dimensions of chunkSize-1
+    public int chunkSizeWithoutBorder => chunkSize -2; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1(+2)
     
     [Space]
     [SerializeField] public bool useFalloff;
-    [NonSerialized] public float[,] falloffMap = FalloffGenerator.GenerateFalloffMap(chunkSize);
+    [NonSerialized] public float[,] falloffMap =  null;
     public float terrainScale = 0.5f; //ToDo: Do it so the noise scale and max height of the terrain dynamically adapts to this value so it becomes a "terrain resolution" slider. Small scale = more triangles
 
     [SerializeField] public TerrainData terrainData;

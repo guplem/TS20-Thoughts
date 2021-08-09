@@ -4,7 +4,10 @@ public class MapDisplay : MonoBehaviour
 {
 	public const int numSupportedLODs = 5;
 	
-    [SerializeField] private Renderer textureRenderer;
+	public static readonly int[] supportedChunkSizes = {24, 48, 72, 96, 120, 144, 168, 192, 216, 240};
+	public const int numSupportedChunkSizes = 10; // supportedChunkSizes.Length
+
+	[SerializeField] private Renderer textureRenderer;
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;
 
@@ -31,7 +34,7 @@ public class MapDisplay : MonoBehaviour
     {
         AnimationCurve heightCurve = new AnimationCurve (_heightCurve.keys);
 
-		int meshSimplificationIncrement = (levelOfDetail == 0)?1:levelOfDetail * 2;
+		int meshSimplificationIncrement = (levelOfDetail == 0)? 1 : levelOfDetail*2;
 
 		int borderedSize = heightMap.GetLength (0);
 		int meshSize = borderedSize - 2*meshSimplificationIncrement;
@@ -124,7 +127,8 @@ public class MeshData {
 		}
 	}
 
-	public void AddTriangle(int a, int b, int c) {
+	public void AddTriangle(int a, int b, int c)
+	{
 		if (a < 0 || b < 0 || c < 0) {
 			borderTriangles [borderTriangleIndex] = a;
 			borderTriangles [borderTriangleIndex + 1] = b;

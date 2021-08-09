@@ -52,7 +52,7 @@ public class EndlessTerrain : MonoBehaviour
         }
 
         maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
-        meshSize = MapConfiguration.chunkSizeWithoutBorder-1; // Because a mesh of dimensions of chunkSize-1 (240) is generated
+        meshSize = mapGenerator.mapConfiguration.chunkSizeWithoutBorder-1; // Because a mesh of dimensions of chunkSize-1 (240) is generated
         chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / meshSize);
         
         UpdateVisibleChunks();
