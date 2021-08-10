@@ -2,22 +2,19 @@ using UnityEngine;
 
 public class MapDisplay : MonoBehaviour
 {
-	public const int numSupportedLODs = 5;
-	
-	public static readonly int[] supportedChunkSizes = {24, 48, 72, 96, 120, 144, 168, 192, 216, 240};
-	public const int numSupportedChunkSizes = 10; // supportedChunkSizes.Length
-
 	[SerializeField] private Renderer textureRenderer;
     [SerializeField] private MeshFilter meshFilter;
     [SerializeField] private MeshRenderer meshRenderer;
 
+
+    
     public void DrawTexture(Texture2D texture)
     { 
         textureRenderer.sharedMaterial.mainTexture = texture;
         //textureRenderer.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
 
-    public void DrawMesh(float[,] heightMap, float maxHeight, AnimationCurve heightCurve, int levelOfDetail, float scale)
+    public void DrawMesh(float[,] heightMap, MapConfiguration mapConfiguration, int levelOfDetail, float scale)
     {
 	    if (meshFilter == null)
 	    {
@@ -25,14 +22,14 @@ public class MapDisplay : MonoBehaviour
 		    return;
 	    }
 	    
-        MeshData mesh = GenerateTerrainMesh(heightMap, maxHeight, heightCurve, levelOfDetail);
+        MeshData mesh = GenerateTerrainMesh(heightMap, mapConfiguration, levelOfDetail);
         meshFilter.sharedMesh = mesh.CreateMesh();
         meshFilter.transform.localScale = scale * Vector3.one;
     }
     
-    public static MeshData GenerateTerrainMesh(float[,] heightMap, float heightMultiplier, AnimationCurve _heightCurve, int levelOfDetail)
+    public static MeshData GenerateTerrainMesh(float[,] heightMap, MapConfiguration mapConfiguration, int levelOfDetail)
     {
-        AnimationCurve heightCurve = new AnimationCurve (_heightCurve.keys);
+        //AnimationCurve heightCurve = new AnimationCurve (_heightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe.
 
 		int meshSimplificationIncrement = (levelOfDetail == 0)? 1 : levelOfDetail*2;
 
@@ -70,8 +67,8 @@ public class MapDisplay : MonoBehaviour
 			for (int x = 0; x < borderedSize; x += meshSimplificationIncrement) {
 				int vertexIndex = vertexIndicesMap [x, y];
 				Vector2 percent = new Vector2 ((x-meshSimplificationIncrement) / (float)meshSize, (y-meshSimplificationIncrement) / (float)meshSize);
-				float height = heightCurve.Evaluate (heightMap [x, y]) * heightMultiplier;
-				Vector3 vertexPosition = new Vector3 (topLeftX + percent.x * meshSizeUnsimplified, height, topLeftZ - percent.y * meshSizeUnsimplified);
+				float height = heightMap[x, y];
+				Vector3 vertexPosition = new Vector3 ((topLeftX + percent.x * meshSizeUnsimplified) * mapConfiguration.scale, height, (topLeftZ - percent.y * meshSizeUnsimplified) * mapConfiguration.scale);
 
 				meshData.AddVertex (vertexPosition, percent, vertexIndex);
 

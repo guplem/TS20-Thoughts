@@ -5,22 +5,32 @@ using UnityEngine;
 public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
 {
     
-    [Range(0,MapDisplay.numSupportedLODs-1)]
+    [Range(0,TerrainData.numSupportedLODs-1)]
     [Tooltip("Max level of detail (LOD) for the terrain is 0 (editorPreviewLOD = 0)")]
     public int editorPreviewLOD = 0; //Not the one used during the dynamic optimization/terrain generation
     
     [Space]
     public int seed;
 
-    [Range(0, MapDisplay.numSupportedChunkSizes-1)]
+    [Range(0, numSupportedChunkSizes-1)]
     public int chunkSizeIndex;
-    public int chunkSize => MapDisplay.supportedChunkSizes[chunkSizeIndex] +1; // This is the max size for unity. It will generate a mesh of dimensions of chunkSize-1
+    public static readonly int[] supportedChunkSizes = {24, 48, 72, 96, 120, 144, 168, 192, 216, 240};
+    public const int numSupportedChunkSizes = 10; // supportedChunkSizes.Length
+    
+    /// <summary>
+    /// Number of vertices per line of a mesh rendered at the max resolution (LOD = 0). It includes the 2 extra vertices that are excluded from final mesh, but used for calculating normals.
+    /// </summary>
+    public int chunkSize => supportedChunkSizes[chunkSizeIndex] +1; // This is the max size for unity. It will generate a mesh of dimensions of chunkSize-1
+    /// <summary>
+    /// The space the (terrain) mesh takes up in the world.
+    /// </summary>
+    public float meshWorldSize => (chunkSize - 3) * scale;
+
     public int chunkSizeWithoutBorder => chunkSize -2; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1(+2)
     
-    [Space]
-    [SerializeField] public bool useFalloff;
+    public float scale = 1f; //ToDo: Do it so the noise scale and max height of the terrain dynamically adapts to this value so it becomes a "terrain resolution" slider. Small scale = more triangles
+
     [NonSerialized] public float[,] falloffMap =  null;
-    public float terrainScale = 0.5f; //ToDo: Do it so the noise scale and max height of the terrain dynamically adapts to this value so it becomes a "terrain resolution" slider. Small scale = more triangles
 
     [SerializeField] public TerrainData terrainData;
     private TerrainData _oldTerrainData;
@@ -41,30 +51,8 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     }
     
     #endif
-    
-    /// <summary>
-    /// The minimum height of the terrain
-    /// </summary>
-    public float minHeight{
-        get
-        {
-            float ret = terrainScale * terrainData.maxHeight * terrainData.heightCurve.Evaluate(0);
-            //Debug.Log($"MIN: {ret}");
-            return ret;
-        }
-    }
-    /// <summary>
-    /// The maximum height of the terrain
-    /// </summary>
-    public float maxHeight{
-        get {
-            float ret = terrainScale * terrainData.maxHeight * terrainData.heightCurve.Evaluate(1);
-            //Debug.Log($"MAX: {ret}");
-            return ret;
-        }
-    }
-    
-    
+
+
     #region EqualityComparer
         
         /// <summary>

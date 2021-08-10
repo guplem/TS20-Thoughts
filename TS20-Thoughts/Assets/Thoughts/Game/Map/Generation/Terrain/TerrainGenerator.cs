@@ -13,18 +13,18 @@ public class TerrainGenerator : MonoBehaviour
     /// </summary>
     [SerializeField] private MapDisplay terrainDrawer;
 
-    private Queue<ThreadInfo<MapData>> terrainDataThreadInfoQueue = new Queue<ThreadInfo<MapData>>();
+    private Queue<ThreadInfo<HeightMap>> terrainDataThreadInfoQueue = new Queue<ThreadInfo<HeightMap>>();
     private Queue<ThreadInfo<MeshData>> meshDataThreadInfoQueue = new Queue<ThreadInfo<MeshData>>();
     
     
 
     public void DrawTerrainInEditor(MapConfiguration mapConfiguration)
     {
-        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.minHeight, mapConfiguration.maxHeight);
+        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.terrainData.heightMapSettings.minHeight, mapConfiguration.terrainData.heightMapSettings.maxHeight);
         
-        MapData mapData = GenerateTerrainData( Vector2.zero, mapConfiguration);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, Vector2.zero);
         
-        terrainDrawer.DrawMesh(mapData.heightMap, mapConfiguration.terrainData.maxHeight, mapConfiguration.terrainData.heightCurve, mapConfiguration.editorPreviewLOD, mapConfiguration.terrainScale);
+        terrainDrawer.DrawMesh(heightMap.values, mapConfiguration, mapConfiguration.editorPreviewLOD, mapConfiguration.scale);
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
     }
 
@@ -32,10 +32,10 @@ public class TerrainGenerator : MonoBehaviour
     private void SetupTerrainMaterial(MapConfiguration mapConfiguration)
     {
         mapConfiguration.terrainData.textureData.ApplyToMaterial();
-        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.minHeight, mapConfiguration.maxHeight);
+        mapConfiguration.terrainData.textureData.UpdateMeshHeights(mapConfiguration.terrainData.heightMapSettings.minHeight, mapConfiguration.terrainData.heightMapSettings.maxHeight);
     }
     
-    public void RequestTerrainData(Vector2 centre, Action<MapData> callback, MapConfiguration mapConfiguration)
+    public void RequestTerrainData(Vector2 centre, Action<HeightMap> callback, MapConfiguration mapConfiguration)
     {
          // Maybe not the best place to put it. Awake would so the trick as well, but this seemed more "controlled"
         
@@ -46,46 +46,41 @@ public class TerrainGenerator : MonoBehaviour
         
         new Thread(threadStart).Start();
     }
-    private void TerrainDataThread(Vector2 centre, Action<MapData> callback, MapConfiguration mapConfiguration)
+    private void TerrainDataThread(Vector2 centre, Action<HeightMap> callback, MapConfiguration mapConfiguration)
     {
-        MapData mapData = GenerateTerrainData(centre, mapConfiguration);
+        HeightMap heightMap = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, centre);
         lock (terrainDataThreadInfoQueue)
         {
-            terrainDataThreadInfoQueue.Enqueue(new ThreadInfo<MapData>(callback, mapData));
+            terrainDataThreadInfoQueue.Enqueue(new ThreadInfo<HeightMap>(callback, heightMap));
         }
     }
-
-
-
-
-    public void RequestMeshData(MapData mapData, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
+    
+    public void RequestMeshData(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
         ThreadStart threadStart = delegate
         {
-            MeshDataThread(mapData, mapConfiguration, LOD, callback);
+            HeightMapThread(heightMap, mapConfiguration, LOD, callback);
         };
         
         new Thread(threadStart).Start();
     }
-    public void MeshDataThread(MapData mapData, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
+    
+    public void HeightMapThread(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
-        MeshData meshData = MapDisplay.GenerateTerrainMesh(mapData.heightMap, mapConfiguration.terrainData.maxHeight, mapConfiguration.terrainData.heightCurve, LOD);
+        MeshData meshData = MapDisplay.GenerateTerrainMesh(heightMap.values, mapConfiguration, LOD);
         lock (terrainDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new ThreadInfo<MeshData>(callback, meshData));
         }
     }
     
-    
-    
-
     private void Update()
     {
         if (terrainDataThreadInfoQueue.Count > 0)
         {
             for (int i = 0; i < terrainDataThreadInfoQueue.Count; i++)
             {
-                ThreadInfo<MapData> threadInfo = terrainDataThreadInfoQueue.Dequeue();
+                ThreadInfo<HeightMap> threadInfo = terrainDataThreadInfoQueue.Dequeue();
                 threadInfo.callback(threadInfo.parameter);
             }
         }
@@ -99,9 +94,9 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
-    public MapData GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
+    /*public HeightMap GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
     {
-        float[,] noiseMap = Noise.GenerateNoiseMap(mapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.terrainData.noiseData.noiseScale, mapConfiguration.terrainData.noiseData.octaves, mapConfiguration.terrainData.noiseData.persistance, mapConfiguration.terrainData.noiseData.lacunarity, center+mapConfiguration.terrainData.noiseData.offset, Noise.NormalizeMode.Global);
+        float[,] noiseMap = Noise.GenerateNoiseMap(mapConfiguration.chunkSize, mapConfiguration.seed, mapConfiguration.terrainData.heightMapSettings.noiseScale, mapConfiguration.terrainData.heightMapSettings.octaves, mapConfiguration.terrainData.heightMapSettings.persistance, mapConfiguration.terrainData.heightMapSettings.lacunarity, center+mapConfiguration.terrainData.heightMapSettings.offset, Noise.NormalizeMode.Global);
 
         if (mapConfiguration.useFalloff)
         {
@@ -121,17 +116,7 @@ public class TerrainGenerator : MonoBehaviour
             }
         }
 
-        return new MapData(noiseMap);
-    }
+        return new HeightMap(noiseMap);
+    }*/
     
-}
-
-public struct MapData
-{
-    public readonly float[,] heightMap;
-    
-    public MapData(float[,] heightMap)
-    {
-        this.heightMap = heightMap;
-    }
 }

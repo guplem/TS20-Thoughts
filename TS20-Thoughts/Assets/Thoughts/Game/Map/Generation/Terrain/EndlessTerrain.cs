@@ -31,7 +31,7 @@ public class EndlessTerrain : MonoBehaviour
     public static Vector2 viewerPosition;
     public static Vector2 viewerPositionOld;
     public MapGenerator mapGenerator;
-    private int meshSize;
+    private float meshSize;
     /// <summary>
     /// Based on the chunkSize and the maxViewDistance, how many chunks are visible
     /// </summary>
@@ -52,7 +52,7 @@ public class EndlessTerrain : MonoBehaviour
         }
 
         maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
-        meshSize = mapGenerator.mapConfiguration.chunkSizeWithoutBorder-1; // Because a mesh of dimensions of chunkSize-1 (240) is generated
+        meshSize = mapGenerator.mapConfiguration.meshWorldSize; // Because a mesh of dimensions of chunkSize-1 (240) is generated
         chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / meshSize);
         
         UpdateVisibleChunks();
@@ -60,7 +60,7 @@ public class EndlessTerrain : MonoBehaviour
 
     private void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z) / mapGenerator.mapConfiguration.terrainScale;
+        viewerPosition = new Vector2(viewer.position.x, viewer.position.z)  /*  / mapGenerator.mapConfiguration.scale  */  ;
 
         if (viewerPosition != viewerPositionOld)
         {
@@ -115,7 +115,7 @@ public class EndlessTerrain : MonoBehaviour
 
         public Vector2 coord;
         
-        private Vector2 position;
+        private Vector2 sampleCenter;
         private GameObject meshObject;
         private Bounds bounds;
 
@@ -130,12 +130,12 @@ public class EndlessTerrain : MonoBehaviour
         private LODMesh[] lodMeshes;
         private int colliderLODIndex;
         
-        private MapData mapData;
+        private HeightMap heightMap;
         private bool mapDataReceived = false;
         private int previousLODIndex = -1;
         private bool hasSetCollider;
         
-        public TerrainChunk(Vector2 coord, int size, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, MapGenerator mapGenerator, Material material)
+        public TerrainChunk(Vector2 coord, float meshWorldSize, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, MapGenerator mapGenerator, Material material)
         {
             this.coord = coord;
             
@@ -145,19 +145,18 @@ public class EndlessTerrain : MonoBehaviour
             
             this.detailLevels = detailLevels;
             
-            position = coord * size;
-            bounds = new Bounds(position, Vector3.one * size);
-            Vector3 position3D = new Vector3(position.x, 0, position.y);
+            sampleCenter = coord * meshWorldSize / mapGenerator.mapConfiguration.scale;
+            Vector2 position = coord * meshWorldSize;
+            bounds = new Bounds(sampleCenter, Vector3.one * meshWorldSize);
             
             meshObject = new GameObject("Terrain Chunk");
             meshRenderer = meshObject.AddComponent<MeshRenderer>();
             meshFilter = meshObject.AddComponent<MeshFilter>();
             meshCollider = meshObject.AddComponent<MeshCollider>();
             meshRenderer.material = material;
-            
-            meshObject.transform.position = position3D * mapGenerator.mapConfiguration.terrainScale;
+
+            meshObject.transform.position = new Vector3(position.x, 0, position.y);
             meshObject.transform.parent = parent;
-            meshObject.transform.localScale = Vector3.one * mapGenerator.mapConfiguration.terrainScale;
             SetVisible(false);
 
             lodMeshes = new LODMesh[detailLevels.Length];
@@ -171,13 +170,13 @@ public class EndlessTerrain : MonoBehaviour
                 }
             }
             
-            terrainGenerator.RequestTerrainData(position, OnMapDataRecieved, mapConfiguration);
+            terrainGenerator.RequestTerrainData(sampleCenter, OnMapDataRecieved, mapConfiguration);
         }
 
-        void OnMapDataRecieved(MapData mapData)
+        void OnMapDataRecieved(HeightMap heightMap)
         {
             //terrainGenerator.RequestMeshData(mapData, mapConfiguration, OnMeshDataRecieved);
-            this.mapData = mapData;
+            this.heightMap = heightMap;
             mapDataReceived = true;
 
             UpdateChunkVisibility();
@@ -222,7 +221,7 @@ public class EndlessTerrain : MonoBehaviour
                     }
                     else if (!lodMesh.hasRequestedMesh)
                     {
-                        lodMesh.RequestMesh(mapData, terrainGenerator, mapConfiguration);
+                        lodMesh.RequestMesh(heightMap, terrainGenerator, mapConfiguration);
                     }
                 }
 
@@ -251,7 +250,7 @@ public class EndlessTerrain : MonoBehaviour
             {
                 if (!lodMeshes[colliderLODIndex].hasRequestedMesh)
                 {
-                    lodMeshes[colliderLODIndex].RequestMesh(mapData, terrainGenerator, mapConfiguration);
+                    lodMeshes[colliderLODIndex].RequestMesh(heightMap, terrainGenerator, mapConfiguration);
                 }
             }
             
@@ -296,17 +295,17 @@ public class EndlessTerrain : MonoBehaviour
             updateCallback();
         }
         
-        public void RequestMesh(MapData mapData, TerrainGenerator terrainGenerator, MapConfiguration mapConfiguration)
+        public void RequestMesh(HeightMap heightMap, TerrainGenerator terrainGenerator, MapConfiguration mapConfiguration)
         {
             hasRequestedMesh = true;
-            terrainGenerator.RequestMeshData(mapData, mapConfiguration, lod, OnMeshDataRecieved);
+            terrainGenerator.RequestMeshData(heightMap, mapConfiguration, lod, OnMeshDataRecieved);
         }
     }
 
     [System.Serializable]
     public struct LODInfo
     {
-        [Range(0,MapDisplay.numSupportedLODs-1)]
+        [Range(0,TerrainData.numSupportedLODs-1)]
         [SerializeField]public int lod;
         /// <summary>
         /// Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)

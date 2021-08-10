@@ -9,11 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0156b3f0b90f074385c16463b9ad7dc, type: 3}
-  m_Name: DefaultTerrainData
+  m_Script: {fileID: 11500000, guid: 856493cb02e94f5499d06bdb0be4e2c2, type: 3}
+  m_Name: HeightMapSettings
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  maxHeight: 30
+  noiseSettings:
+    normalizeMode: 1
+    scale: 50
+    octaves: 5
+    persistance: 0.6
+    lacunarity: 2
+    seed: 0
+    offset: {x: 0, y: 0}
+  offset: {x: 0, y: 0}
+  useFalloff: 0
+  heightMultiplier: 15
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -27,24 +37,6 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.015
-      value: 0
-      inSlope: Infinity
-      outSlope: 0.166944
-      tangentMode: 7
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5403764
-      value: 0.18536031
-      inSlope: 0.9263483
-      outSlope: 0.8194188
-      tangentMode: 1
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.16011831
-    - serializedVersion: 3
       time: 1
       value: 1
       inSlope: 2
@@ -56,5 +48,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  noiseData: {fileID: 11400000, guid: 69cd2cda440307b409c8ebaf7f2cc04d, type: 2}
-  textureData: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}

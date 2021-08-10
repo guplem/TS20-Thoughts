@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 856493cb02e94f5499d06bdb0be4e2c2, type: 3}
-  m_Name: DefaultTerrainNoiseData
+  m_Script: {fileID: 11500000, guid: c0156b3f0b90f074385c16463b9ad7dc, type: 3}
+  m_Name: TerrainData
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  noiseScale: 50
-  octaves: 11
-  persistance: 0.523
-  lacunarity: 1.5
-  offset: {x: 0, y: 0}
+  heightMapSettings: {fileID: 11400000, guid: 0d8502f7698fcf948a85fe46971900b8, type: 2}
+  textureData: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}
