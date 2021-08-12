@@ -16,15 +16,16 @@ public class TerrainGenerator : MonoBehaviour
 
     public void DrawTerrainInEditor(MapConfiguration mapConfiguration)
     {
+        SetupTerrainMaterial(mapConfiguration);
+        
         mapConfiguration.terrainData.textureSettings.UpdateMeshHeights(mapConfiguration.terrainData.heightMapSettings.minHeight, mapConfiguration.terrainData.heightMapSettings.maxHeight);
         
         HeightMap heightMap = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, Vector2.zero);
         
-        terrainDrawer.DrawMesh(heightMap.values, mapConfiguration, mapConfiguration.editorPreviewLOD, mapConfiguration.scale);
+        terrainDrawer.DrawMesh(heightMap.values, mapConfiguration, mapConfiguration.editorPreviewLOD);
         //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
     }
-
-    //Todo: never called?
+    
     private void SetupTerrainMaterial(MapConfiguration mapConfiguration)
     {
         mapConfiguration.terrainData.textureSettings.ApplyToMaterial();

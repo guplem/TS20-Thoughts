@@ -1,20 +1,20 @@
 using UnityEngine;
 
-public class MapDisplay : MonoBehaviour
+public class MapDisplay : MonoBehaviour // Map preview in editor (?)
 {
 	[SerializeField] private Renderer textureRenderer;
     [SerializeField] private MeshFilter meshFilter;
-    [SerializeField] private MeshRenderer meshRenderer;
+    //[SerializeField] private MeshRenderer meshRenderer;
 
 
-    
+    // ToDo: not used?
     public void DrawTexture(Texture2D texture)
     { 
         textureRenderer.sharedMaterial.mainTexture = texture;
         //textureRenderer.transform.localScale = new Vector3(texture.width, 1, texture.height);
     }
 
-    public void DrawMesh(float[,] heightMap, MapConfiguration mapConfiguration, int levelOfDetail, float scale)
+    public void DrawMesh(float[,] heightMap, MapConfiguration mapConfiguration, int levelOfDetail)
     {
 	    if (meshFilter == null)
 	    {
@@ -24,7 +24,6 @@ public class MapDisplay : MonoBehaviour
 	    
         MeshData mesh = GenerateTerrainMesh(heightMap, mapConfiguration, levelOfDetail);
         meshFilter.sharedMesh = mesh.CreateMesh();
-        meshFilter.transform.localScale = scale * Vector3.one;
     }
     
     public static MeshData GenerateTerrainMesh(float[,] heightMap, MapConfiguration mapConfiguration, int levelOfDetail)
