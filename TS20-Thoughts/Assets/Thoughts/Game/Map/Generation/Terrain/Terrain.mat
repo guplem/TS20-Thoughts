@@ -106,7 +106,7 @@ Material:
     - _ZWrite: 1
     - color1BaseBlend: 0.005
     - color1Start: 0.015
-    - color2BaseBlend: 0.125
+    - color2BaseBlend: 0.154
     - color2Start: 0.156
     - color3BaseBlend: 0.021
     - color3Start: 0.626
