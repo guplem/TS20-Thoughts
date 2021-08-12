@@ -11,8 +11,8 @@ public class TerrainData : UpdatableData
     public HeightMapSettings heightMapSettings;
     private HeightMapSettings oldHeightMapSettings;
     
-    public TextureData textureData;
-    private TextureData _oldTextureData;
+    public TextureSettings textureSettings;
+    private TextureSettings oldTextureSettings;
 
     #if UNITY_EDITOR
     
@@ -23,9 +23,9 @@ public class TerrainData : UpdatableData
             oldHeightMapSettings = heightMapSettings;
             Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
         }
-        else if (_oldTextureData != textureData)
+        else if (oldTextureSettings != textureSettings)
         {
-            _oldTextureData = textureData;
+            oldTextureSettings = textureSettings;
             Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
         }
         else

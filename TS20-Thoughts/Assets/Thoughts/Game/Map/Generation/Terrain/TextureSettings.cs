@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "TextureData", menuName = "Thoughts/Map/Terrain/TextureData", order = 22)]
-public class TextureData : UpdatableData
+public class TextureSettings : UpdatableData
 {
     [SerializeField] public Material material;
     

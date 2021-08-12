@@ -1,11 +1,11 @@
 using System;
 
-struct ThreadInfo<T>
+struct ThreadInfo
 {
-    public readonly Action<T> callback;
-    public readonly T parameter;
+    public readonly Action<object> callback;
+    public readonly object parameter;
 
-    public ThreadInfo(Action<T> callback, T parameter)
+    public ThreadInfo(Action<object> callback, object parameter)
     {
         this.callback = callback;
         this.parameter = parameter;

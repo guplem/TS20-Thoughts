@@ -506,6 +506,7 @@ GameObject:
   - component: {fileID: 3843560568284419820}
   - component: {fileID: 2933551296116220228}
   - component: {fileID: 1236081435967817107}
+  - component: {fileID: 3071334023819363948}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -565,6 +566,18 @@ MonoBehaviour:
   autoRegenerateInEditor: 1
   terrainGenerator: {fileID: 5466451008028546110}
   mapConfiguration: {fileID: 11400000, guid: 9078c34bfb519ba47a49fbc477186a6a, type: 2}
+--- !u!114 &3071334023819363948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6997258926127376635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91b6d00a3c2a31d458341a021bbb729b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8134068418080193284
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,13 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   material: {fileID: 2100000, guid: eacd2db31b0251c418a8e075ab3fb7bd, type: 2}
-  color0: {r: 0.2691349, g: 0.49019608, b: 0.9056604, a: 0}
+  color0: {r: 0.116625115, g: 0.37780735, b: 0.5283019, a: 1}
   color1Start: 0.015
-  color1: {r: 0.21693665, g: 0.57254905, b: 0.30629486, a: 0}
+  color1: {r: 0.3207547, g: 0.3207547, b: 0.09803922, a: 0}
   color1BaseBlend: 0.005
   color2Start: 0.156
-  color2: {r: 0.46226418, g: 0.33723283, b: 0.27256143, a: 0}
+  color2: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0}
   color2BaseBlend: 0.125
-  color3Start: 0.8
+  color3Start: 0.626
   color3: {r: 0.9333334, g: 0.9333334, b: 0.9333334, a: 1}
-  color3BaseBlend: 0.15
+  color3BaseBlend: 0.021

@@ -41,15 +41,15 @@ public class MapGenerator : MonoBehaviour
         mapConfiguration.terrainData.heightMapSettings.OnValuesUpdated -= OnValuesUpdated; // So the subscription count stays at 1
         mapConfiguration.terrainData.heightMapSettings.OnValuesUpdated += OnValuesUpdated;
         
-        if (mapConfiguration.terrainData.textureData == null)
+        if (mapConfiguration.terrainData.textureSettings == null)
             return;
-        mapConfiguration.terrainData.textureData.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
-        mapConfiguration.terrainData.textureData.OnValuesUpdated += OnTextureValuesUpdated;
+        mapConfiguration.terrainData.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
+        mapConfiguration.terrainData.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
     }
 
     void OnTextureValuesUpdated()
     {
-        mapConfiguration.terrainData.textureData.ApplyToMaterial();
+        mapConfiguration.terrainData.textureSettings.ApplyToMaterial();
     }
 
 
