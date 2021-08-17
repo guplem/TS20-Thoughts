@@ -264,9 +264,10 @@ public class MeshData {
 		Vector3 sideAC = pointC - pointA;
 		return Vector3.Cross (sideAB, sideAC).normalized;
 	}
-
+	
 	public void BakeNormals() {
 		bakedNormals = CalculateNormals ();
+		ProcessEdgeConnectionVertices();
 	}
 	
 
