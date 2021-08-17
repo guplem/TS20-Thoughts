@@ -482,7 +482,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textureRenderer: {fileID: 2238141415517451291}
   meshFilter: {fileID: 7887216284595668804}
-  meshRenderer: {fileID: 2238141415517451291}
 --- !u!114 &8435999340473241361
 MonoBehaviour:
   m_ObjectHideFlags: 0

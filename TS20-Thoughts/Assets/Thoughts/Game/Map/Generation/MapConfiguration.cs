@@ -19,8 +19,11 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     
     /// <summary>
     /// Number of vertices per line of a mesh rendered at the max resolution (LOD = 0). It includes the 2 extra vertices that are excluded from final mesh, but used for calculating normals.
+    /// numVertsPerLine 
     /// </summary>
-    public int chunkSize => supportedChunkSizes[chunkSizeIndex] +1; // This is the max size for unity. It will generate a mesh of dimensions of chunkSize-1
+    public int chunkSize => supportedChunkSizes[chunkSizeIndex] + 5; // This is the max size for unity. It will generate a mesh of dimensions of chunkSize-1
+    //public int chunkSize => supportedChunkSizes[chunkSizeIndex] + 1; // Changed in the last episode to +5 but seemed weird. //Todo: delete comment after testing that all works
+    public int numVertsPerLine => chunkSize; //todo: delete
     /// <summary>
     /// The space the (terrain) mesh takes up in the world.
     /// </summary>
