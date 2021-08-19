@@ -25,6 +25,20 @@ namespace Thoughts.ControlSystems.UI
         /// </summary>
         [Tooltip("Reference to the section of the UI holding the information of the currently selected MapElement")]
         [SerializeField] private SelectionUI selectionUI;
+
+        [Header("Creation UI")]
+        
+        /// <summary>
+        /// Reference to the section of the UI where the local user can choose its own name
+        /// </summary>
+        [Tooltip("Reference to the section of the UI where the local user can choose its own name")]
+        [SerializeField] private UserNameUI userNameUI;
+        
+        /// <summary>
+        /// Reference to the section of the UI where the local user can choose the lighting of its map
+        /// </summary>
+        [Tooltip("Reference to the section of the UI where the local user can choose the lighting of its map")]
+        [SerializeField] private LightUI lightUI;
         
         /// <summary>
         /// Setup of the initial UI for the game (displays the UI for nothing, so no UI)
@@ -32,6 +46,9 @@ namespace Thoughts.ControlSystems.UI
         private void Awake()
         {
             DisplayUIFor(null, true);
+            
+            userNameUI.Show();
+            lightUI.Hide();
         }
 
         /// <summary>

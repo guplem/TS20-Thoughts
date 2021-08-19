@@ -32,10 +32,15 @@ namespace Thoughts.Game
         private readonly List<Participant> participants = new List<Participant>();
         
         /// <summary>
+        /// The participant playing manually in the local machine
+        /// </summary>
+        public Participant localManualParticipant { get; private set; }
+        
+        /// <summary>
         /// The amount of time between each update of the MapElements of the game
         /// </summary>
         [SerializeField] public float gameClockInterval = 1f;
-
+        
         /// <summary>
         /// Starts a new game by setting up the participants and generating a new world.
         /// </summary>
@@ -44,11 +49,10 @@ namespace Thoughts.Game
             // Create a manual control system
             GameObject controlSystem = Instantiate(manualControlSystemPrefab);
             
-            // Add a participant to the game (controlled manually)
-            participants.Add(new Participant(controlSystem));
-            
-            // Build a new scenario
-            map.GenerateNew(participants);
+            // Add a participant to the game (manually controlled)
+            Participant localManualParticipant = new Participant(controlSystem);
+            participants.Add(localManualParticipant);
+            this.localManualParticipant = localManualParticipant;
         }
 
         /// <summary>

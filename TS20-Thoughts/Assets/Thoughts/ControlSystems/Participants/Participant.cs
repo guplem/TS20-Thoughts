@@ -28,6 +28,12 @@ namespace Thoughts.ControlSystems
             }
         }
         private ControlSystem _controlSystem;
+
+
+        /// <summary>
+        /// The name of the participant
+        /// </summary>
+        public string name;
         
         /// <summary>
         /// The class constructor.
