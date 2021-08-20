@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace Thoughts.ControlSystems.UI
@@ -9,22 +10,23 @@ namespace Thoughts.ControlSystems.UI
         /// <summary>
         /// A reference to the SimpleAnimationsManager used for the animations of thi UI Eement
         /// </summary>
-        protected SimpleAnimationsManager simpleAnimationsManager;
+        protected SimpleAnimationsManager simpleAnimationsManager
+        {
+            get
+            {
+                if (_simpleAnimationsManager == null)
+                    _simpleAnimationsManager = gameObject.GetComponentRequired<SimpleAnimationsManager>();
+                return _simpleAnimationsManager;
+            }
+        }
+        [CanBeNull]
+        private SimpleAnimationsManager _simpleAnimationsManager;
         
         /// <summary>
         /// Controls the current state of the AnimationUIElement
         /// </summary>
         protected FlipFlop flipFlop;
-
-        /// <summary>
-        /// Prepares this UI Element to perform its basic functionallity
-        /// </summary>
-        private void Awake()
-        {
-            simpleAnimationsManager = gameObject.GetComponentRequired<SimpleAnimationsManager>();
-            
-        }
-
+        
         /// <summary>
         /// The possible states of the UI Element
         /// </summary>
