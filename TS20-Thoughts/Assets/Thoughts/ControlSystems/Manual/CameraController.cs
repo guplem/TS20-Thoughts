@@ -139,7 +139,20 @@ namespace Thoughts.ControlSystems
             if (followedMapElement != null)
                 desiredPosition = followedMapElement.transform.position;
             
-            cameraRig.position = Vector3.Lerp( cameraRig.position, desiredPosition, Time.deltaTime * (100.1f-movementSmoothing) );
+            Vector3 cameraRigNewPosition = Vector3.Lerp( cameraRig.position, desiredPosition, Time.deltaTime * (100.1f-movementSmoothing) );
+
+            float maxRayDistance = 1000;
+            RaycastHit hit;
+
+            if (Physics.Raycast(cameraRigNewPosition + Vector3.up * maxRayDistance, Vector3.down, out hit, maxRayDistance))
+            {
+                if (hit.collider != null)
+                {
+                    cameraRigNewPosition = hit.point;
+                }
+            }
+
+            cameraRig.position = cameraRigNewPosition;
         }
         
         /// <summary>
