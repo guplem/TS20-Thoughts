@@ -10,7 +10,11 @@ public abstract class CreationStepUI : SimpleAnimationUIElement
     public void ContinueToNextStep()
     {
         Debug.Log("Continuing to the next creation step");
+        
         this.Hide();
-        nextStepMainPanel.Show();
+        if (nextStepMainPanel != null)
+        {
+            nextStepMainPanel.Show();
+        }
     }
 }

@@ -25,20 +25,12 @@ namespace Thoughts.ControlSystems.UI
         /// </summary>
         [Tooltip("Reference to the section of the UI holding the information of the currently selected MapElement")]
         [SerializeField] private SelectionUI selectionUI;
-
-        [Header("Creation UI")]
         
         /// <summary>
-        /// Reference to the section of the UI where the local user can choose its own name
+        /// Reference to the creation steps (sections of the UI) where the local user can create the environment/world/map
         /// </summary>
-        [Tooltip("Reference to the section of the UI where the local user can choose its own name")]
-        [SerializeField] private UserNameUI userNameUI;
-        
-        /// <summary>
-        /// Reference to the section of the UI where the local user can choose the lighting of its map
-        /// </summary>
-        [Tooltip("Reference to the section of the UI where the local user can choose the lighting of its map")]
-        [SerializeField] private LightUI lightUI;
+        [Tooltip("Reference to the creation steps (sections of the UI) where the local user can create the environment/world/map")]
+        [SerializeField] private CreationStepUI[] creationSteps;
         
         /// <summary>
         /// Setup of the initial UI for the game (displays the UI for nothing, so no UI)
@@ -46,9 +38,14 @@ namespace Thoughts.ControlSystems.UI
         private void Awake()
         {
             DisplayUIFor(null, true);
-            
-            userNameUI.Show();
-            lightUI.Hide();
+
+            for (int c = 0; c < creationSteps.Length; c++)
+            {
+                if (c == 0)
+                    creationSteps[c].Show();
+                else
+                    creationSteps[c].Hide();
+            }
         }
 
         /// <summary>
