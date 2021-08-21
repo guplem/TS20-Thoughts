@@ -26,6 +26,14 @@ namespace Thoughts.ControlSystems.UI
         [Tooltip("Reference to the section of the UI holding the information of the currently selected MapElement")]
         [SerializeField] private SelectionUI selectionUI;
         
+        [Header("Creation UI")]
+        
+        /// <summary>
+        /// The index of the creation step to start with at the start of the application
+        /// </summary>
+        [Tooltip("The index of the creation step to start with at the start of the application")]
+        [SerializeField] private int initialCreationStep; // Todo: Remove, force it to be 0
+        
         /// <summary>
         /// Reference to the creation steps (sections of the UI) where the local user can create the environment/world/map
         /// </summary>
@@ -41,7 +49,7 @@ namespace Thoughts.ControlSystems.UI
 
             for (int c = 0; c < creationSteps.Length; c++)
             {
-                if (c == 0)
+                if (c == initialCreationStep)
                     creationSteps[c].Show();
                 else
                     creationSteps[c].Hide();
