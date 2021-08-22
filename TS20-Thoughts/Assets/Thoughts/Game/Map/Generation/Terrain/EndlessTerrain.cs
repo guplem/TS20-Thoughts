@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EndlessTerrain : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject chunkPrefab;
     
     private const float viewerMoveThresholdForChunkUpdate = 25f;
     private const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
@@ -16,10 +18,13 @@ public class EndlessTerrain : MonoBehaviour
     /// </summary>
     [Tooltip("What LOD should be used until which distance. 0 LOD = max. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.")]
     [SerializeField] public LODInfo[] detailLevels;
+    
+    /*
     /// <summary>
     /// What LOD should be used until which distance. 0 LOD = max. The highest distance will be considered the maximum view distance from the viewer's perspective.
     /// </summary>
     //public static float maxViewDistance;
+    */
     
     /// <summary>
     /// Reference to the viewer (usually the player) of the terrain.  If null at Start, it will be set to 'Camera.main'
@@ -30,61 +35,74 @@ public class EndlessTerrain : MonoBehaviour
     Vector2 viewerPosition;
     Vector2 viewerPositionOld;
     public MapGenerator mapGenerator;
-    private float meshSize;
+    private float meshSize => mapGenerator.mapConfiguration.meshWorldSize;
     /// <summary>
     /// Based on the chunkSize and the maxViewDistance, how many chunks are visible
     /// </summary>
-    private int chunkVisibleInViewDistance;
+    private int chunkVisibleInViewDistance => Mathf.RoundToInt( (Application.isPlaying? mapGenerator.mapConfiguration.mapRadius : mapGenerator.mapConfiguration.mapPreviewRadius) / meshSize);
 
     private Dictionary<Vector2, TerrainChunk> terrainChunks = new Dictionary<Vector2, TerrainChunk>();
-    private List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
+    //private List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
     private bool isviewerNull;
 
     private void Start()
     {
-        isviewerNull = viewer == null;
+        isviewerNull = (viewer == null);
         if (isviewerNull)
         {
             viewer = Camera.main.transform;
-            isviewerNull = viewer == null;
+            isviewerNull = (viewer == null);
             Debug.LogWarning($"EndlessTerrain viewer set at Start to '{viewer}'", gameObject);
         }
 
-        float maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
-        meshSize = mapGenerator.mapConfiguration.meshWorldSize; // Because a mesh of dimensions of chunkSize-1 (240) is generated
-        chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / meshSize);
+        //float maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
+        //meshSize = mapGenerator.mapConfiguration.meshWorldSize; // Because a mesh of dimensions of chunkSize-1 (240) is generated
+        //chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / meshSize);
         
-        UpdateVisibleChunks();
+        // UpdateVisibleChunks();
     }
 
     private void Update()
     {
         viewerPosition = new Vector2(viewer.position.x, viewer.position.z)  /*  / mapGenerator.mapConfiguration.scale  */  ;
 
-        if (viewerPosition != viewerPositionOld)
+        /*if (viewerPosition != viewerPositionOld)
         {
             foreach (TerrainChunk chunk in visibleTerrainChunks)
             {
                 chunk.UpdateCollisionMesh();
             }
-        }
+        }*/
         
         if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
         {
             viewerPositionOld = viewerPosition;
-            UpdateVisibleChunks();
+            UpdateChunks(false);
         }
     }
 
-    void UpdateVisibleChunks()
+    public void UpdateChunks(bool clearPreviousMap)
     {
-        HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2>();
+        Debug.Log($"Updating chunks. clearPreviousMap? {clearPreviousMap}");
+
+        if (clearPreviousMap)
+        {
+            terrainChunks.Clear();
+            //terrainChunks = new Dictionary<Vector2, TerrainChunk>();
+            
+            if (Application.isPlaying)
+                gameObject.transform.DestroyAllChildren(); 
+            else
+                gameObject.transform.DestroyImmediateAllChildren();
+        }
         
-        for (int i = visibleTerrainChunks.Count-1; i >= 0; i--) // Goes backwards because 'UpdateChunkVisibility' can remove the TerrainChunk from the list we are iterating on
+        //HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2>();
+        
+        /*for (int i = visibleTerrainChunks.Count-1; i >= 0; i--) // Goes backwards because 'UpdateChunkVisibility' can remove the TerrainChunk from the list we are iterating on
         {
             alreadyUpdatedChunkCoords.Add(visibleTerrainChunks[i].coord);
             visibleTerrainChunks[i].UpdateChunkVisibility ();
-        }
+        }*/
         
         int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / meshSize);
         int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / meshSize);
@@ -94,31 +112,32 @@ public class EndlessTerrain : MonoBehaviour
             {
                 Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
 
-                if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord))
-                {
+                //if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
                     if (terrainChunks.ContainsKey(viewedChunkCoord))
                     {
                         terrainChunks[viewedChunkCoord].UpdateChunkVisibility();
                     }
                     else
                     {
-                        TerrainChunk newChunk = new TerrainChunk(viewedChunkCoord, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.terrainData.textureSettings.material);
-                        terrainChunks.Add(viewedChunkCoord, newChunk);
-                        newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
-                        newChunk.Load();
+                        GameObject chunkGameObject = Instantiate(chunkPrefab);
+                        TerrainChunk terrainChunk = chunkGameObject.GetComponentRequired<TerrainChunk>();
+                        terrainChunk.Setup(viewedChunkCoord, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.terrainData.textureSettings.material);
+                        terrainChunks.Add(viewedChunkCoord, terrainChunk);
+                        //newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
+                        terrainChunk.Load();
                     }
-                }
+                //}
             }
         }
     }
 
-    void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible)
+    /*void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible)
     {
         if (isVisible)
             visibleTerrainChunks.Add(chunk);
         else
             visibleTerrainChunks.Remove(chunk);
-    }
+    }*/
 
 }
 

@@ -38,7 +38,7 @@ namespace Thoughts.Game.GameMap
             //SetupNewNavMeshes();
             //mapElements.AddRange(GenerateMobs());
             
-            gameObject.GetComponentRequired<MapGenerator>().GenerateMap();
+            gameObject.GetComponentRequired<MapGenerator>().GenerateMap(true);
         }
 
         /// <summary>

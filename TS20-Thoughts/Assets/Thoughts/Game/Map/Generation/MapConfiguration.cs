@@ -4,16 +4,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map/Map Configuration", order = 20)]
 public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
 {
-    
-    [Range(0,TerrainData.numSupportedLODs-1)]
-    [Tooltip("Max level of detail (LOD) for the terrain is 0 (editorPreviewLOD = 0)")]
-    public int editorPreviewLOD = 0; //Not the one used during the dynamic optimization/terrain generation
-    
+
     [Space]
-    public int seed;
+    public int seed = 420;
 
     [Range(0, numSupportedChunkSizes-1)]
-    public int chunkSizeIndex;
+    public int chunkSizeIndex = 9;
     public static readonly int[] supportedChunkSizes = {24, 48, 72, 96, 120, 144, 168, 192, 216, 240};
     public const int numSupportedChunkSizes = 10; // supportedChunkSizes.Length
     
@@ -29,11 +25,12 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     /// </summary>
     public float meshWorldSize => (chunkSize - 3) * scale;
 
-    public int chunkSizeWithoutBorder => chunkSize -2; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1(+2)
+    public float mapRadius = 500;
+    public float mapPreviewRadius = 500;
+
+    //public int chunkSizeWithoutBorder => chunkSize -2; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1(+2)
     
     public float scale = 1f; //ToDo: Do it so the noise scale and max height of the terrain dynamically adapts to this value so it becomes a "terrain resolution" slider. Small scale = more triangles
-
-    [NonSerialized] public float[,] falloffMap =  null;
 
     [SerializeField] public TerrainData terrainData;
     private TerrainData _oldTerrainData;

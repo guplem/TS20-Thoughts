@@ -1,18 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Console = System.Console;
 
-public class TerrainChunk
+public class TerrainChunk : MonoBehaviour
 {
 
     private const float colliderGenerationDistanceThreshold = 5f;
 
-    public event System.Action<TerrainChunk, bool> onVisibilityChanged;
+    //public event System.Action<TerrainChunk, bool> onVisibilityChanged;
 
-    public Vector2 coord;
+    private Vector2 coord;
     
     private Vector2 sampleCenter;
-    private GameObject meshObject;
+    //private GameObject meshObject;
     private Bounds bounds;
 
     private MeshRenderer meshRenderer;
@@ -32,13 +34,13 @@ public class TerrainChunk
     private float maxViewDistance;
 
     private Transform viewer;
-    private Vector2 viewerPosition => viewer.transform.position.ToVector2WithoutY();
+    private Vector2 viewerPosition => viewer? viewer.transform.position.ToVector2WithoutY() : Vector2.zero;
 
-    public TerrainChunk(Vector2 coord, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, MapGenerator mapGenerator, Material material)
+    public void Setup(Vector2 coord, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, MapGenerator mapGenerator, Material material)
     {
         this.coord = coord;
         this.viewer = viewer;
-        
+
         this.mapGenerator = mapGenerator;
         //this.terrainGenerator = mapGenerator.terrainGenerator;
         //this.mapConfiguration = mapGenerator. mapConfiguration;
@@ -52,15 +54,18 @@ public class TerrainChunk
         Vector2 position = coord * mapGenerator.mapConfiguration.meshWorldSize;
         bounds = new Bounds(sampleCenter, Vector3.one * mapGenerator.mapConfiguration.meshWorldSize);
         
-        meshObject = new GameObject("Terrain Chunk");
-        meshRenderer = meshObject.AddComponent<MeshRenderer>();
-        meshFilter = meshObject.AddComponent<MeshFilter>();
-        meshCollider = meshObject.AddComponent<MeshCollider>();
+        //new GameObject($"Terrain Chunk {this.coord}");
+        meshRenderer = gameObject.GetComponentRequired<MeshRenderer>();
+        meshFilter = gameObject.GetComponentRequired<MeshFilter>();
+        //Debug.Log($"Mesh Filter added: {meshFilter}", meshFilter);
+        meshCollider = gameObject.GetComponentRequired<MeshCollider>();
         meshRenderer.material = material;
 
-        meshObject.transform.position = new Vector3(position.x, 0, position.y);
-        meshObject.transform.parent = parent;
-        SetVisible(false);
+        Transform transform = this.transform;
+        transform.position = new Vector3(position.x, 0, position.y);
+        transform.parent = parent;
+        
+        //SetVisible(false);
 
         lodMeshes = new LODMesh[detailLevels.Length];
         for (int i = 0; i < detailLevels.Length; i++)
@@ -77,15 +82,22 @@ public class TerrainChunk
 
     public void Load()
     {
-        ThreadedDataRequester.RequestData(
+        //Debug.Log($"Requesting data for {ToString()}");
+        mapGenerator.threadedDataRequester.RequestData(
             // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
             () => HeightMapGenerator.GenerateHeightMap(mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.terrainData.heightMapSettings, sampleCenter), 
-            OnHeightMapRecieved
+            OnHeightMapReceived
         );
     }
-    
-    void OnHeightMapRecieved(object heightMap)
+
+    public override string ToString()
     {
+        return $"{nameof(TerrainChunk)} with coords {coord}";
+    }
+
+    private void OnHeightMapReceived(object heightMap)
+    {
+        //Debug.Log($"Received height data for {ToString()}");
         //terrainGenerator.RequestMeshData(mapData, mapConfiguration, OnMeshDataRecieved);
         this.heightMap = (HeightMap)heightMap;
         heightMapReceived = true;
@@ -97,48 +109,56 @@ public class TerrainChunk
         meshFilter.mesh = meshData.CreateMesh();
     }*/
     
+    
     public void UpdateChunkVisibility()
     {
-        if (!heightMapReceived) 
+        try
+        {
+            if (!heightMapReceived || !gameObject) 
+                return;
+        }
+        catch (Exception) // In case the gameObject is destroyed it should throw an exception. It happens while regenerating the terrain in the editor
+        {
             return;
+        }
+
         
         float viewerDistanceFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosition));
-        bool wasVisible = IsVisible();
-        bool visible = viewerDistanceFromNearestEdge <= maxViewDistance;
+        //bool wasVisible = IsVisible();
+        //bool visible = viewerDistanceFromNearestEdge <= maxViewDistance;
 
-        if (visible)
-        {
+        // if (visible) {
             int lodIndex = 0;
-
             for (int i = 0; i < detailLevels.Length-1; i++)
-            {
                 if (viewerDistanceFromNearestEdge > detailLevels[i].visibleDistanceThreshold)
-                {
                     lodIndex = i + 1;
-                }
                 else
-                {
                     break;
-                }
-            }
 
             if (lodIndex != previousLODIndex)
             {
                 LODMesh lodMesh = lodMeshes[lodIndex];
+                //Debug.Log($"New LOD for {ToString()}. Does LOD have mesh? {lodMesh.hasMesh}. ");
                 if (lodMesh.hasMesh)
                 {
                     previousLODIndex = lodIndex;
+                    
+                    if (meshFilter == null)
+                    {
+                        Debug.LogWarning($"MeshFilter was null for {ToString()} while trying to set its mesh.");
+                        meshFilter = gameObject.GetComponentRequired<MeshFilter>();
+                    }
                     meshFilter.mesh = lodMesh.mesh;
                 }
                 else if (!lodMesh.hasRequestedMesh)
                 {
-                    lodMesh.RequestMesh(heightMap, mapGenerator.terrainGenerator, mapGenerator.mapConfiguration);
+                    lodMesh.RequestMesh(heightMap, mapGenerator.threadedDataRequester, mapGenerator.mapConfiguration);
                 }
             }
 
-        }
+        // }
 
-        if (wasVisible != visible)
+        /*if (wasVisible != visible)
         {
             SetVisible(visible);
 
@@ -147,12 +167,14 @@ public class TerrainChunk
                 onVisibilityChanged(this, visible);
             }
             
-        }
+        }*/
         
     }
-
+    
     public void UpdateCollisionMesh()
     {
+        Debug.Log("Updating collision mesh");
+        
         if (hasSetCollider)
             return;
         
@@ -162,7 +184,7 @@ public class TerrainChunk
         {
             if (!lodMeshes[colliderLODIndex].hasRequestedMesh)
             {
-                lodMeshes[colliderLODIndex].RequestMesh(heightMap, mapGenerator.terrainGenerator, mapGenerator.mapConfiguration);
+                lodMeshes[colliderLODIndex].RequestMesh(heightMap, mapGenerator.threadedDataRequester, mapGenerator.mapConfiguration);
             }
         }
         
@@ -176,7 +198,7 @@ public class TerrainChunk
         }
     }
 
-    public void SetVisible(bool state)
+    /*public void SetVisible(bool state)
     {
         meshObject.SetActive(state);
     }
@@ -184,7 +206,7 @@ public class TerrainChunk
     public bool IsVisible()
     {
         return meshObject.activeSelf;
-    }
+    }*/
 }
 
 class LODMesh
@@ -200,18 +222,24 @@ class LODMesh
         this.lod = lod;
     }
 
-    void OnMeshDataRecieved(object meshData)
+    void OnMeshDataReceived(object meshData)
     {
+        //Debug.Log($"Received mesh for height map");
         mesh = ((MeshData)meshData).CreateMesh();
         hasMesh = true;
         updateCallback();
     }
     
-    public void RequestMesh(HeightMap heightMap, TerrainGenerator terrainGenerator, MapConfiguration mapConfiguration)
+    public void RequestMesh(HeightMap heightMap, ThreadedDataRequester threadedDataRequester, MapConfiguration mapConfiguration)
     {
+        //Debug.Log($"Requesting mesh for height map");
+
         hasRequestedMesh = true;
         
-        // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-        ThreadedDataRequester.RequestData(()=>MapDisplay.GenerateTerrainMesh(heightMap.values, mapConfiguration, lod), OnMeshDataRecieved);
+        threadedDataRequester.RequestData(
+            // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
+            () => TerrainMeshGenerator.GenerateTerrainMesh(heightMap.values, mapConfiguration, lod),
+            OnMeshDataReceived
+        );
     }
 }

@@ -14,15 +14,22 @@ public class MapGeneratorEditor : Editor
         {
             if (mapGenerator.autoRegenerateInEditor)
             {
-                mapGenerator.GenerateMapInEditor ();
+                mapGenerator.GenerateMap(true);
             }
         }
 
-        if (GUILayout.Button("Generate Map"))
+        if (GUILayout.Button("Regenerate Map"))
         {
             mapGenerator.OnValidate();
-            mapGenerator.GenerateMapInEditor();
+            mapGenerator.GenerateMap(true);
         }
+        
+        /*if (GUILayout.Button("Repaint All"))
+        {
+            UnityEditor.SceneView.RepaintAll();
+            UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+        }*/
+        
 
 
     }

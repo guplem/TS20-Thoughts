@@ -15,12 +15,26 @@ public class MapGenerator : MonoBehaviour
 
     [SerializeField] public MapConfiguration mapConfiguration;
 
+    [SerializeField] public ThreadedDataRequester threadedDataRequester;
+
+    void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        // Ensure continuous Update calls. Needed to generate the map in the editor (issues with threads)
+        if (!Application.isPlaying)
+        {
+            UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+            UnityEditor.SceneView.RepaintAll();
+        }
+#endif
+    }
+    
     private void OnValuesUpdated()
     {
         if (!Application.isPlaying)
         {
-            //Debug.Log("TTT"); //Todo: it is called multiple times (3) whenever the mesh is being recreated due to an update of the values in the inspector
-            GenerateMapInEditor();
+            Debug.Log("OnValuesUpdated"); //Todo: it is called multiple times (3) whenever the mesh is being recreated due to an update of the values in the inspector
+            GenerateMap(true);
         }
     }
 
@@ -53,15 +67,10 @@ public class MapGenerator : MonoBehaviour
     }
 
 
-    public void GenerateMap()
+    public void GenerateMap(bool clearPreviousMap)
     {
-        Debug.LogWarning("TODO: GenerateMap");
-        //BringMapToLife(); // Enable auto update of "endlessTerrain"
-    }
-
-    public void GenerateMapInEditor()
-    {
-        terrainGenerator.DrawTerrainInEditor(mapConfiguration);
+        //terrainGenerator.DrawTerrainInEditor(mapConfiguration);
+        terrainGenerator.endlessTerrain.UpdateChunks(clearPreviousMap);
     }
 
 }

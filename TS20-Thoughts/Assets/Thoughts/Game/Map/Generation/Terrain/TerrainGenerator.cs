@@ -11,10 +11,11 @@ public class TerrainGenerator : MonoBehaviour
     /// <summary>
     /// The visualization manager for the terrain.
     /// </summary>
-    [SerializeField] private MapDisplay terrainDrawer;
-
-
-    public void DrawTerrainInEditor(MapConfiguration mapConfiguration)
+    [SerializeField] private TerrainMeshGenerator terrainDrawer;
+    
+    [SerializeField] public EndlessTerrain endlessTerrain;
+    
+    /*public void DrawTerrainInEditor(MapConfiguration mapConfiguration)
     {
         SetupTerrainMaterial(mapConfiguration);
         
@@ -23,7 +24,6 @@ public class TerrainGenerator : MonoBehaviour
         HeightMap heightMap = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, Vector2.zero);
         
         terrainDrawer.DrawMesh(heightMap.values, mapConfiguration, mapConfiguration.editorPreviewLOD);
-        //terrainDrawer.DrawTexture(TextureGenerator.TextureFromColorMap(mapData.colorMap, size, size));
     }
     
     private void SetupTerrainMaterial(MapConfiguration mapConfiguration)
@@ -31,6 +31,8 @@ public class TerrainGenerator : MonoBehaviour
         mapConfiguration.terrainData.textureSettings.ApplyToMaterial();
         mapConfiguration.terrainData.textureSettings.UpdateMeshHeights(mapConfiguration.terrainData.heightMapSettings.minHeight, mapConfiguration.terrainData.heightMapSettings.maxHeight);
     }
+    */
+    
     
     /*public HeightMap GenerateTerrainData(Vector2 center, MapConfiguration mapConfiguration)
     {

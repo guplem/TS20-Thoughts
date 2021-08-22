@@ -4,25 +4,29 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+[ExecuteAlways]
 public class ThreadedDataRequester : MonoBehaviour
 {
-    private static ThreadedDataRequester instance { get => _instance; set => _instance = value; }
-    private static ThreadedDataRequester _instance;
+    /*private static ThreadedDataRequester instance { get => _instance; set => _instance = value; }
+    private static ThreadedDataRequester _instance;*/
     
-    private void Awake()
+    /*private void Awake()
     {
         if (instance != null)
             Debug.LogWarning($"More than 1 ThreadedDataRequester objects exist: '{instance.ToString()}' and '{this.ToString()}'", this);
         else
             instance = this;
-    }
+    }*/
     private Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
 
-    public static void RequestData(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
+    public void RequestData(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
     {
+        /*if (instance == null)
+            Debug.LogWarning($"The static instance (singleton) for {nameof(ThreadedDataRequester)} is null.");*/
+        
         ThreadStart threadStart = delegate
         {
-            instance.DataThread(generateDataMethod, callback/*, mapConfiguration*/);
+            DataThread(generateDataMethod, callback/*, mapConfiguration*/);
         };
         new Thread(threadStart).Start();
     }

@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: DefaultMapConfiguration
   m_EditorClassIdentifier: 
   autoUpdate: 1
-  editorPreviewLOD: 0
   seed: 1
   chunkSizeIndex: 9
+  mapRadius: 500
+  mapPreviewRadius: 100
   scale: 1
   terrainData: {fileID: 11400000, guid: 912ea1590b3446f419f2bbd507d0f4fb, type: 2}
