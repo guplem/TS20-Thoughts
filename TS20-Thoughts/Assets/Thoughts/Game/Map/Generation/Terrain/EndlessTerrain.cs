@@ -25,12 +25,21 @@ public class EndlessTerrain : MonoBehaviour
     /// </summary>
     //public static float maxViewDistance;
     */
-    
+
     /// <summary>
-    /// Reference to the viewer (usually the player) of the terrain.  If null at Start, it will be set to 'Camera.main'
+    /// Reference to the viewer (usually the player) of the terrain. If null at Start, it will be set to 'Camera.main' then.
     /// </summary>
-    [Tooltip("Reference to the viewer (usually the player) of the terrain. If null at Start, it will be set to 'Camera.main'")]
-    public Transform viewer;
+    public Transform viewer {
+        get
+        {
+            return _viewer;
+        }
+        set
+        {
+            _viewer = value;
+        }
+    }
+    public Transform _viewer;
 
     Vector2 viewerPosition;
     Vector2 viewerPositionOld;
@@ -43,16 +52,18 @@ public class EndlessTerrain : MonoBehaviour
 
     private Dictionary<Vector2, TerrainChunk> terrainChunks = new Dictionary<Vector2, TerrainChunk>();
     //private List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
-    private bool isviewerNull;
 
     private void Start()
     {
-        isviewerNull = (viewer == null);
-        if (isviewerNull)
+        if (viewer == null)
         {
-            viewer = Camera.main.transform;
-            isviewerNull = (viewer == null);
-            Debug.LogWarning($"EndlessTerrain viewer set at Start to '{viewer}'", gameObject);
+            Camera mainCamera = Camera.main;
+            if (mainCamera)
+                viewer = mainCamera.transform;
+            else
+                Debug.LogWarning("The main camera has not been found to be set as the terrain' viewer.", this);
+
+            Debug.Log($"EndlessTerrain viewer set at Start to '{viewer}'", viewer);
         }
 
         //float maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
@@ -64,7 +75,7 @@ public class EndlessTerrain : MonoBehaviour
 
     private void Update()
     {
-        viewerPosition = new Vector2(viewer.position.x, viewer.position.z)  /*  / mapGenerator.mapConfiguration.scale  */  ;
+        viewerPosition = viewer != null ? new Vector2(viewer.position.x, viewer.position.z) : Vector2.zero;
 
         /*if (viewerPosition != viewerPositionOld)
         {

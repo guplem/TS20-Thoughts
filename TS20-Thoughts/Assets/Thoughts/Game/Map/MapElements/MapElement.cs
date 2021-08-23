@@ -76,9 +76,9 @@ namespace Thoughts.Game.GameMap
                {
                     while (true)
                     {
-                         yield return new WaitForSeconds(AppManager.gameManager.gameClockInterval);
+                         yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
                          
-                         stateManager.Step(AppManager.gameManager.gameClockInterval);
+                         stateManager.Step(GameManager.instance.gameClockInterval);
                          attributeManager.ExecuteMapEventsWithTimeElapseEnabled();
                          if (stateManager.currentState == State.None)
                          {
@@ -138,7 +138,7 @@ namespace Thoughts.Game.GameMap
                     }
                     else
                     {
-                         executionPlans = AppManager.gameManager.GetExecutionPlanToCover(attributeOwnershipToCover, 1, this);
+                         executionPlans = GameManager.instance.GetExecutionPlanToCover(attributeOwnershipToCover, 1, this);
                     
                          if (executionPlans.IsNullOrEmpty())
                               Debug.LogWarning($"└> An action path to cover the attribute '{attributeOwnershipToCover.attribute}' was not found.\n");

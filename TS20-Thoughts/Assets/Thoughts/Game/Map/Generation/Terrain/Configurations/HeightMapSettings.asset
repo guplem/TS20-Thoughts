@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856493cb02e94f5499d06bdb0be4e2c2, type: 3}
   m_Name: HeightMapSettings
   m_EditorClassIdentifier: 
-  autoUpdate: 0
+  autoUpdate: 1
   noiseSettings:
     normalizeMode: 1
     scale: 50
-    octaves: 11
-    persistance: 0.177
+    octaves: 16
+    persistance: 0.545
     lacunarity: 2
     seed: 0
     offset: {x: 0, y: 0}
@@ -30,39 +30,12 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 6.157996
-      outSlope: 6.157996
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.042210802
-    - serializedVersion: 3
-      time: 0.45968142
-      value: 0.33740696
-      inSlope: 0.18743749
-      outSlope: 0.18743749
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5225872
-      value: 0.884897
-      inSlope: 1.2314489
-      outSlope: 1.2314489
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.8557045
-      value: 0.96496165
-      inSlope: 0.11456444
-      outSlope: 0.11456444
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1

@@ -43,4 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65c157a3b685fca4b82aa04f0047e492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManagerPrefab: {fileID: 4105839622364245496, guid: b4737b154693cbf40aa2a5050ae80451, type: 3}
+  gameScene:
+    sceneAsset: {fileID: 102900000, guid: be5043cecbf73c642816c87627f477d5, type: 3}
+    scenePath: Assets/Thoughts/Game/GameScene.unity

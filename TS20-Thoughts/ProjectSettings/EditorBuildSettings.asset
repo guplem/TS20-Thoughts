@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Thoughts/MainScene.unity
     guid: b98edbfe95adcd943aea1185091a944c
+  - enabled: 1
+    path: Assets/Thoughts/Game/Game.unity
+    guid: be5043cecbf73c642816c87627f477d5
   m_configObjects: {}

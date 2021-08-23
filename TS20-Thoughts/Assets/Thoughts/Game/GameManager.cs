@@ -14,6 +14,11 @@ namespace Thoughts.Game
     public class GameManager : MonoBehaviour
     {
         /// <summary>
+        /// The singleton reference to this class
+        /// </summary>
+        public static GameManager instance { get; private set; }
+        
+        /// <summary>
         /// The GameObject prefab of the local human (manual) control system for a participant.
         /// </summary>
         [Header("Control Systems")]
@@ -98,6 +103,42 @@ namespace Thoughts.Game
             }
 
             return mapEventsToExecute;
-        }   
+        }
+
+        /// <summary>
+        /// Tries to set up this instance as the singleton instance.
+        /// Additionally, it checks for the existence of an AppManager, which might be needed in some parts of the game
+        /// </summary>
+        private void Awake()
+        {
+            if (AppManager.instance == null)
+                Debug.LogWarning($"An {nameof(AppManager)} is required to manage the App/Software/Program from within the game. A scene with an {nameof(AppManager)} prefab in it should load the necessary components (such as the Game Scene) to start the game, so the scene from which the 'Play Mode' is started shouldn't need a {nameof(GameManager)} only an {nameof(AppManager)}.", this);
+            
+            InitializeSingleton();
+        }
+        
+        /// <summary>
+        /// If there is no other singleton instance of this class, this is set as it. Being the only one, following the Singleton pattern.
+        /// </summary>
+        /// <returns>True if it became the singleton instance, false if another instance declared as the singleton one already exists.</returns>
+        private bool InitializeSingleton()
+        {
+            if (instance == null)
+            {
+                instance = this;
+                return true;
+            }
+            
+            Debug.LogError($"More than one {nameof(GameManager)} exist. The gameObject '{instance.gameObject.name}' was assigned before '{this.gameObject.name}'");
+            return false;
+        }
+
+        /// <summary>
+        /// Starts a new game.
+        /// </summary>
+        private void Start()
+        {
+            StartNewGame();
+        }
     }
 }
