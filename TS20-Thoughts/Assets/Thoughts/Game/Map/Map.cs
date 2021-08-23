@@ -30,14 +30,8 @@ namespace Thoughts.Game.GameMap
         /// <summary>
         /// Generates a new map.
         /// </summary>
-        /// <param name="participants">The participants of the game that must be in the map.</param>
-        public void GenerateNew(List<Participant> participants)
+        public void GenerateNew()
         {
-            //Todo: use the "participants" 
-            //mapElements.AddRange(GenerateMapElements());
-            //SetupNewNavMeshes();
-            //mapElements.AddRange(GenerateMobs());
-            
             gameObject.GetComponentRequired<MapGenerator>().GenerateMap(true);
         }
 

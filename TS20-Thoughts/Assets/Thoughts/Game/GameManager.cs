@@ -25,7 +25,7 @@ namespace Thoughts.Game
         /// </summary>
         [Header("Game Elements")]
         [SerializeField] public Map map;
-        
+
         /// <summary>
         /// The different participants (players, AI, ...) of the game.
         /// </summary>
