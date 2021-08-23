@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65314c5d623ef454194636629a90dae1, type: 3}
   m_Name: DefaultMapConfiguration
   m_EditorClassIdentifier: 
-  autoUpdate: 1
+  autoUpdate: 0
   seed: 1
   chunkSizeIndex: 9
   mapRadius: 500
-  mapPreviewRadius: 100
+  mapPreviewRadius: 500
   scale: 1
   terrainData: {fileID: 11400000, guid: 912ea1590b3446f419f2bbd507d0f4fb, type: 2}

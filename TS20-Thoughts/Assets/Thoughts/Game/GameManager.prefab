@@ -54,6 +54,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1552796421735979006}
     m_Modifications:
+    - target: {fileID: 1652022765444931318, guid: 3b834beef40d61248a7d79edc2602d04, type: 3}
+      propertyPath: colliderLODIndex
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3839783304581817520, guid: 3b834beef40d61248a7d79edc2602d04, type: 3}
       propertyPath: m_Name
       value: Sun

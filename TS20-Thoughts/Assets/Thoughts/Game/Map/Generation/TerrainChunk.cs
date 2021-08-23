@@ -7,7 +7,7 @@ using Console = System.Console;
 public class TerrainChunk : MonoBehaviour
 {
 
-    private const float colliderGenerationDistanceThreshold = 5f;
+    //private const float colliderGenerationDistanceThreshold = 5f;
 
     //public event System.Action<TerrainChunk, bool> onVisibilityChanged;
 
@@ -72,10 +72,10 @@ public class TerrainChunk : MonoBehaviour
         {
             lodMeshes[i] = new LODMesh(detailLevels[i].lod);
             lodMeshes[i].updateCallback += UpdateChunkVisibility;
-            if (i == colliderLODIndex)
+            /*if (i == colliderLODIndex)
             {
                 lodMeshes[i].updateCallback += UpdateCollisionMesh;
-            }
+            }*/
         }
         
     }
@@ -110,7 +110,7 @@ public class TerrainChunk : MonoBehaviour
     }*/
     
     
-    public void UpdateChunkVisibility()
+    public void UpdateChunkVisibility() // Todo: change to UpdateChunk
     {
         try
         {
@@ -122,7 +122,24 @@ public class TerrainChunk : MonoBehaviour
             return;
         }
 
+        UpdateVisualMesh();
+        UpdateCollisionMesh();
         
+        /*if (wasVisible != visible)
+        {
+            SetVisible(visible);
+
+            if (onVisibilityChanged != null)
+            {
+                onVisibilityChanged(this, visible);
+            }
+            
+        }*/
+
+    }
+
+    public void UpdateVisualMesh()
+    {
         float viewerDistanceFromNearestEdge = Mathf.Sqrt(bounds.SqrDistance(viewerPosition));
         //bool wasVisible = IsVisible();
         //bool visible = viewerDistanceFromNearestEdge <= maxViewDistance;
@@ -139,63 +156,49 @@ public class TerrainChunk : MonoBehaviour
             {
                 LODMesh lodMesh = lodMeshes[lodIndex];
                 //Debug.Log($"New LOD for {ToString()}. Does LOD have mesh? {lodMesh.hasMesh}. ");
-                if (lodMesh.hasMesh)
-                {
-                    previousLODIndex = lodIndex;
-                    
-                    if (meshFilter == null)
-                    {
-                        Debug.LogWarning($"MeshFilter was null for {ToString()} while trying to set its mesh.");
-                        meshFilter = gameObject.GetComponentRequired<MeshFilter>();
-                    }
-                    meshFilter.mesh = lodMesh.mesh;
-                }
-                else if (!lodMesh.hasRequestedMesh)
+
+                if (!lodMesh.hasRequestedMesh)
                 {
                     lodMesh.RequestMesh(heightMap, mapGenerator.threadedDataRequester, mapGenerator.mapConfiguration);
                 }
+                else if (lodMesh.hasMesh)
+                {
+                    previousLODIndex = lodIndex;
+                    /*if (meshFilter == null)
+                    {
+                        Debug.LogWarning($"MeshFilter was null for {ToString()} while trying to set its mesh.");
+                        meshFilter = gameObject.GetComponentRequired<MeshFilter>();
+                    }*/
+                    meshFilter.mesh = lodMesh.mesh;
+                }
             }
-
         // }
-
-        /*if (wasVisible != visible)
-        {
-            SetVisible(visible);
-
-            if (onVisibilityChanged != null)
-            {
-                onVisibilityChanged(this, visible);
-            }
-            
-        }*/
-        
     }
     
     public void UpdateCollisionMesh()
     {
-        Debug.Log("Updating collision mesh");
+        
+        //Debug.Log("Updating collision mesh");
         
         if (hasSetCollider)
             return;
         
-        float sqrDistanceFromViewerToEdge = bounds.SqrDistance(viewerPosition);
+        //float sqrDistanceFromViewerToEdge = bounds.SqrDistance(viewerPosition);
 
-        if (sqrDistanceFromViewerToEdge < detailLevels[colliderLODIndex].sqrVisibleDistanceThreshold)
-        {
+        //if (sqrDistanceFromViewerToEdge < detailLevels[colliderLODIndex].sqrVisibleDistanceThreshold) {
             if (!lodMeshes[colliderLODIndex].hasRequestedMesh)
             {
                 lodMeshes[colliderLODIndex].RequestMesh(heightMap, mapGenerator.threadedDataRequester, mapGenerator.mapConfiguration);
             }
-        }
+        // }
         
-        if (sqrDistanceFromViewerToEdge < colliderGenerationDistanceThreshold * colliderGenerationDistanceThreshold)
-        {
-            if (lodMeshes[colliderLODIndex].hasMesh)
+        //if (sqrDistanceFromViewerToEdge < colliderGenerationDistanceThreshold * colliderGenerationDistanceThreshold) {
+            else if (lodMeshes[colliderLODIndex].hasMesh)
             {
                 meshCollider.sharedMesh = lodMeshes[colliderLODIndex].mesh;
                 hasSetCollider = true;
             }
-        }
+        //}
     }
 
     /*public void SetVisible(bool state)
@@ -224,7 +227,7 @@ class LODMesh
 
     void OnMeshDataReceived(object meshData)
     {
-        //Debug.Log($"Received mesh for height map");
+        //Debug.Log($"OnMeshDataReceived");
         mesh = ((MeshData)meshData).CreateMesh();
         hasMesh = true;
         updateCallback();
