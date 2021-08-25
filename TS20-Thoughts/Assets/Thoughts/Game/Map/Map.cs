@@ -20,6 +20,12 @@ namespace Thoughts.Game.GameMap
         /// </summary>
         private List<MapElement> mapElements = new List<MapElement>();
 
+        /// <summary>
+        /// Reference to the MapGenerator component
+        /// </summary>
+        [Tooltip("Reference to the MapGenerator component")]
+        [SerializeField] private MapGenerator mapGenerator;
+
     #region MapGeneration
 
         /// <summary>
@@ -190,6 +196,10 @@ namespace Thoughts.Game.GameMap
 
             return foundExecutionPlan;
         }
-        
+
+        public void Delete()
+        {
+            mapGenerator.DeleteCurrentMap();
+        }
     }
 }

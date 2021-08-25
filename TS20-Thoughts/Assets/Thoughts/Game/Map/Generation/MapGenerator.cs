@@ -70,7 +70,14 @@ public class MapGenerator : MonoBehaviour
     public void GenerateMap(bool clearPreviousMap)
     {
         //terrainGenerator.DrawTerrainInEditor(mapConfiguration);
-        terrainGenerator.endlessTerrain.UpdateChunks(clearPreviousMap);
+        terrainGenerator.UpdateChunks(clearPreviousMap);
     }
 
+    public void DeleteCurrentMap()
+    {
+        //Delete terrain
+        terrainGenerator.DeleteTerrain();
+        
+        //Todo: delete other elements of the map apart from the terrain
+    }
 }

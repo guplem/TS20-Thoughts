@@ -47,7 +47,7 @@ namespace Thoughts.Game
         [SerializeField] public float gameClockInterval = 1f;
         
         /// <summary>
-        /// Starts a new game by setting up the participants and generating a new world.
+        /// Starts a new game by setting up the participants and deleting the previously generated world.
         /// </summary>
         public void StartNewGame()
         {
@@ -58,6 +58,9 @@ namespace Thoughts.Game
             Participant localManualParticipant = new Participant(controlSystem);
             participants.Add(localManualParticipant);
             this.localManualParticipant = localManualParticipant;
+            
+            // Delete the previously generated world
+            map.Delete();
         }
 
         /// <summary>

@@ -24,6 +24,11 @@ public class MapGeneratorEditor : Editor
             mapGenerator.GenerateMap(true);
         }
         
+        if (GUILayout.Button("Delete current Map"))
+        {
+            mapGenerator.DeleteCurrentMap();
+        }
+        
         /*if (GUILayout.Button("Repaint All"))
         {
             UnityEditor.SceneView.RepaintAll();
