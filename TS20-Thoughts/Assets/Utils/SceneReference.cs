@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -33,6 +34,9 @@ namespace UnityEngine// Tymski
     [Serializable]
     public class SceneReference : ISerializationCallbackReceiver
     {
+
+        public string name => Path.GetFileNameWithoutExtension(ScenePath); //Path.GetFileName(ScenePath);
+        
 #if UNITY_EDITOR
         // What we use in editor to select the scene
         [SerializeField] private Object sceneAsset;
@@ -40,7 +44,8 @@ namespace UnityEngine// Tymski
         {
             get
             {
-                if (!sceneAsset) return false;
+                if (!sceneAsset) 
+                    return false;
 
                 return sceneAsset is SceneAsset;
             }

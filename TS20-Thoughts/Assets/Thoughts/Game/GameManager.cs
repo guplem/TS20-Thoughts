@@ -5,6 +5,7 @@ using Thoughts.ControlSystems;
 using Thoughts.Game.Attributes;
 using Thoughts.Game.GameMap;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Thoughts.Game
 {
@@ -141,6 +142,11 @@ namespace Thoughts.Game
         /// </summary>
         private void Start()
         {
+            string gameSceneName = gameObject.scene.name;
+            SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneName)); // https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.SetActiveScene.html
+            Debug.Log($"New active scene: '{SceneManager.GetActiveScene()}'.");
+
+            
             StartNewGame();
         }
     }
