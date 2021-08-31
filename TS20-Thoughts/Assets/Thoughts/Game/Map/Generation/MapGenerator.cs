@@ -63,7 +63,7 @@ public class MapGenerator : MonoBehaviour
 
     void OnTextureValuesUpdated()
     {
-        mapConfiguration.terrainData.textureSettings.ApplyToMaterial();
+        mapConfiguration.terrainData.textureSettings.ApplyToMaterial(mapConfiguration.terrainData.heightMapSettings.minHeight, mapConfiguration.terrainData.heightMapSettings.maxHeight);
     }
 
 

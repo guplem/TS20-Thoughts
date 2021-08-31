@@ -31,7 +31,7 @@ public class TextureSettings : UpdatableData
     private float minHeight;
     private float maxHeight;
     
-    public void ApplyToMaterial()
+    public void ApplyToMaterial(float minHeight, float maxHeight)
     {
         material.SetColor("color0", color0);
         
@@ -57,5 +57,7 @@ public class TextureSettings : UpdatableData
         
         material.SetFloat("minHeight", minHeight);
         material.SetFloat("maxHeight", maxHeight);
+        
+        Debug.Log($"Set the minHeight to {minHeight} and maxHeight to {maxHeight}");
     }
 }
