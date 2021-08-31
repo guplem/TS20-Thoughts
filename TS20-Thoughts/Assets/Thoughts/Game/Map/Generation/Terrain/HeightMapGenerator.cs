@@ -47,6 +47,7 @@ public struct HeightMap
     
     public HeightMap(float[,] values, float minValue, float maxValue)
     {
+        //Debug.Log($"Generated Height map with minValue: {minValue} and maxValue: {maxValue}");
         this.values = values;
         this.minValue = minValue;
         this.maxValue = maxValue;

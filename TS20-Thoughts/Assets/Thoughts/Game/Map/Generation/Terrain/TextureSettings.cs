@@ -58,6 +58,6 @@ public class TextureSettings : UpdatableData
         material.SetFloat("minHeight", minHeight);
         material.SetFloat("maxHeight", maxHeight);
         
-        Debug.Log($"Set the minHeight to {minHeight} and maxHeight to {maxHeight}");
+        //Debug.Log($"Set the minHeight to {minHeight} and maxHeight to {maxHeight}");
     }
 }

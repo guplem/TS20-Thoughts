@@ -104,12 +104,12 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - color1BaseBlend: 0
-    - color1Start: 0.299
-    - color2BaseBlend: 0
-    - color2Start: 0.632
-    - color3BaseBlend: 0
-    - color3Start: 0.936
+    - color1BaseBlend: 0.01
+    - color1Start: 0.045
+    - color2BaseBlend: 0.526
+    - color2Start: 0.324
+    - color3BaseBlend: 0.1
+    - color3Start: 0.821
     - maxHeight: 30
     - minHeight: 0
     m_Colors:
