@@ -97,7 +97,10 @@ public class TerrainGenerator : MonoBehaviour
         Debug.Log($"Updating chunks. clearPreviousMap? {clearPreviousMap}");
 
         if (clearPreviousMap)
+        {
+            //HeightMapGenerator.ClearFalloffMap();
             DeleteTerrain();
+        }
 
         //HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2>();
         

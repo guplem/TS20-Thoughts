@@ -12,6 +12,8 @@ public class HeightMapSettings : UpdatableData
     
     [Space]
     [SerializeField] public bool useFalloff;
+    [Range(0.1f,1f)]
+    [SerializeField] public float percentageOfMapWithoutMaxFalloff = 1;
     
     /// <summary>
     /// For how much each cell height will be multiplied.
