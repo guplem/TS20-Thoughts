@@ -20,6 +20,7 @@ public static class HeightMapGenerator
         float[,] values = Noise.GenerateNoiseMap(width, height, settings.noiseSettings, sampleCenter);
 
         AnimationCurve heigtCurve_threadSafe = new AnimationCurve(settings.heightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
+        AnimationCurve falloffIntensity_threadSafe = new AnimationCurve(settings.falloffIntensity.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
 
         float minValue = float.MaxValue;
         float maxValue = float.MinValue;
@@ -39,7 +40,7 @@ public static class HeightMapGenerator
                 {
                     float coordX = sampleCenter.x - (width / 2f) + i;
                     float coordY = sampleCenter.y - (height / 2f) + (height-j); // to fix weird orientation of the falloff
-                    falloffValue = GetFalloffValue(new Vector2(coordX, coordY), settings.percentageOfMapWithoutMaxFalloff, mapRadius);
+                    falloffValue = GetFalloffValue(new Vector2(coordX, coordY), falloffIntensity_threadSafe, mapRadius);
                 }
                 
                 values [i, j] *= heigtCurve_threadSafe.Evaluate (values [i, j] - falloffValue) * settings.heightMultiplier;
@@ -53,10 +54,12 @@ public static class HeightMapGenerator
         return new HeightMap(values, minValue, maxValue);
     }
 
-    private static float GetFalloffValue(Vector2 coords, float percentageOfMapWithoutMaxFalloff, float mapRadius)
+    private static float GetFalloffValue(Vector2 coords, AnimationCurve falloffIntensity, float mapRadius)
     {
         float distanceToCenter = Mathf.Sqrt(coords.x*coords.x + coords.y*coords.y);
-        float falloffValue = ((distanceToCenter*distanceToCenter)/(mapRadius*mapRadius*percentageOfMapWithoutMaxFalloff));
+        //float falloffValue = ((distanceToCenter*distanceToCenter)/(mapRadius*mapRadius*percentageOfMapWithoutMaxFalloff)); // Old method, with formula
+        float normalizedDistanceToCenter = distanceToCenter / mapRadius;
+        float falloffValue = falloffIntensity.Evaluate(normalizedDistanceToCenter);
         float value = Mathf.Clamp01(falloffValue);
         return value;
     }

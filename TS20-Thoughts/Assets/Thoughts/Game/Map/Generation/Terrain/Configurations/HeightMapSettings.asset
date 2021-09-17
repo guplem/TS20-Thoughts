@@ -23,7 +23,30 @@ MonoBehaviour:
     offset: {x: 0, y: 0}
   offset: {x: 0, y: 0}
   useFalloff: 1
-  percentageOfMapWithoutMaxFalloff: 0.75
+  falloffIntensity:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: -0.26723295
+      outSlope: -0.26723295
+      tangentMode: 0
+      weightedMode: 2
+      inWeight: 0
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.2819182
+      outSlope: 1.2819182
+      tangentMode: 0
+      weightedMode: 1
+      inWeight: 0.11642158
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   heightMultiplier: 30
   heightCurve:
     serializedVersion: 2
