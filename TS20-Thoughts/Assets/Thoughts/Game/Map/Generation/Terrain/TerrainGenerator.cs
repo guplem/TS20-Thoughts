@@ -3,28 +3,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Unity Component in charge of generating a terrain in the scene 
+/// </summary>
 public class TerrainGenerator : MonoBehaviour
 {
+    /// <summary>
+    /// An specific prefab that will be cloned as needed to display the terrain.
+    /// </summary>
     [SerializeField]
+    [Tooltip("An specific prefab that will be cloned as needed to display the terrain.")]
     private GameObject chunkPrefab;
     
+    /// <summary>
+    /// Amount of distance that the viewer must move to update the chunks
+    /// </summary>
     private const float viewerMoveThresholdForChunkUpdate = 25f;
+    /// <summary>
+    /// The squared amount of distance  that the viewer must move to update the chunks
+    /// </summary>
     private const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
     
+    /// <summary>
+    /// The LOD that the collider of the mesh must use
+    /// </summary>
+    [Tooltip("The LOD that the collider of the mesh must use")]
     [SerializeField] private int colliderLODIndex;
     
     /// <summary>
-    /// What LOD should be used until which distance. 0 LOD = max. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.
+    /// An ordered list containing the LOD with the information about which one should be used until which distance. The LOD "0", has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.
     /// </summary>
-    [Tooltip("What LOD should be used until which distance. 0 LOD = max. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.")]
+    [Tooltip("What LOD should be used until which distance. The LOD '0', has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.")]
     [SerializeField] public LODInfo[] detailLevels;
-    
-    /*
-    /// <summary>
-    /// What LOD should be used until which distance. 0 LOD = max. The highest distance will be considered the maximum view distance from the viewer's perspective.
-    /// </summary>
-    //public static float maxViewDistance;
-    */
 
     /// <summary>
     /// Reference to the viewer (usually the player) of the terrain. If null at Start, it will be set to 'Camera.main' then.
@@ -41,18 +51,33 @@ public class TerrainGenerator : MonoBehaviour
     }
     public Transform _viewer;
 
-    Vector2 viewerPosition;
-    Vector2 viewerPositionOld;
-    public MapGenerator mapGenerator;
-    private float meshSize => mapGenerator.mapConfiguration.meshWorldSize;
     /// <summary>
-    /// Based on the chunkSize and the maxViewDistance, how many chunks are visible
+    /// The latest known position of the viewer.
     /// </summary>
-    private int chunkVisibleInViewDistance => Mathf.RoundToInt( (Application.isPlaying? mapGenerator.mapConfiguration.mapRadius : mapGenerator.mapConfiguration.mapPreviewRadius) / meshSize);
+    Vector2 viewerPosition;
+    /// <summary>
+    /// The previous to the latest known position of the viewer.
+    /// </summary>
+    Vector2 viewerPositionOld;
+    /// <summary>
+    /// Reference to the mapGenerator managing the generation of the map that contains this generator's terrain.
+    /// </summary>
+    [Tooltip("Reference to the mapGenerator managing the generation of the map that contains this generator's terrain.")]
+    public MapGenerator mapGenerator;
+    
+    /// <summary>
+    /// How many chunks are visible based on the chunkSize and the maxViewDistance, 
+    /// </summary>
+    private int totalChunksInMap => Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius / mapGenerator.mapConfiguration.meshWorldSize) * 2;
 
+    /// <summary>
+    /// A reference to all spawned GameObjects containing a TerrainChunk
+    /// </summary>
     private Dictionary<Vector2, TerrainChunk> terrainChunks = new Dictionary<Vector2, TerrainChunk>();
-    //private List<TerrainChunk> visibleTerrainChunks = new List<TerrainChunk>();
 
+    /// <summary>
+    /// Sets the viewer to the mainCamera if it has not been set during the Awake calls
+    /// </summary>
     private void Start()
     {
         if (viewer == null)
@@ -63,27 +88,21 @@ public class TerrainGenerator : MonoBehaviour
             else
                 Debug.LogWarning("The main camera has not been found to be set as the terrain' viewer.", this);
 
-            Debug.Log($"EndlessTerrain viewer set at Start to '{viewer}'", viewer);
+            Debug.Log($"EndlessTerrain viewer automatically set at Start to '{viewer}'", viewer);
         }
 
-        //float maxViewDistance = detailLevels[detailLevels.Length - 1].visibleDistanceThreshold;
-        //meshSize = mapGenerator.mapConfiguration.meshWorldSize; // Because a mesh of dimensions of chunkSize-1 (240) is generated
-        //chunkVisibleInViewDistance = Mathf.RoundToInt(maxViewDistance / meshSize);
-        
         // UpdateVisibleChunks();
     }
 
+    /// <summary>
+    /// Sends the order to update the TerrainChunk if the viewer has moved a distance bigger than the configured threshold
+    /// </summary>
     private void Update()
     {
-        viewerPosition = viewer != null ? new Vector2(viewer.position.x, viewer.position.z) : Vector2.zero;
-
-        /*if (viewerPosition != viewerPositionOld)
-        {
-            foreach (TerrainChunk chunk in visibleTerrainChunks)
-            {
-                chunk.UpdateCollisionMesh();
-            }
-        }*/
+        //Todo: make it only active if it has been "manually set to active" (by MapGenerator for example).
+        
+        Vector3 currentPosition = viewer.position;
+        viewerPosition = viewer != null ? new Vector2(currentPosition.x, currentPosition.z) : Vector2.zero;
         
         if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
         {
@@ -92,43 +111,37 @@ public class TerrainGenerator : MonoBehaviour
         }
     }
 
-    public void UpdateChunks(bool clearPreviousMap)
+    /// <summary>
+    /// Updates the TerrainChunks by creating it (if missing) or updating its visuals.
+    /// </summary>
+    /// <param name="clearPreviousTerrain">If existent, should the previously created terrain be deleted?</param>
+    public void UpdateChunks(bool clearPreviousTerrain)
     {
-        Debug.Log($"Updating chunks. clearPreviousMap? {clearPreviousMap}");
-
-        if (clearPreviousMap)
-        {
-            //HeightMapGenerator.ClearFalloffMap();
+        Debug.Log($"Creating and/or updating TerrainChunks {(clearPreviousTerrain? "previously deleting" : "without destroying")} the existing ones.");
+        
+        if (clearPreviousTerrain)
             DeleteTerrain();
-        }
-
-        //HashSet<Vector2> alreadyUpdatedChunkCoords = new HashSet<Vector2>();
         
-        /*for (int i = visibleTerrainChunks.Count-1; i >= 0; i--) // Goes backwards because 'UpdateChunkVisibility' can remove the TerrainChunk from the list we are iterating on
+        int currentViewerChunkCordX = Mathf.RoundToInt(viewerPosition.x / mapGenerator.mapConfiguration.meshWorldSize);
+        int currentViewerChunkCordY = Mathf.RoundToInt(viewerPosition.y / mapGenerator.mapConfiguration.meshWorldSize);
+        int halfOfChunksInMap = totalChunksInMap / 2;
+        for (int yOffset = -halfOfChunksInMap; yOffset <= halfOfChunksInMap; yOffset ++)
         {
-            alreadyUpdatedChunkCoords.Add(visibleTerrainChunks[i].coord);
-            visibleTerrainChunks[i].UpdateChunkVisibility ();
-        }*/
-        
-        int currentChunkCoordX = Mathf.RoundToInt(viewerPosition.x / meshSize);
-        int currentChunkCoordY = Mathf.RoundToInt(viewerPosition.y / meshSize);
-        for (int yOffset = -chunkVisibleInViewDistance; yOffset <= chunkVisibleInViewDistance; yOffset ++)
-        {
-            for (int xOffset = -chunkVisibleInViewDistance; xOffset <= chunkVisibleInViewDistance; xOffset ++)
+            for (int xOffset = -halfOfChunksInMap; xOffset <= halfOfChunksInMap; xOffset ++)
             {
-                Vector2 viewedChunkCoord = new Vector2(currentChunkCoordX + xOffset, currentChunkCoordY + yOffset);
+                Vector2 coordOfCurrentlyCheckingChunk = new Vector2(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
 
                 //if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
-                    if (terrainChunks.ContainsKey(viewedChunkCoord))
+                    if (terrainChunks.ContainsKey(coordOfCurrentlyCheckingChunk))
                     {
-                        terrainChunks[viewedChunkCoord].UpdateChunkVisibility();
+                        terrainChunks[coordOfCurrentlyCheckingChunk].UpdateChunkVisuals();
                     }
                     else
                     {
                         GameObject chunkGameObject = Instantiate(chunkPrefab);
                         TerrainChunk terrainChunk = chunkGameObject.GetComponentRequired<TerrainChunk>();
-                        terrainChunk.Setup(viewedChunkCoord, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.textureSettings.material);
-                        terrainChunks.Add(viewedChunkCoord, terrainChunk);
+                        terrainChunk.Setup(coordOfCurrentlyCheckingChunk, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.textureSettings.material);
+                        terrainChunks.Add(coordOfCurrentlyCheckingChunk, terrainChunk);
                         //newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         terrainChunk.Load();
                     }
@@ -136,15 +149,10 @@ public class TerrainGenerator : MonoBehaviour
             }
         }
     }
-
-    /*void OnTerrainChunkVisibilityChanged(TerrainChunk chunk, bool isVisible)
-    {
-        if (isVisible)
-            visibleTerrainChunks.Add(chunk);
-        else
-            visibleTerrainChunks.Remove(chunk);
-    }*/
-
+    
+    /// <summary>
+    /// Destroys all the references to the TerrainChunks and the GameObjects themselves
+    /// </summary>
     public void DeleteTerrain()
     {
         terrainChunks.Clear();
@@ -157,23 +165,22 @@ public class TerrainGenerator : MonoBehaviour
     }
 }
 
-
+/// <summary>
+/// Data that relates a LOD with the distance to the viewer at which it should stop being used and a worse LOD should be used instead.
+/// </summary>
 [System.Serializable]
 public struct LODInfo
 {
-    [Range(0,MapConfiguration.numSupportedTerrainLODs-1)]
+    /// <summary>
+    /// The lod linked to the visibleDistanceThreshold data
+    /// </summary>
+    [Range(0,HeightMapSettings.numSupportedTerrainLODs-1)]
     [SerializeField]public int lod;
     /// <summary>
-    /// Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)
+    /// The distance to the viewer at which it should stop being used and a worse LOD should be used instead
+    /// <para>Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)</para>
     /// </summary>
-    [Tooltip("Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)")]
+    [Tooltip("The distance to the viewer at which it should stop being used and a worse LOD should be used instead. Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)")]
     [SerializeField] public float visibleDistanceThreshold;
-
-    public float sqrVisibleDistanceThreshold
-    {
-        get
-        {
-            return visibleDistanceThreshold * visibleDistanceThreshold;
-        }
-    }
+    
 }

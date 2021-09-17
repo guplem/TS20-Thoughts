@@ -71,7 +71,7 @@ public class TerrainChunk : MonoBehaviour
         for (int i = 0; i < detailLevels.Length; i++)
         {
             lodMeshes[i] = new LODMesh(detailLevels[i].lod);
-            lodMeshes[i].updateCallback += UpdateChunkVisibility;
+            lodMeshes[i].updateCallback += UpdateChunkVisuals;
             /*if (i == colliderLODIndex)
             {
                 lodMeshes[i].updateCallback += UpdateCollisionMesh;
@@ -102,7 +102,7 @@ public class TerrainChunk : MonoBehaviour
         this.heightMap = (HeightMap)heightMap;
         heightMapReceived = true;
 
-        UpdateChunkVisibility();
+        UpdateChunkVisuals();
     }
     /*void OnMeshDataRecieved(MeshData meshData)
     {
@@ -110,7 +110,7 @@ public class TerrainChunk : MonoBehaviour
     }*/
     
     
-    public void UpdateChunkVisibility() // Todo: change to UpdateChunk
+    public void UpdateChunkVisuals() // Todo: change to UpdateChunk
     {
         try
         {

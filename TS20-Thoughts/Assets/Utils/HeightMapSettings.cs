@@ -7,7 +7,7 @@ using UnityEngine.Serialization;
 public class HeightMapSettings : UpdatableData
 {
     public NoiseSettings noiseSettings;
-
+    public const int numSupportedTerrainLODs = 5;
     public Vector2 offset = Vector2.zero;
     
     [Space]

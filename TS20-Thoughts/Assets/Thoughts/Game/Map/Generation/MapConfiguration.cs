@@ -26,7 +26,6 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     public float meshWorldSize => (chunkSize - 3) * scale;
 
     public float mapRadius = 500;
-    public float mapPreviewRadius = 500;
 
     //public int chunkSizeWithoutBorder => chunkSize -2; // This +2 (used by the border) is the max size for unity. It will generate a mesh of dimensions of chunkSize-1(+2)
     
@@ -40,7 +39,6 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     private HeightMapSettings _oldHeightMapSettings;
     public TextureSettings textureSettings;
     private TextureSettings _oldTextureSettings;
-    public const int numSupportedTerrainLODs = 5;
     
     #if UNITY_EDITOR
     
