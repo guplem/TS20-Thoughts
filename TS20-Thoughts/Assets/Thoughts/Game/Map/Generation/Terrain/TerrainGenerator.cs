@@ -25,9 +25,9 @@ public class TerrainGenerator : MonoBehaviour
     private const float sqrViewerMoveThresholdForChunkUpdate = viewerMoveThresholdForChunkUpdate * viewerMoveThresholdForChunkUpdate;
     
     /// <summary>
-    /// The LOD that the collider of the mesh must use
+    /// The LOD that the collider of the terrain must use
     /// </summary>
-    [Tooltip("The LOD that the collider of the mesh must use")]
+    [Tooltip("The LOD that the collider of the terrain must use")]
     [SerializeField] private int colliderLODIndex;
     
     /// <summary>
@@ -134,7 +134,7 @@ public class TerrainGenerator : MonoBehaviour
                 //if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
                     if (terrainChunks.ContainsKey(coordOfCurrentlyCheckingChunk))
                     {
-                        terrainChunks[coordOfCurrentlyCheckingChunk].UpdateChunkVisuals();
+                        terrainChunks[coordOfCurrentlyCheckingChunk].UpdateChunk();
                     }
                     else
                     {
