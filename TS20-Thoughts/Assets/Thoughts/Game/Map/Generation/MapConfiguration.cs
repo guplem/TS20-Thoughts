@@ -32,22 +32,34 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     
     public float scale = 1f; //ToDo: Do it so the noise scale and max height of the terrain dynamically adapts to this value so it becomes a "terrain resolution" slider. Small scale = more triangles
 
-    [SerializeField] public TerrainData terrainData;
-    private TerrainData _oldTerrainData;
-
+    
+    
+    
+    [Header("Terrain")]
+    public HeightMapSettings heightMapSettings;
+    private HeightMapSettings _oldHeightMapSettings;
+    public TextureSettings textureSettings;
+    private TextureSettings _oldTextureSettings;
+    public const int numSupportedTerrainLODs = 5;
+    
     #if UNITY_EDITOR
     
     protected override void OnValidate()
     {
-        if (terrainData != _oldTerrainData)
+        if (_oldHeightMapSettings != heightMapSettings)
         {
-            _oldTerrainData = terrainData;
-            Debug.LogWarning("TerrainData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
+            _oldHeightMapSettings = heightMapSettings;
+            Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
+        }
+        else if (_oldTextureSettings != textureSettings)
+        {
+            _oldTextureSettings = textureSettings;
+            Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
         }
         else
         {
             base.OnValidate();
-        } 
+        }
     }
     
     #endif

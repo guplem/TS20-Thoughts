@@ -45,25 +45,25 @@ public class MapGenerator : MonoBehaviour
         mapConfiguration.OnValuesUpdated -= OnValuesUpdated; // So the subscription count stays at 1
         mapConfiguration.OnValuesUpdated += OnValuesUpdated;
 
-        if (mapConfiguration.terrainData == null)
+        if (mapConfiguration == null)
             return;
-        mapConfiguration.terrainData.OnValuesUpdated -= OnValuesUpdated; // So the subscription count stays at 1
-        mapConfiguration.terrainData.OnValuesUpdated += OnValuesUpdated;
+        mapConfiguration.OnValuesUpdated -= OnValuesUpdated; // So the subscription count stays at 1
+        mapConfiguration.OnValuesUpdated += OnValuesUpdated;
 
-        if (mapConfiguration.terrainData.heightMapSettings == null)
+        if (mapConfiguration.heightMapSettings == null)
             return;
-        mapConfiguration.terrainData.heightMapSettings.OnValuesUpdated -= OnValuesUpdated; // So the subscription count stays at 1
-        mapConfiguration.terrainData.heightMapSettings.OnValuesUpdated += OnValuesUpdated;
+        mapConfiguration.heightMapSettings.OnValuesUpdated -= OnValuesUpdated; // So the subscription count stays at 1
+        mapConfiguration.heightMapSettings.OnValuesUpdated += OnValuesUpdated;
         
-        if (mapConfiguration.terrainData.textureSettings == null)
+        if (mapConfiguration.textureSettings == null)
             return;
-        mapConfiguration.terrainData.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
-        mapConfiguration.terrainData.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
+        mapConfiguration.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
+        mapConfiguration.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
     }
 
     void OnTextureValuesUpdated()
     {
-        mapConfiguration.terrainData.textureSettings.ApplyToMaterial(mapConfiguration.terrainData.heightMapSettings.minHeight, mapConfiguration.terrainData.heightMapSettings.maxHeight);
+        mapConfiguration.textureSettings.ApplyToMaterial(mapConfiguration.heightMapSettings.minHeight, mapConfiguration.heightMapSettings.maxHeight);
     }
 
 

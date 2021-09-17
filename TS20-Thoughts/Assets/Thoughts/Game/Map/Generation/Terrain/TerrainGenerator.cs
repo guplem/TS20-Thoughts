@@ -127,7 +127,7 @@ public class TerrainGenerator : MonoBehaviour
                     {
                         GameObject chunkGameObject = Instantiate(chunkPrefab);
                         TerrainChunk terrainChunk = chunkGameObject.GetComponentRequired<TerrainChunk>();
-                        terrainChunk.Setup(viewedChunkCoord, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.terrainData.textureSettings.material);
+                        terrainChunk.Setup(viewedChunkCoord, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.textureSettings.material);
                         terrainChunks.Add(viewedChunkCoord, terrainChunk);
                         //newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         terrainChunk.Load();
@@ -161,7 +161,7 @@ public class TerrainGenerator : MonoBehaviour
 [System.Serializable]
 public struct LODInfo
 {
-    [Range(0,TerrainData.numSupportedLODs-1)]
+    [Range(0,MapConfiguration.numSupportedTerrainLODs-1)]
     [SerializeField]public int lod;
     /// <summary>
     /// Once the viewer is outside of the threshold, it will switch over to the next level of detail lower resolution version)

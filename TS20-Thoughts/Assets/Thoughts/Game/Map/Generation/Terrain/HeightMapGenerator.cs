@@ -7,8 +7,8 @@ public static class HeightMapGenerator
 {
     //static float[,] falloffMap;
 
-    [MenuItem("Thoughts/MapGenerator/Clear Falloff Map️", false, 0)]
-    /*public static void ClearFalloffMap()
+    /*[MenuItem("Thoughts/MapGenerator/Clear Falloff Map️", false, 0)]
+    public static void ClearFalloffMap()
     {
         falloffMap = null;
         Debug.Log("Falloff map cleared (set to null)");
