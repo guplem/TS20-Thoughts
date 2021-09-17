@@ -66,13 +66,30 @@ public static class HeightMapGenerator
 }
 
 
-
+/// <summary>
+/// Contains values relative to the height of a terrain
+/// </summary>
 public struct HeightMap
 {
+    /// <summary>
+    /// The main data stored in the HeightMap (should be relative to the height of a terrain).
+    /// </summary>
     public readonly float[,] values;
+    /// <summary>
+    /// The pre recorded minimum value contained within the main data.
+    /// </summary>
     public readonly float minValue;
+    /// <summary>
+    /// The pre recorded maximum value contained within the main data.
+    /// </summary>
     public readonly float maxValue;
     
+    /// <summary>
+    /// Constructor of a HeightMap that contains values relative to the height of a terrain
+    /// </summary>
+    /// <param name="values">The main data stored in the HeightMap relative to the height of a terrain</param>
+    /// <param name="minValue">The pre calculated minimum value contained within the main data</param>
+    /// <param name="maxValue">The pre calculated maximum value contained within the main data</param>
     public HeightMap(float[,] values, float minValue, float maxValue)
     {
         //Debug.Log($"Generated Height map with minValue: {minValue} and maxValue: {maxValue}");
