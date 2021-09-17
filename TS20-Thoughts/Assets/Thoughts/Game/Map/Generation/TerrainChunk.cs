@@ -85,7 +85,7 @@ public class TerrainChunk : MonoBehaviour
         //Debug.Log($"Requesting data for {ToString()}");
         mapGenerator.threadedDataRequester.RequestData(
             // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-            () => HeightMapGenerator.GenerateHeightMap(mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.heightMapSettings, sampleCenter), 
+            () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.heightMapSettings, sampleCenter), 
             OnHeightMapReceived
         );
     }
