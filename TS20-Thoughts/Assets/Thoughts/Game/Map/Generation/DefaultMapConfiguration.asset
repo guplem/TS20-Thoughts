@@ -18,4 +18,5 @@ MonoBehaviour:
   mapRadius: 500
   mapPreviewRadius: 500
   scale: 1
-  terrainData: {fileID: 11400000, guid: 912ea1590b3446f419f2bbd507d0f4fb, type: 2}
+  heightMapSettings: {fileID: 11400000, guid: 0d8502f7698fcf948a85fe46971900b8, type: 2}
+  textureSettings: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}

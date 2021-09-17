@@ -105,7 +105,7 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - color1BaseBlend: 0.01
-    - color1Start: 0.045
+    - color1Start: 0.01
     - color2BaseBlend: 0.526
     - color2Start: 0.324
     - color3BaseBlend: 0.1
