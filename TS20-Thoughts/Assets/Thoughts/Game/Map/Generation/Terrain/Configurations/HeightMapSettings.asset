@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856493cb02e94f5499d06bdb0be4e2c2, type: 3}
   m_Name: HeightMapSettings
   m_EditorClassIdentifier: 
-  autoUpdate: 1
+  autoUpdate: 0
   noiseSettings:
     normalizeMode: 1
     scale: 50
@@ -27,14 +27,23 @@ MonoBehaviour:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: -0.26723295
-      outSlope: -0.26723295
+      time: -0.0024185725
+      value: 0.17105827
+      inSlope: 0.19452299
+      outSlope: 0.19452299
       tangentMode: 0
       weightedMode: 2
       inWeight: 0
-      outWeight: 1
+      outWeight: 0.3367547
+    - serializedVersion: 3
+      time: 0.14620304
+      value: 0.19994587
+      inSlope: -0.8764059
+      outSlope: -0.8764059
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.5475211
+      outWeight: 0.4278656
     - serializedVersion: 3
       time: 1
       value: 1
@@ -42,7 +51,7 @@ MonoBehaviour:
       outSlope: 1.2819182
       tangentMode: 0
       weightedMode: 1
-      inWeight: 0.11642158
+      inWeight: 0.11196506
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
