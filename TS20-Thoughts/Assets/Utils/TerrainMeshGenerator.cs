@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TerrainMeshGenerator // Map preview in editor (?)
+public class TerrainMeshGenerator 
 {
 
     public static MeshData GenerateTerrainMesh(float[,] heightMap, MapConfiguration mapConfiguration, int levelOfDetail) 

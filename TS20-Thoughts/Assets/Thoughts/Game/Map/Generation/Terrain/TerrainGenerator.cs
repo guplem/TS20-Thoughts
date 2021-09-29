@@ -66,12 +66,12 @@ public class TerrainGenerator : MonoBehaviour
     public MapGenerator mapGenerator;
     
     /// <summary>
-    /// How many chunks are visible based on the chunkSize and the maxViewDistance, 
+    /// How many chunks exist in the map
     /// </summary>
-    private int totalChunksInMap => Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius / mapGenerator.mapConfiguration.meshWorldSize) * 2;
+    private int totalChunksInMap => Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius ) * 2;
 
     /// <summary>
-    /// A reference to all spawned GameObjects containing a TerrainChunk
+    /// A reference to all spawned GameObjects containing a TerrainChunk / Terrain chunks
     /// </summary>
     private Dictionary<Vector2, TerrainChunk> terrainChunks = new Dictionary<Vector2, TerrainChunk>();
 

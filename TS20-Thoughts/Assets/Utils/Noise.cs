@@ -16,19 +16,12 @@ public static class Noise
         Global
         
     }
-    
+
     /// <summary>
     /// Generates a perlin noise map of a given width and height.
     /// </summary>
-    /// <param name="size">Width and Height of the noise map</param>
-    /// <param name="seed"></param>
-    /// <param name="scale">The scale of the noise. The bigger it is, the ToDo: Finish </param>
-    /// <param name="octaves"></param>
-    /// <param name="persistance"></param>
-    /// <param name="lacunarity"></param>
-    /// <param name="offset"></param>
     /// <returns>An 2D array of floats containing the perlin noise map.</returns>
-    public static float[,] GenerateNoiseMap(int width, int height, NoiseSettings settings, Vector2 sampleCenter /*int seed, float scale, int octaves, float persistance, float lacunarity, Vector2 offset, NormalizeMode normalizeMode = Noise.NormalizeMode.Global*/)
+    public static float[,] GenerateNoiseMap( int width, int height, NoiseSettings settings, Vector2 sampleCenter)
     {
         float[,] noiseMap = new float[width, height];
         RandomEssentials rng = new RandomEssentials(settings.seed);
@@ -64,8 +57,8 @@ public static class Noise
                 
                 for (int i = 0; i < settings.octaves; i++)
                 {
-                    float sampleX = (x-halfWidth + octaveOffsets[i].x) / settings.scale * frequency;
-                    float sampleY = (y-halfHeight + octaveOffsets[i].y) / settings.scale * frequency;
+                    float sampleX = ( (x-halfWidth + octaveOffsets[i].x) / settings.scale * frequency) ;
+                    float sampleY = ( (y-halfHeight + octaveOffsets[i].y) / settings.scale * frequency) ;
 
                     float perlinValue = Mathf.PerlinNoise(sampleX, sampleY) * 2 - 1;
                     noiseHeight += perlinValue * amplitude;

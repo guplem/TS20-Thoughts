@@ -107,7 +107,7 @@ public class TerrainChunk : MonoBehaviour
     public void Setup(Vector2 coord, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, MapGenerator mapGenerator, Material material)
     {
         this.coord = coord;
-        sampleCenter = coord * mapGenerator.mapConfiguration.meshWorldSize / mapGenerator.mapConfiguration.scale;
+        sampleCenter = coord * mapGenerator.mapConfiguration.meshWorldSize/* / mapGenerator.mapConfiguration.scale*/;
         
         this.viewer = viewer;
 
@@ -154,7 +154,7 @@ public class TerrainChunk : MonoBehaviour
         //Debug.Log($"Requesting data for {ToString()}");
         mapGenerator.threadedDataRequester.RequestData(
             // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-            () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.chunkSize, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.heightMapSettings, sampleCenter), 
+            () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.heightMapSettings, sampleCenter), 
             OnHeightMapReceived
         );
     }
