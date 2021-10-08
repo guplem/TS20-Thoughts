@@ -197,6 +197,9 @@ namespace Thoughts.Game.GameMap
             return foundExecutionPlan;
         }
 
+        /// <summary>
+        /// Deletes the currently (generated) existent map
+        /// </summary>
         public void Delete()
         {
             mapGenerator.DeleteCurrentMap();

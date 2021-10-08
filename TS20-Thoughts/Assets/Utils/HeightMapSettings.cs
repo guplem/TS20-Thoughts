@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
-
 
 /// <summary>
 /// The configuration of the height of the terrain of the map

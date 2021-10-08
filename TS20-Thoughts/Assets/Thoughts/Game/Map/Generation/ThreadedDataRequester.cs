@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
+/// <summary>
+/// component in charge doing threaded requests of data
+/// </summary>
 [ExecuteAlways]
 public class ThreadedDataRequester : MonoBehaviour
 {
