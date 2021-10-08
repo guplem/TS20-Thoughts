@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
 
+
+/// <summary>
+/// The configuration of the height of the terrain of the map
+/// </summary>
 [CreateAssetMenu(fileName = "HeightMapSettings", menuName = "Thoughts/Map/Terrain/HeightMapSettings", order = 100)]
 public class HeightMapSettings : UpdatableData
 {

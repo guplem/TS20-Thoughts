@@ -45,32 +45,53 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     /// <summary>
     /// The radius of the map from the center of the scene in Unity's units
     /// </summary>
+    [Tooltip("The radius of the map from the center of the scene in Unity's units")]
     public float mapRadius = 500;
 
+    /// <summary>
+    /// The configuration of the height of the terrain of the map
+    /// </summary>
     [Header("Terrain")]
+    [Tooltip("The configuration of the height of the terrain of the map")]
     public HeightMapSettings heightMapSettings;
-    private HeightMapSettings _oldHeightMapSettings;
+
+    /// <summary>
+    /// The configuration of the texture of the terrain of the map
+    /// </summary>
+    [Tooltip("The configuration of the texture of the terrain of the map")]
     public TextureSettings textureSettings;
-    private TextureSettings _oldTextureSettings;
     
     #if UNITY_EDITOR
     
+    /// <summary>
+    /// A previously used HeightMapSettings. It shouldn't be used actively, only to check for updates of the in editor.
+    /// </summary>
+    private HeightMapSettings _oldHeightMapSettings;
+    /// <summary>
+    /// A previously used TextureSettings. It shouldn't be used actively, only to check for updates of the in editor.
+    /// </summary>
+    private TextureSettings _oldTextureSettings;
+    
+
+    //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
     protected override void OnValidate()
     {
+        
+        // If settings have been updated
         if (_oldHeightMapSettings != heightMapSettings)
         {
             _oldHeightMapSettings = heightMapSettings;
             Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
         }
+        // If settings have been updated
         else if (_oldTextureSettings != textureSettings)
         {
             _oldTextureSettings = textureSettings;
             Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
         }
         else
-        {
             base.OnValidate();
-        }
+
     }
     
     #endif
