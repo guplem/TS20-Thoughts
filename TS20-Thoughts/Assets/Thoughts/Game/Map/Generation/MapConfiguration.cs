@@ -81,13 +81,13 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
         if (_oldHeightMapSettings != heightMapSettings)
         {
             _oldHeightMapSettings = heightMapSettings;
-            Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
+            Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.", this);
         }
         // If settings have been updated
         else if (_oldTextureSettings != textureSettings)
         {
             _oldTextureSettings = textureSettings;
-            Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.");
+            Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.", this);
         }
         else
             base.OnValidate();
