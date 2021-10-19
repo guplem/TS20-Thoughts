@@ -5,7 +5,7 @@ using System.Threading;
 using UnityEngine;
 
 /// <summary>
-/// component in charge doing threaded requests of data
+/// Component in charge doing threaded requests of data
 /// </summary>
 [ExecuteAlways]
 public class ThreadedDataRequester : MonoBehaviour
@@ -20,8 +20,17 @@ public class ThreadedDataRequester : MonoBehaviour
         else
             instance = this;
     }*/
+    
+    /// <summary>
+    /// Queue containing data obtained in threads waiting to be shared with the callbacks that were given during the request
+    /// </summary>
     private Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
 
+    /// <summary>
+    /// Requests to a thread to execute the given method to obtain desired data and, once the logic is completed, call the callback method to share the data with it
+    /// </summary>
+    /// <param name="generateDataMethod">The method containing the logic to generate the data in a thread</param>
+    /// <param name="callback">The method to call once the computation has been completed</param>
     public void RequestData(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
     {
         /*if (instance == null)
@@ -70,7 +79,7 @@ public class ThreadedDataRequester : MonoBehaviour
             for (int i = 0; i < dataQueue.Count; i++)
             {
                 ThreadInfo threadInfo = dataQueue.Dequeue();
-                threadInfo.callback(threadInfo.parameter);
+                threadInfo.callback(threadInfo.data);
             }
         }
         /*if (meshDataThreadInfoQueue.Count > 0)
