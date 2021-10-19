@@ -6,32 +6,58 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TextureData", menuName = "Thoughts/Map/Terrain/TextureData", order = 22)]
 public class TextureSettings : UpdatableData
 {
+    /// <summary>
+    /// The material used for the terrain
+    /// </summary>
+    [Tooltip("The material used for the terrain")]
     [SerializeField] public Material material;
-    
+
+    #region Colors
+
+    // Color 0
     [Space]
     public Color color0;
+    
+    // Color 1
     [Space]
+    public Color color1;
     [Range(0, 1)]
     public float color1Start;
-    public Color color1;
     [Range(0,1)]
     public float color1BaseBlend;
+    
+    // Color 2
     [Space]
+    public Color color2;
     [Range(0, 1)]
     public float color2Start;
-    public Color color2;
     [Range(0,1)]
     public float color2BaseBlend;
+    
+    // Color 3
     [Space]
+    public Color color3;
     [Range(0, 1)]
     public float color3Start;
-    public Color color3;
     [Range(0,1)]
     public float color3BaseBlend;
 
-    private float minHeight;
-    private float maxHeight;
+    #endregion
     
+    /// <summary>
+    /// The minimum height of the terrain
+    /// </summary>
+    private float minHeight; //Used by the shader
+    /// <summary>
+    /// The maximum height of the terrain
+    /// </summary>
+    private float maxHeight; //Used by the shader
+    
+    /// <summary>
+    /// Applies the current texture settings to the terrain's material 
+    /// </summary>
+    /// <param name="minHeight">The minimum height of the terrain</param>
+    /// <param name="maxHeight">The maximum height of the terrain</param>
     public void ApplyToMaterial(float minHeight, float maxHeight)
     {
         material.SetColor("color0", color0);
@@ -51,6 +77,11 @@ public class TextureSettings : UpdatableData
         UpdateMeshHeights(minHeight, maxHeight);
     }
 
+    /// <summary>
+    /// Updates the minimum and maximum height of the terrain
+    /// </summary>
+    /// <param name="minHeight">The minimum height of the terrain</param>
+    /// <param name="maxHeight">The maximum height of the terrain</param>
     public void UpdateMeshHeights(float minHeight, float maxHeight)
     {
         this.minHeight = minHeight;
