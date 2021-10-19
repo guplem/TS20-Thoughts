@@ -45,7 +45,7 @@ public struct HeightMap
     public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, HeightMapSettings settings, Vector2 sampleCenter)
     {
         //Debug.Log($"Generating height map for {sampleCenter}");
-        float[,] values = Noise.GenerateNoiseMap(width, height, settings.noiseSettings, sampleCenter);
+        float[,] values = Noise.GenerateNoiseMap(width, height, settings.terrainNoiseMapSettings, sampleCenter);
 
         AnimationCurve heigtCurve_threadSafe = new AnimationCurve(settings.heightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
         AnimationCurve falloffIntensity_threadSafe = new AnimationCurve(settings.falloffIntensity.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 

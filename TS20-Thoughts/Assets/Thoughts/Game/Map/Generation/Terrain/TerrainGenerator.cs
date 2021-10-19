@@ -172,7 +172,7 @@ public class TerrainGenerator : MonoBehaviour
 public struct LODInfo
 {
     /// <summary>
-    /// The lod linked to the visibleDistanceThreshold data
+    /// The LOD linked to the visibleDistanceThreshold data
     /// </summary>
     [Range(0,HeightMapSettings.numSupportedTerrainLODs-1)]
     [SerializeField]public int lod;

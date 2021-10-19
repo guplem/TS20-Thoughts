@@ -7,9 +7,18 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "HeightMapSettings", menuName = "Thoughts/Map/Terrain/HeightMapSettings", order = 100)]
 public class HeightMapSettings : UpdatableData
 {
-    public NoiseSettings noiseSettings;
+    /// <summary>
+    /// Reference to a collection of settings used to generate the noise map for the terrain
+    /// </summary>
+    [FormerlySerializedAs("noiseMapSettings")]
+    [Tooltip("Collection of settings used to generate the noise map for the terrain")]
+    [FormerlySerializedAs("noiseSettings")]
+    public NoiseMapSettings terrainNoiseMapSettings;
+    
+    /// <summary>
+    /// The amount of different types of LOD supported in the terrain generation. Tested only with a value of 5.
+    /// </summary>
     public const int numSupportedTerrainLODs = 5;
-    public Vector2 offset = Vector2.zero;
     
     [Space]
     [SerializeField] public bool useFalloff;
@@ -54,7 +63,7 @@ public class HeightMapSettings : UpdatableData
     
     protected override void OnValidate()
     {
-        noiseSettings.ValidateValues();
+        terrainNoiseMapSettings.ValidateValues();
 
         base.OnValidate();
     }
