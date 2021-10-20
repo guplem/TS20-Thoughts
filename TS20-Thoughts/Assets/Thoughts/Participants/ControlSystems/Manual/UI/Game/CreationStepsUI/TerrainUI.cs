@@ -6,7 +6,7 @@ namespace Thoughts.ControlSystems.UI.CreationSteps
     {
         public void GenerateTerrain()
         {
-            GameManager.instance.map.GenerateNew(); //Todo: Generate terrain, not all map
+            GameManager.instance.mapManager.GenerateNew(); //Todo: Generate terrain, not all map
         }
     }
 }

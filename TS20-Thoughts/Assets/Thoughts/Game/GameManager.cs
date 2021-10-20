@@ -6,6 +6,7 @@ using Thoughts.Game.Attributes;
 using Thoughts.Game.GameMap;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 namespace Thoughts.Game
 {
@@ -29,8 +30,9 @@ namespace Thoughts.Game
         /// The map of the game.
         /// <para>A component in a GameObject</para>
         /// </summary>
+        [FormerlySerializedAs("map")]
         [Header("Game Elements")]
-        [SerializeField] public Map map;
+        [SerializeField] public MapManager mapManager;
 
         /// <summary>
         /// The different participants (players, AI, ...) of the game.
@@ -61,7 +63,7 @@ namespace Thoughts.Game
             this.localManualParticipant = localManualParticipant;
             
             // Delete the previously generated world
-            map.Delete();
+            mapManager.Delete();
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace Thoughts.Game
             if (mapEventsToExecute == null) 
                 mapEventsToExecute = new List<ExecutionPlan>();
 
-            ExecutionPlan lastExecutionPlan = map.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+            ExecutionPlan lastExecutionPlan = mapManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
             
             //if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
             //else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");

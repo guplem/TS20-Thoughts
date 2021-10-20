@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Console = System.Console;
 
+/// <summary>
+/// Manager of a chunk of the terrain of the map
+/// </summary>
 public class TerrainChunk : MonoBehaviour
 {
     //ToDo: Check if this class can be cleared. A lot of fields/variables are just storing data from other classes/configurations that might be accessible in real time. 

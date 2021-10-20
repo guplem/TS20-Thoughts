@@ -13,7 +13,7 @@ namespace Thoughts.Game.GameMap
     /// The map of the game.
     /// </summary>
     [RequireComponent(typeof(MapGenerator))]
-    public class Map : MonoBehaviour
+    public class MapManager : MonoBehaviour
     {
         /// <summary>
         /// All the map elements present in the map.
