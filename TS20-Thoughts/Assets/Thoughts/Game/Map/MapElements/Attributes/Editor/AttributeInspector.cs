@@ -1,23 +1,23 @@
 #if UNITY_EDITOR
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEditor;
 using UnityEngine;
-using Attributes = Thoughts.Game.Attributes;
 
-namespace Thoughts
+namespace Thoughtskk
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(Attributes.Attribute))]
+    [CustomEditor(typeof(Attribute))]
     public class AttributeInspector : UnityEditor.Editor
     {
-        private Attributes.Attribute attribute;
+        private Attribute attribute;
         
         public override void OnInspectorGUI()
         {
             // Update the serializedProperty - always do this in the beginning of OnInspectorGUI.
             serializedObject.Update ();
             
-            attribute = target as Attributes.Attribute;
+            attribute = target as Attribute;
             base.OnInspectorGUI();
             //ShowMapEventsArray();
             

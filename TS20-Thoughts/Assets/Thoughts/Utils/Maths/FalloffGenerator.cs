@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public static class FalloffGenerator // Delete?
+namespace Thoughts.Utils.Maths
 {
-    /*public static float[,] GenerateFalloffMap(int size, float percentageOfMapWithoutMaxFalloff, float mapRadius)
+    public static class FalloffGenerator // Delete?
+    {
+        /*public static float[,] GenerateFalloffMap(int size, float percentageOfMapWithoutMaxFalloff, float mapRadius)
     {
         Debug.Log($"Generating FalloffMap. Size: {size}, p = {percentageOfMapWithoutMaxFalloff}, mapRadius = {mapRadius}");
         float[,] map = new float[size, size];
@@ -46,4 +44,5 @@ public static class FalloffGenerator // Delete?
         // This formula defines the "shape" of the falloff
         return Mathf.Pow(value, a) / (Mathf.Pow(value, a) + Mathf.Pow(b - b * value, 1));
     }*/
+    }
 }

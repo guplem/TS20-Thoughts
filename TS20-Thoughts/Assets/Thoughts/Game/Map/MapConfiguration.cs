@@ -1,98 +1,102 @@
 using System;
+using Thoughts.Game.Map.Terrain;
+using Thoughts.Utils.Inspector;
 using UnityEngine;
 
-/// <summary>
-/// Holds all the configuration/settings used to generate the Map
-/// </summary>
-[CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map/Map Configuration", order = 20)]
-public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
+namespace Thoughts.Game.Map
 {
+    /// <summary>
+    /// Holds all the configuration/settings used to generate the Map
+    /// </summary>
+    [CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map/Map Configuration", order = 20)]
+    public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
+    {
 
-    /// <summary>
-    /// The seed used for the whole world randomness
-    /// </summary>
-    [Space]
-    public int seed = 420;
+        /// <summary>
+        /// The seed used for the whole world randomness
+        /// </summary>
+        [Space]
+        public int seed = 420;
 
-    /// <summary>
-    /// The index of the size of the chunks (in world space)
-    /// Making a chunk smaller will not make it more polygon dense, it will have less polygons overall 
-    /// </summary>
-    [Range(0, numSupportedChunkSizes-1)]
-    [Tooltip("The index of the size of the chunks (in world space). Making a chunk smaller will not make it more polygon dense, it will have less polygons overall. Sizes (squares of Unity's units): 0=24, 1=48, 2=72, 3=96, 4=120, 5=144, 6=168, 7=192, 8=216, 9=240")]
-    public int chunkSizeIndex = 9;
-    /// <summary>
-    /// All the available sizes (in world space) for the chunks
-    /// </summary>
-    public static readonly int[] supportedChunkSizes = {24, 48, 72, 96, 120, 144, 168, 192, 216, 240};
-    /// <summary>
-    /// Count of all the available/supported chunk sizes
-    /// </summary>
-    public const int numSupportedChunkSizes = 10; // supportedChunkSizes.Length
+        /// <summary>
+        /// The index of the size of the chunks (in world space)
+        /// Making a chunk smaller will not make it more polygon dense, it will have less polygons overall 
+        /// </summary>
+        [Range(0, numSupportedChunkSizes-1)]
+        [Tooltip("The index of the size of the chunks (in world space). Making a chunk smaller will not make it more polygon dense, it will have less polygons overall. Sizes (squares of Unity's units): 0=24, 1=48, 2=72, 3=96, 4=120, 5=144, 6=168, 7=192, 8=216, 9=240")]
+        public int chunkSizeIndex = 9;
+        /// <summary>
+        /// All the available sizes (in world space) for the chunks
+        /// </summary>
+        public static readonly int[] supportedChunkSizes = {24, 48, 72, 96, 120, 144, 168, 192, 216, 240};
+        /// <summary>
+        /// Count of all the available/supported chunk sizes
+        /// </summary>
+        public const int numSupportedChunkSizes = 10; // supportedChunkSizes.Length
     
-    /// <summary>
-    /// Number of vertices per line of a mesh rendered at the max resolution (LOD = 0).
-    /// It includes the 2 extra vertices that are excluded from final mesh, but used for calculating normals.
-    /// </summary>
-    public int numVertsPerLine => supportedChunkSizes[chunkSizeIndex] + 5; // This is the max size of a mesh for unity. It will generate a mesh of dimensions of chunkSize-1
-    //public int chunkSize => supportedChunkSizes[chunkSizeIndex] + 1; // Changed in the last episode to +5 but seemed weird. //Todo: delete comment after testing that all works
+        /// <summary>
+        /// Number of vertices per line of a mesh rendered at the max resolution (LOD = 0).
+        /// It includes the 2 extra vertices that are excluded from final mesh, but used for calculating normals.
+        /// </summary>
+        public int numVertsPerLine => supportedChunkSizes[chunkSizeIndex] + 5; // This is the max size of a mesh for unity. It will generate a mesh of dimensions of chunkSize-1
+        //public int chunkSize => supportedChunkSizes[chunkSizeIndex] + 1; // Changed in the last episode to +5 but seemed weird. //Todo: delete comment after testing that all works
 
-    /// <summary>
-    /// The space the terrain mesh takes up in the world.
-    /// </summary>
-    public float meshWorldSize => (numVertsPerLine - 3);
+        /// <summary>
+        /// The space the terrain mesh takes up in the world.
+        /// </summary>
+        public float meshWorldSize => (numVertsPerLine - 3);
 
-    /// <summary>
-    /// The radius of the map from the center of the scene in Unity's units
-    /// </summary>
-    [Tooltip("The radius of the map from the center of the scene in Unity's units")]
-    public float mapRadius = 500;
+        /// <summary>
+        /// The radius of the map from the center of the scene in Unity's units
+        /// </summary>
+        [Tooltip("The radius of the map from the center of the scene in Unity's units")]
+        public float mapRadius = 500;
 
-    /// <summary>
-    /// The configuration of the height of the terrain of the map
-    /// </summary>
-    [Header("Terrain")]
-    [Tooltip("The configuration of the height of the terrain of the map")]
-    public HeightMapSettings heightMapSettings;
+        /// <summary>
+        /// The configuration of the height of the terrain of the map
+        /// </summary>
+        [Header("Terrain")]
+        [Tooltip("The configuration of the height of the terrain of the map")]
+        public HeightMapSettings heightMapSettings;
 
-    /// <summary>
-    /// The configuration of the texture of the terrain of the map
-    /// </summary>
-    [Tooltip("The configuration of the texture of the terrain of the map")]
-    public TextureSettings textureSettings;
+        /// <summary>
+        /// The configuration of the texture of the terrain of the map
+        /// </summary>
+        [Tooltip("The configuration of the texture of the terrain of the map")]
+        public TextureSettings textureSettings;
     
     #if UNITY_EDITOR
     
-    /// <summary>
-    /// A previously used HeightMapSettings. It shouldn't be used actively, only to check for updates of the in editor.
-    /// </summary>
-    private HeightMapSettings _oldHeightMapSettings;
-    /// <summary>
-    /// A previously used TextureSettings. It shouldn't be used actively, only to check for updates of the in editor.
-    /// </summary>
-    private TextureSettings _oldTextureSettings;
+        /// <summary>
+        /// A previously used HeightMapSettings. It shouldn't be used actively, only to check for updates of the in editor.
+        /// </summary>
+        private HeightMapSettings _oldHeightMapSettings;
+        /// <summary>
+        /// A previously used TextureSettings. It shouldn't be used actively, only to check for updates of the in editor.
+        /// </summary>
+        private TextureSettings _oldTextureSettings;
     
 
-    //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
-    protected override void OnValidate()
-    {
+        //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
+        protected override void OnValidate()
+        {
         
-        // If settings have been updated
-        if (_oldHeightMapSettings != heightMapSettings)
-        {
-            _oldHeightMapSettings = heightMapSettings;
-            Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.", this);
-        }
-        // If settings have been updated
-        else if (_oldTextureSettings != textureSettings)
-        {
-            _oldTextureSettings = textureSettings;
-            Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.", this);
-        }
-        else
-            base.OnValidate();
+            // If settings have been updated
+            if (_oldHeightMapSettings != heightMapSettings)
+            {
+                _oldHeightMapSettings = heightMapSettings;
+                Debug.LogWarning("NoiseData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.", this);
+            }
+            // If settings have been updated
+            else if (_oldTextureSettings != textureSettings)
+            {
+                _oldTextureSettings = textureSettings;
+                Debug.LogWarning("TextureData updated. Preview won't work until the a map is manually generated using the MapGenerator's inspector.", this);
+            }
+            else
+                base.OnValidate();
 
-    }
+        }
     
     #endif
 
@@ -164,4 +168,5 @@ public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     #endregion
     
 
+    }
 }

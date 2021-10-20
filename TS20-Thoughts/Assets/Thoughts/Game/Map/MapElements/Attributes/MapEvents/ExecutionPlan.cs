@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Thoughts.Game.Attributes;
 using UnityEngine;
 
-namespace Thoughts.Game.GameMap
+namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
 {
     /// <summary>
     /// The execution configuration for a MapEvent. A plan to execute a MapEvent (of an Attribute) owned by a MapElement, executed by a MapElement and with a targeted MapElement.

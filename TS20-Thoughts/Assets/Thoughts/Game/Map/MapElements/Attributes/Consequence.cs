@@ -1,9 +1,9 @@
 using System;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Attributes
+namespace Thoughts.Game.Map.MapElements.Attributes
 {
     /// <summary>
     /// Consequence of the execution of a MapEvent
@@ -15,7 +15,7 @@ namespace Thoughts.Game.Attributes
         /// Attribute that will be updated as a consequence of the execution of the MapEvent
         /// </summary>
         [Tooltip("Attribute that will be updated as a consequence of the execution of the MapEvent")]
-        public Thoughts.Game.Attributes.Attribute attribute;
+        public Attribute attribute;
         
         /// <summary>
         /// The difference to apply to the attribute's value of this consequence. Can be positive and negative

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Thoughts.Game.Attributes;
 using UnityEngine;
 
-namespace Thoughts.Game.GameMap
+namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
 {
 
     /// <summary>
@@ -71,19 +70,19 @@ namespace Thoughts.Game.GameMap
                 switch (consequence.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        owner.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
+                        owner.attributesManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
                         if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
                             owner.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventExecuter:
-                        executer.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
+                        executer.attributesManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
                         if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
                             executer.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventTarget:
-                        target.attributeManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
+                        target.attributesManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
                         if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
                             target.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
@@ -150,23 +149,23 @@ namespace Thoughts.Game.GameMap
                 switch (requirement.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        meets = owner.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = owner.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(owner.attributeManager.GetOwnedAttributeOf(requirement.attribute));
+                            requirementsNotMet.Add(owner.attributesManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventExecuter:
-                        meets = executer.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = executer.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(executer.attributeManager.GetOwnedAttributeOf(requirement.attribute));
+                            requirementsNotMet.Add(executer.attributesManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventTarget:
-                        meets = target.attributeManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = target.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(target.attributeManager.GetOwnedAttributeOf(requirement.attribute));
+                            requirementsNotMet.Add(target.attributesManager.GetOwnedAttributeOf(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;

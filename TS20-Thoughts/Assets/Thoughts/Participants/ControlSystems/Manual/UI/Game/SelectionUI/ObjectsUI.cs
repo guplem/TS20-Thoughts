@@ -1,9 +1,10 @@
 using System.Collections.Generic;
-using Thoughts.Game.Attributes;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
 {
     public class ObjectsUI : SimpleAnimationUIElement
     {
@@ -52,7 +53,7 @@ namespace Thoughts.ControlSystems.UI
             {
                 lastShownMapElement = selectedMapElement;
 
-                List<AttributeOwnership> needs = selectedMapElement.attributeManager.GetAttributesWithPriority(Attribute.NeedPriority.None);
+                List<AttributeOwnership> needs = selectedMapElement.attributesManager.GetAttributesWithPriority(Attribute.NeedPriority.None);
             
                 if (needs == null)
                     return;

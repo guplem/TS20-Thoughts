@@ -1,22 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SimpleAnimationsManager))]
-public class PlaySimpleAnimationOnStart : MonoBehaviour
+namespace Thoughts.Utils
 {
-    private SimpleAnimationsManager simpleAnimationsManager;
-
-    private void Awake()
+    [RequireComponent(typeof(SimpleAnimationsManager))]
+    public class PlaySimpleAnimationOnStart : MonoBehaviour
     {
-        simpleAnimationsManager = gameObject.GetComponentRequired<SimpleAnimationsManager>();
-    }
+        private SimpleAnimationsManager simpleAnimationsManager;
 
-    void Start()
-    {
-        simpleAnimationsManager.Play(0);
-        Debug.LogWarning("Playing");
-    }
+        private void Awake()
+        {
+            simpleAnimationsManager = gameObject.GetComponentRequired<SimpleAnimationsManager>();
+        }
 
+        void Start()
+        {
+            simpleAnimationsManager.Play(0);
+            Debug.LogWarning("Playing");
+        }
+
+    }
 }

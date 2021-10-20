@@ -1,23 +1,24 @@
 #if UNITY_EDITOR
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(UpdatableData), true)]
-public class UpdatableDataEditor : Editor
+namespace Thoughts.Utils.Inspector
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(UpdatableData), true)]
+    public class UpdatableDataEditor : Editor
     {
-        base.OnInspectorGUI();
-
-        UpdatableData data = (UpdatableData) target;
-
-        if (GUILayout.Button("Update"))
+        public override void OnInspectorGUI()
         {
-            data.NotifyOfUpdatedValues();
-            EditorUtility.SetDirty(target);
+            base.OnInspectorGUI();
+
+            UpdatableData data = (UpdatableData) target;
+
+            if (GUILayout.Button("Update"))
+            {
+                data.NotifyOfUpdatedValues();
+                EditorUtility.SetDirty(target);
+            }
         }
     }
 }

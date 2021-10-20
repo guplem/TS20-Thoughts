@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Thoughts.ControlSystems
+namespace Thoughts.Participants.ControlSystems
 {
     /// <summary>
     /// A way of controlling a participant.

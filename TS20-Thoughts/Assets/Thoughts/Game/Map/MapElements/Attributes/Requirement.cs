@@ -1,9 +1,9 @@
 using System;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Attributes
+namespace Thoughts.Game.Map.MapElements.Attributes
 {
     /// <summary>
     /// Requirement for the execution of a MapEvent
@@ -15,7 +15,7 @@ namespace Thoughts.Game.Attributes
         /// The required attribute
         /// </summary>
         [Tooltip("The required attribute")]
-        public Thoughts.Game.Attributes.Attribute attribute;
+        public Attribute attribute;
         
         /// <summary>
         /// The minimal value required of the required attribute

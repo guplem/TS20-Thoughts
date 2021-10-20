@@ -1,8 +1,8 @@
-using Thoughts.Game.Attributes;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Attributes;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
 {
     public class NeedsUI : SimpleAnimationUIElement
     {

@@ -1,8 +1,8 @@
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using TMPro;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
 {
     /// <summary>
     /// Controls the display of a single ExecutionPlan in the UI 

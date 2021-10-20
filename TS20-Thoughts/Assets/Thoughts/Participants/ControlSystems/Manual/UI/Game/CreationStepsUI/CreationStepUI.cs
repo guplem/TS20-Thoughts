@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Thoughts.ControlSystems.UI;
+using Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI.CreationSteps
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.CreationStepsUI
 {
 
     public abstract class CreationStepUI : SimpleAnimationUIElement

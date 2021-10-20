@@ -1,8 +1,7 @@
 using System;
-using Thoughts.Game.GameMap;
 using UnityEngine;
 
-namespace Thoughts.Game.Attributes
+namespace Thoughts.Game.Map.MapElements.Attributes
 {
     /// <summary>
     /// A relation between an Attribute and a MapElement that owns it.

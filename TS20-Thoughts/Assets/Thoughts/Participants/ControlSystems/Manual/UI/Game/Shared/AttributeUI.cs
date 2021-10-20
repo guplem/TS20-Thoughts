@@ -1,8 +1,8 @@
-using Thoughts.Game.Attributes;
+using Thoughts.Game.Map.MapElements.Attributes;
 using TMPro;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared
 {
     /// <summary>
     /// Controls the display of a single Attribute in the UI 

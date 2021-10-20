@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
-using Thoughts.Game.Attributes;
+using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
-namespace Thoughts.Game.GameMap
+namespace Thoughts.Game.Map.MapElements
 {
      /// <summary>
      /// A spawned element of the Map.
@@ -19,8 +21,9 @@ namespace Thoughts.Game.GameMap
           /// <summary>
           /// Collection (and manager) of the owned attributes of this MapElement.
           /// </summary>
+          [FormerlySerializedAs("attributeManager")]
           [Tooltip("Collection (and manager) of the owned attributes of this 'MapElement'")]
-          [SerializeField] public AttributeManager attributeManager = new AttributeManager();
+          [SerializeField] public AttributesManager attributesManager = new AttributesManager();
 
           /// <summary>
           /// Reference to the Animator handling the animations of this MapElement.
@@ -42,7 +45,7 @@ namespace Thoughts.Game.GameMap
                private void Awake()
                {
                     stateManager = new StateManager(this);
-                    attributeManager.Initialize(this);
+                    attributesManager.Initialize(this);
                     navMeshAgent = GetComponent<NavMeshAgent>();
                }
                
@@ -79,7 +82,7 @@ namespace Thoughts.Game.GameMap
                          yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
                          
                          stateManager.Step(GameManager.instance.gameClockInterval);
-                         attributeManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         attributesManager.ExecuteMapEventsWithTimeElapseEnabled();
                          if (stateManager.currentState == State.None)
                          {
                               UpdateObjectiveAttributeToCover();
@@ -152,7 +155,7 @@ namespace Thoughts.Game.GameMap
                /// </summary>
                private void UpdateObjectiveAttributeToCover()
                {
-                    List<AttributeOwnership> attributesThatNeedCare = attributeManager.GetAttributesThatNeedCare();
+                    List<AttributeOwnership> attributesThatNeedCare = attributesManager.GetAttributesThatNeedCare();
                     
                     if (attributesThatNeedCare.IsNullOrEmpty())
                     {

@@ -1,15 +1,15 @@
 using System;
 using System.IO;
 using System.Linq;
-using UnityEngine;
-using Object = UnityEngine.Object;
-#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.VersionControl;
+using UnityEngine;
+using Object = UnityEngine.Object;
+#if UNITY_EDITOR
 #endif
 
-namespace UnityEngine// Tymski
+namespace Thoughts.Utils.Inspector// Tymski
 {
 
     // Author: JohannesMP (2018-08-12), 2019 S. Tarık Çetin, Tymski, MIT license

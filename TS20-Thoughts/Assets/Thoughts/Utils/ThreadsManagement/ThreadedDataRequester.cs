@@ -1,19 +1,20 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-/// <summary>
-/// Component in charge doing threaded requests of data
-/// </summary>
-[ExecuteAlways]
-public class ThreadedDataRequester : MonoBehaviour
+namespace Thoughts.Utils.ThreadsManagement
 {
-    /*private static ThreadedDataRequester instance { get => _instance; set => _instance = value; }
+    /// <summary>
+    /// Component in charge doing threaded requests of data
+    /// </summary>
+    [ExecuteAlways]
+    public class ThreadedDataRequester : MonoBehaviour
+    {
+        /*private static ThreadedDataRequester instance { get => _instance; set => _instance = value; }
     private static ThreadedDataRequester _instance;*/
     
-    /*private void Awake()
+        /*private void Awake()
     {
         if (instance != null)
             Debug.LogWarning($"More than 1 ThreadedDataRequester objects exist: '{instance.ToString()}' and '{this.ToString()}'", this);
@@ -21,39 +22,39 @@ public class ThreadedDataRequester : MonoBehaviour
             instance = this;
     }*/
     
-    /// <summary>
-    /// Queue containing data obtained in threads waiting to be shared with the callbacks that were given during the request
-    /// </summary>
-    private Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
+        /// <summary>
+        /// Queue containing data obtained in threads waiting to be shared with the callbacks that were given during the request
+        /// </summary>
+        private Queue<ThreadInfo> dataQueue = new Queue<ThreadInfo>();
 
-    /// <summary>
-    /// Requests to a thread to execute the given method to obtain desired data and, once the logic is completed, call the callback method to share the data with it
-    /// </summary>
-    /// <param name="generateDataMethod">The method containing the logic to generate the data in a thread</param>
-    /// <param name="callback">The method to call once the computation has been completed</param>
-    public void RequestData(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
-    {
-        /*if (instance == null)
+        /// <summary>
+        /// Requests to a thread to execute the given method to obtain desired data and, once the logic is completed, call the callback method to share the data with it
+        /// </summary>
+        /// <param name="generateDataMethod">The method containing the logic to generate the data in a thread</param>
+        /// <param name="callback">The method to call once the computation has been completed</param>
+        public void RequestData(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
+        {
+            /*if (instance == null)
             Debug.LogWarning($"The static instance (singleton) for {nameof(ThreadedDataRequester)} is null.");*/
         
-        ThreadStart threadStart = delegate
-        {
-            DataThread(generateDataMethod, callback/*, mapConfiguration*/);
-        };
-        new Thread(threadStart).Start();
-    }
-    
-    private void DataThread(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
-    {
-        object data = generateDataMethod();
-        //HeightMap heightMap = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, centre);
-        lock (dataQueue)
-        {
-            dataQueue.Enqueue(new ThreadInfo(callback, data));
+            ThreadStart threadStart = delegate
+            {
+                DataThread(generateDataMethod, callback/*, mapConfiguration*/);
+            };
+            new Thread(threadStart).Start();
         }
-    }
     
-    /*public void RequestMeshData(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
+        private void DataThread(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
+        {
+            object data = generateDataMethod();
+            //HeightMap heightMap = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, centre);
+            lock (dataQueue)
+            {
+                dataQueue.Enqueue(new ThreadInfo(callback, data));
+            }
+        }
+    
+        /*public void RequestMeshData(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
         ThreadStart threadStart = delegate
         {
@@ -63,7 +64,7 @@ public class ThreadedDataRequester : MonoBehaviour
         new Thread(threadStart).Start();
     }*/
     
-    /*public void HeightMapThread(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
+        /*public void HeightMapThread(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
         MeshData meshData = MapDisplay.GenerateTerrainMesh(heightMap.values, mapConfiguration, LOD);
         lock (terrainDataThreadInfoQueue)
@@ -72,17 +73,17 @@ public class ThreadedDataRequester : MonoBehaviour
         }
     }*/
     
-    private void Update()
-    {
-        if (dataQueue.Count > 0)
+        private void Update()
         {
-            for (int i = 0; i < dataQueue.Count; i++)
+            if (dataQueue.Count > 0)
             {
-                ThreadInfo threadInfo = dataQueue.Dequeue();
-                threadInfo.callback(threadInfo.data);
+                for (int i = 0; i < dataQueue.Count; i++)
+                {
+                    ThreadInfo threadInfo = dataQueue.Dequeue();
+                    threadInfo.callback(threadInfo.data);
+                }
             }
-        }
-        /*if (meshDataThreadInfoQueue.Count > 0)
+            /*if (meshDataThreadInfoQueue.Count > 0)
         {
             for (int i = 0; i < meshDataThreadInfoQueue.Count; i++)
             {
@@ -90,5 +91,6 @@ public class ThreadedDataRequester : MonoBehaviour
                 threadInfo.callback(threadInfo.parameter);
             }
         }*/
+        }
     }
 }

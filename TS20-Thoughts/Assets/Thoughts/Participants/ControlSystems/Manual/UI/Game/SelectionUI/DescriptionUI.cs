@@ -1,8 +1,8 @@
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
 using TMPro;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
 {
     /// <summary>
     /// Controls the display of the descriptive information of a MapElement (name, description ...)

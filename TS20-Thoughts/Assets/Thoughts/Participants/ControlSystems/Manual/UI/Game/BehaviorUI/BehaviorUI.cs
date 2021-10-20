@@ -1,9 +1,11 @@
 using System.Collections.Generic;
-using Thoughts.Game.Attributes;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
 {
     /// <summary>
     /// Controls the display of the information in the UI related to the behavior of a MapElement (objective Attribute and planned ExecutionPlans)

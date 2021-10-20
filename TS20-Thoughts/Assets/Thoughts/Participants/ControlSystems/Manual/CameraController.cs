@@ -1,10 +1,9 @@
 using System;
 using Cinemachine;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
 using UnityEngine;
-using Console = System.Console;
 
-namespace Thoughts.ControlSystems
+namespace Thoughts.Participants.ControlSystems.Manual
 {
     /// <summary>
     /// A controller for a Camera

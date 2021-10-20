@@ -1,8 +1,8 @@
-using Thoughts.ControlSystems.UI.CreationSteps;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Participants.ControlSystems.Manual.UI.Game.CreationStepsUI;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
 {
     /// <summary>
     /// Controls the UI of the game
@@ -19,13 +19,13 @@ namespace Thoughts.ControlSystems.UI
         /// Reference to the section of the UI holding the information of the current ExecutionPlans related to the objective Attribute
         /// </summary>
         [Tooltip("Reference to the section of the UI holding the information of the execution plans related to the Attribute objective")]
-        [SerializeField] private BehaviorUI behaviorUI;
+        [SerializeField] private BehaviorUI.BehaviorUI behaviorUI;
         
         /// <summary>
         /// Reference to the section of the UI holding the information of the currently selected MapElement
         /// </summary>
         [Tooltip("Reference to the section of the UI holding the information of the currently selected MapElement")]
-        [SerializeField] private SelectionUI selectionUI;
+        [SerializeField] private SelectionUI.SelectionUI selectionUI;
         
         [Header("Creation UI")]
         

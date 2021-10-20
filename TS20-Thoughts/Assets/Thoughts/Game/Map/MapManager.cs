@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using JetBrains.Annotations;
-using Thoughts.ControlSystems;
-using Thoughts.Game.Attributes;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Thoughts.Game.GameMap
+namespace Thoughts.Game.Map
 {
 
     /// <summary>
@@ -179,17 +180,17 @@ namespace Thoughts.Game.GameMap
             ExecutionPlan foundExecutionPlan = null;
             
             //Trying to cover with an attribute/mapEvent in the target
-            foundExecutionPlan = attributeOwnershipToCover.owner.attributeManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+            foundExecutionPlan = attributeOwnershipToCover.owner.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
                 
             //Trying to cover with an attribute/mapEvent in the caregiver/executer
             if (foundExecutionPlan == null)
-                foundExecutionPlan = executer.attributeManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+                foundExecutionPlan = executer.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
             
             //Trying to cover with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
                 foreach (MapElement mapElement in mapElements) // Todo: sort by distance
                 {
-                    ExecutionPlan foundMapEvent = mapElement.attributeManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+                    ExecutionPlan foundMapEvent = mapElement.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
                     if (foundMapEvent != null)
                         return foundMapEvent;
                 }

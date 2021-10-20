@@ -1,8 +1,8 @@
-using Thoughts.ControlSystems.UI;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Participants.ControlSystems.Manual.UI.Game;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems
+namespace Thoughts.Participants.ControlSystems.Manual
 {
     /// <summary>
     /// A local manual control of a participant.

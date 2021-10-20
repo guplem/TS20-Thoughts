@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEngine;
 
-namespace Thoughts.Game.Attributes
+namespace Thoughts.Game.Map.MapElements.Attributes
 {
     /// <summary>
     /// A quality, characteristic or object ascribed to a MapElement.

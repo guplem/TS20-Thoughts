@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Thoughts.Game.GameMap
+namespace Thoughts.Game.Map.MapElements
 {
     /// <summary>
     /// Manages the current state of a MapElement

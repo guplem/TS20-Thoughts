@@ -1,10 +1,11 @@
 using System.Collections.Generic;
-using Thoughts.Game.Attributes;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
 using TMPro;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
 {
     
     public class NeedGroupUI : MonoBehaviour
@@ -43,7 +44,7 @@ namespace Thoughts.ControlSystems.UI
         {
             mapElementNameText.text = groupName;
 
-            List<AttributeOwnership> needs = selectedMapElement.attributeManager.GetAttributesWithPriority(groupNeedPriority);
+            List<AttributeOwnership> needs = selectedMapElement.attributesManager.GetAttributesWithPriority(groupNeedPriority);
             
             if (needs == null)
                 return;

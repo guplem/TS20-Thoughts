@@ -1,9 +1,9 @@
-using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
-using Thoughts.ControlSystems;
-using Thoughts.Game.Attributes;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Participants;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;

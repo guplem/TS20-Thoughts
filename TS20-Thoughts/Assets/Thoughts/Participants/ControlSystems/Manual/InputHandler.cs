@@ -1,8 +1,8 @@
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Thoughts.ControlSystems
+namespace Thoughts.Participants.ControlSystems.Manual
 {
     /// <summary>
     /// Handles the input for a Manual ControlSystem
@@ -20,7 +20,7 @@ namespace Thoughts.ControlSystems
         /// </summary>
         private void Awake()
         {
-            manualControlSystem = this.GetComponentRequired<Thoughts.ControlSystems.Manual>();
+            manualControlSystem = this.GetComponentRequired<Manual>();
         }
 
         //[SerializeField] private KeyCode forward, backward, left, right, up, down;

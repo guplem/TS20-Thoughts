@@ -1,4 +1,4 @@
-using Thoughts.Game;
+using Thoughts.Utils.Inspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

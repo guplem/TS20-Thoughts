@@ -1,7 +1,7 @@
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
 {
     /// <summary>
     /// Controls the display of the information related to a MapElement (needs -Attributes-, name, description, objects -Attributes-, ...)

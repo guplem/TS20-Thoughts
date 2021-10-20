@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace Thoughts.ControlSystems.UI.CreationSteps
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.CreationStepsUI
 {
     public class NightUI : CreationStepUI // Like UserNameUI
     {

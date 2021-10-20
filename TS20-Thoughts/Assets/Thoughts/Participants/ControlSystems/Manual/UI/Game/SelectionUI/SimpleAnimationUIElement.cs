@@ -1,8 +1,7 @@
-using System;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
 {
     [RequireComponent(typeof(SimpleAnimationsManager))]
     public abstract class SimpleAnimationUIElement : MonoBehaviour

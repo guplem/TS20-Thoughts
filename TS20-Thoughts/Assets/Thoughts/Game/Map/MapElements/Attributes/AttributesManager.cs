@@ -1,16 +1,16 @@
 using System;
 using System.Collections.Generic;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Attributes
+namespace Thoughts.Game.Map.MapElements.Attributes
 {
     /// <summary>
     /// Manages a set of AttributeOwnerships all owned by the same MapElement
     /// </summary>
     [Serializable]
-    public class AttributeManager
+    public class AttributesManager
     {
         /// <summary>
         /// MapElement owner of this AttributeManager
@@ -229,7 +229,7 @@ namespace Thoughts.Game.Attributes
         /// </summary>
         /// <param name="priority">The priority that all the returned Attributes must have</param>
         /// <returns>A list of AttributeOwnership where all Attributes have the given level of priority</returns>
-        public List<AttributeOwnership> GetAttributesWithPriority(Attribute.NeedPriority priority)
+        public List<AttributeOwnership> GetAttributesWithPriority(Attributes.Attribute.NeedPriority priority)
         {
             List<AttributeOwnership> matchingAttributeOwnerships = new List<AttributeOwnership>();
             foreach (AttributeOwnership attributeOwnership in this.attributeOwnerships)

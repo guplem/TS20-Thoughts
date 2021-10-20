@@ -3,33 +3,35 @@
 using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(MapGenerator))]
-public class MapGeneratorEditor : Editor
+namespace Thoughts.Game.Map
 {
-    public override void OnInspectorGUI()
+    [CustomEditor(typeof(MapGenerator))]
+    public class MapGeneratorEditor : Editor
     {
-        MapGenerator mapGenerator = (MapGenerator) target;
-
-        if (DrawDefaultInspector())
+        public override void OnInspectorGUI()
         {
-            if (mapGenerator.autoRegenerateInEditor)
+            MapGenerator mapGenerator = (MapGenerator) target;
+
+            if (DrawDefaultInspector())
             {
+                if (mapGenerator.autoRegenerateInEditor)
+                {
+                    mapGenerator.GenerateMap(true);
+                }
+            }
+
+            if (GUILayout.Button("Regenerate Map"))
+            {
+                mapGenerator.OnValidate();
                 mapGenerator.GenerateMap(true);
             }
-        }
-
-        if (GUILayout.Button("Regenerate Map"))
-        {
-            mapGenerator.OnValidate();
-            mapGenerator.GenerateMap(true);
-        }
         
-        if (GUILayout.Button("Delete current Map"))
-        {
-            mapGenerator.DeleteCurrentMap();
-        }
+            if (GUILayout.Button("Delete current Map"))
+            {
+                mapGenerator.DeleteCurrentMap();
+            }
         
-        /*if (GUILayout.Button("Repaint All"))
+            /*if (GUILayout.Button("Repaint All"))
         {
             UnityEditor.SceneView.RepaintAll();
             UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
@@ -37,6 +39,7 @@ public class MapGeneratorEditor : Editor
         
 
 
+        }
     }
 }
 #endif

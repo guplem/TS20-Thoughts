@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Thoughts.Game.GameMap;
+using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems.UI
+namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
 {
     /// <summary>
     /// Controls the display of the planned ExecutionPlans in the UI 

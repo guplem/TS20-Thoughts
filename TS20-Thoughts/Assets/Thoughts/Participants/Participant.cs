@@ -1,6 +1,7 @@
+using Thoughts.Participants.ControlSystems;
 using UnityEngine;
 
-namespace Thoughts.ControlSystems
+namespace Thoughts.Participants
 {
     /// <summary>
     /// Each of the members of the the game.
