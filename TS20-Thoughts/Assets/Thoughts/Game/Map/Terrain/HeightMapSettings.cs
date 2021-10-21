@@ -24,16 +24,19 @@ namespace Thoughts.Game.Map.Terrain
         /// </summary>
         public const int numSupportedTerrainLODs = 5;
     
-        [Space]
+
+        [Header("Falloff")]
         [SerializeField] public bool useFalloff;
         //[Range(0.1f, 1f)]
         //[SerializeField] public float percentageOfMapWithoutMaxFalloff = 1;
         [SerializeField] public AnimationCurve falloffIntensity;
     
+
         /// <summary>
         /// For how much each cell height will be multiplied.
         /// <para>The height of the cell is by default [0,1], multiplying it by 5, the maximum height will be 5 (cell height [0,5]</para>
         /// </summary>
+        [Header("Height")]
         [FormerlySerializedAs("maxHeight")]
         public float heightMultiplier = 15f;
         /// <summary>
@@ -41,7 +44,7 @@ namespace Thoughts.Game.Map.Terrain
         /// </summary>
         public AnimationCurve heightCurve;
     
-        /// <summary>
+        /// <summary>   
         /// The minimum height of the terrain
         /// </summary>
         public float minHeight{

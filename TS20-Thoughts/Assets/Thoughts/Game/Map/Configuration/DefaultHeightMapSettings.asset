@@ -14,12 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   terrainNoiseMapSettings:
-    normalizeMode: 1
     scale: 50
     octaves: 9
-    persistance: 0.45
-    lacunarity: 2
-    seed: 0
+    lacunarity: 2.04
+    persistance: 0.51
     offset: {x: 0, y: 0}
   useFalloff: 1
   falloffIntensity:
@@ -42,15 +40,24 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 3
       inWeight: 0.5475211
-      outWeight: 0.4278656
+      outWeight: 0.41112676
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 1.2819182
-      outSlope: 1.2819182
+      time: 0.92203784
+      value: 1.0259254
+      inSlope: 1.7383454
+      outSlope: 1.7383454
+      tangentMode: 0
+      weightedMode: 3
+      inWeight: 0.289055
+      outWeight: 0.33125624
+    - serializedVersion: 3
+      time: 1.003418
+      value: 1.0518341
+      inSlope: -0.0036527757
+      outSlope: -0.0036527757
       tangentMode: 0
       weightedMode: 1
-      inWeight: 0.11196506
+      inWeight: 0.3429538
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

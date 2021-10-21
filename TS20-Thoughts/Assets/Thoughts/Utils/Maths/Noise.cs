@@ -21,10 +21,10 @@ namespace Thoughts.Utils.Maths
         /// Generates a perlin noise map of a given width and height.
         /// </summary>
         /// <returns>An 2D array of floats containing the perlin noise map.</returns>
-        public static float[,] GenerateNoiseMap( int width, int height, NoiseMapSettings mapSettings, Vector2 sampleCenter)
+        public static float[,] GenerateNoiseMap( int width, int height, NoiseMapSettings mapSettings, Vector2 sampleCenter, int seed)
         {
             float[,] noiseMap = new float[width, height];
-            RandomEssentials rng = new RandomEssentials(mapSettings.seed);
+            RandomEssentials rng = new RandomEssentials(seed);
             Vector2[] octaveOffsets = new Vector2[mapSettings.octaves];
 
             float maxPossibleHeight = 0;
@@ -98,22 +98,44 @@ namespace Thoughts.Utils.Maths
 
     /// <summary>
     /// Collection of settings used to generate a noise map
+    /// More info about the settings here: https://www.youtube.com/watch?v=wbpMiKiSKm8
     /// </summary>
     [System.Serializable]
     public class NoiseMapSettings
     {
-        [Tooltip("I believe it should always be Global")]
-        public Noise.NormalizeMode normalizeMode = Noise.NormalizeMode.Global;  // I believe it should always be Global
+        public Noise.NormalizeMode normalizeMode => Noise.NormalizeMode.Global;  // I believe it should always be Global. It was a public serialized variable before but the value never changed.
         
+        /// <summary>
+        /// The scale of the noise
+        /// </summary>
+        [Tooltip("The scale of the noise")]
         public float scale = 50f;
+
+        /// <summary>
+        /// The amount of curves/noises that will be computed and overlapped for the noise
+        /// </summary>
+        [Tooltip("The amount of curves/noises that will be computed and overlapped for the noise. Usually, more means more realistic but can lead to worse performance.")]
         [Range(0,20)]
-        public int octaves = 6;
+        public int octaves = 4;
+
+        /// <summary>
+        /// The increase in frequency for each of the octaves used in the noise map
+        /// </summary>
+        [Tooltip("Determines how many small features exist in the noise map")]
+        public float lacunarity = 2f;
+        
+        /// <summary>
+        /// Reduces the amplitude for each of the octaves used in the noise map
+        /// </summary>
+        [Tooltip("How much the small features affect the over all noise map")]
         [Range(0,1)]
         public float persistance = 0.6f;
-        public float lacunarity = 2f;
 
+        /// <summary>
+        /// Offset of the noise of the map
+        /// </summary>
         [Space]
-        public int seed;
+        [Tooltip("Offset of the noise of the map")]
         public Vector2 offset;
     
         public void ValidateValues()
