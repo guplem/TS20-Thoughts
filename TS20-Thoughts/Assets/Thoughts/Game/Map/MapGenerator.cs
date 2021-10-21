@@ -18,12 +18,6 @@ namespace Thoughts.Game.Map
         public bool autoRegenerateInEditor = false;
 
         /// <summary>
-        /// Reference to the TerrainGenerator component in charge of generating the Terrain
-        /// </summary>
-        [Tooltip("Reference to the TerrainGenerator component in charge of generating the Terrain")]
-        [SerializeField] public TerrainGenerator terrainGenerator;
-
-        /// <summary>
         /// Reference to the MapConfiguration with he settings to generate a map
         /// </summary>
         [Tooltip("Reference to the MapConfiguration with he settings to generate a map")]
@@ -36,12 +30,19 @@ namespace Thoughts.Game.Map
         [SerializeField] public ThreadedDataRequester threadedDataRequester;
         
         /// <summary>
-        /// Reference to the transform that is going to be parent of all generated vegetation 
+        /// Reference to the TerrainGenerator component in charge of generating the Terrain
         /// </summary>
-        [Tooltip("Reference to the transform that is going to be parent of all generated vegetation ")]
-        [SerializeField] public Transform vegetationHolder;
-
+        [Tooltip("Reference to the TerrainGenerator component in charge of generating the Terrain")]
+        [SerializeField] public TerrainGenerator terrainGenerator;
         
+        /// <summary>
+        /// Reference to the VegetationGenerator component in charge of generating the Vegetation
+        /// </summary>
+        [Tooltip("Reference to the VegetationGenerator component in charge of generating the Vegetation")]
+        [SerializeField] private VegetationGenerator vegetationGenerator;
+
+
+
     #if UNITY_EDITOR
         void OnDrawGizmos()
         {
@@ -106,7 +107,7 @@ namespace Thoughts.Game.Map
         public void DeleteCurrentMap()
         {
             terrainGenerator.DeleteTerrain();
-            DeleteVegetation();
+            vegetationGenerator.DeleteVegetation();
 
             //Todo: delete other elements of the map apart from the terrain
         }
@@ -153,10 +154,10 @@ namespace Thoughts.Game.Map
                     GenerateLight(true);
                     break;
                 case CreationStep.Terrain:
-                    GenerateTerrain(true);
+                    terrainGenerator.UpdateChunks(true);
                     break;
                 case CreationStep.Vegetation:
-                    GenerateVegetation(true);
+                    vegetationGenerator.GenerateVegetation(true);
                     break;
                 case CreationStep.Night:
                     GenerateNight(true);
@@ -177,73 +178,32 @@ namespace Thoughts.Game.Map
         
         private void GenerateLight(bool clearPrevious)
         {
-            // TODO
+            // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
-        private void GenerateTerrain(bool clearPrevious)
-        {
-            terrainGenerator.UpdateChunks(clearPrevious);
-        }
-        
-        private void GenerateVegetation(bool clearPrevious)
-        {
-            if (clearPrevious)
-                DeleteVegetation();
-            
-            float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, mapConfiguration.vegetationNoiseSettings, Vector2.zero, mapConfiguration.seed);
-            float rayOriginHeight = mapConfiguration.heightMapSettings.heightMultiplier * 2f;
-            float closinessToShore = 0.993f; //[0,1], 1 being that the vegetation can get on the sea
-            float rayDistance = rayOriginHeight * closinessToShore; //[0,1], 1 being that the vegetation can get on the sea
-            for (int x = 0; x < noise.GetLength(0); x++)
-            {
-                for (int y = 0; y < noise.GetLength(1); y++)
-                {
-                    if (noise[x, y] > 0.5f)
-                    {
-                        Vector2 positionCheck = new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius);
-                        RaycastHit hit;
-                        // Does the ray intersect any objects excluding the player layer
-                        if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), transform.TransformDirection(Vector3.down), out hit, rayDistance*closinessToShore))
-                        {
-                            //Todo: be able to get more than just the first mapElement in the collection. Maybe even each one of the elements in the collection could have its own noise settings, prefab reference and treshold
-                            Instantiate(mapConfiguration.vegetationCollection.mapElements[0], hit.point, Quaternion.identity, vegetationHolder);
-
-                        }
-                    }
-                }
-            }
-        }
-        
-        private void DeleteVegetation()
-        {
-            if (Application.isPlaying)
-                vegetationHolder.DestroyAllChildren(); 
-            else
-                vegetationHolder.DestroyImmediateAllChildren();
-        }
 
         private void GenerateNight(bool clearPrevious)
         {
-            // TODO
+            // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
         private void GenerateFishAndBirds(bool clearPrevious)
         {
-            // TODO
+            // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
         private void GenerateLandAnimals(bool clearPrevious)
         {
-            // TODO
+            // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
         private void GenerateHumanoids(bool clearPrevious)
         {
-            // TODO
+            // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
 
