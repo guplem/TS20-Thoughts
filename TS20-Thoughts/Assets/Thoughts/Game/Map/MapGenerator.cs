@@ -61,7 +61,8 @@ namespace Thoughts.Game.Map
         {
             if (!Application.isPlaying)
             {
-                GenerateFullMap(true);
+                //GenerateFullMap(true);
+                Debug.LogWarning("WARNING: Fully regenerating a full map is no longer supported!");
             }
             else
             {
@@ -110,6 +111,7 @@ namespace Thoughts.Game.Map
             //Todo: delete other elements of the map apart from the terrain
         }
         
+        /*
         /// <summary>
         /// Updates or generates a full map.
         /// </summary>
@@ -137,15 +139,15 @@ namespace Thoughts.Game.Map
             //6. Humanoids
             GenerateHumanoids(clearPreviousMap);
 
-        }
+        }*/
         
         /// <summary>
         /// Regenerates the things related to the given creation step 
         /// </summary>
-        /// <param name="creationStep">The creation step that contains the things that are wanted to be regenerated</param>
-        public void GenerateCreationStep(CreationStep creationStep)
+        /// <param name="step">The creation step that contains the things that are wanted to be regenerated</param>
+        public void Regenerate(CreationStep step)
         {
-            switch (creationStep)
+            switch (step)
             {
                 case CreationStep.Light:
                     GenerateLight(true);
@@ -169,40 +171,50 @@ namespace Thoughts.Game.Map
                     GenerateHumanoids(true);
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException(nameof(creationStep), creationStep, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), creationStep)}");
+                    throw new ArgumentOutOfRangeException(nameof(step), step, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), step)}");
             }
         }
         
-        public void GenerateLight(bool clearPrevious)
+        private void GenerateLight(bool clearPrevious)
         {
             // TODO
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
-        public void GenerateTerrain(bool clearPrevious)
+        private void GenerateTerrain(bool clearPrevious)
         {
             terrainGenerator.UpdateChunks(clearPrevious);
         }
         
-        public void GenerateVegetation(bool clearPrevious)
+        private void GenerateVegetation(bool clearPrevious)
         {
             if (clearPrevious)
                 DeleteVegetation();
-                
             
             float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, mapConfiguration.vegetationNoiseSettings, Vector2.zero, mapConfiguration.seed);
+            float rayOriginHeight = mapConfiguration.heightMapSettings.heightMultiplier * 2f;
+            float closinessToShore = 0.993f; //[0,1], 1 being that the vegetation can get on the sea
+            float rayDistance = rayOriginHeight * closinessToShore; //[0,1], 1 being that the vegetation can get on the sea
             for (int x = 0; x < noise.GetLength(0); x++)
             {
                 for (int y = 0; y < noise.GetLength(1); y++)
                 {
                     if (noise[x, y] > 0.5f)
                     {
-                        //Todo: be able to get more than just the first mapElement in the collection. Maybe even each one of the elements in the collection could have its own noise settings, prefab reference and treshold
-                        Instantiate(mapConfiguration.vegetationCollection.mapElements[0], new Vector3(x - mapConfiguration.mapRadius, 0, y - mapConfiguration.mapRadius), Quaternion.identity, vegetationHolder);
+                        Vector2 positionCheck = new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius);
+                        RaycastHit hit;
+                        // Does the ray intersect any objects excluding the player layer
+                        if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), transform.TransformDirection(Vector3.down), out hit, rayDistance*closinessToShore))
+                        {
+                            //Todo: be able to get more than just the first mapElement in the collection. Maybe even each one of the elements in the collection could have its own noise settings, prefab reference and treshold
+                            Instantiate(mapConfiguration.vegetationCollection.mapElements[0], hit.point, Quaternion.identity, vegetationHolder);
+
+                        }
                     }
                 }
             }
         }
+        
         private void DeleteVegetation()
         {
             if (Application.isPlaying)
@@ -211,25 +223,25 @@ namespace Thoughts.Game.Map
                 vegetationHolder.DestroyImmediateAllChildren();
         }
 
-        public void GenerateNight(bool clearPrevious)
+        private void GenerateNight(bool clearPrevious)
         {
             // TODO
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
-        public void GenerateFishAndBirds(bool clearPrevious)
+        private void GenerateFishAndBirds(bool clearPrevious)
         {
             // TODO
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
-        public void GenerateLandAnimals(bool clearPrevious)
+        private void GenerateLandAnimals(bool clearPrevious)
         {
             // TODO
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
         
-        public void GenerateHumanoids(bool clearPrevious)
+        private void GenerateHumanoids(bool clearPrevious)
         {
             // TODO
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");

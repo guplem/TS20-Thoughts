@@ -35,19 +35,11 @@ namespace Thoughts.Game.Map
         [SerializeField] private List<GameObject> spawnableMapElements;
 
         /// <summary>
-        /// Generates a new map.
-        /// </summary>
-        public void GenerateNew()
-        {
-            gameObject.GetComponentRequired<MapGenerator>().GenerateFullMap(true);
-        }
-        
-        /// <summary>
         /// Generates the contents of a creation step
         /// </summary>
         public void GenerateCreationStep(CreationStep creationStep)
         {
-            gameObject.GetComponentRequired<MapGenerator>().GenerateCreationStep(creationStep);
+            gameObject.GetComponentRequired<MapGenerator>().Regenerate(creationStep);
         }
 
         /// <summary>

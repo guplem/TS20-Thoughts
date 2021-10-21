@@ -8,23 +8,29 @@ namespace Thoughts.Game.Map
     [CustomEditor(typeof(MapGenerator))]
     public class MapGeneratorEditor : Editor
     {
+        public CreationStep regenerationStep = CreationStep.Terrain;
         public override void OnInspectorGUI()
         {
             MapGenerator mapGenerator = (MapGenerator) target;
 
             if (DrawDefaultInspector())
             {
+                /*
                 if (mapGenerator.autoRegenerateInEditor)
                 {
                     mapGenerator.GenerateFullMap(true);
                 }
+                */
             }
 
-            if (GUILayout.Button("Regenerate Map"))
+            GUILayout.BeginHorizontal();
+            regenerationStep = (CreationStep)EditorGUILayout.EnumPopup("Step to regenerate:", regenerationStep);
+            if (GUILayout.Button("Regenerate"))
             {
-                mapGenerator.OnValidate();
-                mapGenerator.GenerateFullMap(true);
+                //mapGenerator.OnValidate();
+                mapGenerator.Regenerate(regenerationStep);
             }
+            GUILayout.EndHorizontal();
         
             if (GUILayout.Button("Delete current Map"))
             {
@@ -32,10 +38,10 @@ namespace Thoughts.Game.Map
             }
         
             /*if (GUILayout.Button("Repaint All"))
-        {
-            UnityEditor.SceneView.RepaintAll();
-            UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
-        }*/
+            {
+                UnityEditor.SceneView.RepaintAll();
+                UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+            }*/
         
 
 
