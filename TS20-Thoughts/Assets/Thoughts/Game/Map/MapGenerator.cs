@@ -52,7 +52,6 @@ namespace Thoughts.Game.Map
         {
             if (!Application.isPlaying)
             {
-                Debug.Log("OnValuesUpdated"); //Todo: it is called multiple times (3) whenever the mesh is being recreated due to an update of the values in the inspector
                 GenerateMap(true);
             }
             else
@@ -61,10 +60,9 @@ namespace Thoughts.Game.Map
             }
         }
 
-        //TODO: Reactivate?. If so, improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
+        //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
         public void OnValidate()
         {
-            /*
             
             if (mapConfiguration == null)
                 return;
@@ -81,7 +79,7 @@ namespace Thoughts.Game.Map
             mapConfiguration.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
             mapConfiguration.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
             
-            */
+            
         }
 
         /// <summary>

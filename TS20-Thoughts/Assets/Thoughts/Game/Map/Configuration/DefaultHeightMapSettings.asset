@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 856493cb02e94f5499d06bdb0be4e2c2, type: 3}
   m_Name: DefaultHeightMapSettings
   m_EditorClassIdentifier: 
-  autoUpdate: 0
-  noiseSettings:
+  autoUpdate: 1
+  terrainNoiseMapSettings:
     normalizeMode: 1
     scale: 50
-    octaves: 18
+    octaves: 9
     persistance: 0.45
     lacunarity: 2
     seed: 0
     offset: {x: 0, y: 0}
-  offset: {x: 0, y: 0}
   useFalloff: 1
   falloffIntensity:
     serializedVersion: 2
