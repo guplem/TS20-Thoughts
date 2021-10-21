@@ -160,6 +160,8 @@ namespace Thoughts.Game.Map.Terrain
                 () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.heightMapSettings, sampleCenter), 
                 OnHeightMapReceived
             );
+        
+            
         }
     
         /// <summary>

@@ -66,9 +66,9 @@ namespace Thoughts.Game.Map.Terrain
         public MapGenerator mapGenerator;
     
         /// <summary>
-        /// How many chunks exist in the map
+        /// How many chunks exist in a single row of the map
         /// </summary>
-        private int totalChunksInMap => Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius ) * 2;
+        private int totalChunksInMapRow => Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius ) * 2 / MapConfiguration.supportedChunkSizes[mapGenerator.mapConfiguration.chunkSizeIndex];
 
         /// <summary>
         /// A reference to all spawned GameObjects containing a TerrainChunk / Terrain chunks
@@ -124,10 +124,10 @@ namespace Thoughts.Game.Map.Terrain
         
             int currentViewerChunkCordX = Mathf.RoundToInt(viewerPosition.x / mapGenerator.mapConfiguration.meshWorldSize);
             int currentViewerChunkCordY = Mathf.RoundToInt(viewerPosition.y / mapGenerator.mapConfiguration.meshWorldSize);
-            int halfOfChunksInMap = totalChunksInMap / 2;
-            for (int yOffset = -halfOfChunksInMap; yOffset <= halfOfChunksInMap; yOffset ++)
+            int halfOfChunksInMapRow = totalChunksInMapRow / 2;
+            for (int yOffset = -halfOfChunksInMapRow; yOffset <= halfOfChunksInMapRow; yOffset ++)
             {
-                for (int xOffset = -halfOfChunksInMap; xOffset <= halfOfChunksInMap; xOffset ++)
+                for (int xOffset = -halfOfChunksInMapRow; xOffset <= halfOfChunksInMapRow; xOffset ++)
                 {
                     Vector2 coordOfCurrentlyCheckingChunk = new Vector2(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
 

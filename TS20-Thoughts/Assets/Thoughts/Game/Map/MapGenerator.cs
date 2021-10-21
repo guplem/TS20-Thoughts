@@ -55,20 +55,21 @@ namespace Thoughts.Game.Map
                 Debug.Log("OnValuesUpdated"); //Todo: it is called multiple times (3) whenever the mesh is being recreated due to an update of the values in the inspector
                 GenerateMap(true);
             }
+            else
+            {
+                Debug.LogWarning("Trying to regenerate the map as if the app were not in playing mode but it is.");
+            }
         }
 
-        //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
+        //TODO: Reactivate?. If so, improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
         public void OnValidate()
         {
+            /*
+            
             if (mapConfiguration == null)
                 return;
             mapConfiguration.OnValuesUpdated -= RegenerateMapNotPlaying; // So the subscription count stays at 1
             mapConfiguration.OnValuesUpdated += RegenerateMapNotPlaying;
-
-            /*if (mapConfiguration == null)
-            return;
-        mapConfiguration.OnValuesUpdated -= RegenerateMapNotPlaying; // So the subscription count stays at 1
-        mapConfiguration.OnValuesUpdated += RegenerateMapNotPlaying;*/
 
             if (mapConfiguration.heightMapSettings == null)
                 return;
@@ -79,6 +80,8 @@ namespace Thoughts.Game.Map
                 return;
             mapConfiguration.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
             mapConfiguration.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
+            
+            */
         }
 
         /// <summary>

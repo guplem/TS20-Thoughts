@@ -49,18 +49,14 @@ namespace Thoughts.Game.Map.Terrain
             //Debug.Log($"Generating height map for {sampleCenter}");
             float[,] values = Noise.GenerateNoiseMap(width, height, settings.terrainNoiseMapSettings, sampleCenter);
 
+            Debug.LogWarning("Remove comment to remove code from GenerateHeightMap");
+            // TODO: remove comment, re enable code
             AnimationCurve heigtCurve_threadSafe = new AnimationCurve(settings.heightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
             AnimationCurve falloffIntensity_threadSafe = new AnimationCurve(settings.falloffIntensity.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
 
             float minValue = float.MaxValue;
             float maxValue = float.MinValue;
-        
-            /*if (settings.useFalloff) {
-            if (falloffMap == null) {
-                falloffMap = FalloffGenerator.GenerateFalloffMap (width, settings.percentageOfMapWithoutMaxFalloff, mapRadius);
-            }
-        }*/
-        
+
             for (int i = 0; i < width; i++)
             {
                 for (int j = 0; j < height; j++)

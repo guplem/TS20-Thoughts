@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 0
   seed: 1
-  chunkSizeIndex: 9
-  mapRadius: 500
-  scale: 0.8
+  chunkSizeIndex: 8
+  mapRadius: 300
   heightMapSettings: {fileID: 11400000, guid: 0d8502f7698fcf948a85fe46971900b8, type: 2}
   textureSettings: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}
