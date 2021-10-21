@@ -39,7 +39,15 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void GenerateNew()
         {
-            gameObject.GetComponentRequired<MapGenerator>().GenerateMap(true);
+            gameObject.GetComponentRequired<MapGenerator>().GenerateFullMap(true);
+        }
+        
+        /// <summary>
+        /// Generates the contents of a creation step
+        /// </summary>
+        public void GenerateCreationStep(CreationStep creationStep)
+        {
+            gameObject.GetComponentRequired<MapGenerator>().GenerateCreationStep(creationStep);
         }
 
         /// <summary>

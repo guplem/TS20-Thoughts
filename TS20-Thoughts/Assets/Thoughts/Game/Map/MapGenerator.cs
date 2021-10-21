@@ -1,3 +1,4 @@
+using System;
 using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEngine;
@@ -52,7 +53,7 @@ namespace Thoughts.Game.Map
         {
             if (!Application.isPlaying)
             {
-                GenerateMap(true);
+                GenerateFullMap(true);
             }
             else
             {
@@ -90,17 +91,6 @@ namespace Thoughts.Game.Map
             mapConfiguration.textureSettings.ApplyToMaterial(mapConfiguration.heightMapSettings.minHeight, mapConfiguration.heightMapSettings.maxHeight);
         }
 
-
-        /// <summary>
-        /// Updates or generates the map.
-        /// </summary>
-        /// <param name="clearPreviousMap">If existent, should the previously created map be deleted?</param>
-        public void GenerateMap(bool clearPreviousMap)
-        {
-            //terrainGenerator.DrawTerrainInEditor(mapConfiguration);
-            terrainGenerator.UpdateChunks(clearPreviousMap);
-        }
-
         /// <summary>
         /// Deletes the currently (generated) existent map
         /// </summary>
@@ -111,5 +101,127 @@ namespace Thoughts.Game.Map
         
             //Todo: delete other elements of the map apart from the terrain
         }
+        
+        /// <summary>
+        /// Updates or generates a full map.
+        /// </summary>
+        /// <param name="clearPreviousMap">If existent, should the previously created map be deleted?</param>
+        public void GenerateFullMap(bool clearPreviousMap)
+        {
+            //1. Light
+            GenerateLight(clearPreviousMap);
+                
+            //2. Terrain
+            GenerateTerrain(clearPreviousMap);
+
+            //3. Vegetation
+            GenerateVegetation(clearPreviousMap);
+
+            //4. Night
+            GenerateNight(clearPreviousMap);
+
+            //5. Fish and Birds
+            GenerateFishAndBirds(clearPreviousMap);
+
+            //6. Land Animals
+            GenerateLandAnimals(clearPreviousMap);
+
+            //6. Humanoids
+            GenerateHumanoids(clearPreviousMap);
+
+        }
+        
+        /// <summary>
+        /// Regenerates the things related to the given creation step 
+        /// </summary>
+        /// <param name="creationStep">The creation step that contains the things that are wanted to be regenerated</param>
+        public void GenerateCreationStep(CreationStep creationStep)
+        {
+            switch (creationStep)
+            {
+                case CreationStep.Light:
+                    GenerateLight(true);
+                    break;
+                case CreationStep.Terrain:
+                    GenerateTerrain(true);
+                    break;
+                case CreationStep.Vegetation:
+                    GenerateVegetation(true);
+                    break;
+                case CreationStep.Night:
+                    GenerateNight(true);
+                    break;
+                case CreationStep.FishAndBirds:
+                    GenerateFishAndBirds(true);
+                    break;
+                case CreationStep.LandAnimals:
+                    GenerateLandAnimals(true);
+                    break;
+                case CreationStep.Humanoids:
+                    GenerateHumanoids(true);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(creationStep), creationStep, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), creationStep)}");
+            }
+        }
+        
+        public void GenerateLight(bool clearPrevious)
+        {
+            // TODO
+            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+        }
+        
+        public void GenerateTerrain(bool clearPrevious)
+        {
+            terrainGenerator.UpdateChunks(clearPrevious);
+        }
+        
+        public void GenerateVegetation(bool clearPrevious)
+        {
+            // TODO
+            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+        }
+        
+        public void GenerateNight(bool clearPrevious)
+        {
+            // TODO
+            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+        }
+        
+        public void GenerateFishAndBirds(bool clearPrevious)
+        {
+            // TODO
+            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+        }
+        
+        public void GenerateLandAnimals(bool clearPrevious)
+        {
+            // TODO
+            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+        }
+        
+        public void GenerateHumanoids(bool clearPrevious)
+        {
+            // TODO
+            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+        }
+
+
+
+    }
+    
+    /// <summary>
+    /// Listing of all the possible creation steps that will appear at the beginning of each game
+    /// </summary>
+    public enum CreationStep
+    {
+        UserName,
+        Light,
+        Terrain, 
+        Vegetation,
+        Night,
+        FishAndBirds,
+        LandAnimals,
+        Humanoids
     }
 }

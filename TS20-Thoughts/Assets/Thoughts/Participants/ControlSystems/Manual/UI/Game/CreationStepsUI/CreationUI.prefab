@@ -133,6 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 0}
+  creationStep: 7
 --- !u!1 &1844071733483244140
 GameObject:
   m_ObjectHideFlags: 0
@@ -223,6 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 1448089874088290264}
+  creationStep: 2
 --- !u!114 &7231020165703883709
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 1536560899721227906}
+  creationStep: 4
 --- !u!1 &2748552293659577132
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 9026494830346177667}
+  creationStep: 5
 --- !u!114 &1448089874088290264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,6 +395,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 7231020165703883709}
+  creationStep: 3
 --- !u!1 &4842148607527165682
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,6 +795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 1932795507854547372}
+  creationStep: 0
 --- !u!114 &1932795507854547372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -803,6 +809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 7644608199602757550}
+  creationStep: 1
 --- !u!1 &7785278413825248297
 GameObject:
   m_ObjectHideFlags: 0
@@ -1361,6 +1368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextStepMainPanel: {fileID: 6639637800643938417}
+  creationStep: 6
 --- !u!1001 &98946460630441271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2288,11 +2296,12 @@ PrefabInstance:
       objectReference: {fileID: 7644608199602757550}
     - target: {fileID: 7379090664721094652, guid: 8db017e2d19d9b0458f06854feaa5a79, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: GenerateTerrain
+      value: GenerateStep
       objectReference: {fileID: 0}
     - target: {fileID: 7379090664721094652, guid: 8db017e2d19d9b0458f06854feaa5a79, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: TerrainUI, Assembly-CSharp
+      value: Thoughts.Participants.ControlSystems.Manual.UI.Game.CreationStepsUI.CreationStepUI,
+        Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7614344347036216501, guid: 8db017e2d19d9b0458f06854feaa5a79, type: 3}
       propertyPath: m_Name

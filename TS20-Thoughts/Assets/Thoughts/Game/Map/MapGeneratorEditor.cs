@@ -16,14 +16,14 @@ namespace Thoughts.Game.Map
             {
                 if (mapGenerator.autoRegenerateInEditor)
                 {
-                    mapGenerator.GenerateMap(true);
+                    mapGenerator.GenerateFullMap(true);
                 }
             }
 
             if (GUILayout.Button("Regenerate Map"))
             {
                 mapGenerator.OnValidate();
-                mapGenerator.GenerateMap(true);
+                mapGenerator.GenerateFullMap(true);
             }
         
             if (GUILayout.Button("Delete current Map"))
