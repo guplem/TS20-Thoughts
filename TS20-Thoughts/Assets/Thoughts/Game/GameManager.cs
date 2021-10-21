@@ -63,7 +63,7 @@ namespace Thoughts.Game
             this.localManualParticipant = localManualParticipant;
             
             // Delete the previously generated world
-            mapManager.Delete();
+            mapManager.DeleteMap();
         }
 
         /// <summary>

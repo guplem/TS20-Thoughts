@@ -80,6 +80,20 @@ namespace Thoughts.Game.Map
         public NoiseMapSettings vegetationNoiseSettings;
         
         
+        /// <summary>
+        /// The MapElementsCollection containing all the humanoids that should be used in the map
+        /// </summary>
+        [Header("Humanoids")]
+        [Tooltip("The MapElementsCollection containing all the humanoids that should be used in the map")]
+        public MapElementsCollection humanoidCollection;
+        /// <summary>
+        /// Settings of the noise map used for the humanoids
+        /// </summary>
+        [Tooltip("Settings of the noise map used for the humanoids")]
+        public NoiseMapSettings humanoidNoiseSettings;
+        
+        
+        
     
     #if UNITY_EDITOR
     

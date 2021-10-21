@@ -25,3 +25,10 @@ MonoBehaviour:
     lacunarity: 2
     persistance: 0.6
     offset: {x: 0, y: 0}
+  humanoidCollection: {fileID: 11400000, guid: 8311acdd048ee1546946c9ab590add97, type: 2}
+  humanoidNoiseSettings:
+    scale: 50
+    octaves: 4
+    lacunarity: 2
+    persistance: 0.6
+    offset: {x: 0, y: 0}

@@ -201,7 +201,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Deletes the currently (generated) existent map
         /// </summary>
-        public void Delete()
+        public void DeleteMap()
         {
             mapGenerator.DeleteCurrentMap();
         }

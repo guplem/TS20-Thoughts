@@ -4,6 +4,7 @@ using Thoughts.Utils.Maths;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Object = UnityEngine.Object;
 
 namespace Thoughts.Game.Map
 {
@@ -40,8 +41,13 @@ namespace Thoughts.Game.Map
         /// </summary>
         [Tooltip("Reference to the VegetationGenerator component in charge of generating the Vegetation")]
         [SerializeField] private VegetationGenerator vegetationGenerator;
-
-
+        
+        /// <summary>
+        /// Reference to the HumanoidsGenerator component in charge of generating the Humanoids
+        /// </summary>
+        [Tooltip("Reference to the HumanoidsGenerator component in charge of generating the Humanoids")]
+        [SerializeField] private HumanoidsGenerator humanoidsGenerator;
+        
 
     #if UNITY_EDITOR
         void OnDrawGizmos()
@@ -106,10 +112,10 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void DeleteCurrentMap()
         {
+            //Todo: delete other elements of the map apart from the terrain
             terrainGenerator.DeleteTerrain();
             vegetationGenerator.DeleteVegetation();
-
-            //Todo: delete other elements of the map apart from the terrain
+            humanoidsGenerator.DeleteHumanoids();
         }
         
         /*
@@ -169,7 +175,7 @@ namespace Thoughts.Game.Map
                     GenerateLandAnimals(true);
                     break;
                 case CreationStep.Humanoids:
-                    GenerateHumanoids(true);
+                    humanoidsGenerator.GenerateHumanoids(true);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(step), step, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), step)}");
@@ -200,15 +206,31 @@ namespace Thoughts.Game.Map
             // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
-        
-        private void GenerateHumanoids(bool clearPrevious)
+
+        public void GenerateMapElementsWithPerlinNoiseDistribution(GameObject vegetationCollectionMapElement, int seed, float minHeight, float probability, Transform parent, NoiseMapSettings noiseMapSettings)
         {
-            // TODO: remove this method, follow standards (like vegetationGenerator)
-            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+            float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, noiseMapSettings, Vector2.zero, seed);
+            float rayOriginHeight = mapConfiguration.heightMapSettings.heightMultiplier * 2f;
+            float rayDistance = rayOriginHeight * minHeight; //[0,1], 1 being that the vegetation can get on the sea
+            for (int x = 0; x < noise.GetLength(0); x++)
+            {
+                for (int y = 0; y < noise.GetLength(1); y++)
+                {
+                    if (noise[x, y] < probability)
+                    {
+                        Vector2 positionCheck = new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius);
+                        RaycastHit hit;
+                        // Does the ray intersect any objects excluding the player layer
+                        if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance*minHeight))
+                        {
+                            //Todo: be able to get more than just the first mapElement in the collection. Maybe even each one of the elements in the collection could have its own noise settings, prefab reference and threshold
+                            Instantiate((Object)vegetationCollectionMapElement, hit.point, Quaternion.identity, parent);
+
+                        }
+                    }
+                }
+            }
         }
-
-
-
     }
     
     /// <summary>
