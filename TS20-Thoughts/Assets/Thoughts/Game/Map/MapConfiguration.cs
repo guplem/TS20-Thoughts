@@ -1,6 +1,7 @@
 using System;
 using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Inspector;
+using Thoughts.Utils.Maths;
 using UnityEngine;
 
 namespace Thoughts.Game.Map
@@ -64,6 +65,21 @@ namespace Thoughts.Game.Map
         /// </summary>
         [Tooltip("The configuration of the texture of the terrain of the map")]
         public TextureSettings textureSettings;
+
+
+        /// <summary>
+        /// The MapElementsCollection containing all the vegetation that should be used in the map
+        /// </summary>
+        [Header("Vegetation")]
+        [Tooltip("The MapElementsCollection containing all the vegetation that should be used in the map")]
+        public MapElementsCollection vegetationCollection;
+        /// <summary>
+        /// Settings of the noise map used for the vegetation
+        /// </summary>
+        [Tooltip("Settings of the noise map used for the vegetation")]
+        public NoiseMapSettings vegetationNoiseSettings;
+        
+        
     
     #if UNITY_EDITOR
     

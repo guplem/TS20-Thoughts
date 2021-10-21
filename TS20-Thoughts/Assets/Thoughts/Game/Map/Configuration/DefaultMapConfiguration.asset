@@ -12,9 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65314c5d623ef454194636629a90dae1, type: 3}
   m_Name: DefaultMapConfiguration
   m_EditorClassIdentifier: 
-  autoUpdate: 1
+  autoUpdate: 0
   seed: 420
-  chunkSizeIndex: 5
-  mapRadius: 300
+  chunkSizeIndex: 1
+  mapRadius: 100
   heightMapSettings: {fileID: 11400000, guid: 0d8502f7698fcf948a85fe46971900b8, type: 2}
   textureSettings: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}
+  vegetationCollection: {fileID: 11400000, guid: e32bb24e4bde266468629b35e4675a54, type: 2}
+  vegetationNoiseSettings:
+    scale: 50
+    octaves: 4
+    lacunarity: 2
+    persistance: 0.6
+    offset: {x: 0, y: 0}

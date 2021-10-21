@@ -1,5 +1,6 @@
 using System;
 using Thoughts.Game.Map.Terrain;
+using Thoughts.Utils.Maths;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -33,7 +34,14 @@ namespace Thoughts.Game.Map
         /// </summary>
         [Tooltip("Reference to the ThreadedDataRequester component in charge doing threaded requests of data")]
         [SerializeField] public ThreadedDataRequester threadedDataRequester;
+        
+        /// <summary>
+        /// Reference to the transform that is going to be parent of all generated vegetation 
+        /// </summary>
+        [Tooltip("Reference to the transform that is going to be parent of all generated vegetation ")]
+        [SerializeField] public Transform vegetationHolder;
 
+        
     #if UNITY_EDITOR
         void OnDrawGizmos()
         {
@@ -96,9 +104,9 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void DeleteCurrentMap()
         {
-            //Delete terrain
             terrainGenerator.DeleteTerrain();
-        
+            DeleteVegetation();
+
             //Todo: delete other elements of the map apart from the terrain
         }
         
@@ -178,10 +186,31 @@ namespace Thoughts.Game.Map
         
         public void GenerateVegetation(bool clearPrevious)
         {
-            // TODO
-            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
+            if (clearPrevious)
+                DeleteVegetation();
+                
+            
+            float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, mapConfiguration.vegetationNoiseSettings, Vector2.zero, mapConfiguration.seed);
+            for (int x = 0; x < noise.GetLength(0); x++)
+            {
+                for (int y = 0; y < noise.GetLength(1); y++)
+                {
+                    if (noise[x, y] > 0.5f)
+                    {
+                        //Todo: be able to get more than just the first mapElement in the collection. Maybe even each one of the elements in the collection could have its own noise settings, prefab reference and treshold
+                        Instantiate(mapConfiguration.vegetationCollection.mapElements[0], new Vector3(x - mapConfiguration.mapRadius, 0, y - mapConfiguration.mapRadius), Quaternion.identity, vegetationHolder);
+                    }
+                }
+            }
         }
-        
+        private void DeleteVegetation()
+        {
+            if (Application.isPlaying)
+                vegetationHolder.DestroyAllChildren(); 
+            else
+                vegetationHolder.DestroyImmediateAllChildren();
+        }
+
         public void GenerateNight(bool clearPrevious)
         {
             // TODO
