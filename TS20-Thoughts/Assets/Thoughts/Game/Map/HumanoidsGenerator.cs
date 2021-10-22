@@ -19,11 +19,11 @@ namespace Thoughts.Game.Map
         [SerializeField] private float closenessToShore = 0.993f; //[0,1], 1 being that the vegetation can get on the sea
 
         /// <summary>
-        /// Probability of vegetation appearing.
+        /// Amount of humans to spawn
         /// </summary>
-        [Tooltip("Probability of vegetation appearing at any given spot")]
+        [Tooltip("Amount of humans to spawn")]
         [Range(0,1)]
-        [SerializeField] private float probability = 0.5f;
+        [SerializeField] private float quantity = 1f;
 
         /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
@@ -38,13 +38,12 @@ namespace Thoughts.Game.Map
         
             mapGenerator.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidCollection.mapElements[0].GetComponentRequired<NavMeshAgent>());
 
-            mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
+            mapGenerator.SpawnMapElementsRandomly( // Instead of using perlin noise, place them randomly, creating a new method for it in the mapGenerator: SpawnMapElementsRandomly
                 mapGenerator.mapConfiguration.humanoidCollection.mapElements[0], 
                 humanoidsSeed, 
                 closenessToShore, 
-                probability, 
-                this.transform,
-                mapGenerator.mapConfiguration.humanoidNoiseSettings
+                quantity, 
+                this.transform
             );
 
         }
