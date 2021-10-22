@@ -24,7 +24,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.CreationStepsUI
 
         public void GenerateStep()
         {
-            GameManager.instance.mapManager.GenerateCreationStep(creationStep);
+            GameManager.instance.mapManager.RegenerateCreationStep(creationStep);
         }
     }
 }

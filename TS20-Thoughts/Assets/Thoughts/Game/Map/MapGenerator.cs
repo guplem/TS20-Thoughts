@@ -1,8 +1,11 @@
 using System;
+using System.Collections.Generic;
+using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Maths;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 using Object = UnityEngine.Object;
 
@@ -13,11 +16,14 @@ namespace Thoughts.Game.Map
     /// </summary>
     public class MapGenerator : MonoBehaviour
     {
-
-        [FormerlySerializedAs("autoRegenerate")]
-        [Space]
-        public bool autoRegenerateInEditor = false;
-
+        
+        
+        private MapManager mapManager { get {
+                if (_mapManager == null) _mapManager = this.GetComponentRequired<MapManager>();
+                return _mapManager;
+        } }
+        private MapManager _mapManager;
+        
         /// <summary>
         /// Reference to the MapConfiguration with he settings to generate a map
         /// </summary>
@@ -116,6 +122,13 @@ namespace Thoughts.Game.Map
             terrainGenerator.DeleteTerrain();
             vegetationGenerator.DeleteVegetation();
             humanoidsGenerator.DeleteHumanoids();
+
+            /*foreach (NavMeshSurface generatedNavMeshSurface in generatedNavMeshSurfaces)
+            {
+                NavMesh.RemoveNavMeshData(generatedNavMeshSurface.GetInstanceID());
+            }*/
+            NavMesh.RemoveAllNavMeshData();
+            mapManager.generatedNavMeshSurfaces.Clear();
         }
         
         /*
@@ -187,27 +200,48 @@ namespace Thoughts.Game.Map
             // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
-        
-
         private void GenerateNight(bool clearPrevious)
         {
             // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
-        
         private void GenerateFishAndBirds(bool clearPrevious)
         {
             // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
-        
         private void GenerateLandAnimals(bool clearPrevious)
         {
             // TODO: remove this method, follow standards (like vegetationGenerator)
             Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
         }
-
-        public void GenerateMapElementsWithPerlinNoiseDistribution(GameObject vegetationCollectionMapElement, int seed, float minHeight, float probability, Transform parent, NoiseMapSettings noiseMapSettings)
+        
+        /// <summary>
+        /// Makes a map element spawn.
+        /// </summary>
+        /// <param name="objectToSpawn">The map element's prefab to spawn</param>
+        /// <param name="position">Position for the new object.</param>
+        /// <param name="rotation">Orientation of the new object.</param>
+        /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
+        /// <returns></returns>
+        private MapElement SpawnMapElement(GameObject objectToSpawn, Vector3 position, Quaternion rotation, Transform parent)
+        {
+            GameObject spawnedMapElement = Instantiate(objectToSpawn, position, rotation, parent);
+            MapElement spawnedElement =  spawnedMapElement.GetComponentRequired<MapElement>();
+            mapManager.existentMapElements.Add(spawnedElement);
+            return spawnedElement;
+        }
+        
+        /// <summary>
+        /// Spawns a group of MapElements in the map using a pseudo random perlin noise distribution.
+        /// </summary>
+        /// <param name="objectToSpawn">The map element's prefab to spawn</param>
+        /// <param name="seed">The seed to use to generate the perlin noise</param>
+        /// <param name="minHeight">The minimum height at which the object can spawn (0 means that can spawn on the sea)</param>
+        /// <param name="probability">The probability of the object being spawned at any given spot (following the perlin noise distribution)</param>
+        /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
+        /// <param name="noiseMapSettings">The settings to be used for the perlin noise map</param>
+        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, float minHeight, float probability, Transform parent, NoiseMapSettings noiseMapSettings)
         {
             float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, noiseMapSettings, Vector2.zero, seed);
             float rayOriginHeight = mapConfiguration.heightMapSettings.heightMultiplier * 2f;
@@ -216,7 +250,7 @@ namespace Thoughts.Game.Map
             {
                 for (int y = 0; y < noise.GetLength(1); y++)
                 {
-                    if (noise[x, y] < probability)
+                    if (noise[x, y] > 1-probability)
                     {
                         Vector2 positionCheck = new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius);
                         RaycastHit hit;
@@ -224,12 +258,44 @@ namespace Thoughts.Game.Map
                         if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance*minHeight))
                         {
                             //Todo: be able to get more than just the first mapElement in the collection. Maybe even each one of the elements in the collection could have its own noise settings, prefab reference and threshold
-                            Instantiate((Object)vegetationCollectionMapElement, hit.point, Quaternion.identity, parent);
-
+                            SpawnMapElement(objectToSpawn, hit.point, Quaternion.identity, parent);
                         }
                     }
                 }
             }
+        }
+        
+        /// <summary>
+        /// Sets up the NavMesh the given NavMeshAgent
+        /// </summary>
+        /// <returns>True if the nav mesh has been created, false if it has not been possible (maybe a mesh for the given agent already exists).</returns>
+        public bool SetupNewNavMeshFor(NavMeshAgent navMeshAgent, bool skipIfRepeated = true)
+        {
+            if (navMeshAgent == null)
+            {
+                Debug.LogWarning("Tying to create the NavMesh surface for a null navMeshAgent", this);
+                return false;
+            }
+                
+            bool repeatedAgent = false;
+            foreach (NavMeshSurface generatedNavMeshSurface in mapManager.generatedNavMeshSurfaces)
+                if (generatedNavMeshSurface.agentTypeID == navMeshAgent.agentTypeID)
+                    repeatedAgent = true;
+
+            if (repeatedAgent && skipIfRepeated)
+            {
+                Debug.LogWarning($"Skipping the creation of the NavMeshSurface for the agent {navMeshAgent.ToString()} because it is duplicated.");
+                return false;
+            }
+            if (repeatedAgent && !skipIfRepeated)
+                Debug.LogWarning($"Recreating a NavMeshSurface for a duplicated agent {navMeshAgent.ToString()}.");
+
+            NavMeshSurface navMeshSurface = this.gameObject.AddComponent<NavMeshSurface>();
+            navMeshSurface.agentTypeID = navMeshAgent.agentTypeID;
+            navMeshSurface.BuildNavMesh();
+            //navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData); //To update the whole NavMesh at runtime
+            mapManager.generatedNavMeshSurfaces.Add(navMeshSurface);
+            return true;
         }
     }
     

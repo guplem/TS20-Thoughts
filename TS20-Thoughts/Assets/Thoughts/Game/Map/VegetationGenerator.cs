@@ -37,7 +37,7 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 DeleteVegetation();
 
-            mapGenerator.GenerateMapElementsWithPerlinNoiseDistribution(
+            mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
                 mapGenerator.mapConfiguration.vegetationCollection.mapElements[0], 
                 vegetationSeed, 
                 closenessToShore, 

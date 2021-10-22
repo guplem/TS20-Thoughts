@@ -19,7 +19,9 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// All the map elements present in the map.
         /// </summary>
-        private List<MapElement> mapElements = new List<MapElement>();
+        public List<MapElement> existentMapElements = new List<MapElement>();
+
+        public List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
 
         /// <summary>
         /// Reference to the MapGenerator component
@@ -37,24 +39,14 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Generates the contents of a creation step
         /// </summary>
-        public void GenerateCreationStep(CreationStep creationStep)
+        public void RegenerateCreationStep(CreationStep creationStep)
         {
             gameObject.GetComponentRequired<MapGenerator>().Regenerate(creationStep);
         }
 
-        /// <summary>
-        /// Makes a map element spawn.
-        /// </summary>
-        /// <param name="spawnableGameObject">The map element's prefab to spawn</param>
-        /// <param name="position">Position for the new object.</param>
-        /// <param name="rotation">Orientation of the new object.</param>
-        /// <returns></returns>
-        private MapElement SpawnMapElement(GameObject spawnableGameObject, Vector3 position, Quaternion rotation)
-        {
-            GameObject spawnedMapElement = Instantiate(spawnableGameObject, position, rotation, this.transform);
-            return spawnedMapElement.GetComponentRequired<MapElement>();
-        }
+
         
+        /*
         /// <summary>
         /// Obtains the GameObject with the given name from the spawnableMapElement list.
         /// </summary>
@@ -71,8 +63,8 @@ namespace Thoughts.Game.Map
             Debug.LogError($"The GameObject with name '{name}' could not be found in the list of spawnableGameObjects");
             spawnableMapElements.DebugLog(", ","Spawnable Game Objects: ");
             return null;
-        }
-        
+        }*/
+        /*
         /// <summary>
         /// Generates MapElements in the map (not mobs).
         /// </summary>
@@ -90,59 +82,8 @@ namespace Thoughts.Game.Map
 
             return generatedMapObjects;
         }
-        
-        /// <summary>
-        /// Randomly generates the MapElement with the given name a determined amount of times.
-        /// <para> The MapElement's prefab is obtained from the spawnableMapElement list.</para>
-        /// </summary>
-        /// <param name="prefabName">The name of the GameObject to generate.</param>
-        /// <param name="quantity">The amount of GameObjects to generate.</param>
-        /// <param name="random">Random object to be used in the process.</param>
-        /// <returns></returns>
-        private List<MapElement> SpawnRandom(string prefabName, int quantity, RandomEssentials random)
-        {
-            GameObject spawnableGameObject = GetSpawnableGameObject(prefabName);
-            MapElement spawnedElement = null;
-            List<MapElement> generatedMapObjects = new List<MapElement>();
-            for (int i = 0; i < quantity; i++)
-            {
-                spawnedElement = SpawnMapElement(spawnableGameObject, random.GetRandomVector3(-10f, 10f).WithY(0f), Quaternion.identity);
-                generatedMapObjects.Add(spawnedElement);
-            }
-            return generatedMapObjects;
-        }
-
-        /// <summary>
-        /// Sets up the NavMesh for all the NavMeshAgents in the spawnableMapElement list.
-        /// </summary>
-        private void SetupNewNavMeshes()
-        {
-            List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
-            
-            foreach (GameObject go in spawnableMapElements)
-            {
-                NavMeshAgent mobAgent = go.GetComponent<NavMeshAgent>();
-                
-                if (mobAgent == null)
-                    continue;
-                
-                bool repeatedAgent = false;
-                foreach (NavMeshSurface generatedNavMeshSurface in generatedNavMeshSurfaces)
-                    if (generatedNavMeshSurface.agentTypeID == mobAgent.agentTypeID)
-                        repeatedAgent = true;
-                
-                if (repeatedAgent)
-                    continue;
-                
-                NavMeshSurface navMeshSurface = this.gameObject.AddComponent<NavMeshSurface>();
-                navMeshSurface.agentTypeID = mobAgent.agentTypeID;
-                navMeshSurface.BuildNavMesh();
-                //navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData); //To update the whole NavMesh at runtime
-                generatedNavMeshSurfaces.Add(navMeshSurface);
-
-            }
-        }
-
+        */
+        /*
         /// <summary>
         /// Generates Mobs in the map.
         /// </summary>
@@ -158,13 +99,10 @@ namespace Thoughts.Game.Map
             
             spawnedElement = SpawnMapElement(spawnableGameObject, Vector3.zero, Quaternion.identity);
             spawnedElement.gameObject.name = "Guillermo";
-            generatedMobs.Add(spawnedElement);
-
-            //ToDo: add ownership
 
             return generatedMobs;
         }
-        
+        */
 
     #endregion
 
@@ -188,7 +126,7 @@ namespace Thoughts.Game.Map
             
             //Trying to cover with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
-                foreach (MapElement mapElement in mapElements) // Todo: sort by distance
+                foreach (MapElement mapElement in existentMapElements) // Todo: sort by distance
                 {
                     ExecutionPlan foundMapEvent = mapElement.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
                     if (foundMapEvent != null)

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Thoughts.Game.Map
 {
@@ -35,7 +36,9 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 DeleteHumanoids();
         
-            mapGenerator.GenerateMapElementsWithPerlinNoiseDistribution(
+            mapGenerator.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidCollection.mapElements[0].GetComponentRequired<NavMeshAgent>());
+
+            mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
                 mapGenerator.mapConfiguration.humanoidCollection.mapElements[0], 
                 humanoidsSeed, 
                 closenessToShore, 
