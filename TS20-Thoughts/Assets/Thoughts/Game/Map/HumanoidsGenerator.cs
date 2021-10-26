@@ -22,8 +22,7 @@ namespace Thoughts.Game.Map
         /// Amount of humans to spawn
         /// </summary>
         [Tooltip("Amount of humans to spawn")]
-        [Range(0,1)]
-        [SerializeField] private float quantity = 1f;
+        [SerializeField] private int quantity = 2;
 
         /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
@@ -36,14 +35,15 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 DeleteHumanoids();
         
-            mapGenerator.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidCollection.mapElements[0].GetComponentRequired<NavMeshAgent>());
+            NavMeshSurface navMeshSurface = mapGenerator.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidCollection.mapElements[0].GetComponentRequired<NavMeshAgent>());
 
-            mapGenerator.SpawnMapElementsRandomly( // Instead of using perlin noise, place them randomly, creating a new method for it in the mapGenerator: SpawnMapElementsRandomly
+            mapGenerator.SpawnMapElementsRandomly(
                 mapGenerator.mapConfiguration.humanoidCollection.mapElements[0], 
                 humanoidsSeed, 
                 closenessToShore, 
                 quantity, 
-                this.transform
+                this.transform,
+                true
             );
 
         }

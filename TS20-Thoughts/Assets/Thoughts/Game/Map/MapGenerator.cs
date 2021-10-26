@@ -6,8 +6,6 @@ using Thoughts.Utils.Maths;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
-using Object = UnityEngine.Object;
 
 namespace Thoughts.Game.Map
 {
@@ -16,7 +14,6 @@ namespace Thoughts.Game.Map
     /// </summary>
     public class MapGenerator : MonoBehaviour
     {
-        
         
         private MapManager mapManager { get {
                 if (_mapManager == null) _mapManager = this.GetComponentRequired<MapManager>();
@@ -123,12 +120,18 @@ namespace Thoughts.Game.Map
             vegetationGenerator.DeleteVegetation();
             humanoidsGenerator.DeleteHumanoids();
 
-            /*foreach (NavMeshSurface generatedNavMeshSurface in generatedNavMeshSurfaces)
-            {
-                NavMesh.RemoveNavMeshData(generatedNavMeshSurface.GetInstanceID());
-            }*/
+            
+            // Delete all nav mesh data and components
             NavMesh.RemoveAllNavMeshData();
+            foreach (NavMeshSurface navMeshSurface in mapManager.generatedNavMeshSurfaces)
+                if (Application.isPlaying)
+                    Destroy(navMeshSurface);
+                else
+                    DestroyImmediate(navMeshSurface);
             mapManager.generatedNavMeshSurfaces.Clear();
+            NavMeshSurface[] remainingSurfaces = GetComponents<NavMeshSurface>();
+            if (remainingSurfaces.Length > 0)
+                Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted.", gameObject);
         }
         
         /*
@@ -241,26 +244,92 @@ namespace Thoughts.Game.Map
         /// <param name="probability">The probability of the object being spawned at any given spot (following the perlin noise distribution)</param>
         /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
         /// <param name="noiseMapSettings">The settings to be used for the perlin noise map</param>
-        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, float minHeight, float probability, Transform parent, NoiseMapSettings noiseMapSettings)
+        /// <param name="requireNavMesh">Must the locations where the MapElements will spawn require a valid NavMeshSurface?</param>
+        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, float minHeight, float probability, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
         {
             float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, noiseMapSettings, Vector2.zero, seed);
-            float rayOriginHeight = mapConfiguration.heightMapSettings.heightMultiplier * 2f;
-            float rayDistance = rayOriginHeight * minHeight; //[0,1], 1 being that the vegetation can get on the sea
             for (int x = 0; x < noise.GetLength(0); x++)
             {
                 for (int y = 0; y < noise.GetLength(1); y++)
                 {
-                    if (noise[x, y] > 1-probability)
+                    if (!(noise[x, y] > 1 - probability))
+                        continue;
+                    
+                    if (IsSpawnablePosition( new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius), minHeight, requireNavMesh, out Vector3 spawnablePosition))
+                        SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if a MapElement can be spawned or not in a given position.
+        /// </summary>
+        /// <param name="positionCheck">The 2D position to check if a Map</param>
+        /// <param name="minHeight">The minimum height at which the object can be spawned (0 means that can spawn on the sea)</param>
+        /// <param name="requireNavMesh">Must the location require a valid NavMeshSurface?</param>
+        /// <param name="spawnablePosition">If the given position allows an spawn, this is the 3D position (including the height at which it can be spawned) so there is no need to recalculate it again.</param>
+        /// <returns>True if the location allows the spawn of the MapElement, false otherwise.</returns>
+        private bool IsSpawnablePosition(Vector2 positionCheck, float minHeight, bool requireNavMesh, out Vector3 spawnablePosition)
+        {
+
+
+            float rayOriginHeight = mapConfiguration.heightMapSettings.heightMultiplier * 2f;
+            float rayDistance = rayOriginHeight * minHeight; //[0,1], 1 being that the vegetation can get on the sea
+            
+            RaycastHit hit;
+            // Does the ray intersect any objects excluding the player layer
+            if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance * minHeight))
+            {
+                spawnablePosition = hit.point;
+                if (requireNavMesh)
+                {
+                    NavMeshHit navMeshHit;
+                    if (NavMesh.SamplePosition(spawnablePosition, out navMeshHit, 1.0f, NavMesh.AllAreas))
                     {
-                        Vector2 positionCheck = new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius);
-                        RaycastHit hit;
-                        // Does the ray intersect any objects excluding the player layer
-                        if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance*minHeight))
-                        {
-                            //Todo: be able to get more than just the first mapElement in the collection. Maybe even each one of the elements in the collection could have its own noise settings, prefab reference and threshold
-                            SpawnMapElement(objectToSpawn, hit.point, Quaternion.identity, parent);
-                        }
+                        spawnablePosition = navMeshHit.position;
+                        return true;
                     }
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            spawnablePosition = Vector3.zero;
+            return false;
+        }
+
+        /// <summary>
+        /// Randomly spawns in the map a given number of MapElements.
+        /// </summary>
+        /// <param name="objectToSpawn">The map element's prefab to spawn</param>
+        /// <param name="seed">The seed to use to generate the perlin noise</param>
+        /// <param name="minHeight">The minimum height at which the object can spawn (0 means that can spawn on the sea)</param>
+        /// <param name="quantity">The amount of MapElements to spawn</param>
+        /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
+        /// <param name="requireNavMesh">Must the locations where the MapElements will spawn require a valid NavMeshSurface?</param>
+        public void SpawnMapElementsRandomly(GameObject objectToSpawn, int seed, float minHeight, int quantity, Transform parent, bool requireNavMesh)
+        {
+            int totalCountToAvoidInfiniteLoop = 5000*quantity;
+            int spawnedCount = 0;
+            
+            RandomEssentials randomEssentials = new RandomEssentials(seed);
+            
+            while (spawnedCount < quantity)
+            {
+                totalCountToAvoidInfiniteLoop--;
+                if (totalCountToAvoidInfiniteLoop < 0)
+                {
+                    Debug.LogWarning($"Skipped the spawning of x{quantity} {objectToSpawn}. No spawnable positions were found.");
+                    break;
+                }
+                
+                Vector2 checkPosition = randomEssentials.GetRandomVector2(-mapConfiguration.mapRadius, mapConfiguration.mapRadius);
+
+                if (IsSpawnablePosition(checkPosition, minHeight, requireNavMesh, out Vector3 spawnablePosition))
+                {
+                    SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent);
+                    spawnedCount++;
                 }
             }
         }
@@ -268,13 +337,13 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Sets up the NavMesh the given NavMeshAgent
         /// </summary>
-        /// <returns>True if the nav mesh has been created, false if it has not been possible (maybe a mesh for the given agent already exists).</returns>
-        public bool SetupNewNavMeshFor(NavMeshAgent navMeshAgent, bool skipIfRepeated = true)
+        /// <returns>The generated NavMeshSurface ig it has been created. Null if it has not been possible (maybe a mesh for the given agent already exists).</returns>
+        public NavMeshSurface SetupNewNavMeshFor(NavMeshAgent navMeshAgent, bool skipIfRepeated = true)
         {
             if (navMeshAgent == null)
             {
                 Debug.LogWarning("Tying to create the NavMesh surface for a null navMeshAgent", this);
-                return false;
+                return null;
             }
                 
             bool repeatedAgent = false;
@@ -285,7 +354,7 @@ namespace Thoughts.Game.Map
             if (repeatedAgent && skipIfRepeated)
             {
                 Debug.LogWarning($"Skipping the creation of the NavMeshSurface for the agent {navMeshAgent.ToString()} because it is duplicated.");
-                return false;
+                return null;
             }
             if (repeatedAgent && !skipIfRepeated)
                 Debug.LogWarning($"Recreating a NavMeshSurface for a duplicated agent {navMeshAgent.ToString()}.");
@@ -295,7 +364,7 @@ namespace Thoughts.Game.Map
             navMeshSurface.BuildNavMesh();
             //navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData); //To update the whole NavMesh at runtime
             mapManager.generatedNavMeshSurfaces.Add(navMeshSurface);
-            return true;
+            return navMeshSurface;
         }
     }
     

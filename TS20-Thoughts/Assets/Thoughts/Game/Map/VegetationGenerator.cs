@@ -43,7 +43,8 @@ namespace Thoughts.Game.Map
                 closenessToShore, 
                 probability, 
                 this.transform,
-                mapGenerator.mapConfiguration.vegetationNoiseSettings
+                mapGenerator.mapConfiguration.vegetationNoiseSettings,
+                false
             );
         }
         public void DeleteVegetation()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: DefaultMapConfiguration
   m_EditorClassIdentifier: 
   autoUpdate: 0
-  seed: 420
+  seed: 2
   chunkSizeIndex: 1
   mapRadius: 100
   heightMapSettings: {fileID: 11400000, guid: 0d8502f7698fcf948a85fe46971900b8, type: 2}
