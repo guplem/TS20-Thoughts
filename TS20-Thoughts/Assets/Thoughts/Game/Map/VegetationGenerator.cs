@@ -10,20 +10,6 @@ namespace Thoughts.Game.Map
         /// </summary>
         [Tooltip("Reference to the mapGenerator managing the generation of the map that contains this generator's vegetation.")]
         [SerializeField] private MapGenerator mapGenerator;
-        
-        /// <summary>
-        /// How close the vegetation can be to the sea shore.
-        /// </summary>
-        [Tooltip("How close the vegetation can be to the sea shore. 1 means that it can get in the sea. 0.5 means a long distance to the sea shore.")]
-        [Range(0,1)]
-        [SerializeField] private float closenessToShore = 0.993f; //[0,1], 1 being that the vegetation can get on the sea
-        
-        /// <summary>
-        /// Probability of vegetation appearing.
-        /// </summary>
-        [Tooltip("Probability of vegetation appearing at any given spot")]
-        [Range(0,1)]
-        [SerializeField] private float probability = 0.5f;
 
         /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
@@ -38,12 +24,12 @@ namespace Thoughts.Game.Map
                 DeleteVegetation();
 
             mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
-                mapGenerator.mapConfiguration.vegetationCollection.mapElements[0], 
+                mapGenerator.mapConfiguration.vegetationSettings.spawnableMapElements[0], 
                 vegetationSeed, 
-                closenessToShore, 
-                probability, 
+                mapGenerator.mapConfiguration.vegetationSettings.closenessToShore, 
+                mapGenerator.mapConfiguration.vegetationSettings.probability, 
                 this.transform,
-                mapGenerator.mapConfiguration.vegetationNoiseSettings,
+                mapGenerator.mapConfiguration.vegetationSettings.noiseSettings,
                 false
             );
         }

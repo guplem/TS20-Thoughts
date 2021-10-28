@@ -12,19 +12,6 @@ namespace Thoughts.Game.Map
         [SerializeField] private MapGenerator mapGenerator;
         
         /// <summary>
-        /// How close the vegetation can be to the sea shore.
-        /// </summary>
-        [Tooltip("How close the vegetation can be to the sea shore. 1 means that it can get in the sea. 0.5 means a long distance to the sea shore.")]
-        [Range(0,1)]
-        [SerializeField] private float closenessToShore = 0.993f; //[0,1], 1 being that the vegetation can get on the sea
-
-        /// <summary>
-        /// Amount of humans to spawn
-        /// </summary>
-        [Tooltip("Amount of humans to spawn")]
-        [SerializeField] private int quantity = 2;
-
-        /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
         /// </summary>
         private int humanoidsSeed => _randomNumberToAlterMainSeed + mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
@@ -35,13 +22,13 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 DeleteHumanoids();
         
-            NavMeshSurface navMeshSurface = mapGenerator.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidCollection.mapElements[0].GetComponentRequired<NavMeshAgent>());
+            NavMeshSurface navMeshSurface = mapGenerator.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0].GetComponentRequired<NavMeshAgent>());
 
             mapGenerator.SpawnMapElementsRandomly(
-                mapGenerator.mapConfiguration.humanoidCollection.mapElements[0], 
+                mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0], 
                 humanoidsSeed, 
-                closenessToShore, 
-                quantity, 
+                mapGenerator.mapConfiguration.humanoidsSettings.closenessToShore, 
+                mapGenerator.mapConfiguration.humanoidsSettings.quantity, 
                 this.transform,
                 true
             );

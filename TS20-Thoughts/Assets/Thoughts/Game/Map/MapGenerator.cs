@@ -68,7 +68,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// If the app is not in Play Mode, the previously created map is destroyed and a new map is generated.
         /// </summary>
-        private void RegenerateMapNotPlaying()
+        private void RegenerateFullMap()
         {
             Debug.LogError("Fully regenerating a full map is no longer supported!");
         }
@@ -76,23 +76,20 @@ namespace Thoughts.Game.Map
         //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
         public void OnValidate()
         {
-            
             if (mapConfiguration == null)
                 return;
-            mapConfiguration.OnValuesUpdated -= RegenerateMapNotPlaying; // So the subscription count stays at 1
-            mapConfiguration.OnValuesUpdated += RegenerateMapNotPlaying;
+            mapConfiguration.OnValuesUpdated -= RegenerateFullMap; // So the subscription count stays at 1
+            mapConfiguration.OnValuesUpdated += RegenerateFullMap;
 
             if (mapConfiguration.heightMapSettings == null)
                 return;
-            mapConfiguration.heightMapSettings.OnValuesUpdated -= RegenerateMapNotPlaying; // So the subscription count stays at 1
-            mapConfiguration.heightMapSettings.OnValuesUpdated += RegenerateMapNotPlaying;
+            mapConfiguration.heightMapSettings.OnValuesUpdated -= RegenerateFullMap; // So the subscription count stays at 1
+            mapConfiguration.heightMapSettings.OnValuesUpdated += RegenerateFullMap;
         
             if (mapConfiguration.textureSettings == null)
                 return;
             mapConfiguration.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
             mapConfiguration.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
-            
-            
         }
 
         /// <summary>

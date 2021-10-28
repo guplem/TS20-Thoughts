@@ -23,7 +23,7 @@ namespace Thoughts.Game.Map
         /// The index of the size of the chunks (in world space)
         /// Making a chunk smaller will not make it more polygon dense, it will have less polygons overall 
         /// </summary>
-        [Range(0, numSupportedChunkSizes-1)]
+        [Range(0, MapConfiguration.numSupportedChunkSizes-1)]
         [Tooltip("The index of the size of the chunks (in world space). Making a chunk smaller will not make it more polygon dense, it will have less polygons overall. Sizes (squares of Unity's units): 0=24, 1=48, 2=72, 3=96, 4=120, 5=144, 6=168, 7=192, 8=216, 9=240")]
         public int chunkSizeIndex = 9;
         /// <summary>
@@ -53,48 +53,40 @@ namespace Thoughts.Game.Map
         [Tooltip("The radius of the map from the center of the scene in Unity's units")]
         public float mapRadius = 500;
 
+        
+        
+    #region CreationStepsSettings
+        
+        //[Header("Light")]
+        
         /// <summary>
         /// The configuration of the height of the terrain of the map
         /// </summary>
         [Header("Terrain")]
         [Tooltip("The configuration of the height of the terrain of the map")]
         public HeightMapSettings heightMapSettings;
-
         /// <summary>
         /// The configuration of the texture of the terrain of the map
         /// </summary>
         [Tooltip("The configuration of the texture of the terrain of the map")]
         public TextureSettings textureSettings;
-
-
-        /// <summary>
-        /// The MapElementsCollection containing all the vegetation that should be used in the map
-        /// </summary>
+        
         [Header("Vegetation")]
-        [Tooltip("The MapElementsCollection containing all the vegetation that should be used in the map")]
-        public MapElementsCollection vegetationCollection;
-        /// <summary>
-        /// Settings of the noise map used for the vegetation
-        /// </summary>
-        [Tooltip("Settings of the noise map used for the vegetation")]
-        public NoiseMapSettings vegetationNoiseSettings;
+        [SerializeField] public VegetationSettings vegetationSettings;
         
+        //[Header("Night")]
         
-        /// <summary>
-        /// The MapElementsCollection containing all the humanoids that should be used in the map
-        /// </summary>
+        //[Header("FishAndBirds")]
+        
+        //[Header("LandAnimals")]
+        
         [Header("Humanoids")]
-        [Tooltip("The MapElementsCollection containing all the humanoids that should be used in the map")]
-        public MapElementsCollection humanoidCollection;
-        /// <summary>
-        /// Settings of the noise map used for the humanoids
-        /// </summary>
-        [Tooltip("Settings of the noise map used for the humanoids")]
-        public NoiseMapSettings humanoidNoiseSettings;
+        [SerializeField] public HumanoidsSettings humanoidsSettings;
+
+    #endregion
         
-        
-        
-    
+
+
     #if UNITY_EDITOR
     
         /// <summary>
@@ -105,10 +97,10 @@ namespace Thoughts.Game.Map
         /// A previously used TextureSettings. It shouldn't be used actively, only to check for updates of the in editor.
         /// </summary>
         private TextureSettings _oldTextureSettings;
-    
 
-        //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
-        protected override void OnValidate()
+
+        /*
+         protected override void OnValidate()
         {
         
             // If settings have been updated
@@ -127,6 +119,7 @@ namespace Thoughts.Game.Map
                 base.OnValidate();
 
         }
+        */
     
     #endif
 

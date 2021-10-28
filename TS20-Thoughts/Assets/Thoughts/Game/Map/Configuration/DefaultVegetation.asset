@@ -9,8 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2a90851bab3784aac445d41c625fa6, type: 3}
+  m_Script: {fileID: 11500000, guid: f44868bf3229421e96ffa1650f4d1d49, type: 3}
   m_Name: DefaultVegetation
   m_EditorClassIdentifier: 
-  mapElements:
+  autoUpdate: 0
+  noiseSettings:
+    scale: 50
+    octaves: 4
+    lacunarity: 2
+    persistance: 0.6
+    offset: {x: 0, y: 0}
+  closenessToShore: 0.993
+  probability: 0.5
+  spawnableMapElements:
   - {fileID: 5743181967686818291, guid: b51d1027ccecb1a4d97bb15f69a7bd8e, type: 3}

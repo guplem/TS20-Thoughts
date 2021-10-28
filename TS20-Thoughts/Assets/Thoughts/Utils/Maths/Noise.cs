@@ -137,7 +137,7 @@ namespace Thoughts.Utils.Maths
         [Space]
         [Tooltip("Offset of the noise of the map")]
         public Vector2 offset;
-    
+
         public void ValidateValues()
         {
             scale = Mathf.Max(scale, 0.01f);

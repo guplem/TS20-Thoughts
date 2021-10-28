@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2a90851bab3784aac445d41c625fa6, type: 3}
+  m_Script: {fileID: 11500000, guid: 79f2ddffbba64430a2a37bdc632ad0d5, type: 3}
   m_Name: DefaultHumanoids
   m_EditorClassIdentifier: 
-  mapElements:
+  autoUpdate: 0
+  closenessToShore: 0.993
+  quantity: 2
+  spawnableMapElements:
   - {fileID: 4343080250476450185, guid: 4b2d61e728d059a499289e6fc0db7939, type: 3}
