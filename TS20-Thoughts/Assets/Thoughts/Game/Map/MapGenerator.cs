@@ -90,10 +90,10 @@ namespace Thoughts.Game.Map
             mapConfiguration.terrainHeightSettings.OnValuesUpdated -= RegenerateFull; // So the subscription count stays at 1
             mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateFull;
         
-            if (mapConfiguration.textureSettings == null)
+            if (mapConfiguration.terrainTextureSettings == null)
                 return;
-            mapConfiguration.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
-            mapConfiguration.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
+            mapConfiguration.terrainTextureSettings.OnValuesUpdated -= OnTerrainTextureValuesUpdated; // So the subscription count stays at 1
+            mapConfiguration.terrainTextureSettings.OnValuesUpdated += OnTerrainTextureValuesUpdated;
             
             //Vegetation
             if (mapConfiguration.vegetationSettings == null)
@@ -130,9 +130,9 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Manages the update of the TextureSettings by applying them to the map's Material
         /// </summary>
-        void OnTextureValuesUpdated()
+        void OnTerrainTextureValuesUpdated()
         {
-            mapConfiguration.textureSettings.ApplyToMaterial(mapConfiguration.terrainHeightSettings.minHeight, mapConfiguration.terrainHeightSettings.maxHeight);
+            mapConfiguration.terrainTextureSettings.ApplyToMaterial(mapConfiguration.terrainHeightSettings.minHeight, mapConfiguration.terrainHeightSettings.maxHeight);
         }
 
 

@@ -140,7 +140,7 @@ namespace Thoughts.Game.Map.Terrain
                     {
                         GameObject chunkGameObject = Instantiate(chunkPrefab);
                         TerrainChunk terrainChunk = chunkGameObject.GetComponentRequired<TerrainChunk>();
-                        terrainChunk.Setup(coordOfCurrentlyCheckingChunk, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.textureSettings.material);
+                        terrainChunk.Setup(coordOfCurrentlyCheckingChunk, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.terrainTextureSettings.material);
                         terrainChunks.Add(coordOfCurrentlyCheckingChunk, terrainChunk);
                         //newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         terrainChunk.Load();

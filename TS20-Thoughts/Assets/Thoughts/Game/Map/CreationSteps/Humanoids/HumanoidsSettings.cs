@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Thoughts.Game.Map
 {
+    [CreateAssetMenu(fileName = "HumanoidsSettings", menuName = "Thoughts/Map/Humanoids Settings", order = 70)]
     public class HumanoidsSettings: UpdatableData
     {
         /// <summary>
@@ -18,9 +19,7 @@ namespace Thoughts.Game.Map
         [Tooltip("Amount of humans to spawn")]
         [SerializeField] public int quantity = 2;
         
-        
         public GameObject[] spawnableMapElements;
-        
         
     }
 }

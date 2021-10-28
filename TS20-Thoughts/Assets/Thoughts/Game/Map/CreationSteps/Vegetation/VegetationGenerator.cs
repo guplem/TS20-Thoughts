@@ -24,12 +24,12 @@ namespace Thoughts.Game.Map
                 DeleteVegetation();
 
             mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
-                mapGenerator.mapConfiguration.vegetationSettings.spawnableMapElements[0], 
+                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].mapElementPrefab, 
                 vegetationSeed, 
-                mapGenerator.mapConfiguration.vegetationSettings.closenessToShore, 
-                mapGenerator.mapConfiguration.vegetationSettings.probability, 
+                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].closenessToShore, 
+                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].probability, 
                 this.transform,
-                mapGenerator.mapConfiguration.vegetationSettings.noiseSettings,
+                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].noiseSettings,
                 false
             );
         }

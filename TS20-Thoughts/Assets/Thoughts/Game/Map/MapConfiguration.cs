@@ -9,7 +9,7 @@ namespace Thoughts.Game.Map
     /// <summary>
     /// Holds all the configuration/settings used to generate the Map
     /// </summary>
-    [CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map/Map Configuration", order = 20)]
+    [CreateAssetMenu(fileName = "MapConfiguration", menuName = "Thoughts/Map/Map Configuration", order = -50)]
     public class MapConfiguration : UpdatableData, IEquatable<MapConfiguration>
     {
 
@@ -70,7 +70,7 @@ namespace Thoughts.Game.Map
         /// The configuration of the texture of the terrain of the map
         /// </summary>
         [Tooltip("The configuration of the texture of the terrain of the map")]
-        public TextureSettings textureSettings;
+        public TerrainTextureSettings terrainTextureSettings;
 
         [Header("3. Vegetation")]
         public VegetationSettings vegetationSettings;
@@ -100,7 +100,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// A previously used TextureSettings. It shouldn't be used actively, only to check for updates of the in editor.
         /// </summary>
-        private TextureSettings _oldTextureSettings;
+        private TerrainTextureSettings oldTerrainTextureSettings;
 
 
         /*

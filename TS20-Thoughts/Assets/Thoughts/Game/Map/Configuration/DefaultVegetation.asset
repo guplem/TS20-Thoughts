@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: DefaultVegetation
   m_EditorClassIdentifier: 
   autoUpdate: 0
-  noiseSettings:
-    scale: 50
-    octaves: 4
-    lacunarity: 2
-    persistance: 0.6
-    offset: {x: 0, y: 0}
-  closenessToShore: 0.993
-  probability: 0.5
-  spawnableMapElements:
-  - {fileID: 5743181967686818291, guid: b51d1027ccecb1a4d97bb15f69a7bd8e, type: 3}
+  mapElementsToSpawn:
+  - mapElementPrefab: {fileID: 5743181967686818291, guid: b51d1027ccecb1a4d97bb15f69a7bd8e, type: 3}
+    noiseSettings:
+      scale: 0
+      octaves: 0
+      lacunarity: 0
+      persistance: 0
+      offset: {x: 0, y: 0}
+    closenessToShore: 0.98
+    probability: 0
+    density: 0

@@ -8,7 +8,7 @@ namespace Thoughts.Game.Map.Terrain
     /// <summary>
     /// The configuration of the height of the terrain of the map
     /// </summary>
-    [CreateAssetMenu(fileName = "HeightMapSettings", menuName = "Thoughts/Map/Terrain/HeightMapSettings", order = 100)]
+    [CreateAssetMenu(fileName = "TerrainHeightSettings", menuName = "Thoughts/Map/Terrain Height Settings", order = 20)]
     public class TerrainHeightSettings : UpdatableData
     {
         /// <summary>
