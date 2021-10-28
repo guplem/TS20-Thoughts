@@ -146,7 +146,7 @@ namespace Thoughts.Game
         {
             string gameSceneName = gameObject.scene.name;
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneName)); // https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.SetActiveScene.html
-            Debug.Log($"New active scene: '{SceneManager.GetActiveScene()}'.");
+            Debug.Log($"New active scene: '{SceneManager.GetActiveScene().name}'.");
 
             
             StartNewGame();

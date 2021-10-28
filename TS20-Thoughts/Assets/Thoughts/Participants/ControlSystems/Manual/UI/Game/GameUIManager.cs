@@ -65,7 +65,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
         /// <param name="forceUpdate">Ignore if the currently selected MapElement is the same as the new selected MapElement and update the UI as if they were different.</param>
         public void DisplayUIFor(MapElement mapElement, bool forceUpdate = false)
         {
-            Debug.Log($"Displaying UI of '{mapElement}'");
+            Debug.Log($"Displaying UI of MapElement: '{mapElement}'");
 
             if (selectedMapElement != mapElement || forceUpdate)
             {

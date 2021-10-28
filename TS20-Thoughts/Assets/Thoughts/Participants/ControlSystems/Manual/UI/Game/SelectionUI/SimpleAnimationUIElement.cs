@@ -66,7 +66,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
         /// </summary>
         public void Show()
         {
-            Debug.Log($"Showing {gameObject.name}");
+            //Debug.Log($"Playing simple animation to show an UIElement", this);
             simpleAnimationsManager.Play("Show", false);
             state = VisualizationState.Showing;
         }
@@ -76,7 +76,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
         /// </summary>
         public void Hide()
         {
-            Debug.Log($"Hiding {gameObject.name}");
+            //Debug.Log($"Playing simple animation to hide an UIElement");
             simpleAnimationsManager.Play("Hide", false);
             state = VisualizationState.Hiding;
         }

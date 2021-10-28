@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.Terrain;
@@ -69,15 +70,7 @@ namespace Thoughts.Game.Map
         /// </summary>
         private void RegenerateMapNotPlaying()
         {
-            if (!Application.isPlaying)
-            {
-                //GenerateFullMap(true);
-                Debug.LogWarning("WARNING: Fully regenerating a full map is no longer supported!");
-            }
-            else
-            {
-                Debug.LogWarning("Trying to regenerate the map as if the app were not in playing mode but it is.");
-            }
+            Debug.LogError("Fully regenerating a full map is no longer supported!");
         }
 
         //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
@@ -110,6 +103,7 @@ namespace Thoughts.Game.Map
             mapConfiguration.textureSettings.ApplyToMaterial(mapConfiguration.heightMapSettings.minHeight, mapConfiguration.heightMapSettings.maxHeight);
         }
 
+
         /// <summary>
         /// Deletes the currently (generated) existent map
         /// </summary>
@@ -121,17 +115,32 @@ namespace Thoughts.Game.Map
             humanoidsGenerator.DeleteHumanoids();
 
             
+            
             // Delete all nav mesh data and components
             NavMesh.RemoveAllNavMeshData();
+            
             foreach (NavMeshSurface navMeshSurface in mapManager.generatedNavMeshSurfaces)
                 if (Application.isPlaying)
                     Destroy(navMeshSurface);
                 else
                     DestroyImmediate(navMeshSurface);
             mapManager.generatedNavMeshSurfaces.Clear();
+            
+            if (Application.isPlaying)
+                StartCoroutine(nameof(DeleteCurrentMapCheckCoroutine));
+        }
+        
+        /// <summary>
+        /// Coroutine that checks that the full deletion of the map has been successful
+        /// </summary>
+        private IEnumerator  DeleteCurrentMapCheckCoroutine()
+        {
+            if (Application.isPlaying) // Important(?). Coroutines only work in Play mode
+                yield return new WaitForSecondsRealtime(3f); // To give a chance to the "Destroy" method. It is not immediate.
+            
             NavMeshSurface[] remainingSurfaces = GetComponents<NavMeshSurface>();
             if (remainingSurfaces.Length > 0)
-                Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted.", gameObject);
+                Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist.", remainingSurfaces[0]);
         }
         
         /*
