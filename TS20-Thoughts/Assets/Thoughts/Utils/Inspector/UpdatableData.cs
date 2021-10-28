@@ -7,6 +7,11 @@ namespace Thoughts.Utils.Inspector
         public event System.Action OnValuesUpdated;
         public bool autoUpdate;
         
+        public void ClearOnValuesUpdated()
+        {
+            OnValuesUpdated = null;
+        }
+        
     #if UNITY_EDITOR
         protected virtual void OnValidate() {
             if (autoUpdate)
@@ -15,7 +20,8 @@ namespace Thoughts.Utils.Inspector
             }
         }
 
-        public void NotifyOfUpdatedValues() {
+        public void NotifyOfUpdatedValues()
+        {
             UnityEditor.EditorApplication.update -= NotifyOfUpdatedValues;
             if (OnValuesUpdated != null) {
                 OnValuesUpdated ();

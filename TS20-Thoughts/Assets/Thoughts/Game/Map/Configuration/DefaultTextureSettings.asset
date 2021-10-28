@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   material: {fileID: 2100000, guid: eacd2db31b0251c418a8e075ab3fb7bd, type: 2}
-  color0: {r: 0.116625115, g: 0.37780735, b: 0.5283019, a: 1}
+  color0: {r: 0.048593763, g: 0.25171563, b: 0.6132076, a: 1}
   color1: {r: 0.15692414, g: 0.5471698, b: 0.25871328, a: 0}
   color1Start: 0.01
   color1BaseBlend: 0.01

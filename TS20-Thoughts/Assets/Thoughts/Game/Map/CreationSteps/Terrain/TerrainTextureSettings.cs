@@ -95,5 +95,6 @@ namespace Thoughts.Game.Map.Terrain
         
             //Debug.Log($"Set the minHeight to {minHeight} and maxHeight to {maxHeight}");
         }
+
     }
 }

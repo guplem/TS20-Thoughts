@@ -21,6 +21,6 @@ MonoBehaviour:
   terrainTextureSettings: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}
   vegetationSettings: {fileID: 11400000, guid: e32bb24e4bde266468629b35e4675a54, type: 2}
   nightSettings: {fileID: 0}
-  fishAndBirdsSettings: {fileID: 0}
-  landAnimalsSettings: {fileID: 0}
+  fishAndBirdsSettings: {fileID: 11400000, guid: e32bb24e4bde266468629b35e4675a54, type: 2}
+  landAnimalsSettings: {fileID: 11400000, guid: e32bb24e4bde266468629b35e4675a54, type: 2}
   humanoidsSettings: {fileID: 11400000, guid: 8311acdd048ee1546946c9ab590add97, type: 2}

@@ -79,10 +79,10 @@ namespace Thoughts.Game.Map
         public NightSettings nightSettings;
         
         [Header("5. FishAndBirds")]
-        public VegetationSettings fishAndBirdsSettings;
+        public FishAndBirdsSettings fishAndBirdsSettings;
         
         [Header("6. LandAnimals")]
-        public VegetationSettings landAnimalsSettings;
+        public LandAnimalsSettings landAnimalsSettings;
         
         [Header("7. Humanoids")]
         public HumanoidsSettings humanoidsSettings;

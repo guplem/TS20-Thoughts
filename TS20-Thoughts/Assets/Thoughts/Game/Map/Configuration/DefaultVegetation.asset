@@ -12,15 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44868bf3229421e96ffa1650f4d1d49, type: 3}
   m_Name: DefaultVegetation
   m_EditorClassIdentifier: 
-  autoUpdate: 0
+  autoUpdate: 1
   mapElementsToSpawn:
   - mapElementPrefab: {fileID: 5743181967686818291, guid: b51d1027ccecb1a4d97bb15f69a7bd8e, type: 3}
     noiseSettings:
-      scale: 0
-      octaves: 0
-      lacunarity: 0
-      persistance: 0
+      scale: 1
+      octaves: 6
+      lacunarity: 2
+      persistance: 0.216
       offset: {x: 0, y: 0}
-    closenessToShore: 0.98
-    probability: 0
-    density: 0
+    closenessToShore: 1
+    probability: 0.5
+    density: 0.562

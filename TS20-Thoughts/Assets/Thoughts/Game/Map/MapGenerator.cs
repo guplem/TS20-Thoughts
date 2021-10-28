@@ -71,59 +71,73 @@ namespace Thoughts.Game.Map
         public void OnValidate()
         {
             //GENERAL
-            if (mapConfiguration == null)
+            if (mapConfiguration != null)
+            {
+                mapConfiguration.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.OnValuesUpdated += RegenerateFull;
+            }
+            else
+            {
+                Debug.LogWarning($"MapConfiguration in MapGenerator in {gameObject.name} is null.");
                 return;
-            mapConfiguration.OnValuesUpdated -= RegenerateFull; // So the subscription count stays at 1
-            mapConfiguration.OnValuesUpdated += RegenerateFull;
-            
-            
-            
+            }
+
+
+
             //Light
-            if (mapConfiguration.lightSettings == null)
-                return;
-            mapConfiguration.lightSettings.OnValuesUpdated -= RegenerateLight; // So the subscription count stays at 1
-            mapConfiguration.lightSettings.OnValuesUpdated += RegenerateLight;
+            if (mapConfiguration.lightSettings != null)
+            {
+                mapConfiguration.lightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.lightSettings.OnValuesUpdated += RegenerateLight;
+            }
             
             //Terrain
-            if (mapConfiguration.terrainHeightSettings == null)
-                return;
-            mapConfiguration.terrainHeightSettings.OnValuesUpdated -= RegenerateFull; // So the subscription count stays at 1
-            mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateFull;
-        
-            if (mapConfiguration.terrainTextureSettings == null)
-                return;
-            mapConfiguration.terrainTextureSettings.OnValuesUpdated -= OnTerrainTextureValuesUpdated; // So the subscription count stays at 1
-            mapConfiguration.terrainTextureSettings.OnValuesUpdated += OnTerrainTextureValuesUpdated;
-            
+            if (mapConfiguration.terrainHeightSettings != null)
+            {
+                mapConfiguration.terrainHeightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateFull;
+            }
+
+            if (mapConfiguration.terrainTextureSettings != null)
+            {
+                mapConfiguration.terrainTextureSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.terrainTextureSettings.OnValuesUpdated += OnTerrainTextureValuesUpdated;
+            }
+
             //Vegetation
-            if (mapConfiguration.vegetationSettings == null)
-                return;
-            mapConfiguration.vegetationSettings.OnValuesUpdated -= RegenerateVegetation; // So the subscription count stays at 1
-            mapConfiguration.vegetationSettings.OnValuesUpdated += RegenerateVegetation;
+            if (mapConfiguration.vegetationSettings != null)
+            {
+                mapConfiguration.vegetationSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.vegetationSettings.OnValuesUpdated += RegenerateVegetation;
+            }
             
             //Night
-            if (mapConfiguration.nightSettings == null)
-                return;
-            mapConfiguration.nightSettings.OnValuesUpdated -= RegenerateNight; // So the subscription count stays at 1
-            mapConfiguration.nightSettings.OnValuesUpdated += RegenerateNight;
+            if (mapConfiguration.nightSettings != null)
+            {
+                mapConfiguration.nightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.nightSettings.OnValuesUpdated += RegenerateNight;
+            }
             
             //FishAndBirds
-            if (mapConfiguration.fishAndBirdsSettings == null)
-                return;
-            mapConfiguration.fishAndBirdsSettings.OnValuesUpdated -= RegenerateFishAndBirds; // So the subscription count stays at 1
-            mapConfiguration.fishAndBirdsSettings.OnValuesUpdated += RegenerateFishAndBirds;
+            if (mapConfiguration.fishAndBirdsSettings != null)
+            {
+                mapConfiguration.fishAndBirdsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.fishAndBirdsSettings.OnValuesUpdated += RegenerateFishAndBirds;
+            }
             
             //LandAnimals
-            if (mapConfiguration.landAnimalsSettings == null)
-                return;
-            mapConfiguration.landAnimalsSettings.OnValuesUpdated -= RegenerateLandAnimals; // So the subscription count stays at 1
-            mapConfiguration.landAnimalsSettings.OnValuesUpdated += RegenerateLandAnimals;
+            if (mapConfiguration.landAnimalsSettings != null)
+            {
+                mapConfiguration.landAnimalsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.landAnimalsSettings.OnValuesUpdated += RegenerateLandAnimals;
+            }
             
             //Humanoids
-            if (mapConfiguration.humanoidsSettings == null)
-                return;
-            mapConfiguration.humanoidsSettings.OnValuesUpdated -= RegenerateHumanoids; // So the subscription count stays at 1
-            mapConfiguration.humanoidsSettings.OnValuesUpdated += RegenerateHumanoids;
+            if (mapConfiguration.humanoidsSettings != null)
+            {
+                mapConfiguration.humanoidsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapConfiguration.humanoidsSettings.OnValuesUpdated += RegenerateHumanoids;
+            }
 
         }
 
@@ -197,6 +211,8 @@ namespace Thoughts.Game.Map
         /// <param name="step">The creation step that contains the things that are wanted to be regenerated</param>
         public void Regenerate(CreationStep step)
         {
+            // Debug.Log($"Regenerating '{step.ToString()}'");
+            
             if (!Application.isPlaying)
                 EditorUtility.SetDirty(mapManager.gameObject);
                 
@@ -207,6 +223,7 @@ namespace Thoughts.Game.Map
                     //break;
                 case CreationStep.Terrain:
                     terrainGenerator.UpdateChunks(true);
+                    //ToDo: Update material
                     break;
                 case CreationStep.Vegetation:
                     vegetationGenerator.GenerateVegetation(true);
