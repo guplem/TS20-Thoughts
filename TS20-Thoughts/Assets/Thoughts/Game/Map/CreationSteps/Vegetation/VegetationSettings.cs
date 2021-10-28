@@ -27,6 +27,14 @@ namespace Thoughts.Game.Map
         [Range(0,1)]
         [SerializeField]
         public float probability = 0.5f;
+        
+        /// <summary>
+        /// Density of vegetation appearing.
+        /// </summary>
+        [Tooltip("Density of vegetation appearing at any given spot")]
+        [Range(0,1)]
+        [SerializeField]
+        public float density = 0.5f; //Todo: use
 
         public GameObject[] spawnableMapElements;
     }

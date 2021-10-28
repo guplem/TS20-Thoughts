@@ -5,6 +5,7 @@ using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Maths;
 using Thoughts.Utils.ThreadsManagement;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -64,32 +65,66 @@ namespace Thoughts.Game.Map
             }
         }
     #endif
-    
-        /// <summary>
-        /// If the app is not in Play Mode, the previously created map is destroyed and a new map is generated.
-        /// </summary>
-        private void RegenerateFullMap()
-        {
-            Debug.LogError("Fully regenerating a full map is no longer supported!");
-        }
+        
 
         //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
         public void OnValidate()
         {
+            //GENERAL
             if (mapConfiguration == null)
                 return;
-            mapConfiguration.OnValuesUpdated -= RegenerateFullMap; // So the subscription count stays at 1
-            mapConfiguration.OnValuesUpdated += RegenerateFullMap;
-
-            if (mapConfiguration.heightMapSettings == null)
+            mapConfiguration.OnValuesUpdated -= RegenerateFull; // So the subscription count stays at 1
+            mapConfiguration.OnValuesUpdated += RegenerateFull;
+            
+            
+            
+            //Light
+            if (mapConfiguration.lightSettings == null)
                 return;
-            mapConfiguration.heightMapSettings.OnValuesUpdated -= RegenerateFullMap; // So the subscription count stays at 1
-            mapConfiguration.heightMapSettings.OnValuesUpdated += RegenerateFullMap;
+            mapConfiguration.lightSettings.OnValuesUpdated -= RegenerateLight; // So the subscription count stays at 1
+            mapConfiguration.lightSettings.OnValuesUpdated += RegenerateLight;
+            
+            //Terrain
+            if (mapConfiguration.terrainHeightSettings == null)
+                return;
+            mapConfiguration.terrainHeightSettings.OnValuesUpdated -= RegenerateFull; // So the subscription count stays at 1
+            mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateFull;
         
             if (mapConfiguration.textureSettings == null)
                 return;
             mapConfiguration.textureSettings.OnValuesUpdated -= OnTextureValuesUpdated; // So the subscription count stays at 1
             mapConfiguration.textureSettings.OnValuesUpdated += OnTextureValuesUpdated;
+            
+            //Vegetation
+            if (mapConfiguration.vegetationSettings == null)
+                return;
+            mapConfiguration.vegetationSettings.OnValuesUpdated -= RegenerateVegetation; // So the subscription count stays at 1
+            mapConfiguration.vegetationSettings.OnValuesUpdated += RegenerateVegetation;
+            
+            //Night
+            if (mapConfiguration.nightSettings == null)
+                return;
+            mapConfiguration.nightSettings.OnValuesUpdated -= RegenerateNight; // So the subscription count stays at 1
+            mapConfiguration.nightSettings.OnValuesUpdated += RegenerateNight;
+            
+            //FishAndBirds
+            if (mapConfiguration.fishAndBirdsSettings == null)
+                return;
+            mapConfiguration.fishAndBirdsSettings.OnValuesUpdated -= RegenerateFishAndBirds; // So the subscription count stays at 1
+            mapConfiguration.fishAndBirdsSettings.OnValuesUpdated += RegenerateFishAndBirds;
+            
+            //LandAnimals
+            if (mapConfiguration.landAnimalsSettings == null)
+                return;
+            mapConfiguration.landAnimalsSettings.OnValuesUpdated -= RegenerateLandAnimals; // So the subscription count stays at 1
+            mapConfiguration.landAnimalsSettings.OnValuesUpdated += RegenerateLandAnimals;
+            
+            //Humanoids
+            if (mapConfiguration.humanoidsSettings == null)
+                return;
+            mapConfiguration.humanoidsSettings.OnValuesUpdated -= RegenerateHumanoids; // So the subscription count stays at 1
+            mapConfiguration.humanoidsSettings.OnValuesUpdated += RegenerateHumanoids;
+
         }
 
         /// <summary>
@@ -97,7 +132,7 @@ namespace Thoughts.Game.Map
         /// </summary>
         void OnTextureValuesUpdated()
         {
-            mapConfiguration.textureSettings.ApplyToMaterial(mapConfiguration.heightMapSettings.minHeight, mapConfiguration.heightMapSettings.maxHeight);
+            mapConfiguration.textureSettings.ApplyToMaterial(mapConfiguration.terrainHeightSettings.minHeight, mapConfiguration.terrainHeightSettings.maxHeight);
         }
 
 
@@ -140,35 +175,21 @@ namespace Thoughts.Game.Map
                 Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist.", remainingSurfaces[0]);
         }
         
-        /*
+        private void RegenerateLight(){ Regenerate(CreationStep.Light);}
+        //public void RegenerateTerrain(){ RegenerateFullMap(); }
+        private void RegenerateVegetation(){ Regenerate(CreationStep.Vegetation);}
+        private void RegenerateNight(){ Regenerate(CreationStep.Night);}
+        private void RegenerateFishAndBirds(){ Regenerate(CreationStep.FishAndBirds);}
+        private void RegenerateLandAnimals(){ Regenerate(CreationStep.LandAnimals);}
+        private void RegenerateHumanoids(){ Regenerate(CreationStep.Humanoids);}
+
         /// <summary>
-        /// Updates or generates a full map.
+        /// The previously created map is destroyed and a new FULL map (with all the creation steps) is generated.
         /// </summary>
-        /// <param name="clearPreviousMap">If existent, should the previously created map be deleted?</param>
-        public void GenerateFullMap(bool clearPreviousMap)
+        public void RegenerateFull()
         {
-            //1. Light
-            GenerateLight(clearPreviousMap);
-                
-            //2. Terrain
-            GenerateTerrain(clearPreviousMap);
-
-            //3. Vegetation
-            GenerateVegetation(clearPreviousMap);
-
-            //4. Night
-            GenerateNight(clearPreviousMap);
-
-            //5. Fish and Birds
-            GenerateFishAndBirds(clearPreviousMap);
-
-            //6. Land Animals
-            GenerateLandAnimals(clearPreviousMap);
-
-            //6. Humanoids
-            GenerateHumanoids(clearPreviousMap);
-
-        }*/
+            throw new NotImplementedException(); //Todo: code it. Use Regenerate(step) method
+        } 
         
         /// <summary>
         /// Regenerates the things related to the given creation step 
@@ -176,11 +197,14 @@ namespace Thoughts.Game.Map
         /// <param name="step">The creation step that contains the things that are wanted to be regenerated</param>
         public void Regenerate(CreationStep step)
         {
+            if (!Application.isPlaying)
+                EditorUtility.SetDirty(mapManager.gameObject);
+                
             switch (step)
             {
                 case CreationStep.Light:
-                    GenerateLight(true);
-                    break;
+                    throw new NotImplementedException();
+                    //break;
                 case CreationStep.Terrain:
                     terrainGenerator.UpdateChunks(true);
                     break;
@@ -188,14 +212,14 @@ namespace Thoughts.Game.Map
                     vegetationGenerator.GenerateVegetation(true);
                     break;
                 case CreationStep.Night:
-                    GenerateNight(true);
-                    break;
+                    throw new NotImplementedException();
+                    //break;
                 case CreationStep.FishAndBirds:
-                    GenerateFishAndBirds(true);
-                    break;
+                    throw new NotImplementedException();
+                    //break;
                 case CreationStep.LandAnimals:
-                    GenerateLandAnimals(true);
-                    break;
+                    throw new NotImplementedException();
+                    //break;
                 case CreationStep.Humanoids:
                     humanoidsGenerator.GenerateHumanoids(true);
                     break;
@@ -204,27 +228,7 @@ namespace Thoughts.Game.Map
             }
         }
         
-        private void GenerateLight(bool clearPrevious)
-        {
-            // TODO: remove this method, follow standards (like vegetationGenerator)
-            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
-        }
-        private void GenerateNight(bool clearPrevious)
-        {
-            // TODO: remove this method, follow standards (like vegetationGenerator)
-            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
-        }
-        private void GenerateFishAndBirds(bool clearPrevious)
-        {
-            // TODO: remove this method, follow standards (like vegetationGenerator)
-            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
-        }
-        private void GenerateLandAnimals(bool clearPrevious)
-        {
-            // TODO: remove this method, follow standards (like vegetationGenerator)
-            Debug.LogWarning($"'{System.Reflection.MethodBase.GetCurrentMethod().Name}' Not implemented");
-        }
-        
+
         /// <summary>
         /// Makes a map element spawn.
         /// </summary>
@@ -279,7 +283,7 @@ namespace Thoughts.Game.Map
         {
 
 
-            float rayOriginHeight = mapConfiguration.heightMapSettings.heightMultiplier * 2f;
+            float rayOriginHeight = mapConfiguration.terrainHeightSettings.heightMultiplier * 2f;
             float rayDistance = rayOriginHeight * minHeight; //[0,1], 1 being that the vegetation can get on the sea
             
             RaycastHit hit;

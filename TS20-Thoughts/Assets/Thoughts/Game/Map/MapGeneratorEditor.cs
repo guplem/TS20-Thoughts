@@ -23,6 +23,9 @@ namespace Thoughts.Game.Map
                 */
             }
 
+
+            EditorGUILayout.Space(); EditorGUILayout.LabelField("", GUI.skin.horizontalSlider); EditorGUILayout.Space(); //Horizontal line
+            
             GUILayout.BeginHorizontal();
             regenerationStep = (CreationStep)EditorGUILayout.EnumPopup("Step to regenerate:", regenerationStep);
             if (GUILayout.Button("Regenerate"))
@@ -32,16 +35,18 @@ namespace Thoughts.Game.Map
             }
             GUILayout.EndHorizontal();
         
-            if (GUILayout.Button("Delete current Map"))
+            GUILayout.BeginHorizontal();
+            if (GUILayout.Button("Delete all map"))
             {
                 mapGenerator.DeleteCurrentMap();
             }
-        
-            /*if (GUILayout.Button("Repaint All"))
+            if (GUILayout.Button("Regenerate full map"))
             {
+                mapGenerator.RegenerateFull();
                 UnityEditor.SceneView.RepaintAll();
                 UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
-            }*/
+            }
+            GUILayout.EndHorizontal();
         
 
 

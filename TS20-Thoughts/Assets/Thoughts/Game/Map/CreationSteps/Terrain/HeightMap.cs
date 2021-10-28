@@ -44,10 +44,10 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="settings">The HeightMapSettings for this HeightMap's pattern</param>
         /// <param name="sampleCenter">The cords at the center of this HeightMap relative to the center of the whole (scene) map</param>
         /// <returns></returns>
-        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, HeightMapSettings settings, Vector2 sampleCenter, int seed)
+        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int seed)
         {
             //Debug.Log($"Generating height map for {sampleCenter}");
-            float[,] values = Noise.GenerateNoiseMap(width, height, settings.terrainNoiseMapSettings, sampleCenter, seed);
+            float[,] values = Noise.GenerateNoiseMap(width, height, settings.noiseMapSettings, sampleCenter, seed);
 
             AnimationCurve heigtCurve_threadSafe = new AnimationCurve(settings.heightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
             AnimationCurve falloffIntensity_threadSafe = new AnimationCurve(settings.falloffIntensity.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 

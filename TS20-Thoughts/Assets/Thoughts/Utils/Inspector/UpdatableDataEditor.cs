@@ -14,6 +14,7 @@ namespace Thoughts.Utils.Inspector
 
             UpdatableData data = (UpdatableData) target;
 
+            GUILayout.Space(30f);
             if (GUILayout.Button("Update"))
             {
                 data.NotifyOfUpdatedValues();

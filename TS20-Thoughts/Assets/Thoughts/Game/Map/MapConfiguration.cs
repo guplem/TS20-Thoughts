@@ -57,31 +57,35 @@ namespace Thoughts.Game.Map
         
     #region CreationStepsSettings
         
-        //[Header("Light")]
+        [Header("1. Light")]
+        public LightSettings lightSettings;
         
         /// <summary>
         /// The configuration of the height of the terrain of the map
         /// </summary>
-        [Header("Terrain")]
+        [Header("2. Terrain")]
         [Tooltip("The configuration of the height of the terrain of the map")]
-        public HeightMapSettings heightMapSettings;
+        public TerrainHeightSettings terrainHeightSettings;
         /// <summary>
         /// The configuration of the texture of the terrain of the map
         /// </summary>
         [Tooltip("The configuration of the texture of the terrain of the map")]
         public TextureSettings textureSettings;
+
+        [Header("3. Vegetation")]
+        public VegetationSettings vegetationSettings;
         
-        [Header("Vegetation")]
-        [SerializeField] public VegetationSettings vegetationSettings;
+        [Header("4. Night")]
+        public NightSettings nightSettings;
         
-        //[Header("Night")]
+        [Header("5. FishAndBirds")]
+        public VegetationSettings fishAndBirdsSettings;
         
-        //[Header("FishAndBirds")]
+        [Header("6. LandAnimals")]
+        public VegetationSettings landAnimalsSettings;
         
-        //[Header("LandAnimals")]
-        
-        [Header("Humanoids")]
-        [SerializeField] public HumanoidsSettings humanoidsSettings;
+        [Header("7. Humanoids")]
+        public HumanoidsSettings humanoidsSettings;
 
     #endregion
         
@@ -92,7 +96,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// A previously used HeightMapSettings. It shouldn't be used actively, only to check for updates of the in editor.
         /// </summary>
-        private HeightMapSettings _oldHeightMapSettings;
+        private TerrainHeightSettings oldTerrainHeightSettings;
         /// <summary>
         /// A previously used TextureSettings. It shouldn't be used actively, only to check for updates of the in editor.
         /// </summary>

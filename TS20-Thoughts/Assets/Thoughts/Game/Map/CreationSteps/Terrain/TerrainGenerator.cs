@@ -174,7 +174,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// The LOD linked to the visibleDistanceThreshold data
         /// </summary>
-        [Range(0,HeightMapSettings.numSupportedTerrainLODs-1)]
+        [Range(0,TerrainHeightSettings.numSupportedTerrainLODs-1)]
         [SerializeField]public int lod;
         /// <summary>
         /// The distance to the viewer at which it should stop being used and a worse LOD should be used instead
