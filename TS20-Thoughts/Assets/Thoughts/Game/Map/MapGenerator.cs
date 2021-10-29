@@ -261,7 +261,7 @@ namespace Thoughts.Game.Map
             mapManager.existentMapElements.Add(spawnedElement);
             return spawnedElement;
         }
-        
+
         /// <summary>
         /// Spawns a group of MapElements in the map using a pseudo random perlin noise distribution.
         /// </summary>
@@ -269,17 +269,23 @@ namespace Thoughts.Game.Map
         /// <param name="seed">The seed to use to generate the perlin noise</param>
         /// <param name="minHeight">The minimum height at which the object can spawn (0 means that can spawn on the sea)</param>
         /// <param name="probability">The probability of the object being spawned at any given spot (following the perlin noise distribution)</param>
+        /// <param name="density"></param>
         /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
         /// <param name="noiseMapSettings">The settings to be used for the perlin noise map</param>
         /// <param name="requireNavMesh">Must the locations where the MapElements will spawn require a valid NavMeshSurface?</param>
-        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, float minHeight, float probability, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
+        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, float minHeight, float probability, float density, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
         {
+            RandomEssentials rng = new RandomEssentials(seed);
+            
             float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, noiseMapSettings, Vector2.zero, seed);
             for (int x = 0; x < noise.GetLength(0); x++)
             {
                 for (int y = 0; y < noise.GetLength(1); y++)
                 {
                     if (!(noise[x, y] > 1 - probability))
+                        continue;
+                    
+                    if (rng.GetRandomBool(1-density))
                         continue;
                     
                     if (IsSpawnablePosition( new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius), minHeight, requireNavMesh, out Vector3 spawnablePosition))

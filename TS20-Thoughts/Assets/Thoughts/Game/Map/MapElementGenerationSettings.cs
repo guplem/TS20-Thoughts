@@ -27,18 +27,18 @@ namespace Thoughts.Game.Map
         public float closenessToShore = 0.993f; //[0,1], 1 being that the vegetation can get on the sea
         
         /// <summary>
-        /// Probability of vegetation appearing.
+        /// Probability of vegetation appearing. Only used when the spawning uses the perlin noise distribution, not by count.
         /// </summary>
-        [Tooltip("Probability of vegetation appearing at any given spot")]
+        [Tooltip("Probability of vegetation appearing at any given spot. Only used when the spawning uses the perlin noise distribution, not by count.")]
         [Range(0,1)]
         public float probability = 0.5f;
         
         /// <summary>
-        /// Density of vegetation appearing.
+        /// Density of vegetation appearing. Only used when the spawning uses the perlin noise distribution, not by count.
         /// </summary>
-        [Tooltip("Density of vegetation appearing at any given spot")]
+        [Tooltip("Density of vegetation appearing at any given spot. Only used when the spawning uses the perlin noise distribution, not by count.")]
         [Range(0,1)]
-        public float density = 0.5f; //Todo: use
+        public float density = 0.5f;
         
     }
 }

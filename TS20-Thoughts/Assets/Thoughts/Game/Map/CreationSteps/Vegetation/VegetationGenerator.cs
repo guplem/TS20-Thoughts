@@ -28,6 +28,7 @@ namespace Thoughts.Game.Map
                 vegetationSeed, 
                 mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].closenessToShore, 
                 mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].probability, 
+                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].density, 
                 this.transform,
                 mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].noiseSettings,
                 false
