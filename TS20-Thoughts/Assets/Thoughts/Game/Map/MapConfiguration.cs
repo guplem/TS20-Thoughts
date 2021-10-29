@@ -48,6 +48,13 @@ namespace Thoughts.Game.Map
         public float meshWorldSize => (numVertsPerLine - 3);
 
         /// <summary>
+        /// The absolute height at which the sea starts
+        /// </summary>
+        [Tooltip("The absolute height at which the sea starts")]
+        [Range(0,1)]
+        public float seaHeight = 0.2f;
+
+        /// <summary>
         /// The radius of the map from the center of the scene in Unity's units
         /// </summary>
         [Tooltip("The radius of the map from the center of the scene in Unity's units")]

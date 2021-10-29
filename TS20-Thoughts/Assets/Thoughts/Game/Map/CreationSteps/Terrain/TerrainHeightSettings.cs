@@ -27,6 +27,11 @@ namespace Thoughts.Game.Map.Terrain
 
         [Header("Falloff")]
         [SerializeField] public bool useFalloff;
+        /// <summary>
+        /// An area in which the falloff will not be applied starting from the center
+        /// </summary>
+        [Tooltip("An area in which the falloff will not be applied starting from the center")]
+        [SerializeField] public float freeFalloffAreaRadius = 30f;
         //[Range(0.1f, 1f)]
         //[SerializeField] public float percentageOfMapWithoutMaxFalloff = 1;
         [SerializeField] public AnimationCurve falloffIntensity;
@@ -37,8 +42,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <para>The height of the cell is by default [0,1], multiplying it by 5, the maximum height will be 5 (cell height [0,5]</para>
         /// </summary>
         [Header("Height")]
-        [FormerlySerializedAs("maxHeight")]
-        public float heightMultiplier = 15f;
+        public float heightMultiplier = 30f;
         /// <summary>
         /// How much the height of the mesh should be affected by the maxHeight (AKA: "height multiplier")
         /// </summary>

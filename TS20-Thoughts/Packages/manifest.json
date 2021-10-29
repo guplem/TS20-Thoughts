@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.guciodevs.simple-min-max-slider": "https://github.com/GucioDevs/SimpleMinMaxSlider.git#upm",
     "com.unity.ai.navigation.components": "https://github.com/Unity-Technologies/NavMeshComponents.git#package",
     "com.unity.cinemachine": "2.6.3",
     "com.unity.collab-proxy": "1.5.7",

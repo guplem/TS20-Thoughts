@@ -18,9 +18,9 @@ MonoBehaviour:
     noiseSettings:
       scale: 1
       octaves: 6
-      lacunarity: 2
+      lacunarity: 5
       persistance: 0.216
       offset: {x: 0, y: 0}
-    closenessToShore: 1
+    spawningHeightRange: {x: 0, y: 1}
     probability: 0.5
-    density: 0.562
+    density: 0.443

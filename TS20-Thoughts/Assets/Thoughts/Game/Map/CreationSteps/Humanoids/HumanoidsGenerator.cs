@@ -27,7 +27,7 @@ namespace Thoughts.Game.Map
             mapGenerator.SpawnMapElementsRandomly(
                 mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0], 
                 humanoidsSeed, 
-                mapGenerator.mapConfiguration.humanoidsSettings.closenessToShore, 
+                mapGenerator.mapConfiguration.humanoidsSettings.spawningHeightRange, 
                 mapGenerator.mapConfiguration.humanoidsSettings.quantity, 
                 this.transform,
                 true

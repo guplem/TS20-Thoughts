@@ -63,6 +63,17 @@ namespace Thoughts.Game.Map
                 UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
                 UnityEditor.SceneView.RepaintAll();
             }
+            
+            //Draws the lines to show where the base, sea and max height are
+            float linesHalfSize = 1000;
+            Gizmos.color = Color.black;
+            Gizmos.DrawLine(new Vector3(-linesHalfSize, 0, 0), new Vector3(linesHalfSize, 0, 0));
+            Gizmos.color = Color.blue;
+            float seaHeight = mapConfiguration.seaHeight * mapConfiguration.terrainHeightSettings.maxHeight;
+            Gizmos.DrawLine(new Vector3(-linesHalfSize, seaHeight, 0), new Vector3(linesHalfSize, seaHeight, 0));
+            Gizmos.color = Color.white;
+            Gizmos.DrawLine(new Vector3(-linesHalfSize, mapConfiguration.terrainHeightSettings.maxHeight, 0), new Vector3(linesHalfSize, mapConfiguration.terrainHeightSettings.maxHeight, 0));
+
         }
     #endif
         
@@ -95,7 +106,7 @@ namespace Thoughts.Game.Map
             if (mapConfiguration.terrainHeightSettings != null)
             {
                 mapConfiguration.terrainHeightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateFull;
+                mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateTerrain; //RegenerateFull;
             }
 
             if (mapConfiguration.terrainTextureSettings != null)
@@ -190,7 +201,7 @@ namespace Thoughts.Game.Map
         }
         
         private void RegenerateLight(){ Regenerate(CreationStep.Light);}
-        //public void RegenerateTerrain(){ RegenerateFullMap(); }
+        public void RegenerateTerrain(){ Regenerate(CreationStep.Terrain); }
         private void RegenerateVegetation(){ Regenerate(CreationStep.Vegetation);}
         private void RegenerateNight(){ Regenerate(CreationStep.Night);}
         private void RegenerateFishAndBirds(){ Regenerate(CreationStep.FishAndBirds);}
@@ -267,13 +278,13 @@ namespace Thoughts.Game.Map
         /// </summary>
         /// <param name="objectToSpawn">The map element's prefab to spawn</param>
         /// <param name="seed">The seed to use to generate the perlin noise</param>
-        /// <param name="minHeight">The minimum height at which the object can spawn (0 means that can spawn on the sea)</param>
+        /// <param name="spawningHeightRange">In which area of the map this is wanted to spawn. -1 means the bottom of the sea. 1 means the highest points in the world. 0 is the shoreline.</param>
         /// <param name="probability">The probability of the object being spawned at any given spot (following the perlin noise distribution)</param>
-        /// <param name="density"></param>
+        /// <param name="density">The density of the spawning. 1 meaning all the available spots where the probability says spawn should happen will be filled. 0 means none.</param>
         /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
         /// <param name="noiseMapSettings">The settings to be used for the perlin noise map</param>
         /// <param name="requireNavMesh">Must the locations where the MapElements will spawn require a valid NavMeshSurface?</param>
-        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, float minHeight, float probability, float density, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
+        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, float probability, float density, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
         {
             RandomEssentials rng = new RandomEssentials(seed);
             
@@ -288,7 +299,7 @@ namespace Thoughts.Game.Map
                     if (rng.GetRandomBool(1-density))
                         continue;
                     
-                    if (IsSpawnablePosition( new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius), minHeight, requireNavMesh, out Vector3 spawnablePosition))
+                    if (IsSpawnablePosition( new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius), spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
                         SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent);
                 }
             }
@@ -298,21 +309,37 @@ namespace Thoughts.Game.Map
         /// Checks if a MapElement can be spawned or not in a given position.
         /// </summary>
         /// <param name="positionCheck">The 2D position to check if a Map</param>
-        /// <param name="minHeight">The minimum height at which the object can be spawned (0 means that can spawn on the sea)</param>
+        /// <param name="spawningHeightRange">The minimum height at which the object can be spawned (0 means that can spawn on the sea)</param>
         /// <param name="requireNavMesh">Must the location require a valid NavMeshSurface?</param>
         /// <param name="spawnablePosition">If the given position allows an spawn, this is the 3D position (including the height at which it can be spawned) so there is no need to recalculate it again.</param>
         /// <returns>True if the location allows the spawn of the MapElement, false otherwise.</returns>
-        private bool IsSpawnablePosition(Vector2 positionCheck, float minHeight, bool requireNavMesh, out Vector3 spawnablePosition)
+        private bool IsSpawnablePosition(Vector2 positionCheck, Vector2 spawningHeightRange, bool requireNavMesh, out Vector3 spawnablePosition)
         {
+            spawnablePosition = Vector3.zero;
 
-
-            float rayOriginHeight = mapConfiguration.terrainHeightSettings.heightMultiplier * 2f;
-            float rayDistance = rayOriginHeight * minHeight; //[0,1], 1 being that the vegetation can get on the sea
+            float raySecureOffset = 0.5f;
+            float rayOriginHeight = mapConfiguration.terrainHeightSettings.maxHeight + raySecureOffset;
+            float rayDistance = rayOriginHeight + raySecureOffset;
             
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
-            if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance * minHeight))
+            if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance))
             {
+                float aboveSeaLevelHeight = mapConfiguration.terrainHeightSettings.maxHeight * (1 - mapConfiguration.seaHeight);
+                float underSeaLevelHeight = mapConfiguration.terrainHeightSettings.maxHeight * mapConfiguration.seaHeight;
+                float relativeHitHeight = Single.NegativeInfinity; // [-1,1] once calculated
+                
+                // The impact happened under the sea
+                if (hit.distance > aboveSeaLevelHeight + raySecureOffset)
+                    relativeHitHeight = -1 / underSeaLevelHeight * (hit.distance-raySecureOffset - aboveSeaLevelHeight);
+                
+                // The impact happened above the sea
+                else
+                    relativeHitHeight = 1 - 1 / aboveSeaLevelHeight * hit.distance-raySecureOffset;
+                
+                if (relativeHitHeight > spawningHeightRange.y || relativeHitHeight < spawningHeightRange.x)
+                    return false;
+                
                 spawnablePosition = hit.point;
                 if (requireNavMesh)
                 {
@@ -322,13 +349,17 @@ namespace Thoughts.Game.Map
                         spawnablePosition = navMeshHit.position;
                         return true;
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
                     return true;
                 }
             }
-            spawnablePosition = Vector3.zero;
+            
             return false;
         }
 
@@ -337,11 +368,11 @@ namespace Thoughts.Game.Map
         /// </summary>
         /// <param name="objectToSpawn">The map element's prefab to spawn</param>
         /// <param name="seed">The seed to use to generate the perlin noise</param>
-        /// <param name="minHeight">The minimum height at which the object can spawn (0 means that can spawn on the sea)</param>
+        /// <param name="spawningHeightRange">In which area of the map this is wanted to spawn. -1 means the bottom of the sea. 1 means the highest points in the world. 0 is the shoreline.</param>
         /// <param name="quantity">The amount of MapElements to spawn</param>
         /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
         /// <param name="requireNavMesh">Must the locations where the MapElements will spawn require a valid NavMeshSurface?</param>
-        public void SpawnMapElementsRandomly(GameObject objectToSpawn, int seed, float minHeight, int quantity, Transform parent, bool requireNavMesh)
+        public void SpawnMapElementsRandomly(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, int quantity, Transform parent, bool requireNavMesh)
         {
             int totalCountToAvoidInfiniteLoop = 5000*quantity;
             int spawnedCount = 0;
@@ -353,13 +384,13 @@ namespace Thoughts.Game.Map
                 totalCountToAvoidInfiniteLoop--;
                 if (totalCountToAvoidInfiniteLoop < 0)
                 {
-                    Debug.LogWarning($"Skipped the spawning of x{quantity} {objectToSpawn}. No spawnable positions were found.");
+                    Debug.LogWarning($"Skipped the spawning of x{quantity-spawnedCount}/{{quantity}} {objectToSpawn.name}. No spawnable positions were found.");
                     break;
                 }
                 
                 Vector2 checkPosition = randomEssentials.GetRandomVector2(-mapConfiguration.mapRadius, mapConfiguration.mapRadius);
 
-                if (IsSpawnablePosition(checkPosition, minHeight, requireNavMesh, out Vector3 spawnablePosition))
+                if (IsSpawnablePosition(checkPosition, spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
                 {
                     SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent);
                     spawnedCount++;
@@ -399,6 +430,7 @@ namespace Thoughts.Game.Map
             mapManager.generatedNavMeshSurfaces.Add(navMeshSurface);
             return navMeshSurface;
         }
+        
     }
     
     /// <summary>

@@ -1,4 +1,5 @@
 ﻿using System;
+using GD.MinMaxSlider;
 using Thoughts.Utils.Maths;
 using UnityEngine;
 
@@ -20,11 +21,11 @@ namespace Thoughts.Game.Map
         public NoiseMapSettings noiseSettings;
         
         /// <summary>
-        /// How close the vegetation can be to the sea shore.
+        /// In which area of the map this is wanted to spawn. -1 means the bottom of the sea. 1 means the highest points in the world. 0 is the shoreline.
         /// </summary>
-        [Tooltip("How close the vegetation can be to the sea shore. 1 means that it can get in the sea. 0.5 means a long distance to the sea shore.")]
-        [Range(0,1)]
-        public float closenessToShore = 0.993f; //[0,1], 1 being that the vegetation can get on the sea
+        [Tooltip("In which area of the map this is wanted to spawn. -1 means the bottom of the sea. 1 means the highest points in the world. 0 is the shoreline.")]
+        [MinMaxSlider(-1,1)]
+        public Vector2 spawningHeightRange;
         
         /// <summary>
         /// Probability of vegetation appearing. Only used when the spawning uses the perlin noise distribution, not by count.

@@ -26,7 +26,7 @@ namespace Thoughts.Game.Map
             mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
                 mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].mapElementPrefab, 
                 vegetationSeed, 
-                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].closenessToShore, 
+                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].spawningHeightRange, 
                 mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].probability, 
                 mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].density, 
                 this.transform,

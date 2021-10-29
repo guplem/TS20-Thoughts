@@ -43,8 +43,9 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="mapRadius">The theoretical radius of the map containing this terrain</param>
         /// <param name="settings">The HeightMapSettings for this HeightMap's pattern</param>
         /// <param name="sampleCenter">The cords at the center of this HeightMap relative to the center of the whole (scene) map</param>
+        /// <param name="freeFalloffAreaRadius">An area in which the falloff will not be applied starting from the center</param>
         /// <returns></returns>
-        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int seed)
+        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int seed, float freeFalloffAreaRadius)
         {
             //Debug.Log($"Generating height map for {sampleCenter}");
             float[,] values = Noise.GenerateNoiseMap(width, height, settings.noiseMapSettings, sampleCenter, seed);
@@ -64,10 +65,13 @@ namespace Thoughts.Game.Map.Terrain
                     {
                         float coordX = sampleCenter.x - (width / 2f) + i;
                         float coordY = sampleCenter.y - (height / 2f) + (height-j); // to fix weird orientation of the falloff
-                        falloffValue = GetFalloffValue(new Vector2(coordX, coordY), falloffIntensity_threadSafe, mapRadius);
+                        falloffValue = GetFalloffValue(new Vector2(coordX, coordY), falloffIntensity_threadSafe, mapRadius, freeFalloffAreaRadius);
                     }
-                
-                    values [i, j] *= heigtCurve_threadSafe.Evaluate (values [i, j] - falloffValue) * settings.heightMultiplier;
+
+                    float original01Value = values[i, j];
+                    float curveMultiplication = heigtCurve_threadSafe.Evaluate(original01Value);
+                    float heightValue = curveMultiplication * settings.heightMultiplier;
+                    values [i, j] = heightValue * (1-falloffValue);
 
                     if (values[i, j] > maxValue)
                         maxValue = values[i, j];
@@ -84,12 +88,16 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="coords">The coords of the map to calculate the intensity of the falloff in that location</param>
         /// <param name="falloffIntensity">The AnimationCurve that defines the intensity of the falloff relative to the radius of the center of the map</param>
         /// <param name="mapRadius">The radius of the center of the map</param>
+        /// <param name="freeFalloffAreaRadius">An area in which the falloff will not be applied starting from the center</param>
         /// <returns></returns>
-        private static float GetFalloffValue(Vector2 coords, AnimationCurve falloffIntensity, float mapRadius)
+        private static float GetFalloffValue(Vector2 coords, AnimationCurve falloffIntensity, float mapRadius, float freeFalloffAreaRadius)
         {
             float distanceToCenter = Mathf.Sqrt(coords.x*coords.x + coords.y*coords.y);
+            if (distanceToCenter < freeFalloffAreaRadius)
+                return 0;
+            distanceToCenter -= freeFalloffAreaRadius;
             //float falloffValue = ((distanceToCenter*distanceToCenter)/(mapRadius*mapRadius*percentageOfMapWithoutMaxFalloff)); // Old method, with formula
-            float normalizedDistanceToCenter = distanceToCenter / mapRadius;
+            float normalizedDistanceToCenter = distanceToCenter / (mapRadius-freeFalloffAreaRadius);
             float falloffValue = falloffIntensity.Evaluate(normalizedDistanceToCenter);
             return Mathf.Clamp01(falloffValue);
         }

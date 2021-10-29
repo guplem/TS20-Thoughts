@@ -117,7 +117,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="clearPreviousTerrain">If existent, should the previously created terrain be deleted?</param>
         public void UpdateChunks(bool clearPreviousTerrain)
         {
-            Debug.Log($"Creating and/or updating TerrainChunks {(clearPreviousTerrain? "previously deleting" : "without destroying")} the existing ones.");
+            //Debug.Log($"Creating and/or updating TerrainChunks {(clearPreviousTerrain? "previously deleting" : "without destroying")} the existing ones.");
         
             if (clearPreviousTerrain)
                 DeleteTerrain();

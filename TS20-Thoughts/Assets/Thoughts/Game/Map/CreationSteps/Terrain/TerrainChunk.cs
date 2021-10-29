@@ -157,7 +157,7 @@ namespace Thoughts.Game.Map.Terrain
             //Debug.Log($"Requesting data for {ToString()}");
             mapGenerator.threadedDataRequester.RequestData(
                 // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-                () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.terrainHeightSettings, sampleCenter, mapGenerator.mapConfiguration.seed), 
+                () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.terrainHeightSettings, sampleCenter, mapGenerator.mapConfiguration.seed, mapGenerator.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius), 
                 OnHeightMapReceived
             );
         
