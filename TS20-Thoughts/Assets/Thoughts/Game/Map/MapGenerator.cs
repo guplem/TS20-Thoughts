@@ -113,7 +113,7 @@ namespace Thoughts.Game.Map
             if (mapConfiguration.terrainTextureSettings != null)
             {
                 mapConfiguration.terrainTextureSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.terrainTextureSettings.OnValuesUpdated += OnTerrainTextureValuesUpdated;
+                mapConfiguration.terrainTextureSettings.OnValuesUpdated += RegenerateTerrainTextures;
             }
 
             //Vegetation
@@ -156,7 +156,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Manages the update of the TextureSettings by applying them to the map's Material
         /// </summary>
-        void OnTerrainTextureValuesUpdated()
+        void RegenerateTerrainTextures()
         {
             mapConfiguration.terrainTextureSettings.ApplyToMaterial(mapConfiguration.terrainHeightSettings.minHeight, mapConfiguration.terrainHeightSettings.maxHeight);
         }
@@ -238,6 +238,7 @@ namespace Thoughts.Game.Map
                     //break;
                 case CreationStep.Terrain:
                     terrainGenerator.UpdateChunks(true);
+                    RegenerateTerrainTextures();
                     //ToDo: Update material
                     break;
                 case CreationStep.Vegetation:
@@ -326,9 +327,9 @@ namespace Thoughts.Game.Map
         {
             spawnablePosition = Vector3.zero;
 
-            float raySecureOffset = 0.5f;
-            float rayOriginHeight = mapConfiguration.terrainHeightSettings.maxHeight + raySecureOffset;
-            float rayDistance = rayOriginHeight + raySecureOffset;
+            //float raySecureOffset = 0.5f;
+            float rayOriginHeight = mapConfiguration.terrainHeightSettings.maxHeight;// + raySecureOffset;
+            float rayDistance = rayOriginHeight;// + raySecureOffset;
             
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
@@ -339,12 +340,12 @@ namespace Thoughts.Game.Map
                 float relativeHitHeight = Single.NegativeInfinity; // [-1,1] once calculated
                 
                 // The impact happened under the sea
-                if (hit.distance > aboveSeaLevelHeight + raySecureOffset)
-                    relativeHitHeight = -1 / underSeaLevelHeight * (hit.distance-raySecureOffset - aboveSeaLevelHeight);
-                
+                if (hit.distance > aboveSeaLevelHeight) // + raySecureOffset)
+                    relativeHitHeight = -1 / underSeaLevelHeight * (hit.distance /*-raySecureOffset*/ - aboveSeaLevelHeight);
+
                 // The impact happened above the sea
                 else
-                    relativeHitHeight = 1 - 1 / aboveSeaLevelHeight * hit.distance-raySecureOffset;
+                    relativeHitHeight = 1 - 1 / aboveSeaLevelHeight * hit.distance;//-raySecureOffset;
                 
                 if (relativeHitHeight > spawningHeightRange.y || relativeHitHeight < spawningHeightRange.x)
                     return false;

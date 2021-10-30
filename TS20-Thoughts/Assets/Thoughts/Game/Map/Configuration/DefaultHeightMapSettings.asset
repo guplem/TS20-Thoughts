@@ -51,7 +51,7 @@ MonoBehaviour:
     lacunarity: 2.26
     persistance: 0.634
     offset: {x: 0, y: 0}
-  heightMultiplier: 22.27
+  heightMultiplier: 25
   heightCurve:
     serializedVersion: 2
     m_Curve:
@@ -65,13 +65,31 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
+      time: 0.34820938
+      value: 0.29314443
+      inSlope: 0.12600958
+      outSlope: 0.12600958
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.60097456
+      value: 0.46193984
+      inSlope: 0.089279674
+      outSlope: 0.089279674
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 3.3941164
+      outSlope: 3.3941164
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.019308925
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

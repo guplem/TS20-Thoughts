@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: _DefaultMapConfiguration
   m_EditorClassIdentifier: 
   autoUpdate: 0
-  seed: 2
+  seed: 420
   chunkSizeIndex: 1
   seaHeight: 0.15
   mapRadius: 100
