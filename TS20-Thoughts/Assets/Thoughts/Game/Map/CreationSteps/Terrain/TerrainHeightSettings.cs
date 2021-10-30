@@ -35,6 +35,7 @@ namespace Thoughts.Game.Map.Terrain
         //[Range(0.1f, 1f)]
         //[SerializeField] public float percentageOfMapWithoutMaxFalloff = 1;
         [SerializeField] public AnimationCurve falloffIntensity;
+        [SerializeField] public NoiseMapSettings falloffNoiseMapSettings;
     
 
         /// <summary>

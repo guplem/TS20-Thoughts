@@ -16,11 +16,11 @@ MonoBehaviour:
   mapElementsToSpawn:
   - mapElementPrefab: {fileID: 5743181967686818291, guid: b51d1027ccecb1a4d97bb15f69a7bd8e, type: 3}
     noiseSettings:
-      scale: 1
+      scale: 30
       octaves: 6
       lacunarity: 5
       persistance: 0.216
       offset: {x: 0, y: 0}
     spawningHeightRange: {x: 0, y: 1}
-    probability: 0.5
-    density: 0.443
+    probability: 1
+    density: 0.1

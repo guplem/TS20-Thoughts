@@ -47,6 +47,11 @@ namespace Thoughts.Game.Map
                 UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
             }
             GUILayout.EndHorizontal();
+            
+            if (GUILayout.Button("Refresh Auto Update (UpdatableData links)"))
+            {
+                mapGenerator.OnValidate();
+            }
         
 
 

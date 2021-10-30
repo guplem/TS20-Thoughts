@@ -52,7 +52,8 @@ namespace Thoughts.Game.Map
         /// </summary>
         [Tooltip("Reference to the HumanoidsGenerator component in charge of generating the Humanoids")]
         [SerializeField] private HumanoidsGenerator humanoidsGenerator;
-        
+
+        [SerializeField] private Transform sea;
 
     #if UNITY_EDITOR
         void OnDrawGizmos()
@@ -69,7 +70,7 @@ namespace Thoughts.Game.Map
             Gizmos.color = Color.black;
             Gizmos.DrawLine(new Vector3(-linesHalfSize, 0, 0), new Vector3(linesHalfSize, 0, 0));
             Gizmos.color = Color.blue;
-            float seaHeight = mapConfiguration.seaHeight * mapConfiguration.terrainHeightSettings.maxHeight;
+            float seaHeight = mapConfiguration.seaHeightAbsolute;
             Gizmos.DrawLine(new Vector3(-linesHalfSize, seaHeight, 0), new Vector3(linesHalfSize, seaHeight, 0));
             Gizmos.color = Color.white;
             Gizmos.DrawLine(new Vector3(-linesHalfSize, mapConfiguration.terrainHeightSettings.maxHeight, 0), new Vector3(linesHalfSize, mapConfiguration.terrainHeightSettings.maxHeight, 0));
@@ -226,6 +227,9 @@ namespace Thoughts.Game.Map
             
             if (!Application.isPlaying)
                 EditorUtility.SetDirty(mapManager.gameObject);
+
+            if (sea != null)
+                ReconfigureSea();
                 
             switch (step)
             {
@@ -255,7 +259,12 @@ namespace Thoughts.Game.Map
                     throw new ArgumentOutOfRangeException(nameof(step), step, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), step)}");
             }
         }
-        
+        private void ReconfigureSea()
+        {
+            float seaHeight = mapConfiguration.seaHeightAbsolute;
+            sea.transform.position = Vector3.zero.WithY(seaHeight);
+        }
+
 
         /// <summary>
         /// Makes a map element spawn.

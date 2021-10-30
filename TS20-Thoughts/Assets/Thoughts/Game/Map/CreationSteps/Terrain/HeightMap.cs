@@ -34,7 +34,7 @@ namespace Thoughts.Game.Map.Terrain
             this.minValue = minValue;
             this.maxValue = maxValue;
         }
-    
+
         /// <summary>
         /// Generates HeightMap that contains values relative to the height of a terrain
         /// </summary>
@@ -43,16 +43,21 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="mapRadius">The theoretical radius of the map containing this terrain</param>
         /// <param name="settings">The HeightMapSettings for this HeightMap's pattern</param>
         /// <param name="sampleCenter">The cords at the center of this HeightMap relative to the center of the whole (scene) map</param>
+        /// <param name="generalMapSeed">The seed used for the general map generation</param>
         /// <param name="freeFalloffAreaRadius">An area in which the falloff will not be applied starting from the center</param>
         /// <returns></returns>
-        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int seed, float freeFalloffAreaRadius)
+        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int generalMapSeed, float freeFalloffAreaRadius)
         {
+            int heightSeed = generalMapSeed + 546132;
             //Debug.Log($"Generating height map for {sampleCenter}");
-            float[,] values = Noise.GenerateNoiseMap(width, height, settings.noiseMapSettings, sampleCenter, seed);
+            float[,] heightNoiseMap = Noise.GenerateNoiseMap(width, height, settings.noiseMapSettings, sampleCenter, heightSeed);
+            int falloffSeed = generalMapSeed + 7;
+            float[,] falloffNoiseMap = Noise.GenerateNoiseMap(width, height, settings.falloffNoiseMapSettings, sampleCenter, falloffSeed);
 
             AnimationCurve heigtCurve_threadSafe = new AnimationCurve(settings.heightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
             AnimationCurve falloffIntensity_threadSafe = new AnimationCurve(settings.falloffIntensity.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
 
+            
             float minValue = float.MaxValue;
             float maxValue = float.MinValue;
 
@@ -65,21 +70,21 @@ namespace Thoughts.Game.Map.Terrain
                     {
                         float coordX = sampleCenter.x - (width / 2f) + i;
                         float coordY = sampleCenter.y - (height / 2f) + (height-j); // to fix weird orientation of the falloff
-                        falloffValue = GetFalloffValue(new Vector2(coordX, coordY), falloffIntensity_threadSafe, mapRadius, freeFalloffAreaRadius);
+                        falloffValue = GetFalloffValue(new Vector2(coordX, coordY), falloffIntensity_threadSafe, mapRadius, freeFalloffAreaRadius, falloffNoiseMap[i, j]);
                     }
 
-                    float original01Value = values[i, j];
+                    float original01Value = heightNoiseMap[i, j];
                     float curveMultiplication = heigtCurve_threadSafe.Evaluate(original01Value);
                     float heightValue = curveMultiplication * settings.heightMultiplier;
-                    values [i, j] = heightValue * (1-falloffValue);
+                    heightNoiseMap [i, j] = heightValue * (1-falloffValue);
 
-                    if (values[i, j] > maxValue)
-                        maxValue = values[i, j];
-                    if (values[i, j] < minValue)
-                        minValue = values[i, j];
+                    if (heightNoiseMap[i, j] > maxValue)
+                        maxValue = heightNoiseMap[i, j];
+                    if (heightNoiseMap[i, j] < minValue)
+                        minValue = heightNoiseMap[i, j];
                 }
             }
-            return new HeightMap(values, minValue, maxValue);
+            return new HeightMap(heightNoiseMap, minValue, maxValue);
         }
 
         /// <summary>
@@ -89,8 +94,9 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="falloffIntensity">The AnimationCurve that defines the intensity of the falloff relative to the radius of the center of the map</param>
         /// <param name="mapRadius">The radius of the center of the map</param>
         /// <param name="freeFalloffAreaRadius">An area in which the falloff will not be applied starting from the center</param>
+        /// <param name="noiseInstensityAtCoords">The intensity of the falloff noise map at the given coords. Used to generate irregularities</param>
         /// <returns></returns>
-        private static float GetFalloffValue(Vector2 coords, AnimationCurve falloffIntensity, float mapRadius, float freeFalloffAreaRadius)
+        private static float GetFalloffValue(Vector2 coords, AnimationCurve falloffIntensity, float mapRadius, float freeFalloffAreaRadius, float noiseInstensityAtCoords)
         {
             float distanceToCenter = Mathf.Sqrt(coords.x*coords.x + coords.y*coords.y);
             if (distanceToCenter < freeFalloffAreaRadius)
@@ -98,7 +104,8 @@ namespace Thoughts.Game.Map.Terrain
             distanceToCenter -= freeFalloffAreaRadius;
             //float falloffValue = ((distanceToCenter*distanceToCenter)/(mapRadius*mapRadius*percentageOfMapWithoutMaxFalloff)); // Old method, with formula
             float normalizedDistanceToCenter = distanceToCenter / (mapRadius-freeFalloffAreaRadius);
-            float falloffValue = falloffIntensity.Evaluate(normalizedDistanceToCenter);
+            float falloffIntensityAtCoords = falloffIntensity.Evaluate(normalizedDistanceToCenter);
+            float falloffValue = falloffIntensityAtCoords + noiseInstensityAtCoords * falloffIntensityAtCoords;
             return Mathf.Clamp01(falloffValue);
         }
     

@@ -52,7 +52,8 @@ namespace Thoughts.Game.Map
         /// </summary>
         [Tooltip("The absolute height at which the sea starts")]
         [Range(0,1)]
-        public float seaHeight = 0.2f;
+        public float seaHeight = 0.15f;
+        public float seaHeightAbsolute => seaHeight * terrainHeightSettings.maxHeight;
 
         /// <summary>
         /// The radius of the map from the center of the scene in Unity's units
