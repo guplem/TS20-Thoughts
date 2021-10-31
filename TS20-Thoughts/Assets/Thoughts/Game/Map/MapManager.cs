@@ -21,31 +21,53 @@ namespace Thoughts.Game.Map
         /// </summary>
         public List<MapElement> existentMapElements = new List<MapElement>();
 
-        public List<NavMeshSurface> generatedNavMeshSurfaces = new List<NavMeshSurface>();
-
         /// <summary>
-        /// Reference to the MapGenerator component
+        /// Reference to the MapGenerator component, the manager of the generation of the map
         /// </summary>
-        [Tooltip("Reference to the MapGenerator component")]
+        [Tooltip("Reference to the MapGenerator component,the manager of the generation of the map")]
         [SerializeField] private MapGenerator mapGenerator;
+        
+        /// <summary>
+        ///  Reference to the manager of the AI navigation
+        /// </summary>
+        [Tooltip("Reference to the manager of the AI navigation")]
+        [SerializeField] public MapNavigationManager navigationManager;
+        
+
+        
 
     #region MapGeneration
 
         /// <summary>
-        /// All the map elements' prefabs that can be spawned in the map.
+        /// The previously created map is destroyed and a new FULL map (with all the creation steps) is generated.
         /// </summary>
-        [SerializeField] private List<GameObject> spawnableMapElements;
-
+        public void RegenerateFullMap()
+        {
+            mapGenerator.RegenerateFull();
+        }
+        
         /// <summary>
         /// Generates the contents of a creation step
         /// </summary>
         public void RegenerateCreationStep(CreationStep creationStep)
         {
-            gameObject.GetComponentRequired<MapGenerator>().Regenerate(creationStep);
+            mapGenerator.Regenerate(creationStep);
+        }
+        
+        /// <summary>
+        /// Deletes the currently (generated) existent map
+        /// </summary>
+        public void DeleteMap()
+        {
+            mapGenerator.DeleteCurrentMap();
         }
 
-
-        
+        /*
+        /// <summary>
+        /// All the map elements' prefabs that can be spawned in the map.
+        /// </summary>
+        [SerializeField] private List<GameObject> spawnableMapElements;
+*/
         /*
         /// <summary>
         /// Obtains the GameObject with the given name from the spawnableMapElement list.
@@ -135,13 +157,6 @@ namespace Thoughts.Game.Map
 
             return foundExecutionPlan;
         }
-
-        /// <summary>
-        /// Deletes the currently (generated) existent map
-        /// </summary>
-        public void DeleteMap()
-        {
-            mapGenerator.DeleteCurrentMap();
-        }
+        
     }
 }

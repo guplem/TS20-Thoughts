@@ -36,11 +36,20 @@ namespace Thoughts.Game.Map
             GUILayout.EndHorizontal();
         
             GUILayout.BeginHorizontal();
-            if (GUILayout.Button("Delete all map"))
+            if (GUILayout.Button("Delete all"))
             {
                 mapGenerator.DeleteCurrentMap();
             }
-            if (GUILayout.Button("Regenerate full map"))
+            if (GUILayout.Button("Delete all and regenerate light and terrain"))
+            {
+                mapGenerator.DeleteCurrentMap();
+                mapGenerator.RegenerateLight();
+                mapGenerator.RegenerateTerrain();
+                UnityEditor.SceneView.RepaintAll();
+                UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+            }
+            
+            if (GUILayout.Button("Regenerate full"))
             {
                 mapGenerator.RegenerateFull();
                 UnityEditor.SceneView.RepaintAll();

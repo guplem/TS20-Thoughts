@@ -12,6 +12,12 @@ namespace Thoughts.Game.Map
         [SerializeField] private MapGenerator mapGenerator;
         
         /// <summary>
+        ///  Reference to the manager of the AI navigation
+        /// </summary>
+        [Tooltip("Reference to the manager of the AI navigation")]
+        [SerializeField] public MapNavigationManager navigationManager;
+        
+        /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
         /// </summary>
         private int humanoidsSeed => _randomNumberToAlterMainSeed + mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
@@ -22,7 +28,7 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 DeleteHumanoids();
         
-            NavMeshSurface navMeshSurface = mapGenerator.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0].GetComponentRequired<NavMeshAgent>());
+            NavMeshSurface navMeshSurface = navigationManager.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0].GetComponentRequired<NavMeshAgent>(), mapGenerator.mapConfiguration, false);
 
             mapGenerator.SpawnMapElementsRandomly(
                 mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0], 

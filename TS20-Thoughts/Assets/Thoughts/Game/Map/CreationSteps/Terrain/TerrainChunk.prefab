@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2925564081159387292}
   - component: {fileID: 6453557111177020261}
   - component: {fileID: 2280541660950946999}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Visual Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,7 +92,7 @@ GameObject:
   - component: {fileID: 3494790231536178425}
   - component: {fileID: 4490138105324759496}
   - component: {fileID: 9086794484332614354}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TerrainChunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}

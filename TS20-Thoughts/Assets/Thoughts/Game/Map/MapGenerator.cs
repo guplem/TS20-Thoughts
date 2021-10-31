@@ -171,50 +171,26 @@ namespace Thoughts.Game.Map
             terrainGenerator.DeleteTerrain();
             vegetationGenerator.DeleteVegetation();
             humanoidsGenerator.DeleteHumanoids();
+            
+            mapManager.navigationManager.RemoveAllNavMesh();
+        }
 
-            
-            
-            // Delete all nav mesh data and components
-            NavMesh.RemoveAllNavMeshData();
-            
-            foreach (NavMeshSurface navMeshSurface in mapManager.generatedNavMeshSurfaces)
-                if (Application.isPlaying)
-                    Destroy(navMeshSurface);
-                else
-                    DestroyImmediate(navMeshSurface);
-            mapManager.generatedNavMeshSurfaces.Clear();
-            
-            if (Application.isPlaying)
-                StartCoroutine(nameof(DeleteCurrentMapCheckCoroutine));
-        }
-        
-        /// <summary>
-        /// Coroutine that checks that the full deletion of the map has been successful
-        /// </summary>
-        private IEnumerator  DeleteCurrentMapCheckCoroutine()
-        {
-            if (Application.isPlaying) // Important(?). Coroutines only work in Play mode
-                yield return new WaitForSecondsRealtime(3f); // To give a chance to the "Destroy" method. It is not immediate.
-            
-            NavMeshSurface[] remainingSurfaces = GetComponents<NavMeshSurface>();
-            if (remainingSurfaces.Length > 0)
-                Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist.", remainingSurfaces[0]);
-        }
-        
-        private void RegenerateLight(){ Regenerate(CreationStep.Light);}
+
+
+        public void RegenerateLight(){ Regenerate(CreationStep.Light);}
         public void RegenerateTerrain(){ Regenerate(CreationStep.Terrain); }
-        private void RegenerateVegetation(){ Regenerate(CreationStep.Vegetation);}
-        private void RegenerateNight(){ Regenerate(CreationStep.Night);}
-        private void RegenerateFishAndBirds(){ Regenerate(CreationStep.FishAndBirds);}
-        private void RegenerateLandAnimals(){ Regenerate(CreationStep.LandAnimals);}
-        private void RegenerateHumanoids(){ Regenerate(CreationStep.Humanoids);}
+        public void RegenerateVegetation(){ Regenerate(CreationStep.Vegetation);}
+        public void RegenerateNight(){ Regenerate(CreationStep.Night);}
+        public void RegenerateFishAndBirds(){ Regenerate(CreationStep.FishAndBirds);}
+        public void RegenerateLandAnimals(){ Regenerate(CreationStep.LandAnimals);}
+        public void RegenerateHumanoids(){ Regenerate(CreationStep.Humanoids);}
 
         /// <summary>
         /// The previously created map is destroyed and a new FULL map (with all the creation steps) is generated.
         /// </summary>
         public void RegenerateFull()
         {
-            throw new NotImplementedException(); //Todo: code it. Use Regenerate(step) method
+            Debug.LogWarning("Full map regeneration: NotImplementedException");
         } 
         
         /// <summary>
@@ -228,31 +204,28 @@ namespace Thoughts.Game.Map
             if (!Application.isPlaying)
                 EditorUtility.SetDirty(mapManager.gameObject);
 
-            if (sea != null)
-                ReconfigureSea();
-                
             switch (step)
             {
                 case CreationStep.Light:
-                    throw new NotImplementedException();
-                    //break;
+                    Debug.LogWarning("Light Regeneration: NotImplementedException();");
+                    break;
                 case CreationStep.Terrain:
                     terrainGenerator.UpdateChunks(true);
                     RegenerateTerrainTextures();
-                    //ToDo: Update material
+                    ReconfigureSea();
                     break;
                 case CreationStep.Vegetation:
                     vegetationGenerator.GenerateVegetation(true);
                     break;
                 case CreationStep.Night:
-                    throw new NotImplementedException();
-                    //break;
+                    Debug.LogWarning("Light Regeneration: NotImplementedException();");
+                    break;
                 case CreationStep.FishAndBirds:
-                    throw new NotImplementedException();
-                    //break;
+                    Debug.LogWarning("Light Regeneration: NotImplementedException();");
+                    break;
                 case CreationStep.LandAnimals:
-                    throw new NotImplementedException();
-                    //break;
+                    Debug.LogWarning("Light Regeneration: NotImplementedException();");
+                    break;
                 case CreationStep.Humanoids:
                     humanoidsGenerator.GenerateHumanoids(true);
                     break;
@@ -412,34 +385,7 @@ namespace Thoughts.Game.Map
         /// Sets up the NavMesh the given NavMeshAgent
         /// </summary>
         /// <returns>The generated NavMeshSurface ig it has been created. Null if it has not been possible (maybe a mesh for the given agent already exists).</returns>
-        public NavMeshSurface SetupNewNavMeshFor(NavMeshAgent navMeshAgent, bool skipIfRepeated = true)
-        {
-            if (navMeshAgent == null)
-            {
-                Debug.LogWarning("Tying to create the NavMesh surface for a null navMeshAgent", this);
-                return null;
-            }
-                
-            bool repeatedAgent = false;
-            foreach (NavMeshSurface generatedNavMeshSurface in mapManager.generatedNavMeshSurfaces)
-                if (generatedNavMeshSurface.agentTypeID == navMeshAgent.agentTypeID)
-                    repeatedAgent = true;
 
-            if (repeatedAgent && skipIfRepeated)
-            {
-                Debug.LogWarning($"Skipping the creation of the NavMeshSurface for the agent {navMeshAgent.ToString()} because it is duplicated.");
-                return null;
-            }
-            if (repeatedAgent && !skipIfRepeated)
-                Debug.LogWarning($"Recreating a NavMeshSurface for a duplicated agent {navMeshAgent.ToString()}.");
-
-            NavMeshSurface navMeshSurface = this.gameObject.AddComponent<NavMeshSurface>();
-            navMeshSurface.agentTypeID = navMeshAgent.agentTypeID;
-            navMeshSurface.BuildNavMesh();
-            //navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData); //To update the whole NavMesh at runtime
-            mapManager.generatedNavMeshSurfaces.Add(navMeshSurface);
-            return navMeshSurface;
-        }
         
     }
     
