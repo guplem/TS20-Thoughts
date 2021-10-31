@@ -30,6 +30,11 @@ namespace Thoughts.Game.Map
         
             NavMeshSurface navMeshSurface = navigationManager.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0].GetComponentRequired<NavMeshAgent>(), mapGenerator.mapConfiguration, false);
 
+            if (mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements.Length > 1)
+            {
+                Debug.LogWarning("The spawning of more than one type of humanoids has not been implemented");
+            }
+            
             mapGenerator.SpawnMapElementsRandomly(
                 mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0], 
                 humanoidsSeed, 

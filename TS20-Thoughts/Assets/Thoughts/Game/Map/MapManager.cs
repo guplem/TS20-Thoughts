@@ -44,6 +44,7 @@ namespace Thoughts.Game.Map
         public void RegenerateFullMap()
         {
             mapGenerator.RegenerateFull();
+            existentMapElements.Clear();
         }
         
         /// <summary>
@@ -60,6 +61,7 @@ namespace Thoughts.Game.Map
         public void DeleteMap()
         {
             mapGenerator.DeleteCurrentMap();
+            existentMapElements.Clear();
         }
 
         /*
@@ -148,7 +150,7 @@ namespace Thoughts.Game.Map
             
             //Trying to cover with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
-                foreach (MapElement mapElement in existentMapElements) // Todo: sort by distance
+                foreach (MapElement mapElement in existentMapElements)
                 {
                     ExecutionPlan foundMapEvent = mapElement.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
                     if (foundMapEvent != null)

@@ -167,7 +167,10 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void DeleteCurrentMap()
         {
-            //Todo: delete other elements of the map apart from the terrain
+                        
+            if (!Application.isPlaying)
+                EditorUtility.SetDirty(mapManager.gameObject);
+            
             terrainGenerator.DeleteTerrain();
             vegetationGenerator.DeleteVegetation();
             humanoidsGenerator.DeleteHumanoids();
@@ -218,13 +221,13 @@ namespace Thoughts.Game.Map
                     vegetationGenerator.GenerateVegetation(true);
                     break;
                 case CreationStep.Night:
-                    Debug.LogWarning("Light Regeneration: NotImplementedException();");
+                    Debug.LogWarning("Night Regeneration: NotImplementedException();");
                     break;
                 case CreationStep.FishAndBirds:
-                    Debug.LogWarning("Light Regeneration: NotImplementedException();");
+                    Debug.LogWarning("FishAndBirds Regeneration: NotImplementedException();");
                     break;
                 case CreationStep.LandAnimals:
-                    Debug.LogWarning("Light Regeneration: NotImplementedException();");
+                    Debug.LogWarning("LandAnimals Regeneration: NotImplementedException();");
                     break;
                 case CreationStep.Humanoids:
                     humanoidsGenerator.GenerateHumanoids(true);
@@ -380,13 +383,7 @@ namespace Thoughts.Game.Map
                 }
             }
         }
-        
-        /// <summary>
-        /// Sets up the NavMesh the given NavMeshAgent
-        /// </summary>
-        /// <returns>The generated NavMeshSurface ig it has been created. Null if it has not been possible (maybe a mesh for the given agent already exists).</returns>
 
-        
     }
     
     /// <summary>

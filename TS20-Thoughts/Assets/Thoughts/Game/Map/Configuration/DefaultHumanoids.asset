@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   autoUpdate: 1
   spawningHeightRange: {x: 0.18563081, y: 0.64}
-  quantity: 20
+  quantity: 1
   spawnableMapElements:
   - {fileID: 4343080250476450185, guid: 4b2d61e728d059a499289e6fc0db7939, type: 3}

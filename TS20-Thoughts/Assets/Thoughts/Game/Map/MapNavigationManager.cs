@@ -11,6 +11,10 @@ public class MapNavigationManager : MonoBehaviour
     public GameObject environmentParent;
     [SerializeField] private LayerMask usedLayers;
 
+    /// <summary>
+    /// Sets up the NavMesh the given NavMeshAgent
+    /// </summary>
+    /// <returns>The generated NavMeshSurface ig it has been created. Null if it has not been possible (maybe a mesh for the given agent already exists).</returns>
     public NavMeshSurface SetupNewNavMeshFor(NavMeshAgent navMeshAgent, MapConfiguration mapConfiguration, bool skipIfRepeated = true)
     {
         if (navMeshAgent == null)
@@ -71,9 +75,13 @@ public class MapNavigationManager : MonoBehaviour
             else
                 DestroyImmediate(navMeshSurface);
         generatedNavMeshSurfaces.Clear();
-            
+        
+        NavMeshSurface[] remainingSurfaces = environmentParent.GetComponents<NavMeshSurface>();
+        
         if (Application.isPlaying)
             StartCoroutine(nameof(DeleteCurrentMapCheckCoroutine));
+        else if (remainingSurfaces.Length > 0)
+            Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist.", remainingSurfaces[0]);
     }
     
     /// <summary>

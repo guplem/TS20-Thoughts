@@ -15,7 +15,7 @@ namespace Thoughts.Utils
         void Start()
         {
             simpleAnimationsManager.Play(0);
-            Debug.LogWarning("Playing");
+            //Debug.LogWarning("Playing");
         }
 
     }

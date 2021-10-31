@@ -23,16 +23,21 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 DeleteVegetation();
 
-            mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
-                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].mapElementPrefab, 
-                vegetationSeed, 
-                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].spawningHeightRange, 
-                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].probability, 
-                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].density, 
-                this.transform,
-                mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[0].noiseSettings,
-                false
-            );
+            for (int v = 0; v < mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn.Length; v++)
+            {
+                mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
+                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].mapElementPrefab, 
+                    vegetationSeed, 
+                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].spawningHeightRange, 
+                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].probability, 
+                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].density, 
+                    this.transform,
+                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].noiseSettings,
+                    false
+                );
+            }
+            
+
         }
         public void DeleteVegetation()
         {

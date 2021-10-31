@@ -14,7 +14,7 @@ namespace Thoughts.Utils.Inspector
         
     #if UNITY_EDITOR
         protected virtual void OnValidate() {
-            if (autoUpdate)
+            if (autoUpdate && !Application.isPlaying)
             {
                 UnityEditor.EditorApplication.update += NotifyOfUpdatedValues;
             }
@@ -22,8 +22,10 @@ namespace Thoughts.Utils.Inspector
 
         public void NotifyOfUpdatedValues()
         {
+            
             UnityEditor.EditorApplication.update -= NotifyOfUpdatedValues;
-            if (OnValuesUpdated != null) {
+            
+            if (OnValuesUpdated != null && !Application.isPlaying) {
                 OnValuesUpdated ();
             }
         }
