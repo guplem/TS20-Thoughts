@@ -7,7 +7,7 @@ namespace Thoughts.Game.Map.Terrain
     /// <summary>
     /// Unity Component in charge of generating a terrain in the scene 
     /// </summary>
-    public class TerrainGenerator : MonoBehaviour
+    public class TerrainGenerator : CreationStepGenerator
     {
         /// <summary>
         /// An specific prefab that will be cloned as needed to display the terrain.
@@ -126,7 +126,7 @@ namespace Thoughts.Game.Map.Terrain
         /// Updates the TerrainChunks by creating it (if missing) or updating its visuals.
         /// </summary>
         /// <param name="clearPreviousTerrain">If existent, should the previously created terrain be deleted?</param>
-        public void UpdateChunks(bool clearPreviousTerrain)
+        private void UpdateChunks(bool clearPreviousTerrain)
         {
             //Debug.Log($"Creating and/or updating TerrainChunks {(clearPreviousTerrain? "previously deleting" : "without destroying")} the existing ones.");
             
@@ -189,7 +189,9 @@ namespace Thoughts.Game.Map.Terrain
         private void OnTerrainFullyLoad()
         {
             terrainFullyLoadCallback -= OnTerrainFullyLoad;
-            Debug.Log("=========== TERRAIN FULLY LOAD ===========");
+            Debug.Log($"=========== TERRAIN FULLY LOAD ===========. Next step? {generateNextStepOnFinish}");
+            if (generateNextStepOnFinish)
+                base.InvokeOnFinishStepGeneration();
         }
         
         /// <summary>
@@ -204,6 +206,12 @@ namespace Thoughts.Game.Map.Terrain
                 gameObject.transform.DestroyAllChildren(); 
             else
                 gameObject.transform.DestroyImmediateAllChildren();
+        }
+        protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
+        {        
+            Debug.Log($"Generating in {this.name}.generateNextStepOnFinish = {generateNextStepOnFinish}", this);
+            //base.GenerateStep(clearPrevious, generateNextStepOnFinish);
+            UpdateChunks(clearPrevious);
         }
     }
 

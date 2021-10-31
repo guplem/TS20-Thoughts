@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Thoughts.Game.Map
 {
-    public class VegetationGenerator : MonoBehaviour
+    public class VegetationGenerator : CreationStepGenerator
     {
         /// <summary>
         /// Reference to the mapGenerator managing the generation of the map that contains this generator's vegetation.
@@ -18,7 +18,7 @@ namespace Thoughts.Game.Map
         private const int _randomNumberToAlterMainSeed = 5151335; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
         
         
-        public void GenerateVegetation(bool clearPrevious)
+        private void GenerateVegetation(bool clearPrevious)
         {
             if (clearPrevious)
                 DeleteVegetation();
@@ -37,7 +37,7 @@ namespace Thoughts.Game.Map
                 );
             }
             
-
+            InvokeOnFinishStepGeneration();
         }
         public void DeleteVegetation()
         {
@@ -45,6 +45,13 @@ namespace Thoughts.Game.Map
                 this.transform.DestroyAllChildren(); 
             else
                 this.transform.DestroyImmediateAllChildren();
+        }
+        
+        protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
+        {
+            Debug.Log($"Generating in {this.name}.generateNextStepOnFinish = {generateNextStepOnFinish}", this);
+            //base.GenerateStep(clearPrevious, generateNextStepOnFinish);
+            GenerateVegetation(clearPrevious);
         }
     }
 }

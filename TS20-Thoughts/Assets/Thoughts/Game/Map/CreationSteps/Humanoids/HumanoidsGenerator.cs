@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 namespace Thoughts.Game.Map
 {
-    public class HumanoidsGenerator : MonoBehaviour
+    public class HumanoidsGenerator : CreationStepGenerator
     {
         /// <summary>
         /// Reference to the mapGenerator managing the generation of the map that contains this generator's vegetation.
@@ -23,7 +23,7 @@ namespace Thoughts.Game.Map
         private int humanoidsSeed => _randomNumberToAlterMainSeed + mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
         private const int _randomNumberToAlterMainSeed = 345678; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness) //TODO: add to terrainGenerator so it doesn't use the main
     
-        public void GenerateHumanoids(bool clearPrevious)
+        private void GenerateHumanoids(bool clearPrevious)
         {
             if (clearPrevious)
                 DeleteHumanoids();
@@ -44,6 +44,8 @@ namespace Thoughts.Game.Map
                 true
             );
 
+
+            InvokeOnFinishStepGeneration();
         }
     
         public void DeleteHumanoids()
@@ -52,6 +54,12 @@ namespace Thoughts.Game.Map
                 this.transform.DestroyAllChildren(); 
             else
                 this.transform.DestroyImmediateAllChildren();
+        }
+        protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
+        {
+            Debug.Log($"Generating in {this.name}.generateNextStepOnFinish = {generateNextStepOnFinish}", this);
+            //base.GenerateStep(clearPrevious, generateNextStepOnFinish);
+            GenerateHumanoids(clearPrevious);
         }
     }
 }

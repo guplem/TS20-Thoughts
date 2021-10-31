@@ -193,14 +193,14 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void RegenerateFull()
         {
-            Debug.LogWarning("Full map regeneration: NotImplementedException");
+            Regenerate(CreationStep.Terrain, true);
         } 
         
         /// <summary>
         /// Regenerates the things related to the given creation step 
         /// </summary>
         /// <param name="step">The creation step that contains the things that are wanted to be regenerated</param>
-        public void Regenerate(CreationStep step)
+        public void Regenerate(CreationStep step, bool generateNextStepOnFinish = false)
         {
             // Debug.Log($"Regenerating '{step.ToString()}'");
             
@@ -213,12 +213,12 @@ namespace Thoughts.Game.Map
                     Debug.LogWarning("Light Regeneration: NotImplementedException();");
                     break;
                 case CreationStep.Terrain:
-                    terrainGenerator.UpdateChunks(true);
+                    terrainGenerator.Generate(true, generateNextStepOnFinish);
                     RegenerateTerrainTextures();
                     ReconfigureSea();
                     break;
                 case CreationStep.Vegetation:
-                    vegetationGenerator.GenerateVegetation(true);
+                    vegetationGenerator.Generate(true, generateNextStepOnFinish);
                     break;
                 case CreationStep.Night:
                     Debug.LogWarning("Night Regeneration: NotImplementedException();");
@@ -230,7 +230,7 @@ namespace Thoughts.Game.Map
                     Debug.LogWarning("LandAnimals Regeneration: NotImplementedException();");
                     break;
                 case CreationStep.Humanoids:
-                    humanoidsGenerator.GenerateHumanoids(true);
+                    humanoidsGenerator.Generate(true, generateNextStepOnFinish);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(step), step, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), step)}");
