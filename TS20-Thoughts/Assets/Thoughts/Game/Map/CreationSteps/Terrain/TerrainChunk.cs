@@ -76,12 +76,48 @@ namespace Thoughts.Game.Map.Terrain
         /// The last LOD used for the latest visuals of the terrain
         /// </summary>
         private int previousLODIndex = -1;
-    
+
         /// <summary>
         /// Has the collier been set in this TerrainChunk
         /// </summary>
-        private bool hasSetCollider;
-
+        private bool hasSetCollider
+        {
+            get => _hasSetCollider;
+            set
+            {
+                _hasSetCollider = value;
+                NotifyUpdateOnState();
+            }
+        }
+        private bool _hasSetCollider = false;
+        
+        /// <summary>
+        /// Has the visual mesh been set in this TerrainChunk in the MeshFilter
+        /// </summary>
+        private bool hasSetVisualMesh
+        {
+            get => _hasSetVisualMesh;
+            set
+            {
+                _hasSetVisualMesh = value;
+                NotifyUpdateOnState();
+            }
+        }
+        private bool _hasSetVisualMesh = false;
+        
+        private void NotifyUpdateOnState()
+        {
+            if (hasSetCollider && hasSetVisualMesh)
+            {
+                //Debug.Log($"Terrain Chunk {this.gameObject.name} completed the gneration.");
+                terrainCompletionCallback?.Invoke();
+            }
+        }
+        /// <summary>
+        /// The callback action to do after completing the generation of the terrain
+        /// </summary>
+        public event System.Action terrainCompletionCallback;
+        
         /// <summary>
         /// A reference to the viewer (typically the player) of the map
         /// </summary>
@@ -152,7 +188,8 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// Starts the process of loading and displaying this TerrainChunk
         /// </summary>
-        public void Load()
+        /// <param name="completionRegisterer"></param>
+        public void Load(Action completionRegisterer)
         {
             //Debug.Log($"Requesting data for {ToString()}");
             mapGenerator.threadedDataRequester.RequestData(
@@ -160,8 +197,7 @@ namespace Thoughts.Game.Map.Terrain
                 () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.terrainHeightSettings, sampleCenter, mapGenerator.mapConfiguration.seed, mapGenerator.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius), 
                 OnHeightMapReceived
             );
-        
-            
+            terrainCompletionCallback += completionRegisterer;
         }
     
         /// <summary>
@@ -228,6 +264,7 @@ namespace Thoughts.Game.Map.Terrain
                     {
                         previousLODIndex = lodIndex;
                         meshFilter.mesh = lodMesh.mesh;
+                        hasSetVisualMesh = true;
                     }
                 }
             }

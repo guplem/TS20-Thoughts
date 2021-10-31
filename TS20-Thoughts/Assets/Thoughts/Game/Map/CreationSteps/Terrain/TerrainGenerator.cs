@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,13 +69,23 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// How many chunks exist in a single row of the map
         /// </summary>
-        private int totalChunksInMapRow => Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius ) * 2 / MapConfiguration.supportedChunkSizes[mapGenerator.mapConfiguration.chunkSizeIndex];
-
+        private int totalChunksInMapRow => 1 + Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius ) * 2 / MapConfiguration.supportedChunkSizes[mapGenerator.mapConfiguration.chunkSizeIndex];
+        
         /// <summary>
         /// A reference to all spawned GameObjects containing a TerrainChunk / Terrain chunks
         /// </summary>
         private Dictionary<Vector2, TerrainChunk> terrainChunks = new Dictionary<Vector2, TerrainChunk>();
 
+        /// <summary>
+        /// The amount of 
+        /// </summary>
+        private int loadingChunks;
+        
+        /// <summary>
+        /// The callback action to do after fully loading the terrain
+        /// </summary>
+        public event System.Action terrainFullyLoadCallback;
+        
         /// <summary>
         /// Sets the viewer to the mainCamera if it has not been set during the Awake calls
         /// </summary>
@@ -118,38 +129,69 @@ namespace Thoughts.Game.Map.Terrain
         public void UpdateChunks(bool clearPreviousTerrain)
         {
             //Debug.Log($"Creating and/or updating TerrainChunks {(clearPreviousTerrain? "previously deleting" : "without destroying")} the existing ones.");
-        
+            
             if (clearPreviousTerrain)
+            {
                 DeleteTerrain();
-        
+            }
+            int chunksAtSideOfCentralRow = totalChunksInMapRow / 2;
+            loadingChunks = totalChunksInMapRow*totalChunksInMapRow;
+            
+            terrainFullyLoadCallback += OnTerrainFullyLoad;
             int currentViewerChunkCordX = Mathf.RoundToInt(viewerPosition.x / mapGenerator.mapConfiguration.meshWorldSize);
             int currentViewerChunkCordY = Mathf.RoundToInt(viewerPosition.y / mapGenerator.mapConfiguration.meshWorldSize);
-            int halfOfChunksInMapRow = totalChunksInMapRow / 2;
-            for (int yOffset = -halfOfChunksInMapRow; yOffset <= halfOfChunksInMapRow; yOffset ++)
+            for (int yOffset = -chunksAtSideOfCentralRow; yOffset <= chunksAtSideOfCentralRow; yOffset ++)
             {
-                for (int xOffset = -halfOfChunksInMapRow; xOffset <= halfOfChunksInMapRow; xOffset ++)
+                for (int xOffset = -chunksAtSideOfCentralRow; xOffset <= chunksAtSideOfCentralRow; xOffset ++)
                 {
-                    Vector2 coordOfCurrentlyCheckingChunk = new Vector2(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
+                    //Debug.Log("XXX");
+                    Vector2 chunkCoordOfCurrentChunk = new Vector2(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
 
                     //if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
-                    if (terrainChunks.ContainsKey(coordOfCurrentlyCheckingChunk))
+                    if (terrainChunks.ContainsKey(chunkCoordOfCurrentChunk))
                     {
-                        terrainChunks[coordOfCurrentlyCheckingChunk].UpdateChunk();
+                        terrainChunks[chunkCoordOfCurrentChunk].UpdateChunk();
                     }
                     else
                     {
                         GameObject chunkGameObject = Instantiate(chunkPrefab);
                         TerrainChunk terrainChunk = chunkGameObject.GetComponentRequired<TerrainChunk>();
-                        terrainChunk.Setup(coordOfCurrentlyCheckingChunk, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.terrainTextureSettings.material);
-                        terrainChunks.Add(coordOfCurrentlyCheckingChunk, terrainChunk);
+                        terrainChunk.Setup(chunkCoordOfCurrentChunk, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.terrainTextureSettings.material);
+                        terrainChunks.Add(chunkCoordOfCurrentChunk, terrainChunk);
                         //newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
-                        terrainChunk.Load();
+                        terrainChunk.Load(CompletionRegisterer);
+                        chunkGameObject.name = $"Chunk {chunkCoordOfCurrentChunk} ({chunkGameObject.transform.position})";
                     }
                     //}
                 }
             }
         }
-    
+        /// <summary>
+        /// Registers the completition of the generation/loading of a chunk. If no more chunks are left to load, calls the terrainFullyLoadCallback
+        /// </summary>
+        private void CompletionRegisterer()
+        {
+            loadingChunks -= 1;
+            //Debug.Log($"COMPLETITION REGISTER. REMAINING: {loadingChunks}");
+            if (loadingChunks > 0)
+                return;
+            if (loadingChunks < 0)
+            {
+                //Debug.LogWarning($"The count of loading chunks shouldn't be negative but it is {loadingChunks}. Setting it to 0.");
+                loadingChunks = 0;
+            }
+            terrainFullyLoadCallback?.Invoke();
+        }
+
+        /// <summary>
+        /// Notifies the end of the loading of the terrain
+        /// </summary>
+        private void OnTerrainFullyLoad()
+        {
+            terrainFullyLoadCallback -= OnTerrainFullyLoad;
+            Debug.Log("=========== TERRAIN FULLY LOAD ===========");
+        }
+        
         /// <summary>
         /// Destroys all the references to the TerrainChunks and the GameObjects themselves
         /// </summary>
