@@ -226,25 +226,9 @@ namespace Thoughts.Game.Map.Terrain
                     float height = GetHeightAt(new Vector2(x, y));
                     if (height < seaHeight)
                     {
-                        mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, seaHeight, y), Quaternion.identity, waterSourceParent);
+                        // The location has water
                     }
-                    /*RaycastHit hit;
-                    if (Physics.Raycast(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down, out hit, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight * 1.1f, terrainLayerMask))
-                    {
-                        if (hit.point.y > seaHeight)
-                        {
-                            Debug.DrawRay(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down * hit.distance, Color.green, 10f);
-                        }
-                        else
-                        {
-                            Debug.DrawRay(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down * hit.distance, Color.blue, 10f);
-                        }
-                    }
-                    else
-                    {
-                        Debug.LogWarning("A ray checking for the water type did not hit any terrain");
-                        Debug.DrawRay(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down * 1000, Color.red, 10f);
-                    }*/
+
                 }                
             }
         }
