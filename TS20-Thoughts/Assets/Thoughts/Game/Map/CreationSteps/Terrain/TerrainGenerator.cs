@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,6 +38,8 @@ namespace Thoughts.Game.Map.Terrain
         [Tooltip("What LOD should be used until which distance. The LOD '0', has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.")]
         [SerializeField] public LODInfo[] detailLevels;
 
+        [SerializeField] private LayerMask terrainLayerMask;
+        
         /// <summary>
         /// Reference to the viewer (usually the player) of the terrain. If null at Start, it will be set to 'Camera.main' then.
         /// </summary>
@@ -72,15 +75,16 @@ namespace Thoughts.Game.Map.Terrain
         private int totalChunksInMapRow => 1 + Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius ) * 2 / MapConfiguration.supportedChunkSizes[mapGenerator.mapConfiguration.chunkSizeIndex];
         
         /// <summary>
-        /// A reference to all spawned GameObjects containing a TerrainChunk / Terrain chunks
+        /// A reference to all spawned GameObjects containing a TerrainChunk with its relative chunk coords
         /// </summary>
-        private Dictionary<Vector2, TerrainChunk> terrainChunks = new Dictionary<Vector2, TerrainChunk>();
+        private Dictionary<Vector2Int, TerrainChunk> terrainChunks = new Dictionary<Vector2Int, TerrainChunk>();
 
         /// <summary>
         /// The amount of 
         /// </summary>
         private int loadingChunks;
         
+
         /// <summary>
         /// The callback action to do after fully loading the terrain
         /// </summary>
@@ -138,14 +142,14 @@ namespace Thoughts.Game.Map.Terrain
             loadingChunks = totalChunksInMapRow*totalChunksInMapRow;
             
             terrainFullyLoadCallback += OnTerrainFullyLoad;
-            int currentViewerChunkCordX = Mathf.RoundToInt(viewerPosition.x / mapGenerator.mapConfiguration.meshWorldSize);
-            int currentViewerChunkCordY = Mathf.RoundToInt(viewerPosition.y / mapGenerator.mapConfiguration.meshWorldSize);
+            int currentViewerChunkCordX = Mathf.RoundToInt(viewerPosition.x / mapGenerator.mapConfiguration.chunkWorldSize);
+            int currentViewerChunkCordY = Mathf.RoundToInt(viewerPosition.y / mapGenerator.mapConfiguration.chunkWorldSize);
             for (int yOffset = -chunksAtSideOfCentralRow; yOffset <= chunksAtSideOfCentralRow; yOffset ++)
             {
                 for (int xOffset = -chunksAtSideOfCentralRow; xOffset <= chunksAtSideOfCentralRow; xOffset ++)
                 {
                     //Debug.Log("XXX");
-                    Vector2 chunkCoordOfCurrentChunk = new Vector2(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
+                    Vector2Int chunkCoordOfCurrentChunk = new Vector2Int(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
 
                     //if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
                     if (terrainChunks.ContainsKey(chunkCoordOfCurrentChunk))
@@ -167,12 +171,12 @@ namespace Thoughts.Game.Map.Terrain
             }
         }
         /// <summary>
-        /// Registers the completition of the generation/loading of a chunk. If no more chunks are left to load, calls the terrainFullyLoadCallback
+        /// Registers the competition of the generation/loading of a chunk. If no more chunks are left to load, calls the terrainFullyLoadCallback
         /// </summary>
         private void CompletionRegisterer()
         {
             loadingChunks -= 1;
-            //Debug.Log($"COMPLETITION REGISTER. REMAINING: {loadingChunks}");
+            //Debug.Log($"COMPETITION REGISTER. REMAINING: {loadingChunks}");
             if (loadingChunks > 0)
                 return;
             if (loadingChunks < 0)
@@ -190,10 +194,86 @@ namespace Thoughts.Game.Map.Terrain
         {
             terrainFullyLoadCallback -= OnTerrainFullyLoad;
             Debug.Log($"=========== TERRAIN FULLY LOAD ===========. Next step? {generateNextStepOnFinish}");
+            //StartCoroutine(nameof(SpawnWaterSources));
+            SpawnWaterSources();
             if (generateNextStepOnFinish)
                 base.InvokeOnFinishStepGeneration();
         }
         
+        private enum WaterType
+        {
+            sea,
+            interior,
+            none
+        }
+        [SerializeField] private Transform waterSourceParent;
+        [SerializeField] private GameObject waterSourcePrefab;
+        
+        private void SpawnWaterSources()
+        {
+            //if (Application.isPlaying)
+            //    yield return new WaitForEndOfFrame();
+            
+            //int halfRadius = Mathf.RoundToInt((mapGenerator.mapConfiguration.mapRadius-1) / 2);
+            WaterType[,] waterTypes= new WaterType[mapGenerator.mapConfiguration.mapRadius * 2 +1, mapGenerator.mapConfiguration.mapRadius * 2 +1];
+            float seaHeight = mapGenerator.mapConfiguration.seaHeightAbsolute;
+            
+            for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
+            {
+                for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
+                {
+                    Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
+                    float height = GetHeightAt(new Vector2(x, y));
+                    if (height < seaHeight)
+                    {
+                        mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, seaHeight, y), Quaternion.identity, waterSourceParent);
+                    }
+                    /*RaycastHit hit;
+                    if (Physics.Raycast(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down, out hit, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight * 1.1f, terrainLayerMask))
+                    {
+                        if (hit.point.y > seaHeight)
+                        {
+                            Debug.DrawRay(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down * hit.distance, Color.green, 10f);
+                        }
+                        else
+                        {
+                            Debug.DrawRay(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down * hit.distance, Color.blue, 10f);
+                        }
+                    }
+                    else
+                    {
+                        Debug.LogWarning("A ray checking for the water type did not hit any terrain");
+                        Debug.DrawRay(new Vector3(x, mapGenerator.mapConfiguration.terrainHeightSettings.maxHeight, y), Vector3.down * 1000, Color.red, 10f);
+                    }*/
+                }                
+            }
+        }
+
+        public float GetHeightAt(Vector2 worldCoords)
+        {
+            TerrainChunk chunk = terrainChunks[GetChunksCoordsAt(worldCoords)];
+            
+            /*Vector2 absoluteChunkCoords = chunk.transform.position.ToVector2WithoutY();
+            float chunkAbsoluteSize = mapGenerator.mapConfiguration.chunkWorldSize;
+            Vector2 distanceFromChunkCenter = new Vector2(worldCoords.x - absoluteChunkCoords.x, worldCoords.y - absoluteChunkCoords.y);
+            float chunkAbsoluteWidth = mapGenerator.mapConfiguration.chunkWorldSize;
+            int heightMapWidth = chunk.heightMap.values.GetLength(0);
+            int heightMapCoordsX = Mathf.RoundToInt(chunkAbsoluteWidth / heightMapWidth * distanceFromChunkCenter.x + heightMapWidth / 2f);//(int)(coords.x * chunkAbsoluteSize / 2f / absoluteChunkCoords.x);
+            int heightMapCoordsY = Mathf.RoundToInt(heightMapWidth - (chunkAbsoluteWidth / heightMapWidth * distanceFromChunkCenter.y + heightMapWidth / 2f));//(int)(coords.y * chunkAbsoluteSize / 2f / absoluteChunkCoords.y);
+            //Debug.Log($"CHECKING HEIGHT AT {heightMapCoordsX}, {heightMapCoordsY}. coords = {coords}, chunkAbsoluteSize = {chunkAbsoluteSize}, absoluteChunkCoords = {absoluteChunkCoords}");
+            return chunk.heightMap.values[heightMapCoordsX,heightMapCoordsY];*/
+
+            return TerrainMeshGenerator.GetHeight(chunk.heightMap.values, mapGenerator.mapConfiguration,  worldCoords - chunk.transform.position.ToVector2WithoutY());
+        }
+
+        public Vector2Int GetChunksCoordsAt(Vector2 coords)
+        {
+            int chunkCordX = Mathf.RoundToInt(coords.x / mapGenerator.mapConfiguration.chunkWorldSize);
+            int chunkCordY = Mathf.RoundToInt(coords.y / mapGenerator.mapConfiguration.chunkWorldSize);
+            return new Vector2Int(chunkCordX, chunkCordY);
+        }
+
+
         /// <summary>
         /// Destroys all the references to the TerrainChunks and the GameObjects themselves
         /// </summary>
@@ -206,6 +286,17 @@ namespace Thoughts.Game.Map.Terrain
                 gameObject.transform.DestroyAllChildren(); 
             else
                 gameObject.transform.DestroyImmediateAllChildren();
+
+            DestroyWaterSources();
+        }
+        private void DestroyWaterSources()
+        {
+            if (Application.isPlaying)
+                waterSourceParent.transform.DestroyAllChildren(); 
+            else
+                waterSourceParent.transform.DestroyImmediateAllChildren();
+
+            Debug.LogWarning("NotImplementedException();"); // And remove them from the MapElement's list in the mapManager
         }
         protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
         {        
@@ -213,6 +304,30 @@ namespace Thoughts.Game.Map.Terrain
             //base.GenerateStep(clearPrevious, generateNextStepOnFinish);
             UpdateChunks(clearPrevious);
         }
+
+        /*private void OnDrawGizmosSelected()
+        {
+            float step = 3.5f;
+            float seaHeight = mapGenerator.mapConfiguration.seaHeightAbsolute;
+            
+            for (float x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x+=step)
+            {
+                for (float y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y+=step)
+                {
+                    float height = GetHeightAt(new Vector2(x, y));
+                    if (height > seaHeight)
+                    {
+                        Gizmos.color = Color.green;
+                        Gizmos.DrawSphere(new Vector3(x, height, y), 0.5f);
+                    }
+                    else
+                    {
+                        Gizmos.color = Color.blue;
+                        Gizmos.DrawSphere(new Vector3(x, height, y), 0.5f);
+                    }
+                }                
+            }
+        }*/
     }
 
     /// <summary>

@@ -35,9 +35,14 @@ namespace Thoughts.Game.Map
         [Tooltip("Reference to the ThreadedDataRequester component in charge doing threaded requests of data")]
         [SerializeField] public ThreadedDataRequester threadedDataRequester;
         
+        [SerializeField] private Transform sea;
+        
+   
+        
         /// <summary>
         /// Reference to the TerrainGenerator component in charge of generating the Terrain
         /// </summary>
+        [Header("Steps Generators")]
         [Tooltip("Reference to the TerrainGenerator component in charge of generating the Terrain")]
         [SerializeField] public TerrainGenerator terrainGenerator;
         
@@ -53,7 +58,6 @@ namespace Thoughts.Game.Map
         [Tooltip("Reference to the HumanoidsGenerator component in charge of generating the Humanoids")]
         [SerializeField] private HumanoidsGenerator humanoidsGenerator;
 
-        [SerializeField] private Transform sea;
 
     #if UNITY_EDITOR
         void OnDrawGizmos()
@@ -251,7 +255,7 @@ namespace Thoughts.Game.Map
         /// <param name="rotation">Orientation of the new object.</param>
         /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
         /// <returns></returns>
-        private MapElement SpawnMapElement(GameObject objectToSpawn, Vector3 position, Quaternion rotation, Transform parent)
+        public MapElement SpawnMapElement(GameObject objectToSpawn, Vector3 position, Quaternion rotation, Transform parent)
         {
             GameObject spawnedMapElement = Instantiate(objectToSpawn, position, rotation, parent);
             MapElement spawnedElement =  spawnedMapElement.GetComponentRequired<MapElement>();

@@ -61,12 +61,12 @@ namespace Thoughts.Game.Map.Terrain
         /// The LOD that the collider must use
         /// </summary>
         private int colliderLODIndex;
-    
+
         /// <summary>
         /// The HeightMap of this TerrainChunk
         /// </summary>
-        private HeightMap heightMap;
-    
+        public HeightMap heightMap { get; private set; }
+
         /// <summary>
         /// If the data of the HeightMap has been recieved or not.
         /// </summary>
@@ -146,7 +146,7 @@ namespace Thoughts.Game.Map.Terrain
         public void Setup(Vector2 coord, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, MapGenerator mapGenerator, Material material)
         {
             this.coord = coord;
-            sampleCenter = coord * mapGenerator.mapConfiguration.meshWorldSize/* / mapGenerator.mapConfiguration.scale*/;
+            sampleCenter = coord * mapGenerator.mapConfiguration.chunkWorldSize/* / mapGenerator.mapConfiguration.scale*/;
         
             this.viewer = viewer;
 
@@ -157,8 +157,8 @@ namespace Thoughts.Game.Map.Terrain
             this.detailLevels = detailLevels;
         
         
-            Vector2 position = coord * mapGenerator.mapConfiguration.meshWorldSize;
-            bounds = new Bounds(sampleCenter, Vector3.one * mapGenerator.mapConfiguration.meshWorldSize);
+            Vector2 position = coord * mapGenerator.mapConfiguration.chunkWorldSize;
+            bounds = new Bounds(sampleCenter, Vector3.one * mapGenerator.mapConfiguration.chunkWorldSize);
         
             meshRenderer = visualMeshObject.GetComponentRequired<MeshRenderer>();
             meshFilter = visualMeshObject.GetComponentRequired<MeshFilter>();

@@ -1,16 +1,18 @@
+using System;
 using UnityEngine;
+using Console = System.Console;
 
 namespace Thoughts.Game.Map.Terrain
 {
 	public class TerrainMeshGenerator 
 	{
 
-		public static MeshData GenerateTerrainMesh(float[,] heightMap, MapConfiguration mapConfiguration, int levelOfDetail) 
+		public static MeshData GenerateTerrainMesh(float[,] terrainFormattedHeightMapValues, MapConfiguration mapConfiguration, int levelOfDetail) 
 		{
 			int skipIncrement = (levelOfDetail == 0) ? 1 : levelOfDetail * 2;
 			int numVertsPerLine = mapConfiguration.numVertsPerLine;
 
-			Vector2 topLeft = new Vector2 (-1, 1) * mapConfiguration.meshWorldSize / 2f;
+			Vector2 topLeft = new Vector2 (-1, 1) * mapConfiguration.chunkWorldSize / 2f;
 
 			MeshData meshData = new MeshData (numVertsPerLine, skipIncrement);
 
@@ -44,8 +46,8 @@ namespace Thoughts.Game.Map.Terrain
 
 						int vertexIndex = vertexIndicesMap [x, y];
 						Vector2 percent = new Vector2 (x - 1, y - 1) / (numVertsPerLine - 3);
-						Vector2 vertexPosition2D = topLeft + new Vector2 (percent.x, -percent.y) * mapConfiguration.meshWorldSize;
-						float height = heightMap [x, y];
+						Vector2 vertexPosition2D = topLeft + new Vector2 (percent.x, -percent.y) * mapConfiguration.chunkWorldSize;
+						float height = terrainFormattedHeightMapValues [x, y];
 
 						if (isEdgeConnectionVertex) {
 							bool isVertical = x == 2 || x == numVertsPerLine - 3;
@@ -56,8 +58,8 @@ namespace Thoughts.Game.Map.Terrain
 							Coord coordA = new Coord ((isVertical) ? x : x - dstToMainVertexA, (isVertical) ? y - dstToMainVertexA : y);
 							Coord coordB = new Coord ((isVertical) ? x : x + dstToMainVertexB, (isVertical) ? y + dstToMainVertexB : y);
 
-							float heightMainVertexA = heightMap [coordA.x,coordA.y];
-							float heightMainVertexB = heightMap [coordB.x,coordB.y];
+							float heightMainVertexA = terrainFormattedHeightMapValues [coordA.x,coordA.y];
+							float heightMainVertexB = terrainFormattedHeightMapValues [coordB.x,coordB.y];
 
 							height = heightMainVertexA * (1 - dstPercentFromAToB) + heightMainVertexB * dstPercentFromAToB;
 
@@ -86,6 +88,55 @@ namespace Thoughts.Game.Map.Terrain
 			meshData.BakeNormals(); // Called now because this code runs in a separate thread, not in the main thread. So the Normals are calculated and stored in the mesh before being used by the main thread.
 
 			return meshData;
+		}
+		
+		public static float GetHeight(float[,] terrainFormattedHeightMapValues, MapConfiguration mapConfiguration, Vector2 relativeChunkCoords)
+		{
+			
+			int skipIncrement = 1;
+			int numVertsPerLine = mapConfiguration.numVertsPerLine;
+
+			Vector2 topLeft = new Vector2 (-1, 1) * mapConfiguration.chunkWorldSize / 2f;
+
+			int heightMapLocationX = (int) ((relativeChunkCoords.x * numVertsPerLine - 3 * relativeChunkCoords.x - topLeft.x * numVertsPerLine + 3 * topLeft.x + mapConfiguration.chunkWorldSize) / (mapConfiguration.chunkWorldSize));//(int)((worldCoords.x*(numVertsPerLine - 3) + topLeft.x*(numVertsPerLine - 3)) / mapConfiguration.chunkWorldSize + 1);
+			int heightMapLocationY = (int) (-((relativeChunkCoords.y-topLeft.y)*(numVertsPerLine-3)-mapConfiguration.chunkWorldSize)/(mapConfiguration.chunkWorldSize));//(int)((worldCoords.y*(numVertsPerLine - 3) + topLeft.y*(numVertsPerLine - 3)) / mapConfiguration.chunkWorldSize + 1);
+			Vector2Int heightMapLocation = new Vector2Int(heightMapLocationX, heightMapLocationY);
+			float height = -1;
+			//Debug.Log($"CALCULATING. terrainFormattedHeightMapValues.length = {terrainFormattedHeightMapValues.GetLength(0)}, numVertsPerLine = {numVertsPerLine}, worldCoords = {relativeChunkCoords}, numVertsPerLine = {numVertsPerLine}, mapConfiguration.chunkWorldSize = {mapConfiguration.chunkWorldSize}, topLeft = {topLeft}.");
+			try
+			{
+				height = terrainFormattedHeightMapValues[heightMapLocation.x, heightMapLocation.y];
+				//Debug.LogWarning($"RESULT: heightMapLocation = {heightMapLocation}. terrainFormattedHeightMapValues.length = {terrainFormattedHeightMapValues.GetLength(0)}, numVertsPerLine = {numVertsPerLine}, worldCoords = {relativeChunkCoords}, numVertsPerLine = {numVertsPerLine}, mapConfiguration.chunkWorldSize = {mapConfiguration.chunkWorldSize}, topLeft = {topLeft}");
+			}
+			catch (Exception e)
+			{
+				Debug.LogError($"ERROR: heightMapLocation = {heightMapLocation}. terrainFormattedHeightMapValues.length = {terrainFormattedHeightMapValues.GetLength(0)}, numVertsPerLine = {numVertsPerLine}, worldCoords = {relativeChunkCoords}, numVertsPerLine = {numVertsPerLine}, mapConfiguration.chunkWorldSize = {mapConfiguration.chunkWorldSize}, topLeft = {topLeft}.\n{e.Message}");
+			}
+			
+			Vector2 percent = new Vector2 (heightMapLocation.x - 1, heightMapLocation.y - 1) / (numVertsPerLine - 3);
+			Vector2 vertexPosition2D = topLeft + new Vector2 (percent.x, -percent.y) * mapConfiguration.chunkWorldSize;
+			
+			bool isOutOfMeshVertex = heightMapLocation.y == 0 || heightMapLocation.y == numVertsPerLine - 1 || heightMapLocation.x == 0 || heightMapLocation.x == numVertsPerLine - 1;
+			bool isMeshEdgeVertex = (heightMapLocation.y == 1 || heightMapLocation.y == numVertsPerLine - 2 || heightMapLocation.x == 1 || heightMapLocation.x == numVertsPerLine - 2) && !isOutOfMeshVertex;
+			bool isMainVertex = (heightMapLocation.x - 2) % skipIncrement == 0 && (heightMapLocation.y - 2) % skipIncrement == 0 && !isOutOfMeshVertex && !isMeshEdgeVertex;
+			bool isEdgeConnectionVertex = (heightMapLocation.y == 2 || heightMapLocation.y == numVertsPerLine - 3 || heightMapLocation.x == 2 || heightMapLocation.x == numVertsPerLine - 3) && !isOutOfMeshVertex && !isMeshEdgeVertex && !isMainVertex;
+
+			if (isEdgeConnectionVertex) {
+				bool isVertical = heightMapLocation.x == 2 || heightMapLocation.x == numVertsPerLine - 3;
+				int dstToMainVertexA = ((isVertical) ? heightMapLocation.y - 2 : heightMapLocation.x - 2) % skipIncrement;
+				int dstToMainVertexB = skipIncrement - dstToMainVertexA;
+				float dstPercentFromAToB = dstToMainVertexA / (float)skipIncrement;
+
+				Coord coordA = new Coord ((isVertical) ? heightMapLocation.x : heightMapLocation.x - dstToMainVertexA, (isVertical) ? heightMapLocation.y - dstToMainVertexA : heightMapLocation.y);
+				Coord coordB = new Coord ((isVertical) ? heightMapLocation.x : heightMapLocation.x + dstToMainVertexB, (isVertical) ? heightMapLocation.y + dstToMainVertexB : heightMapLocation.y);
+
+				float heightMainVertexA = terrainFormattedHeightMapValues [coordA.x,coordA.y];
+				float heightMainVertexB = terrainFormattedHeightMapValues [coordB.x,coordB.y];
+
+				height = heightMainVertexA * (1 - dstPercentFromAToB) + heightMainVertexB * dstPercentFromAToB;
+			}
+
+			return height;
 		}
 
 		public struct Coord {

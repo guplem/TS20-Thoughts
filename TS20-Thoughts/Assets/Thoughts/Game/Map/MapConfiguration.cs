@@ -43,9 +43,9 @@ namespace Thoughts.Game.Map
         //public int chunkSize => supportedChunkSizes[chunkSizeIndex] + 1; // Changed in the last episode to +5 but seemed weird. //Todo: delete comment after testing that all works
 
         /// <summary>
-        /// The space the terrain mesh takes up in the world.
+        /// The space each of the chunks of the terrain mesh takes up in the world.
         /// </summary>
-        public float meshWorldSize => (numVertsPerLine - 3);
+        public float chunkWorldSize => (numVertsPerLine - 3);
 
         /// <summary>
         /// The absolute height at which the sea starts
@@ -59,7 +59,7 @@ namespace Thoughts.Game.Map
         /// The radius of the map from the center of the scene in Unity's units
         /// </summary>
         [Tooltip("The radius of the map from the center of the scene in Unity's units")]
-        public float mapRadius = 500;
+        public int mapRadius = 120;
 
         
         
