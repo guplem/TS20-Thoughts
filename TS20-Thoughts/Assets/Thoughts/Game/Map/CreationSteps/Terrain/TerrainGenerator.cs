@@ -314,29 +314,28 @@ namespace Thoughts.Game.Map.Terrain
             {
                 waterAddedOnLastPass = false;
                 
-                for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
+                for (int x = -mapGenerator.mapConfiguration.mapRadius+1; x <= mapGenerator.mapConfiguration.mapRadius-1; x++)
                 {
-                    for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
+                    for (int y = -mapGenerator.mapConfiguration.mapRadius+1; y <= mapGenerator.mapConfiguration.mapRadius-1; y++)
                     {
                         Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
 
                         if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                             continue;
 
-                        try
-                        {
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y + 1] == TerrainType.sea)? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y + 0] == TerrainType.sea)? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y - 1] == TerrainType.sea)? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x + 0, arrayCoords.y - 1] == TerrainType.sea)? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x + 0, arrayCoords.y + 1] == TerrainType.sea)? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y + 1] == TerrainType.sea)? TerrainType.sea : TerrainType.none;                    
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y - 0] == TerrainType.sea)? TerrainType.sea : TerrainType.none;                     
-                            terrainTypes[arrayCoords.x,arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y - 1] == TerrainType.sea)? TerrainType.sea : TerrainType.none;
-                        } catch (Exception) { }
+                        //try {
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y + 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y + 0] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y - 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 0, arrayCoords.y - 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 0, arrayCoords.y + 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y + 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y - 0] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y - 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
+                        //} catch (Exception) { }
 
 
-                        if (terrainTypes[arrayCoords.x, arrayCoords.y] == TerrainType.sea)
+                        if (terrainTypes[arrayCoords.x, arrayCoords.y] == TerrainType.sea) {}
                             waterAddedOnLastPass = true;
                     }
                 }
