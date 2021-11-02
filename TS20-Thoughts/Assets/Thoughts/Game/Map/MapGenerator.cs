@@ -263,6 +263,39 @@ namespace Thoughts.Game.Map
             return spawnedElement;
         }
 
+        public void DestroyAllMapElementsChildOf(Transform parentOfMapElements)
+        {
+            Debug.Log($"DESTROYING ALL FROM {parentOfMapElements.transform.name}");
+
+            do
+            {
+                foreach (Transform child in parentOfMapElements)
+                {
+                    MapElement mapElement = child.GetComponent<MapElement>();
+                    if (mapElement != null)
+                    {
+                        DestroyMapElement(mapElement);
+                    }
+                }
+            }
+            while (!Application.isPlaying && parentOfMapElements.childCount > 0);
+        } 
+        
+        public void DestroyMapElement(MapElement mapElement)
+        {
+            if (mapManager.existentMapElements.Remove(mapElement))
+            {
+                if (Application.isPlaying)
+                    Destroy(mapElement.gameObject);
+                else
+                    DestroyImmediate(mapElement.gameObject);
+            }
+            else
+            {
+                Debug.Log($"The MapElement {mapElement.name} was not registered in the 'existentMapElements' but it was intended to destroy it.");
+            }
+        } 
+
         /// <summary>
         /// Spawns a group of MapElements in the map using a pseudo random perlin noise distribution.
         /// </summary>

@@ -278,7 +278,6 @@ namespace Thoughts.Game.Map.Terrain
                     }
                     catch (Exception e)
                     {
-                        // ignored
                         Debug.LogError($"Array coords: {arrayCoords}. Array Length: [{terrainTypes.GetLength(0)},{terrainTypes.GetLength(1)}]. World coords: ({x},{y}).\nERROR: {e.Message}");
                     }
 
@@ -308,7 +307,7 @@ namespace Thoughts.Game.Map.Terrain
                             break;
                         case TerrainType.interiorShoreline:
                             Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.magenta, rayDuration );
-                            //MapElement spawned = mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, GetHeightAt(new Vector2(x, y)), y), Quaternion.identity, waterSourceParent);
+                            MapElement spawned = mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, GetHeightAt(new Vector2(x, y)), y), Quaternion.identity, waterSourceParent);
                             //Debug.Log("SPAWN", spawned.gameObject);
                             break;
                         case TerrainType.land:
@@ -434,9 +433,11 @@ namespace Thoughts.Game.Map.Terrain
             return new Vector2Int(chunkCordX, chunkCordY);
         }
         
+        
         /// <summary>
         /// Destroys all the references to the TerrainChunks and the GameObjects themselves
         /// </summary>
+        [ContextMenu("DeleteTerrain")]
         public void DeleteTerrain()
         {
             terrainChunks.Clear();
@@ -447,18 +448,10 @@ namespace Thoughts.Game.Map.Terrain
             else
                 gameObject.transform.DestroyImmediateAllChildren();
 
-            DestroyWaterSources();
+            //Destroy all water sources
+            mapGenerator.DestroyAllMapElementsChildOf(waterSourceParent.transform);
         }
         
-        private void DestroyWaterSources()
-        {
-            if (Application.isPlaying)
-                waterSourceParent.transform.DestroyAllChildren(); 
-            else
-                waterSourceParent.transform.DestroyImmediateAllChildren();
-
-            Debug.LogWarning("NotImplementedException();"); // And remove them from the MapElement's list in the mapManager
-        }
         protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
         {        
             Debug.Log($"Generating in {this.name}.generateNextStepOnFinish = {generateNextStepOnFinish}", this);

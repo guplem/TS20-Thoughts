@@ -39,15 +39,11 @@ namespace Thoughts.Game.Map
             
             InvokeOnFinishStepGeneration();
         }
+        
+        [ContextMenu("DeleteVegetation")]
         public void DeleteVegetation()
         {
-            if (Application.isPlaying)
-                this.transform.DestroyAllChildren(); 
-            else
-                this.transform.DestroyImmediateAllChildren();
-            
-            
-            Debug.LogWarning("NotImplementedException();"); // And remove them from the MapElement's list in the mapManager
+            mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
         
         protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)

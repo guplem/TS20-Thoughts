@@ -48,15 +48,10 @@ namespace Thoughts.Game.Map
             InvokeOnFinishStepGeneration();
         }
     
+        [ContextMenu("DeleteHumanoids")]
         public void DeleteHumanoids()
         {
-            if (Application.isPlaying)
-                this.transform.DestroyAllChildren(); 
-            else
-                this.transform.DestroyImmediateAllChildren();
-            
-            
-            Debug.LogWarning("NotImplementedException();"); // And remove them from the MapElement's list in the mapManager
+            mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
         protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
         {
