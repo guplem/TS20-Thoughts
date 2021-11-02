@@ -19,7 +19,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// All the map elements present in the map.
         /// </summary>
-        public List<MapElement> existentMapElements = new List<MapElement>();
+        [NonSerialized] public List<MapElement> existentMapElements = new List<MapElement>();
 
         /// <summary>
         /// Reference to the MapGenerator component, the manager of the generation of the map

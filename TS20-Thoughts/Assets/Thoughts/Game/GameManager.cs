@@ -35,6 +35,12 @@ namespace Thoughts.Game
         [SerializeField] public MapManager mapManager;
 
         /// <summary>
+        /// Should the map be automatically fully generated on entering play mode or should the creation steps (one by one) be used?
+        /// </summary>
+        [Tooltip("Should the map be automatically fully generated on entering play mode or should the creation steps (one by one) be used?")]
+        [SerializeField] public bool fullyGenerateMapOnPlay = false;
+
+        /// <summary>
         /// The different participants (players, AI, ...) of the game.
         /// </summary>
         private readonly List<Participant> participants = new List<Participant>();
@@ -63,7 +69,10 @@ namespace Thoughts.Game
             this.localManualParticipant = localManualParticipant;
             
             // Delete the previously generated world
-            mapManager.DeleteMap();
+            if (!fullyGenerateMapOnPlay)
+                mapManager.DeleteMap();
+            else
+                mapManager.RegenerateFullMap();
         }
 
         /// <summary>
@@ -148,7 +157,6 @@ namespace Thoughts.Game
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(gameSceneName)); // https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.SetActiveScene.html
             Debug.Log($"New active scene: '{SceneManager.GetActiveScene().name}'.");
 
-            
             StartNewGame();
         }
     }
