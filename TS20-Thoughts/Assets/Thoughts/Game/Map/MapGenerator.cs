@@ -37,8 +37,6 @@ namespace Thoughts.Game.Map
         
         [SerializeField] private Transform sea;
         
-   
-        
         /// <summary>
         /// Reference to the TerrainGenerator component in charge of generating the Terrain
         /// </summary>
