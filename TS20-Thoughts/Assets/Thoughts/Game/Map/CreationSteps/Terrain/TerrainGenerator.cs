@@ -204,7 +204,7 @@ namespace Thoughts.Game.Map.Terrain
         
         private enum TerrainType
         {
-            none,
+            none = 0,
             sea,
             interior,
             interiorShoreline,
@@ -227,14 +227,12 @@ namespace Thoughts.Game.Map.Terrain
                     if (!IsLocationUnderWater(new Vector2(x, y)))
                     {
                         terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.land;
-                        Debug.DrawRay(new Vector3(x,GetHeightAt(new Vector2(x,y)),y),Vector3.up, Color.yellow, 25f );
                     }
                     else
                     {
                         if (arrayCoords.x == 0 || arrayCoords.y == 0 || arrayCoords.x == terrainTypes.GetLength(0) - 1 || arrayCoords.y == terrainTypes.GetLength(1) - 1)
                         {
                             terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.sea;
-                            Debug.DrawRay(new Vector3(x,GetHeightAt(new Vector2(x,y)),y),Vector3.up, Color.white, 25f );
                         }
                     }
                 }                
@@ -242,6 +240,7 @@ namespace Thoughts.Game.Map.Terrain
 
             terrainTypes = PropagateSea(terrainTypes);
             
+            // Only interior water sopts should be left
             for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
             {
                 for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
@@ -249,52 +248,74 @@ namespace Thoughts.Game.Map.Terrain
                     Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
                     if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                         continue;
-                    if (IsLocationUnderWater(new Vector2(x, y)))
+                    terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interior;
+                }                
+            }
+            
+            //Replace interior with shorelineInterior
+            int avoidedEdge = 1;
+            for (int x = -mapGenerator.mapConfiguration.mapRadius+avoidedEdge; x <= mapGenerator.mapConfiguration.mapRadius-avoidedEdge; x++)
+            {
+                for (int y = -mapGenerator.mapConfiguration.mapRadius+avoidedEdge; y <= mapGenerator.mapConfiguration.mapRadius-avoidedEdge; y++)
+                {
+                    Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
+                    if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.interior)
+                        continue;
+                    
+                    try
                     {
-                        TerrainType topLeftTerrainType = TerrainType.none;
-                            try { topLeftTerrainType = terrainTypes[x - 1, y + 1];
-                            } catch (Exception) { /* ignored */ }
-                        TerrainType topRightTerrainType = TerrainType.none;
-                            try { topRightTerrainType = terrainTypes[x + 1, y + 1];
-                            } catch (Exception) { /* ignored */ }
-                        TerrainType bottomLeftTerrainType = TerrainType.none;
-                            try { bottomLeftTerrainType = terrainTypes[x - 1, y - 1];
-                            } catch (Exception) { /* ignored */ }
-                        TerrainType bottomRightTerrainType = TerrainType.none;
-                            try { bottomRightTerrainType = terrainTypes[x + 1, y - 1];
-                            } catch (Exception) { /* ignored */ }
+                        TerrainType bottom = terrainTypes[arrayCoords.x - 1, arrayCoords.y];
+                        TerrainType top = terrainTypes[arrayCoords.x + 1, arrayCoords.y ];
+                        TerrainType left = terrainTypes[arrayCoords.x , arrayCoords.y - 1];
+                        TerrainType right = terrainTypes[arrayCoords.x , arrayCoords.y + 1];
 
-                        bool isAnyNeighbourInterior = topLeftTerrainType == TerrainType.interior || topRightTerrainType == TerrainType.interior || bottomLeftTerrainType == TerrainType.interior || bottomRightTerrainType == TerrainType.interior;
-                        bool isAnyNeighbourLand = topLeftTerrainType == TerrainType.land || topRightTerrainType == TerrainType.land || bottomLeftTerrainType == TerrainType.land || bottomRightTerrainType == TerrainType.land;
-                        bool isOnlyOneNeighbourLand = ((topLeftTerrainType == TerrainType.land ^ topRightTerrainType == TerrainType.land) ^ (bottomLeftTerrainType == TerrainType.land ^ bottomRightTerrainType == TerrainType.land));
+                        bool isAnyNeighbourInterior = bottom == TerrainType.interior || top == TerrainType.interior || left == TerrainType.interior || right == TerrainType.interior ;
+                        bool isAnyNeighbourLand     = bottom == TerrainType.land     || top == TerrainType.land     || left == TerrainType.land     || right == TerrainType.land     ;
+                        //bool isOnlyOneNeighbourLand = ((topLeftTerrainType == TerrainType.land ^ topRightTerrainType == TerrainType.land) ^ (bottomLeftTerrainType == TerrainType.land ^ bottomRightTerrainType == TerrainType.land));
                         
-                        if (isAnyNeighbourLand || isAnyNeighbourInterior)
-                        {
-                            if (isOnlyOneNeighbourLand)
-                            {
-                                terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interiorShoreline;
-                                Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up, Color.magenta, 25f );
-                            }
-                            else
-                            {
-                                terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interior;
-                                Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up, Color.red, 25f );
-                            }
-
-                        }
+                        if (isAnyNeighbourLand && isAnyNeighbourInterior)
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interiorShoreline;
                     }
+                    catch (Exception e)
+                    {
+                        // ignored
+                        Debug.LogError($"Array coords: {arrayCoords}. Array Length: [{terrainTypes.GetLength(0)},{terrainTypes.GetLength(1)}]. World coords: ({x},{y}).\nERROR: {e.Message}");
+                    }
+
                 }                
             }
 
+            // Do watever with each type
             for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
             {
                 for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
                 {
                     Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
-                    if (terrainTypes[arrayCoords.x, arrayCoords.y] == TerrainType.interior)
+
+                    float rayDuration = 30f;
+                    float rayLength = 0.3f;
+                    switch (terrainTypes[arrayCoords.x,arrayCoords.y])
                     {
-                        //MapElement spawned = mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, GetHeightAt(new Vector2(x, y)), y), Quaternion.identity, waterSourceParent);
-                        //Debug.Log("SPAWN", spawned.gameObject);
+
+                        case TerrainType.none:
+                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.black, rayDuration );
+                            break;
+                        case TerrainType.sea:
+                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.white, rayDuration );
+                            break;
+                        case TerrainType.interior:
+                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.yellow, rayDuration );
+                            break;
+                        case TerrainType.interiorShoreline:
+                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.magenta, rayDuration );
+                            //MapElement spawned = mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, GetHeightAt(new Vector2(x, y)), y), Quaternion.identity, waterSourceParent);
+                            //Debug.Log("SPAWN", spawned.gameObject);
+                            break;
+                        case TerrainType.land:
+                            Debug.DrawRay(new Vector3(x,GetHeightAt(new Vector2(x,y)),y),Vector3.up*rayLength, Color.green, rayDuration );
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
                 }
             }
@@ -372,7 +393,6 @@ namespace Thoughts.Game.Map.Terrain
                         {
                             terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.sea;
                             //Debug.Log($"({x},{y}) DOES HAVE SEA NEIGHBOURS");
-                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up, Color.white, 25f );
                             waterAddedOnLastPass = true;
                         }
                     }
