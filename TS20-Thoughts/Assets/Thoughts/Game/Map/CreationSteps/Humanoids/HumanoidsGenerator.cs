@@ -54,6 +54,9 @@ namespace Thoughts.Game.Map
                 this.transform.DestroyAllChildren(); 
             else
                 this.transform.DestroyImmediateAllChildren();
+            
+            
+            Debug.LogWarning("NotImplementedException();"); // And remove them from the MapElement's list in the mapManager
         }
         protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
         {

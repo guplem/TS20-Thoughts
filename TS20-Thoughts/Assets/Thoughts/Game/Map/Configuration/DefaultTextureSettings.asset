@@ -15,7 +15,7 @@ MonoBehaviour:
   autoUpdate: 1
   material: {fileID: 2100000, guid: eacd2db31b0251c418a8e075ab3fb7bd, type: 2}
   color0: {r: 0.7607843, g: 0.69803923, b: 0.5019608, a: 1}
-  color1: {r: 0.15692414, g: 0.5471698, b: 0.25871328, a: 0}
+  color1: {r: 0.15686275, g: 0.54901963, b: 0.25882354, a: 0}
   color1Start: 0.18
   color1BaseBlend: 0.04
   color2: {r: 0.3018868, g: 0.3018868, b: 0.3018868, a: 0}
