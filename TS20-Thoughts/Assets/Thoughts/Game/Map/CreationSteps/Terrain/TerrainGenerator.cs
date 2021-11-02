@@ -234,7 +234,7 @@ namespace Thoughts.Game.Map.Terrain
                         if (arrayCoords.x == 0 || arrayCoords.y == 0 || arrayCoords.x == terrainTypes.GetLength(0) - 1 || arrayCoords.y == terrainTypes.GetLength(1) - 1)
                         {
                             terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.sea;
-                            Debug.DrawRay(new Vector3(x,GetHeightAt(new Vector2(x,y)),y),Vector3.up, Color.magenta, 25f );
+                            Debug.DrawRay(new Vector3(x,GetHeightAt(new Vector2(x,y)),y),Vector3.up, Color.white, 25f );
                         }
                     }
                 }                
@@ -266,11 +266,21 @@ namespace Thoughts.Game.Map.Terrain
 
                         bool isAnyNeighbourInterior = topLeftTerrainType == TerrainType.interior || topRightTerrainType == TerrainType.interior || bottomLeftTerrainType == TerrainType.interior || bottomRightTerrainType == TerrainType.interior;
                         bool isAnyNeighbourLand = topLeftTerrainType == TerrainType.land || topRightTerrainType == TerrainType.land || bottomLeftTerrainType == TerrainType.land || bottomRightTerrainType == TerrainType.land;
+                        bool isOnlyOneNeighbourLand = ((topLeftTerrainType == TerrainType.land ^ topRightTerrainType == TerrainType.land) ^ (bottomLeftTerrainType == TerrainType.land ^ bottomRightTerrainType == TerrainType.land));
                         
                         if (isAnyNeighbourLand || isAnyNeighbourInterior)
                         {
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interior;
-                            Debug.DrawRay(new Vector3(x,GetHeightAt(new Vector2(x,y)),y),Vector3.up, Color.red, 25f );
+                            if (isOnlyOneNeighbourLand)
+                            {
+                                terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interiorShoreline;
+                                Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up, Color.magenta, 25f );
+                            }
+                            else
+                            {
+                                terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interior;
+                                Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up, Color.red, 25f );
+                            }
+
                         }
                     }
                 }                
@@ -309,184 +319,72 @@ namespace Thoughts.Game.Map.Terrain
         //The given coords must have been defined as sea in the given 'terrainTypes'
         private TerrainType[,] PropagateSea(TerrainType[,] terrainTypes)
         {
-            bool waterAddedOnLastPass = false;
-            do
-            {
+            bool waterAddedOnLastPass = true;
+            int maxIterations = 1000;//(mapGenerator.mapConfiguration.mapRadius * 2) * (mapGenerator.mapConfiguration.mapRadius * 2);
+            int currentIterations = 0;
+            while (waterAddedOnLastPass && currentIterations < maxIterations) {
                 waterAddedOnLastPass = false;
-                
-                for (int x = -mapGenerator.mapConfiguration.mapRadius+1; x <= mapGenerator.mapConfiguration.mapRadius-1; x++)
+                currentIterations++;
+                //Debug.Log($"ITERATION {currentIterations}");
+                for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
                 {
-                    for (int y = -mapGenerator.mapConfiguration.mapRadius+1; y <= mapGenerator.mapConfiguration.mapRadius-1; y++)
+                    for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
                     {
                         Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
-
                         if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                             continue;
+                        
+                        bool isAnyNeighbourSea = false;
 
                         //try {
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y + 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y + 0] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 1, arrayCoords.y - 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 0, arrayCoords.y - 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x + 0, arrayCoords.y + 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y + 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y - 0] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                            terrainTypes[arrayCoords.x, arrayCoords.y] = (terrainTypes[arrayCoords.x - 1, arrayCoords.y - 1] == TerrainType.sea) ? TerrainType.sea : TerrainType.none;
-                        //} catch (Exception) { }
+                            isAnyNeighbourSea = terrainTypes[arrayCoords.x + 1, arrayCoords.y + 1] == TerrainType.sea;
+                            if (!isAnyNeighbourSea)
+                            {
+                                isAnyNeighbourSea = terrainTypes[arrayCoords.x + 1, arrayCoords.y + 0] == TerrainType.sea;
+                                if (!isAnyNeighbourSea)
+                                {
+                                    isAnyNeighbourSea = terrainTypes[arrayCoords.x + 1, arrayCoords.y - 1] == TerrainType.sea;
+                                    if (!isAnyNeighbourSea)
+                                    {
+                                        isAnyNeighbourSea = terrainTypes[arrayCoords.x + 0, arrayCoords.y - 1] == TerrainType.sea;
+                                        if (!isAnyNeighbourSea)
+                                        {
+                                            isAnyNeighbourSea = terrainTypes[arrayCoords.x + 0, arrayCoords.y + 1] == TerrainType.sea;
+                                            if (!isAnyNeighbourSea)
+                                            {
+                                                isAnyNeighbourSea = terrainTypes[arrayCoords.x - 1, arrayCoords.y + 1] == TerrainType.sea;
+                                                if (!isAnyNeighbourSea)
+                                                {
+                                                    isAnyNeighbourSea = terrainTypes[arrayCoords.x - 1, arrayCoords.y - 0] == TerrainType.sea;
+                                                    if (!isAnyNeighbourSea)
+                                                    {
+                                                        isAnyNeighbourSea = terrainTypes[arrayCoords.x - 1, arrayCoords.y - 1] == TerrainType.sea;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        //} catch (Exception) {  /*ignored*/ }
 
-
-                        if (terrainTypes[arrayCoords.x, arrayCoords.y] == TerrainType.sea) {}
+                        if (isAnyNeighbourSea)
+                        {
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.sea;
+                            //Debug.Log($"({x},{y}) DOES HAVE SEA NEIGHBOURS");
+                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up, Color.white, 25f );
                             waterAddedOnLastPass = true;
+                        }
                     }
                 }
-            }
-            while (waterAddedOnLastPass);
-
-
-            /*bool success = false;
-            if (pendingLocations == null)
-                pendingLocations = new List<Vector2Int>();
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.up, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.up);
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.down, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.down);
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.right, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.right);
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.left, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.left);
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.up+Vector2Int.right, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.up+Vector2Int.right);
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.up+Vector2Int.left, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.up+Vector2Int.left);
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.down+Vector2Int.left, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.down+Vector2Int.left);
-            if (!success)
-                terrainTypes = CheckSetAndPropagateSea(terrainTypes, arrayCoordsWithSea+Vector2Int.down+Vector2Int.right, pendingLocations, out success);
-            else 
-                pendingLocations.Add(arrayCoordsWithSea+Vector2Int.down+Vector2Int.right);
-
+            } 
             
-            /*if (!seaFound)
-                Debug.LogError("No sea found on the map to propagate.");
-            else if (terrainTypes[coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y] != TerrainType.sea)
-                Debug.LogError($"The provided coords {coordsOfInitialSea} are not defined as {TerrainType.sea}, they are defined as {terrainTypes[coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y]} instead.");
-
-
-            bool propagated = false;
-*/
-            /*try
-            {
-                if (!propagated && terrainTypes[coordsOfInitialSeaArray.x - 1, coordsOfInitialSeaArray.y] == TerrainType.none)
-                {
-                    terrainTypes = SetAsSeaIfPossibleAndPropagate(terrainTypes, new Vector2(coordsOfInitialSea.x - 1, coordsOfInitialSea.y), iteration + 1);
-                    propagated = true;
-                    Debug.Log("PROPAGATED" + $"{new Vector2Int(coordsOfInitialSeaArray.x - 1, coordsOfInitialSeaArray.y)} W:{new Vector2(coordsOfInitialSea.x - 1, coordsOfInitialSea.y)}");
-                }
-                else
-                {
-                    Debug.Log($"propagated = {propagated}, terrainType = {terrainTypes[coordsOfInitialSeaArray.x - 1, coordsOfInitialSeaArray.y]}");
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.LogWarning(e.Message + $"{new Vector2Int(coordsOfInitialSeaArray.x - 1, coordsOfInitialSeaArray.y)} W:{new Vector2(coordsOfInitialSea.x - 1, coordsOfInitialSea.y)}");
-            }
-
-
-            try
-            {
-                if (!propagated && terrainTypes[coordsOfInitialSeaArray.x + 1, coordsOfInitialSeaArray.y] == TerrainType.none)
-                {
-                    terrainTypes = SetAsSeaIfPossibleAndPropagate(terrainTypes, new Vector2(coordsOfInitialSea.x + 1, coordsOfInitialSea.y), iteration + 1);
-                    propagated = true;
-                    Debug.Log("PROPAGATED" + $"{new Vector2Int(coordsOfInitialSeaArray.x + 1, coordsOfInitialSeaArray.y)} W:{new Vector2(coordsOfInitialSea.x + 1, coordsOfInitialSea.y)}");
-                }
-                else
-                {
-                    Debug.Log($"propagated = {propagated}, terrainType = {terrainTypes[coordsOfInitialSeaArray.x + 1, coordsOfInitialSeaArray.y]}");
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.LogWarning(ex.Message + $"{new Vector2Int(coordsOfInitialSeaArray.x + 1, coordsOfInitialSeaArray.y)} W:{new Vector2(coordsOfInitialSea.x + 1, coordsOfInitialSea.y)}");
-            }
-
-            try
-            {
-                if (!propagated && terrainTypes[coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y - 1] == TerrainType.none)
-                {
-                    terrainTypes = SetAsSeaIfPossibleAndPropagate(terrainTypes, new Vector2(coordsOfInitialSea.x, coordsOfInitialSea.y - 1), iteration + 1);
-                    propagated = true;
-                    Debug.Log("PROPAGATED" + $"{new Vector2Int(coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y - 1)} W:{new Vector2(coordsOfInitialSea.x, coordsOfInitialSea.y - 1)}");
-                }
-                else
-                {
-                    Debug.Log($"propagated = {propagated}, terrainType = {terrainTypes[coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y - 1]}");
-                }
-            }
-            catch (Exception exc)
-            {
-                Debug.LogWarning(exc.Message + $"{new Vector2Int(coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y - 1)} W:{new Vector2(coordsOfInitialSea.x, coordsOfInitialSea.y - 1)}");
-            }
-
-            try
-            {
-                if (!propagated && terrainTypes[coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y + 1] == TerrainType.none)
-                {
-                    terrainTypes = SetAsSeaIfPossibleAndPropagate(terrainTypes, new Vector2(coordsOfInitialSea.x, coordsOfInitialSea.y + 1), iteration + 1);
-                    propagated = true;
-                    Debug.Log("PROPAGATED" + $"{new Vector2Int(coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y + 1)} W:{new Vector2(coordsOfInitialSea.x, coordsOfInitialSea.y + 1)}");
-                }
-                else
-                {
-                    Debug.Log($"propagated = {propagated}, terrainType = {terrainTypes[coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y - 1]}");
-                }
-            }
-            catch (Exception exce)
-            {
-                Debug.LogWarning(exce.Message + $"{new Vector2Int(coordsOfInitialSeaArray.x, coordsOfInitialSeaArray.y + 1)} W:{new Vector2(coordsOfInitialSea.x, coordsOfInitialSea.y + 1)}");
-            }
-            */
+            if (currentIterations >= maxIterations)
+                Debug.LogWarning($"Skipped the search of sea. Total number of iterations: {currentIterations}");
 
             return terrainTypes;
         }
         
-        // It will assume that all land has been labeled as "land" in the given "TerrainTypes"
-        /*private TerrainType[,] CheckSetAndPropagateSea(TerrainType[,] terrainTypes, Vector2Int arrayCoords, List<Vector2Int> pendingLocations, out bool success)
-        {
-            success = false;
-            
-            if (arrayCoords.x < 0 || arrayCoords.y < 0 || arrayCoords.x >= terrainTypes.GetLength(0) || arrayCoords.y >= terrainTypes.GetLength(1))
-                return terrainTypes;
-            
-            TerrainType originalType = terrainTypes[arrayCoords.x, arrayCoords.y];
-
-            if (originalType != TerrainType.none)
-                return terrainTypes;
-
-            Vector2 coords = new Vector2(arrayCoords.x - mapGenerator.mapConfiguration.mapRadius, arrayCoords.y - mapGenerator.mapConfiguration.mapRadius);
-            
-            terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.sea;
-            //Debug.DrawRay(new Vector3(coordsOfInitialSea.x,GetHeightAt(new Vector2(coordsOfInitialSea.x,coordsOfInitialSea.y)),coordsOfInitialSea.y),Vector3.up, Color.magenta, 25f );
-            Debug.DrawRay(new Vector3(coords.x,mapGenerator.mapConfiguration.seaHeightAbsolute,coords.y),Vector3.up, Color.magenta, 25f );
-            success = true;
-            return PropagateSea(terrainTypes, arrayCoords, pendingLocations);
-        }*/
-
         public bool IsLocationUnderWater(Vector2 worldCoords)
         {
             return GetHeightAt(worldCoords) < mapGenerator.mapConfiguration.seaHeightAbsolute;
