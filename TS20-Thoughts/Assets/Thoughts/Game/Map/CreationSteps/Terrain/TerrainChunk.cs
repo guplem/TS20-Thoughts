@@ -7,6 +7,7 @@ namespace Thoughts.Game.Map.Terrain
     /// <summary>
     /// Manager of a chunk of the terrain of the map
     /// </summary>
+    [SelectionBase]
     public class TerrainChunk : MonoBehaviour
     {
         

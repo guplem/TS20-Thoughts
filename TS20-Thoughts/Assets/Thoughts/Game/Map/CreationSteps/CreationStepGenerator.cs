@@ -16,6 +16,7 @@ public abstract class CreationStepGenerator : MonoBehaviour
     
     private void GenerateNextStep(bool clearPrevious, bool generateNextOnFinish)
     {
+        Debug.Log($"Generating next step of {this.name}: {(nextCreationStepGenerator != null? nextCreationStepGenerator.name : "null")}");
         if (nextCreationStepGenerator != null)
             nextCreationStepGenerator.Generate(clearPrevious, generateNextOnFinish);
         else

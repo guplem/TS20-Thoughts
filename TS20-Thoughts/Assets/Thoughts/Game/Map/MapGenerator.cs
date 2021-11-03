@@ -14,6 +14,8 @@ namespace Thoughts.Game.Map
     /// <summary>
     /// Component in charge of generating a Map
     /// </summary>
+    [RequireComponent(typeof(MapManager))]
+    [RequireComponent(typeof(ThreadedDataRequester))]
     public class MapGenerator : MonoBehaviour
     {
         
@@ -32,8 +34,11 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Reference to the ThreadedDataRequester component in charge doing threaded requests of data
         /// </summary>
-        [Tooltip("Reference to the ThreadedDataRequester component in charge doing threaded requests of data")]
-        [SerializeField] public ThreadedDataRequester threadedDataRequester;
+        public ThreadedDataRequester threadedDataRequester { get {
+            if (_threadedDataRequester == null) _threadedDataRequester = this.GetComponentRequired<ThreadedDataRequester>();
+            return _threadedDataRequester;
+        } }
+        private ThreadedDataRequester _threadedDataRequester;
         
         [SerializeField] private Transform sea;
         
@@ -63,8 +68,8 @@ namespace Thoughts.Game.Map
             // Ensure continuous Update calls. Needed to generate the map in the editor (issues with threads)
             if (!Application.isPlaying)
             {
-                UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
                 UnityEditor.SceneView.RepaintAll();
+                UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
             }
             
             //Draws the lines to show where the base, sea and max height are
@@ -82,6 +87,9 @@ namespace Thoughts.Game.Map
         
         public void OnValidate()
         {
+            
+            Debug.LogWarning("ToDo: remove onValidate comment. testing");
+            /*
             //GENERAL
             if (mapConfiguration != null)
             {
@@ -93,8 +101,6 @@ namespace Thoughts.Game.Map
                 Debug.LogWarning($"MapConfiguration in MapGenerator in {gameObject.name} is null.");
                 return;
             }
-
-
 
             //Light
             if (mapConfiguration.lightSettings != null)
@@ -150,7 +156,7 @@ namespace Thoughts.Game.Map
                 mapConfiguration.humanoidsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
                 mapConfiguration.humanoidsSettings.OnValuesUpdated += RegenerateHumanoids;
             }
-
+*/
         }
 
         /// <summary>
@@ -262,9 +268,13 @@ namespace Thoughts.Game.Map
         public void DestroyAllMapElementsChildOf(Transform parentOfMapElements)
         {
             Debug.Log($"DESTROYING ALL FROM {parentOfMapElements.transform.name}");
-
-            do
+            //HashSet<Transform> foundChildsWithoutMapElement = new HashSet<Transform>();
+            //do {
+            if (!Application.isPlaying)
             {
+                parentOfMapElements.DestroyImmediateAllChildren();
+                return;
+            }
                 foreach (Transform child in parentOfMapElements)
                 {
                     MapElement mapElement = child.GetComponent<MapElement>();
@@ -272,9 +282,12 @@ namespace Thoughts.Game.Map
                     {
                         DestroyMapElement(mapElement);
                     }
+                    //else { foundChildsWithoutMapElement.Add(child.transform); }
                 }
-            }
-            while (!Application.isPlaying && parentOfMapElements.childCount > 0);
+            //} while (!Application.isPlaying && parentOfMapElements.childCount > foundChildsWithoutMapElement.Count);
+            
+            //if (foundChildsWithoutMapElement.Count > 0)
+            //    Debug.LogWarning($"'{foundChildsWithoutMapElement.Count}' GameObjects without the MapElement component has been found as child of {parentOfMapElements.name}", parentOfMapElements);
         } 
         
         public void DestroyMapElement(MapElement mapElement)

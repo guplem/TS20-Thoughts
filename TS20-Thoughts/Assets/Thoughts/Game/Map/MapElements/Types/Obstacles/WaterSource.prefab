@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 6166852425412761706}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.15539, z: 1}
   m_Children: []
   m_Father: {fileID: 7784682791663281462}
   m_RootOrder: 0
@@ -104,7 +104,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3981719456449971147, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: m_Name
-      value: River
+      value: WaterSource
       objectReference: {fileID: 0}
     - target: {fileID: 4329339775212638338, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: m_RootOrder
@@ -155,11 +155,23 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: attributesManager._attributeOwnerships.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0]._value
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0].attribute
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}
+    - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: attributesManager._attributeOwnerships.Array.data[0]._value
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: attributesManager._attributeOwnerships.Array.data[0].attribute
       value: 
       objectReference: {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}
     m_RemovedComponents: []
