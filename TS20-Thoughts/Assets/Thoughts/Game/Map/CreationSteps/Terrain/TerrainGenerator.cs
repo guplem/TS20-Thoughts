@@ -197,7 +197,6 @@ namespace Thoughts.Game.Map.Terrain
         {
             terrainFullyLoadCallback -= OnTerrainFullyLoad;
             Debug.Log($"=========== TERRAIN FULLY LOAD ===========. Next step? {generateNextStepOnFinish}");
-            //StartCoroutine(nameof(SpawnWaterSources));
             SpawnWaterSources();
             if (generateNextStepOnFinish)
                 base.InvokeOnFinishStepGeneration();
@@ -285,7 +284,7 @@ namespace Thoughts.Game.Map.Terrain
                 }                
             }
 
-            // Do watever with each type
+            // Do whatever with each type (spawn water sources, ...)
             for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
             {
                 for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
@@ -308,7 +307,7 @@ namespace Thoughts.Game.Map.Terrain
                             break;
                         case TerrainType.interiorShoreline:
                             Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.magenta, rayDuration );
-                            MapElement spawned = mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, GetHeightAt(new Vector2(x, y)), y), Quaternion.identity, waterSourceParent);
+                            MapElement spawned = mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, mapGenerator.mapConfiguration.seaHeightAbsolute, y), Quaternion.identity, waterSourceParent);
                             //Debug.Log("SPAWN", spawned.gameObject);
                             break;
                         case TerrainType.land:
