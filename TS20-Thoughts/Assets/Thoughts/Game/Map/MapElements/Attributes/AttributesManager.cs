@@ -90,7 +90,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
             }
             if (!found)
             {
-                attributeOwnerships.Add(new AttributeOwnership(attributeToUpdate, deltaValue, owner, false));
+                AddAttribute(attributeToUpdate, deltaValue, false);
             }
         }
         
@@ -148,20 +148,24 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         /// </summary>
         /// <param name="attribute">The Attribute of the AttributeOwnership.</param>
         /// <returns>Returns an AttributeOwnership of the given Attribute.</returns>
-        public AttributeOwnership GetOwnedAttributeOf(Attributes.Attribute attribute)
+        public AttributeOwnership GetOwnedAttributeAndAddItIfNotFound(Attributes.Attribute attribute)
         {
             foreach (AttributeOwnership ownedAttribute in attributeOwnerships)
             {
                 if (ownedAttribute.attribute == attribute)
                     return ownedAttribute;
             }
-            //ToDo: adding the attribute (next lines) should be done in another method. Maybe calling a new method calling 'GetOwnedAttributeAndAddItIfNotFound' should  be created to call them both
             Debug.Log($"   Attribute '{attribute}' not found in '{owner}' owned attributes. Adding the attribute with a value of 0.\n", owner);
-            AttributeOwnership newAttributeOwnership = new AttributeOwnership(attribute, 0, owner, false);
+            return AddAttribute(attribute);
+        }
+        
+        private AttributeOwnership AddAttribute(Attribute attribute, int value = 0, bool takeCare = false)
+        {
+            AttributeOwnership newAttributeOwnership = new AttributeOwnership(attribute, value, owner, false);
             attributeOwnerships.Add(newAttributeOwnership);
             return newAttributeOwnership;
         }
-        
+
         /// <summary>
         /// Looks for an ExecutionPlan to cover the Attribute in the given AttributeOwnership relation using the Attributes this AttributeManager.
         /// </summary>

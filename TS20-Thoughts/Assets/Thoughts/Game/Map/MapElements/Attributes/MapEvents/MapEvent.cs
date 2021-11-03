@@ -151,21 +151,21 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
                     case AffectedMapElement.eventOwner:
                         meets = owner.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(owner.attributesManager.GetOwnedAttributeOf(requirement.attribute));
+                            requirementsNotMet.Add(owner.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventExecuter:
                         meets = executer.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(executer.attributesManager.GetOwnedAttributeOf(requirement.attribute));
+                            requirementsNotMet.Add(executer.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventTarget:
                         meets = target.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(target.attributesManager.GetOwnedAttributeOf(requirement.attribute));
+                            requirementsNotMet.Add(target.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
                             remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
                         }
                         break;
