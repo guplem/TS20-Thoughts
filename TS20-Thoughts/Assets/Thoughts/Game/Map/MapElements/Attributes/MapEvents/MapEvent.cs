@@ -125,7 +125,6 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
             return currentMaxDistance <= maxDistance;
         }
         
-        //ToDo: refactor so instead of returning 2 lists, returns a dictionary
         /// <summary>
         /// Returns a list of the requirements that are not met at the moment to execute the event, it and outputs a list of the value missing for each one of the requirements that are not met (in the same order).
         /// </summary>

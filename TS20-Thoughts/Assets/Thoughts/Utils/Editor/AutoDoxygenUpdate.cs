@@ -2,7 +2,7 @@ using System.Diagnostics;
 
 public class AutoDoxygenUpdate
 {
-    //Todo: Check twitter
+    //Check twitter
     /*public static void StartDoxygen() 
     {
         var proc = new Process {
