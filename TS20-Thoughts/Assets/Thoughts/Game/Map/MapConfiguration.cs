@@ -40,8 +40,7 @@ namespace Thoughts.Game.Map
         /// It includes the 2 extra vertices that are excluded from final mesh, but used for calculating normals.
         /// </summary>
         public int numVertsPerLine => supportedChunkSizes[chunkSizeIndex] + 5; // This is the max size of a mesh for unity. It will generate a mesh of dimensions of chunkSize-1
-        //public int chunkSize => supportedChunkSizes[chunkSizeIndex] + 1; // Changed in the last episode to +5 but seemed weird. //Todo: delete comment after testing that all works
-
+        
         /// <summary>
         /// The space each of the chunks of the terrain mesh takes up in the world.
         /// </summary>
@@ -109,7 +108,7 @@ namespace Thoughts.Game.Map
         /// A previously used TextureSettings. It shouldn't be used actively, only to check for updates of the in editor.
         /// </summary>
         private TerrainTextureSettings oldTerrainTextureSettings;
-
+        
 
         /*
          protected override void OnValidate()

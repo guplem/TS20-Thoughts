@@ -30,12 +30,6 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
         [Header("Creation UI")]
         
         /// <summary>
-        /// The index of the creation step to start with at the start of the application
-        /// </summary>
-        [Tooltip("The index of the creation step to start with at the start of the application")]
-        [SerializeField] private int initialCreationStep; // Todo: Remove, force it to be 0
-        
-        /// <summary>
         /// Reference to the creation steps (sections of the UI) where the local user can create the environment/world/map
         /// </summary>
         [Tooltip("Reference to the creation steps (sections of the UI) where the local user can create the environment/world/map")]
@@ -48,13 +42,10 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
         {
             DisplayUIFor(null, true);
 
-            for (int c = 0; c < creationSteps.Length; c++)
-            {
-                if (c == initialCreationStep)
-                    creationSteps[c].Show();
-                else
-                    creationSteps[c].Hide();
-            }
+            creationSteps[0].Show();
+            for (int c = 1; c < creationSteps.Length; c++)
+                creationSteps[c].Hide();
+            
         }
 
         /// <summary>

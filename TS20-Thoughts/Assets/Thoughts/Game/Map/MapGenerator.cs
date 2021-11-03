@@ -80,8 +80,6 @@ namespace Thoughts.Game.Map
         }
     #endif
         
-
-        //TODO: Improve the auto update system (time intervals, wait for the previous preview to fully load, ...)
         public void OnValidate()
         {
             //GENERAL

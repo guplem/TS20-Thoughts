@@ -10,9 +10,9 @@ namespace Thoughts.Game.Map.Terrain
     public class TerrainTextureSettings : UpdatableData
     {
         /// <summary>
-        /// The material used for the terrain
+        /// The material used for the terrain. Used in the meshRenderer to displays the visuals.
         /// </summary>
-        [Tooltip("The material used for the terrain")]
+        [Tooltip("The material used for the terrain. Used in the meshRenderer to displays the visuals.")]
         [SerializeField] public Material material;
 
     #region Colors

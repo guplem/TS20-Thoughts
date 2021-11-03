@@ -9,15 +9,16 @@ namespace Thoughts.Game.Map.Terrain
     /// </summary>
     public class TerrainChunk : MonoBehaviour
     {
-        //ToDo: Check if this class can be cleared. A lot of fields/variables are just storing data from other classes/configurations that might be accessible in real time. 
-    
+        
         /// <summary>
         /// Coords of the chunk
         /// </summary>
-        private Vector2 coord;
+        private Vector2 chunkIndex;
     
-        //Todo: documentation
-        private Vector2 sampleCenter;
+        /// <summary>
+        /// The location of the center of the chunk in the world space
+        /// </summary>
+        private Vector2 centerWorldLocation;
     
         /// <summary>
         /// Reference to the object containing the visual mesh of the TerrainChunk
@@ -58,9 +59,9 @@ namespace Thoughts.Game.Map.Terrain
         private LODMesh[] lodMeshes;
     
         /// <summary>
-        /// The LOD that the collider must use
+        /// The LOD that the collider must use.
         /// </summary>
-        private int colliderLODIndex;
+        private int colliderLODIndex => mapGenerator.terrainGenerator.colliderLODIndex;
 
         /// <summary>
         /// The HeightMap of this TerrainChunk
@@ -117,11 +118,11 @@ namespace Thoughts.Game.Map.Terrain
         /// The callback action to do after completing the generation of the terrain
         /// </summary>
         public event System.Action terrainCompletionCallback;
-        
+
         /// <summary>
         /// A reference to the viewer (typically the player) of the map
         /// </summary>
-        private Transform viewer;
+        private Transform viewer => mapGenerator.terrainGenerator.viewer;
     
         /// <summary>
         /// The maximum distance at which the TerrainChunks should be visible
@@ -136,35 +137,26 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// Stores all the needed data and sets up the managing of the LOD meshes
         /// </summary>
-        /// <param name="coord">Coords of the chunk</param>
+        /// <param name="chunkIndex">Coords of the chunk relative to the other chunks</param>
         /// <param name="detailLevels">An ordered list containing the LOD with the information about which one should be used until which distance. The LOD "0", has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.</param>
-        /// <param name="colliderLODIndex">The LOD that the collider must use</param>
         /// <param name="parent">The parent of this TerrainChunk's GameObject.</param>
-        /// <param name="viewer">A reference to the viewer (typically the player) of the map</param>
         /// <param name="mapGenerator">Reference to the mapGenerator managing the generation of the map that contains this TerrainChunk.</param>
-        /// <param name="material">The Material used in the meshRenderer to displays the visuals</param>
-        public void Setup(Vector2 coord, LODInfo[] detailLevels, int colliderLODIndex, Transform parent, Transform viewer, MapGenerator mapGenerator, Material material)
+        public void Setup(Vector2 chunkIndex, LODInfo[] detailLevels, Transform parent, MapGenerator mapGenerator)
         {
-            this.coord = coord;
-            sampleCenter = coord * mapGenerator.mapConfiguration.chunkWorldSize/* / mapGenerator.mapConfiguration.scale*/;
-        
-            this.viewer = viewer;
-
-            this.mapGenerator = mapGenerator;
-
-            this.colliderLODIndex = colliderLODIndex;
-        
+            this.chunkIndex = chunkIndex;
             this.detailLevels = detailLevels;
+            this.mapGenerator = mapGenerator;
+            
+            centerWorldLocation = chunkIndex * mapGenerator.mapConfiguration.chunkWorldSize;
         
-        
-            Vector2 position = coord * mapGenerator.mapConfiguration.chunkWorldSize;
-            bounds = new Bounds(sampleCenter, Vector3.one * mapGenerator.mapConfiguration.chunkWorldSize);
+            Vector2 position = chunkIndex * mapGenerator.mapConfiguration.chunkWorldSize;
+            bounds = new Bounds(centerWorldLocation, Vector3.one * mapGenerator.mapConfiguration.chunkWorldSize);
         
             meshRenderer = visualMeshObject.GetComponentRequired<MeshRenderer>();
             meshFilter = visualMeshObject.GetComponentRequired<MeshFilter>();
             //Debug.Log($"Mesh Filter added: {meshFilter}", meshFilter);
             meshCollider = gameObject.GetComponentRequired<MeshCollider>();
-            meshRenderer.material = material;
+            meshRenderer.material = mapGenerator.mapConfiguration.terrainTextureSettings.material;
 
             Transform transform = this.transform;
             transform.position = new Vector3(position.x, 0, position.y);
@@ -177,10 +169,6 @@ namespace Thoughts.Game.Map.Terrain
             {
                 lodMeshes[i] = new LODMesh(detailLevels[i].lod);
                 lodMeshes[i].updateCallback += UpdateChunk;
-                /*if (i == colliderLODIndex)
-            {
-                lodMeshes[i].updateCallback += UpdateCollisionMesh;
-            }*/
             }
         
         }
@@ -194,7 +182,7 @@ namespace Thoughts.Game.Map.Terrain
             //Debug.Log($"Requesting data for {ToString()}");
             mapGenerator.threadedDataRequester.RequestData(
                 // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-                () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.terrainHeightSettings, sampleCenter, mapGenerator.mapConfiguration.seed, mapGenerator.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius), 
+                () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.terrainHeightSettings, centerWorldLocation, mapGenerator.terrainGenerator.terrainSeed, mapGenerator.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius), 
                 OnHeightMapReceived
             );
             terrainCompletionCallback += completionRegisterer;
@@ -276,7 +264,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{nameof(TerrainChunk)} with coords {coord}";
+            return $"{nameof(TerrainChunk)} with coords {chunkIndex}";
         }
     
         /// <summary>

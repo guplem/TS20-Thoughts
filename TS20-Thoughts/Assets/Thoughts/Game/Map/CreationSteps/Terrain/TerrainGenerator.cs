@@ -32,7 +32,7 @@ namespace Thoughts.Game.Map.Terrain
         /// The LOD that the collider of the terrain must use
         /// </summary>
         [Tooltip("The LOD that the collider of the terrain must use")]
-        [SerializeField] private int colliderLODIndex;
+        [SerializeField] public int colliderLODIndex;
     
         /// <summary>
         /// An ordered list containing the LOD with the information about which one should be used until which distance. The LOD "0", has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.
@@ -76,6 +76,9 @@ namespace Thoughts.Game.Map.Terrain
         /// </summary>
         private int totalChunksInMapRow => 1 + Mathf.RoundToInt( mapGenerator.mapConfiguration.mapRadius ) * 2 / MapConfiguration.supportedChunkSizes[mapGenerator.mapConfiguration.chunkSizeIndex];
         
+        public int terrainSeed => _randomNumberToAlterMainSeed + mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
+        private const int _randomNumberToAlterMainSeed = 84624; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
+        
         /// <summary>
         /// A reference to all spawned GameObjects containing a TerrainChunk with its relative chunk coords
         /// </summary>
@@ -116,8 +119,6 @@ namespace Thoughts.Game.Map.Terrain
         /// </summary>
         private void Update()
         {
-            //Todo: make it only active if it has been "manually set to active" (by MapGenerator for example).
-        
             Vector3 currentPosition = viewer.position;
             viewerPosition = viewer != null ? new Vector2(currentPosition.x, currentPosition.z) : Vector2.zero;
         
@@ -151,22 +152,22 @@ namespace Thoughts.Game.Map.Terrain
                 for (int xOffset = -chunksAtSideOfCentralRow; xOffset <= chunksAtSideOfCentralRow; xOffset ++)
                 {
                     //Debug.Log("XXX");
-                    Vector2Int chunkCoordOfCurrentChunk = new Vector2Int(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
+                    Vector2Int chunkIndex = new Vector2Int(currentViewerChunkCordX + xOffset, currentViewerChunkCordY + yOffset);
 
                     //if (!alreadyUpdatedChunkCoords.Contains(viewedChunkCoord)) {
-                    if (terrainChunks.ContainsKey(chunkCoordOfCurrentChunk))
+                    if (terrainChunks.ContainsKey(chunkIndex))
                     {
-                        terrainChunks[chunkCoordOfCurrentChunk].UpdateChunk();
+                        terrainChunks[chunkIndex].UpdateChunk();
                     }
                     else
                     {
                         GameObject chunkGameObject = Instantiate(chunkPrefab);
                         TerrainChunk terrainChunk = chunkGameObject.GetComponentRequired<TerrainChunk>();
-                        terrainChunk.Setup(chunkCoordOfCurrentChunk, detailLevels, colliderLODIndex, this.transform, viewer, mapGenerator, mapGenerator.mapConfiguration.terrainTextureSettings.material);
-                        terrainChunks.Add(chunkCoordOfCurrentChunk, terrainChunk);
+                        terrainChunk.Setup(chunkIndex, detailLevels, this.transform, mapGenerator);
+                        terrainChunks.Add(chunkIndex, terrainChunk);
                         //newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         terrainChunk.Load(CompletionRegisterer);
-                        chunkGameObject.name = $"Chunk {chunkCoordOfCurrentChunk} ({chunkGameObject.transform.position})";
+                        chunkGameObject.name = $"Chunk {chunkIndex} ({chunkGameObject.transform.position})";
                     }
                     //}
                 }
@@ -291,7 +292,7 @@ namespace Thoughts.Game.Map.Terrain
                 {
                     Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
 
-                    float rayDuration = 30f;
+                    float rayDuration = 1f;
                     float rayLength = 0.3f;
                     switch (terrainTypes[arrayCoords.x,arrayCoords.y])
                     {
@@ -458,31 +459,7 @@ namespace Thoughts.Game.Map.Terrain
             //base.GenerateStep(clearPrevious, generateNextStepOnFinish);
             UpdateChunks(clearPrevious);
         }
-
-        /*private void OnDrawGizmosSelected()
-        {
-            float step = 4.5f;
-            float seaHeight = mapGenerator.mapConfiguration.seaHeightAbsolute;
-            
-            for (float x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x+=step)
-            {
-                for (float y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y+=step)
-                {
-                    float height = GetHeightAt(new Vector2(x, y));
-                    //if (height > seaHeight)
-                    if (!IsLocationUnderWater(new Vector2(x,y)))
-                    {
-                        Gizmos.color = Color.green;
-                        Gizmos.DrawSphere(new Vector3(x, height, y), 0.25f);
-                    }
-                    else
-                    {
-                        Gizmos.color = Color.blue;
-                        Gizmos.DrawSphere(new Vector3(x, height, y), 0.25f);
-                    }
-                }                
-            }
-        }*/
+        
     }
 
     /// <summary>

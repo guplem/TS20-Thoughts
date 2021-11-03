@@ -21,7 +21,7 @@ namespace Thoughts.Game.Map
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
         /// </summary>
         private int humanoidsSeed => _randomNumberToAlterMainSeed + mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
-        private const int _randomNumberToAlterMainSeed = 345678; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness) //TODO: add to terrainGenerator so it doesn't use the main
+        private const int _randomNumberToAlterMainSeed = 345678; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
     
         private void GenerateHumanoids(bool clearPrevious)
         {
