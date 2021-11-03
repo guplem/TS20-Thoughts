@@ -16,7 +16,7 @@ public abstract class CreationStepGenerator : MonoBehaviour
     
     private void GenerateNextStep(bool clearPrevious, bool generateNextOnFinish)
     {
-        Debug.Log($"Generating next step of {this.name}: {(nextCreationStepGenerator != null? nextCreationStepGenerator.name : "null")}");
+        Debug.Log($"Triggering the generation of the step after {this.name}: {(nextCreationStepGenerator != null? nextCreationStepGenerator.name : "null")}");
         if (nextCreationStepGenerator != null)
             nextCreationStepGenerator.Generate(clearPrevious, generateNextOnFinish);
         else
@@ -30,17 +30,18 @@ public abstract class CreationStepGenerator : MonoBehaviour
         if (generateNextStepOnFinish)
         {
             OnFinishStepGeneration += GenerateNextStep;
-            Debug.Log($"{gameObject.name} will generate the next step after finishing", this);
+            //Debug.Log($"{gameObject.name} will generate the next step after finishing", this);
         }
-        GenerateStep(clearPrevious, generateNextStepOnFinish);
+        Debug.Log($"Generating step {this.name}. clearPrevious = {clearPrevious}. generateNextStepOnFinish = {generateNextStepOnFinish}", this);
+        GenerateStep(clearPrevious);
     }
 
-    protected abstract void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish);
+    protected abstract void GenerateStep(bool clearPrevious);
 
     private event System.Action OnFinishStepGeneration;
     protected virtual void InvokeOnFinishStepGeneration()
     {
-        Debug.Log("InvokeOnFinishStepGeneration");
+        Debug.Log($"Step {this.name} finished generation.", this);
         OnFinishStepGeneration?.Invoke();
         OnFinishStepGeneration -= GenerateNextStep;
     }

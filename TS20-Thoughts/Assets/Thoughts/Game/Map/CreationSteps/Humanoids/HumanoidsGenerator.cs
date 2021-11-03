@@ -53,10 +53,8 @@ namespace Thoughts.Game.Map
         {
             mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
-        protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
+        protected override void GenerateStep(bool clearPrevious)
         {
-            Debug.Log($"Generating in {this.name}.generateNextStepOnFinish = {generateNextStepOnFinish}", this);
-            //base.GenerateStep(clearPrevious, generateNextStepOnFinish);
             GenerateHumanoids(clearPrevious);
         }
     }

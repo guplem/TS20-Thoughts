@@ -196,7 +196,7 @@ namespace Thoughts.Game.Map.Terrain
         private void OnTerrainFullyLoad()
         {
             terrainFullyLoadCallback -= OnTerrainFullyLoad;
-            Debug.Log($"=========== TERRAIN FULLY LOAD ===========. Next step? {generateNextStepOnFinish}");
+            // Debug.Log($"=========== TERRAIN FULLY LOAD ===========. Next step? {generateNextStepOnFinish}");
             SpawnWaterSources();
             if (generateNextStepOnFinish)
                 base.InvokeOnFinishStepGeneration();
@@ -452,10 +452,8 @@ namespace Thoughts.Game.Map.Terrain
             mapGenerator.DestroyAllMapElementsChildOf(waterSourceParent.transform);
         }
         
-        protected override void GenerateStep(bool clearPrevious, bool generateNextStepOnFinish)
-        {        
-            Debug.Log($"Generating in {this.name}.generateNextStepOnFinish = {generateNextStepOnFinish}", this);
-            //base.GenerateStep(clearPrevious, generateNextStepOnFinish);
+        protected override void GenerateStep(bool clearPrevious)
+        {
             UpdateChunks(clearPrevious);
         }
         

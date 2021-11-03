@@ -88,8 +88,6 @@ namespace Thoughts.Game.Map
         public void OnValidate()
         {
             
-            Debug.LogWarning("ToDo: remove onValidate comment. testing");
-            /*
             //GENERAL
             if (mapConfiguration != null)
             {
@@ -156,7 +154,7 @@ namespace Thoughts.Game.Map
                 mapConfiguration.humanoidsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
                 mapConfiguration.humanoidsSettings.OnValuesUpdated += RegenerateHumanoids;
             }
-*/
+
         }
 
         /// <summary>
@@ -267,27 +265,22 @@ namespace Thoughts.Game.Map
 
         public void DestroyAllMapElementsChildOf(Transform parentOfMapElements)
         {
-            Debug.Log($"DESTROYING ALL FROM {parentOfMapElements.transform.name}");
-            //HashSet<Transform> foundChildsWithoutMapElement = new HashSet<Transform>();
-            //do {
+            //Debug.Log($"DESTROYING ALL FROM {parentOfMapElements.transform.name}");
+            
             if (!Application.isPlaying)
             {
                 parentOfMapElements.DestroyImmediateAllChildren();
                 return;
             }
-                foreach (Transform child in parentOfMapElements)
-                {
-                    MapElement mapElement = child.GetComponent<MapElement>();
-                    if (mapElement != null)
-                    {
-                        DestroyMapElement(mapElement);
-                    }
-                    //else { foundChildsWithoutMapElement.Add(child.transform); }
-                }
-            //} while (!Application.isPlaying && parentOfMapElements.childCount > foundChildsWithoutMapElement.Count);
             
-            //if (foundChildsWithoutMapElement.Count > 0)
-            //    Debug.LogWarning($"'{foundChildsWithoutMapElement.Count}' GameObjects without the MapElement component has been found as child of {parentOfMapElements.name}", parentOfMapElements);
+            foreach (Transform child in parentOfMapElements)
+            {
+                MapElement mapElement = child.GetComponent<MapElement>();
+                if (mapElement != null)
+                {
+                    DestroyMapElement(mapElement);
+                }
+            }
         } 
         
         public void DestroyMapElement(MapElement mapElement)
