@@ -133,12 +133,10 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
         /// <param name="executionTimes">The amount of times that is desired to execute the event.</param>
-        /// <param name="remainingValueToCoverInRequirementsNotMet">A list of the value missing for each one of the requirements that are not met (in the same order than the returned list of requirements not met)</param>
-        /// <returns>A list of the requirements that are not met at the moment to execute the event.</returns>
-        public List<AttributeOwnership> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes, out List<int> remainingValueToCoverInRequirementsNotMet)
+        /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
+        public Dictionary<AttributeOwnership, int> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes)
         {
-            List<AttributeOwnership> requirementsNotMet = new List<AttributeOwnership>();
-            remainingValueToCoverInRequirementsNotMet = new List<int>();
+            Dictionary<AttributeOwnership, int> requirementsNotMet = new Dictionary<AttributeOwnership, int>();
             
             foreach (Requirement requirement in requirements)
             {
@@ -151,43 +149,28 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
                     case AffectedMapElement.eventOwner:
                         meets = owner.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(owner.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
-                            remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                            AttributeOwnership req = (owner.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
+                            requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventExecuter:
                         meets = executer.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(executer.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
-                            remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                            AttributeOwnership req = (executer.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
+                            requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventTarget:
                         meets = target.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            requirementsNotMet.Add(target.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
-                            remainingValueToCoverInRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
+                            AttributeOwnership req = (target.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
+                            requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
 
-                //if (!meets)
-                //{
-                //    //remainingValueToCoverRequirementsNotMet.Add(remainingValueToCoverRequirementNotMet);
-                //    //requirementsNotMet.Add(requirement);
-                //    //if (attributeThatMostCloselyMeetsTheRequirement == null)
-                //    //    Debug.LogWarning("Adding a attributeThatMostCloselyMeetsTheRequirement that is null"); // Only ok if there is no 
-                //}
-
-                //if (requirementsNotMet.Count != remainingValueToCoverRequirementsNotMet.Count)
-                //{
-                //    Debug.LogWarning("The two lists (requirementsNotMet and remainingValueToCoverInRequirementsNotMet) should be kept syncronized and they have different sizes.");
-                //    requirementsNotMet.DebugLogWarning();
-                //    remainingValueToCoverRequirementsNotMet.DebugLogWarning();
-                //}
-                
             }
             
             return requirementsNotMet;
