@@ -103,7 +103,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         /// <returns>True, if the requirements to execute this ExecutionPlan are met. False, otherwise.</returns>
         private bool CanBeExecuted(out string requirementsNotMetMessage)
         {
-            List<AttributeOwnership> requirementsNotMet = GetRequirementsNotMet(out List<int> temp);
+            Dictionary<AttributeOwnership, int> requirementsNotMet = GetRequirementsNotMet();
             bool allRequirementsMet = requirementsNotMet.IsNullOrEmpty();
             bool isDistanceMet = IsDistanceMet();
 
@@ -128,11 +128,10 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         /// <summary>
         /// Returns a list of the requirements that are not met at the moment to execute the event, it and outputs a list of the value missing for each one of the requirements that are not met (in the same order).
         /// </summary>
-        /// <param name="remainingValueToCoverInRequirementsNotMet">A list of the value missing for each one of the requirements that are not met (in the same order than the returned list of requirements not met)</param>
-        /// <returns>A list of the requirements that are not met at the moment to execute the event.</returns>
-        public List<AttributeOwnership> GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet)
+        /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
+        public Dictionary<AttributeOwnership, int> GetRequirementsNotMet()
         {
-            return mapEvent.GetRequirementsNotMet(executer, target, eventOwner, executionTimes, out remainingValueToCoverInRequirementsNotMet);
+            return mapEvent.GetRequirementsNotMet(executer, target, eventOwner, executionTimes);
         }
 
         /// <summary>

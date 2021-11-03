@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Thoughts.Game.Map;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Attributes;
@@ -107,9 +108,12 @@ namespace Thoughts.Game
             {
                 mapEventsToExecute.Add(lastExecutionPlan);
 
-                List<AttributeOwnership> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet(out List<int> remainingValueToCoverInRequirementsNotMet);
+                Dictionary<AttributeOwnership, int> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet();
                 if (!requirementsNotMet.IsNullOrEmpty())
-                    mapEventsToExecute = GetExecutionPlanToCover(requirementsNotMet[0], remainingValueToCoverInRequirementsNotMet[0], executer, mapEventsToExecute, iteration+1);
+                {
+                    KeyValuePair<AttributeOwnership, int> reqNotMet = requirementsNotMet.ElementAt(0);
+                    mapEventsToExecute = GetExecutionPlanToCover(reqNotMet.Key, reqNotMet.Value, executer, mapEventsToExecute, iteration+1);
+                }
             }
             else
             {

@@ -62,7 +62,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
                 foreach (MapEvent attributeMapEvent in attribute.attribute.mapEvents)
                 {
                     if (attributeMapEvent.executeWithTimeElapse &&
-                        attributeMapEvent.GetRequirementsNotMet(owner, owner, owner, 1, out List<int> temp).IsNullOrEmpty())
+                        attributeMapEvent.GetRequirementsNotMet(owner, owner, owner, 1).IsNullOrEmpty())
                     {
                         //Debug.Log($"        · Executing mapEvent '{attributeMapEvent}' of '{attribute}' in '{mapElement}'.");
                         attributeMapEvent.Execute(owner, owner, owner);
@@ -193,7 +193,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
                         if (executionsToCover < 0) // The executionPlan can not cover the attribute
                             continue;
 
-                        List<AttributeOwnership> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(executer, target, owner, executionPlan.executionTimes, out List<int> temp);
+                        Dictionary<AttributeOwnership, int> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(executer, target, owner, executionPlan.executionTimes);
 
                         if (mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()))
                         {
