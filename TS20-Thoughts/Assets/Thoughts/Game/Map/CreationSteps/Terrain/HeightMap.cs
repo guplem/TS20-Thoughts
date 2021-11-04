@@ -44,7 +44,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="settings">The HeightMapSettings for this HeightMap's pattern</param>
         /// <param name="sampleCenter">The cords at the center of this HeightMap relative to the center of the whole (scene) map</param>
         /// <param name="generalMapSeed">The seed used for the general map generation</param>
-        /// <param name="freeFalloffAreaRadius">An area in which the falloff will not be applied starting from the center</param>
+        /// <param name="freeFalloffAreaRadius">The area compared to the radius of the map in which the falloff will not be applied (starting from the center)</param>
         /// <returns></returns>
         public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int generalMapSeed, float freeFalloffAreaRadius)
         {
@@ -98,12 +98,13 @@ namespace Thoughts.Game.Map.Terrain
         /// <returns></returns>
         private static float GetFalloffValue(Vector2 coords, AnimationCurve falloffIntensity, float mapRadius, float freeFalloffAreaRadius, float noiseInstensityAtCoords)
         {
+            float absoluteFreeFalloffAreaRadius = (mapRadius * freeFalloffAreaRadius);
             float distanceToCenter = Mathf.Sqrt(coords.x*coords.x + coords.y*coords.y);
-            if (distanceToCenter < freeFalloffAreaRadius)
+            if (distanceToCenter < absoluteFreeFalloffAreaRadius)
                 return 0;
-            distanceToCenter -= freeFalloffAreaRadius;
+            distanceToCenter -= absoluteFreeFalloffAreaRadius;
             //float falloffValue = ((distanceToCenter*distanceToCenter)/(mapRadius*mapRadius*percentageOfMapWithoutMaxFalloff)); // Old method, with formula
-            float normalizedDistanceToCenter = distanceToCenter / (mapRadius-freeFalloffAreaRadius);
+            float normalizedDistanceToCenter = distanceToCenter / (mapRadius-absoluteFreeFalloffAreaRadius);
             float falloffIntensityAtCoords = falloffIntensity.Evaluate(normalizedDistanceToCenter);
             float falloffValue = falloffIntensityAtCoords + noiseInstensityAtCoords * falloffIntensityAtCoords;
             return Mathf.Clamp01(falloffValue);

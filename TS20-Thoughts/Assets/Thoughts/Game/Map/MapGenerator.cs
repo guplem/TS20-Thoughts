@@ -293,6 +293,8 @@ namespace Thoughts.Game.Map
         {
             float seaHeight = mapConfiguration.seaHeightAbsolute;
             sea.transform.position = Vector3.zero.WithY(seaHeight);
+            float seaSize = mapConfiguration.mapRadius * 2 * 2;
+            sea.transform.localScale = new Vector3(seaSize, 1, seaSize);
         }
 
 
@@ -367,7 +369,7 @@ namespace Thoughts.Game.Map
             {
                 for (int y = 0; y < noise.GetLength(1); y++)
                 {
-                    if (!(noise[x, y] > 1 - probability))
+                    if (!(noise[x, y] >= 1 - probability))
                         continue;
                     
                     if (rng.GetRandomBool(1-density))

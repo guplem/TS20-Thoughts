@@ -15,9 +15,9 @@ MonoBehaviour:
   autoUpdate: 1
   noiseMapSettings:
     scale: 1
-    octaves: 1
+    octaves: 2
     lacunarity: 1
-    persistance: 0
+    persistance: 0.137
     offset: {x: 0, y: 0}
   useFalloff: 0
   freeFalloffAreaRadius: 30
@@ -27,18 +27,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
-      value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
