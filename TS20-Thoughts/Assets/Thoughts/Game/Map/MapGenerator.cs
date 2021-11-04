@@ -42,12 +42,7 @@ namespace Thoughts.Game.Map
         private ThreadedDataRequester _threadedDataRequester;
         
         [SerializeField] private Transform sea;
-        
-        /*
-        [Header("Behaviour")]
-        [SerializeField] private bool regenerateFullOnRecompilation = false;
-        */
-        
+
         /// <summary>
         /// Reference to the TerrainGenerator component in charge of generating the Terrain
         /// </summary>
@@ -69,7 +64,11 @@ namespace Thoughts.Game.Map
 
 
     #if UNITY_EDITOR
-        /*void OnEnable()
+        /*
+        [Header("Behaviour")]
+        [SerializeField] private bool regenerateFullOnRecompilation = false;
+         
+        void OnEnable()
         {
             AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
             CompilationPipeline.compilationFinished         += OnAfterAssemblyReload;
