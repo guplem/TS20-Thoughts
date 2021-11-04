@@ -24,8 +24,11 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Reference to the MapGenerator component, the manager of the generation of the map
         /// </summary>
-        [Tooltip("Reference to the MapGenerator component,the manager of the generation of the map")]
-        [SerializeField] private MapGenerator mapGenerator;
+        public MapGenerator mapGenerator { get {
+            if (_mapGenerator == null) _mapGenerator = this.GetComponentRequired<MapGenerator>();
+            return _mapGenerator;
+        } }
+        private MapGenerator _mapGenerator;
         
         /// <summary>
         ///  Reference to the manager of the AI navigation

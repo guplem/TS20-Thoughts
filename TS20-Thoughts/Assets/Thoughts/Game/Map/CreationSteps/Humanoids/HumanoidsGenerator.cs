@@ -26,7 +26,7 @@ namespace Thoughts.Game.Map
         private void GenerateHumanoids(bool clearPrevious)
         {
             if (clearPrevious)
-                DeleteHumanoids();
+                Delete();
         
             NavMeshSurface navMeshSurface = navigationManager.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0].GetComponentRequired<NavMeshAgent>(), mapGenerator.mapConfiguration, false);
 
@@ -48,12 +48,13 @@ namespace Thoughts.Game.Map
             InvokeOnFinishStepGeneration();
         }
     
-        [ContextMenu("DeleteHumanoids")]
-        public void DeleteHumanoids()
+        
+        protected override void _DeleteStep()
         {
             mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
-        protected override void GenerateStep(bool clearPrevious)
+        
+        protected override void _GenerateStep(bool clearPrevious)
         {
             GenerateHumanoids(clearPrevious);
         }

@@ -6,6 +6,7 @@ using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Maths;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEditor;
+using UnityEditor.Compilation;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,7 +19,7 @@ namespace Thoughts.Game.Map
     [RequireComponent(typeof(ThreadedDataRequester))]
     public class MapGenerator : MonoBehaviour
     {
-        
+
         private MapManager mapManager { get {
                 if (_mapManager == null) _mapManager = this.GetComponentRequired<MapManager>();
                 return _mapManager;
@@ -42,6 +43,11 @@ namespace Thoughts.Game.Map
         
         [SerializeField] private Transform sea;
         
+        /*
+        [Header("Behaviour")]
+        [SerializeField] private bool regenerateFullOnRecompilation = false;
+        */
+        
         /// <summary>
         /// Reference to the TerrainGenerator component in charge of generating the Terrain
         /// </summary>
@@ -63,6 +69,51 @@ namespace Thoughts.Game.Map
 
 
     #if UNITY_EDITOR
+        /*void OnEnable()
+        {
+            AssemblyReloadEvents.afterAssemblyReload += OnAfterAssemblyReload;
+            CompilationPipeline.compilationFinished         += OnAfterAssemblyReload;
+            CompilationPipeline.assemblyCompilationFinished += OnAfterAssemblyReload;
+        }
+
+        void OnDisable()
+        {
+            AssemblyReloadEvents.afterAssemblyReload -= OnAfterAssemblyReload;
+            CompilationPipeline.compilationFinished         -= OnAfterAssemblyReload;
+            CompilationPipeline.assemblyCompilationFinished -= OnAfterAssemblyReload;
+        }
+
+        public void OnAfterAssemblyReload() // Called after recompilation / assembly reload
+        {
+            Debug.Log("After Assembly Reload Map Generator");
+
+            //Regenerate map after compilation
+            if (regenerateFullOnRecompilation)
+                RegenerateFull();
+        }
+        
+        public static void TT2() // Called after recompilation / assembly reload
+        {
+            Debug.Log("TT2");
+            Debug.Log("asdsad");
+
+            //Regenerate map after compilation
+            //if (regenerateFullOnRecompilation)
+                GameManager.instance.mapManager.mapGenerator.RegenerateFull();
+        }
+        
+        [UnityEditor.Callbacks.DidReloadScripts]
+        private static void CreateAssetWhenReady()
+        {
+            if(EditorApplication.isCompiling || EditorApplication.isUpdating)
+            {
+                EditorApplication.delayCall += CreateAssetWhenReady;
+                return;
+            }
+ 
+            EditorApplication.delayCall += TT2;
+        }
+        */
         void OnDrawGizmos()
         {
             // Ensure continuous Update calls. Needed to generate the map in the editor (issues with threads)
@@ -171,13 +222,12 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void DeleteCurrentMap()
         {
-                        
             if (!Application.isPlaying)
                 EditorUtility.SetDirty(mapManager.gameObject);
             
-            terrainGenerator.DeleteTerrain();
-            vegetationGenerator.DeleteVegetation();
-            humanoidsGenerator.DeleteHumanoids();
+            terrainGenerator.Delete();
+            vegetationGenerator.Delete();
+            humanoidsGenerator.Delete();
             
             mapManager.navigationManager.RemoveAllNavMesh();
         }

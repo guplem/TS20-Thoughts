@@ -139,7 +139,7 @@ namespace Thoughts.Game.Map.Terrain
             
             if (clearPreviousTerrain)
             {
-                DeleteTerrain();
+                Delete();
             }
             int chunksAtSideOfCentralRow = totalChunksInMapRow / 2;
             loadingChunks = totalChunksInMapRow*totalChunksInMapRow;
@@ -437,8 +437,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// Destroys all the references to the TerrainChunks and the GameObjects themselves
         /// </summary>
-        [ContextMenu("DeleteTerrain")]
-        public void DeleteTerrain()
+        protected override void _DeleteStep()
         {
             terrainChunks.Clear();
             //terrainChunks = new Dictionary<Vector2, TerrainChunk>();
@@ -452,7 +451,7 @@ namespace Thoughts.Game.Map.Terrain
             mapGenerator.DestroyAllMapElementsChildOf(waterSourceParent.transform);
         }
         
-        protected override void GenerateStep(bool clearPrevious)
+        protected override void _GenerateStep(bool clearPrevious)
         {
             UpdateChunks(clearPrevious);
         }

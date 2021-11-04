@@ -20,7 +20,7 @@ namespace Thoughts.Game.Map
         private void GenerateVegetation(bool clearPrevious)
         {
             if (clearPrevious)
-                DeleteVegetation();
+                Delete();
 
             for (int v = 0; v < mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn.Length; v++)
             {
@@ -39,13 +39,13 @@ namespace Thoughts.Game.Map
             InvokeOnFinishStepGeneration();
         }
         
-        [ContextMenu("DeleteVegetation")]
-        public void DeleteVegetation()
+        
+        protected override void _DeleteStep()
         {
             mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
         
-        protected override void GenerateStep(bool clearPrevious)
+        protected override void _GenerateStep(bool clearPrevious)
         {
             GenerateVegetation(clearPrevious);
         }

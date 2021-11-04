@@ -23,6 +23,7 @@ public abstract class CreationStepGenerator : MonoBehaviour
             Debug.LogWarning($"Trying to generate the next step of {this.name}, with no 'nextCreationStepGenerator' defined");
     }
 
+    [ContextMenu("Generate")]
     public void Generate(bool clearPrevious, bool generateNextStepOnFinish)
     {
         this.generateNextStepOnFinish = generateNextStepOnFinish;
@@ -33,10 +34,18 @@ public abstract class CreationStepGenerator : MonoBehaviour
             //Debug.Log($"{gameObject.name} will generate the next step after finishing", this);
         }
         Debug.Log($"Generating step {this.name}. clearPrevious = {clearPrevious}. generateNextStepOnFinish = {generateNextStepOnFinish}", this);
-        GenerateStep(clearPrevious);
+        _GenerateStep(clearPrevious);
     }
 
-    protected abstract void GenerateStep(bool clearPrevious);
+    [ContextMenu("Delete")]
+    public void Delete()
+    {
+        Debug.Log($"Deleting step {this.name}.", this);
+        _DeleteStep();
+    }
+    
+    protected abstract void _DeleteStep(); // Do not call directly, instead call "Delete()"
+    protected abstract void _GenerateStep(bool clearPrevious); // Do not call directly, instead call "Generate(clearPrevious, generateNextStepOnFinish)"
 
     private event System.Action OnFinishStepGeneration;
     protected virtual void InvokeOnFinishStepGeneration()
