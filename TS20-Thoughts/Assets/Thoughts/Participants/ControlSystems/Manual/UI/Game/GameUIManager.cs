@@ -28,11 +28,12 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
         [Tooltip("Reference to the section of the UI holding the information of the currently selected MapElement")]
         [SerializeField] private SelectionUI.SelectionUI selectionUI;
         
-        [Header("Creation UI")]
+        
         
         /// <summary>
         /// Reference to the creation steps (sections of the UI) where the local user can create the environment/world/map
         /// </summary>
+        [Header("Creation UI")]
         [Tooltip("Reference to the creation steps (sections of the UI) where the local user can create the environment/world/map")]
         [SerializeField] private CreationStepUI[] creationSteps;
         
