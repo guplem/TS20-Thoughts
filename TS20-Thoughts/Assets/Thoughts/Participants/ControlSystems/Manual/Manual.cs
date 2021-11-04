@@ -23,6 +23,7 @@ namespace Thoughts.Participants.ControlSystems.Manual
                 {
                     _selectedMapElement = value;
                     gameUIManager.DisplayUIFor(selectedMapElement);
+                    spatialUIManager.DisplayUIFor(selectedMapElement);
                     cameraController.FollowMapElement(selectedMapElement);
                     Debug.Log($"New Map Element Selected: {selectedMapElement}");
                     //cameraController.SwitchCamera(selectedMapElement == null? CameraController.CameraView.overworld : CameraController.CameraView.pov, selectedMapElement != null ? selectedMapElement.povCameraPosition.transform : null);
@@ -32,11 +33,20 @@ namespace Thoughts.Participants.ControlSystems.Manual
         }
         private MapElement _selectedMapElement;
         
+        
+        
         /// <summary>
-        /// The Manager of the UI used by this ControlSystem.
+        /// The Manager of the non-diegetic game UI used by this ControlSystem.
         /// </summary>
-        [Tooltip("The Manager of the UI used by this ControlSystem")]
+        [Header("UI")]
+        [Tooltip("The Manager of the non-diegetic game UI used by this ControlSystem.")]
         [SerializeField] private GameUIManager gameUIManager;
+        
+        /// <summary>
+        /// The Manager of the spatial UI used by this ControlSystem.
+        /// </summary>
+        [Tooltip("The Manager of the spatial UI used by this ControlSystem")]
+        [SerializeField] private SpatialUIManager spatialUIManager;
 
         /// <summary>
         /// The CameraController used by this ControlSystem.

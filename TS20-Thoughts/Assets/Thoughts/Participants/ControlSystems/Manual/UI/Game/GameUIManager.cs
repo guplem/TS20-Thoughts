@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
 {
     /// <summary>
-    /// Controls the UI of the game
+    /// Controls the non-diegetic game UI used by this ControlSystem.
     /// </summary>
     public class GameUIManager : MonoBehaviour
     {
