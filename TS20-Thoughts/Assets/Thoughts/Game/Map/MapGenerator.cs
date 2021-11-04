@@ -336,17 +336,13 @@ namespace Thoughts.Game.Map
         
         public void DestroyMapElement(MapElement mapElement)
         {
-            if (mapManager.existentMapElements.Remove(mapElement))
-            {
-                if (Application.isPlaying)
-                    Destroy(mapElement.gameObject);
-                else
-                    DestroyImmediate(mapElement.gameObject);
-            }
+            if (!mapManager.existentMapElements.Remove(mapElement))
+                Debug.Log($"The MapElement {mapElement.name} was not registered in the 'existentMapElements' but it was intended to destroy it.", mapElement);
+            
+            if (Application.isPlaying)
+                Destroy(mapElement.gameObject);
             else
-            {
-                Debug.Log($"The MapElement {mapElement.name} was not registered in the 'existentMapElements' but it was intended to destroy it.");
-            }
+                DestroyImmediate(mapElement.gameObject);
         } 
 
         /// <summary>

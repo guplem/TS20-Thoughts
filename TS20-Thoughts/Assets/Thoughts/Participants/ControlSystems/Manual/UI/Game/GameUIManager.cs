@@ -1,3 +1,4 @@
+using Thoughts.Game;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Participants.ControlSystems.Manual.UI.Game.CreationStepsUI;
 using UnityEngine;
@@ -42,10 +43,12 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
         {
             DisplayUIFor(null, true);
 
-            creationSteps[0].Show();
+            if (!GameManager.instance.fullyGenerateMapOnPlay) 
+                creationSteps[0].Show();
+            else
+                creationSteps[0].Hide();
             for (int c = 1; c < creationSteps.Length; c++)
                 creationSteps[c].Hide();
-            
         }
 
         /// <summary>
