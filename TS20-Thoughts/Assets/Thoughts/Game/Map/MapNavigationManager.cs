@@ -37,12 +37,12 @@ public class MapNavigationManager : MonoBehaviour
 
         if (repeatedAgent && skipIfRepeated)
         {
-            Debug.LogWarning($"Skipping the creation of the NavMeshSurface for the agent {navMeshAgent.ToString()} because it is duplicated.");
+            Debug.LogWarning($"Skipping the creation of the NavMeshSurface for the agent {navMeshAgent.ToString()} because it is duplicated.", this);
             return null;
         }
         if (repeatedAgent && !skipIfRepeated)
         {
-            Debug.LogWarning($"Recreating a NavMeshSurface for a duplicated agent {navMeshAgent.ToString()}.");
+            Debug.LogWarning($"Recreating a NavMeshSurface for a duplicated agent {navMeshAgent.ToString()}.", this);
         }
         else if (!repeatedAgent)
         {
@@ -79,21 +79,34 @@ public class MapNavigationManager : MonoBehaviour
         NavMeshSurface[] remainingSurfaces = environmentParent.GetComponents<NavMeshSurface>();
         
         if (Application.isPlaying)
-            StartCoroutine(nameof(DeleteCurrentMapCheckCoroutine));
+            StartCoroutine(nameof(DeleteCurrentMapCheckPlayModeCoroutine));
         else if (remainingSurfaces.Length > 0)
-            Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist.", remainingSurfaces[0]);
+        {
+            Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist. Force deleting them", remainingSurfaces[0]);
+            foreach (NavMeshSurface remainingSurface in remainingSurfaces)
+            {
+                DestroyImmediate(remainingSurface);
+            }
+        }
     }
     
     /// <summary>
     /// Coroutine that checks that the full deletion of the map has been successful
     /// </summary>
-    private IEnumerator  DeleteCurrentMapCheckCoroutine()
+    private IEnumerator DeleteCurrentMapCheckPlayModeCoroutine()
     {
         if (Application.isPlaying) // Important(?). Coroutines only work in Play mode
             yield return new WaitForSecondsRealtime(3f); // To give a chance to the "Destroy" method. It is not immediate.
             
         NavMeshSurface[] remainingSurfaces = environmentParent.GetComponents<NavMeshSurface>();
         if (remainingSurfaces.Length > 0)
-            Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist.", remainingSurfaces[0]);
+        {
+            Debug.LogWarning($"Not all NavMeshSurfaces from {gameObject} have been deleted. {remainingSurfaces.Length} still exist. Force deleting them", remainingSurfaces[0]);
+
+            foreach (NavMeshSurface remainingSurface in remainingSurfaces)
+            {
+                DestroyImmediate(remainingSurface);
+            }
+        }
     }
 }
