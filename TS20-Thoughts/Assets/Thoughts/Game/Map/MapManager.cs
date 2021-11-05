@@ -163,5 +163,18 @@ namespace Thoughts.Game.Map
             return foundExecutionPlan;
         }
         
+        
+        GetHeightAtLocation
+            
+        GetTerrainTypeAtLocation
     }
+}
+
+enum TerrainType
+{
+    none = 0,
+    sea,
+    interior,
+    interiorShoreline,
+    land,
 }
