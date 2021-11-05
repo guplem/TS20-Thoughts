@@ -289,6 +289,7 @@ namespace Thoughts.Game.Map
                     throw new ArgumentOutOfRangeException(nameof(step), step, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), step)}");
             }
         }
+        
         private void ReconfigureSea()
         {
             float seaHeight = mapConfiguration.seaHeightAbsolute;
@@ -475,7 +476,7 @@ namespace Thoughts.Game.Map
     /// <summary>
     /// Listing of all the possible creation steps that will appear at the beginning of each game
     /// </summary>
-    public enum CreationStep
+    public enum CreationStep //ToDo: Change....
     {
         UserName,
         Light,

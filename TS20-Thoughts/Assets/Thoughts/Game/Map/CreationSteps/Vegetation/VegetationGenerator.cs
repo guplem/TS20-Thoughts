@@ -5,16 +5,11 @@ namespace Thoughts.Game.Map
 {
     public class VegetationGenerator : CreationStepGenerator
     {
-        /// <summary>
-        /// Reference to the mapGenerator managing the generation of the map that contains this generator's vegetation.
-        /// </summary>
-        [Tooltip("Reference to the mapGenerator managing the generation of the map that contains this generator's vegetation.")]
-        [SerializeField] private MapGenerator mapGenerator;
 
         /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
         /// </summary>
-        private int vegetationSeed => _randomNumberToAlterMainSeed + mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
+        private int vegetationSeed => _randomNumberToAlterMainSeed + mapManager.mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
         private const int _randomNumberToAlterMainSeed = 5151335; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
         
         private void GenerateVegetation(bool clearPrevious)
@@ -22,16 +17,16 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 Delete();
 
-            for (int v = 0; v < mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn.Length; v++)
+            for (int v = 0; v < mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn.Length; v++)
             {
-                mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
-                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].mapElementPrefab, 
+                mapManager.mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
+                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].mapElementPrefab, 
                     vegetationSeed, 
-                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].spawningHeightRange, 
-                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].probability, 
-                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].density, 
+                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].spawningHeightRange, 
+                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].probability, 
+                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].density, 
                     this.transform,
-                    mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].noiseSettings,
+                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].noiseSettings,
                     false
                 );
             }
@@ -42,7 +37,7 @@ namespace Thoughts.Game.Map
         
         protected override void _DeleteStep()
         {
-            mapGenerator.DestroyAllMapElementsChildOf(this.transform);
+            mapManager.mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
         
         protected override void _GenerateStep(bool clearPrevious)

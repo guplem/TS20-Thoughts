@@ -5,12 +5,7 @@ namespace Thoughts.Game.Map
 {
     public class HumanoidsGenerator : CreationStepGenerator
     {
-        /// <summary>
-        /// Reference to the mapGenerator managing the generation of the map that contains this generator's vegetation.
-        /// </summary>
-        [Tooltip("Reference to the mapGenerator managing the generation of the map that contains this generator's vegetation.")]
-        [SerializeField] private MapGenerator mapGenerator;
-        
+
         /// <summary>
         ///  Reference to the manager of the AI navigation
         /// </summary>
@@ -20,7 +15,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
         /// </summary>
-        private int humanoidsSeed => _randomNumberToAlterMainSeed + mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
+        private int humanoidsSeed => _randomNumberToAlterMainSeed + mapManager.mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
         private const int _randomNumberToAlterMainSeed = 345678; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
     
         private void GenerateHumanoids(bool clearPrevious)
@@ -28,18 +23,18 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 Delete();
         
-            NavMeshSurface navMeshSurface = navigationManager.SetupNewNavMeshFor(mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0].GetComponentRequired<NavMeshAgent>(), mapGenerator.mapConfiguration, false);
+            NavMeshSurface navMeshSurface = navigationManager.SetupNewNavMeshFor(mapManager.mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0].GetComponentRequired<NavMeshAgent>(), mapManager.mapGenerator.mapConfiguration, false);
 
-            if (mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements.Length > 1)
+            if (mapManager.mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements.Length > 1)
             {
                 Debug.LogWarning("The spawning of more than one type of humanoids has not been implemented");
             }
             
-            mapGenerator.SpawnMapElementsRandomly(
-                mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0], 
+            mapManager.mapGenerator.SpawnMapElementsRandomly(
+                mapManager.mapGenerator.mapConfiguration.humanoidsSettings.spawnableMapElements[0], 
                 humanoidsSeed, 
-                mapGenerator.mapConfiguration.humanoidsSettings.spawningHeightRange, 
-                mapGenerator.mapConfiguration.humanoidsSettings.quantity, 
+                mapManager.mapGenerator.mapConfiguration.humanoidsSettings.spawningHeightRange, 
+                mapManager.mapGenerator.mapConfiguration.humanoidsSettings.quantity, 
                 this.transform,
                 true
             );
@@ -51,7 +46,7 @@ namespace Thoughts.Game.Map
         
         protected override void _DeleteStep()
         {
-            mapGenerator.DestroyAllMapElementsChildOf(this.transform);
+            mapManager.mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
         
         protected override void _GenerateStep(bool clearPrevious)

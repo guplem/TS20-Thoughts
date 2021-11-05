@@ -1,10 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Thoughts.Game.Map;
 using UnityEngine;
 
 public abstract class CreationStepGenerator : MonoBehaviour
 {
+    /// <summary>
+    /// Reference to the MapManager managing the world
+    /// </summary>
+    [Tooltip("Reference to the MapManager managing the world")]
+    [SerializeField] protected MapManager mapManager;
+    
     [SerializeField] private CreationStepGenerator nextCreationStepGenerator;
     protected bool clearPreviousAtGeneration;
     protected bool generateNextStepOnFinish = false;

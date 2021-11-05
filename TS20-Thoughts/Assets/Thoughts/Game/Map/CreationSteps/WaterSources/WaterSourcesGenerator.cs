@@ -1,27 +1,32 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements;
 using UnityEngine;
 
-public class WaterSourcesGenerator : CreationStepGenerator
+namespace Thoughts.Game.Map.CreationSteps.WaterSources
 {
-    protected override void _DeleteStep()
+    public class WaterSourcesGenerator : CreationStepGenerator
     {
         
-    }
-    protected override void _GenerateStep(bool clearPrevious)
-    {
-        TerrainType[,] terrainTypes = new TerrainType[mapGenerator.mapConfiguration.mapRadius * 2 +1, mapGenerator.mapConfiguration.mapRadius * 2 +1];
+        [SerializeField] private Transform waterSourceParent;
+        [SerializeField] private GameObject waterSourcePrefab;
+        
+        protected override void _DeleteStep()
+        {
+            mapManager.mapGenerator.DestroyAllMapElementsChildOf(waterSourceParent.transform);
+        }
+        
+        protected override void _GenerateStep(bool clearPrevious)
+        {
+            TerrainType[,] terrainTypes = new TerrainType[mapManager.mapGenerator.mapConfiguration.mapRadius * 2 +1, mapManager.mapGenerator.mapConfiguration.mapRadius * 2 +1];
 
-            for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
+            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
             {
-                for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
+                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
                     if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                         continue;
-                    if (!IsLocationUnderWater(new Vector2(x, y)))
+                    if (!mapManager.IsLocationUnderWater(new Vector2(x, y)))
                     {
                         terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.land;
                     }
@@ -38,11 +43,11 @@ public class WaterSourcesGenerator : CreationStepGenerator
             terrainTypes = PropagateSea(terrainTypes);
             
             // Only interior water sopts should be left
-            for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
+            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
             {
-                for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
+                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
                     if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                         continue;
                     terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interior;
@@ -51,11 +56,11 @@ public class WaterSourcesGenerator : CreationStepGenerator
             
             //Replace interior with shorelineInterior
             int avoidedEdge = 1;
-            for (int x = -mapGenerator.mapConfiguration.mapRadius+avoidedEdge; x <= mapGenerator.mapConfiguration.mapRadius-avoidedEdge; x++)
+            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius+avoidedEdge; x <= mapManager.mapGenerator.mapConfiguration.mapRadius-avoidedEdge; x++)
             {
-                for (int y = -mapGenerator.mapConfiguration.mapRadius+avoidedEdge; y <= mapGenerator.mapConfiguration.mapRadius-avoidedEdge; y++)
+                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius+avoidedEdge; y <= mapManager.mapGenerator.mapConfiguration.mapRadius-avoidedEdge; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
                     if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.interior)
                         continue;
                     
@@ -82,11 +87,11 @@ public class WaterSourcesGenerator : CreationStepGenerator
             }
 
             // Do whatever with each type (spawn water sources, ...)
-            for (int x = -mapGenerator.mapConfiguration.mapRadius; x <= mapGenerator.mapConfiguration.mapRadius; x++)
+            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
             {
-                for (int y = -mapGenerator.mapConfiguration.mapRadius; y <= mapGenerator.mapConfiguration.mapRadius; y++)
+                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapGenerator.mapConfiguration.mapRadius, y + mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
 
                     float rayDuration = 1f;
                     float rayLength = 0.3f;
@@ -94,26 +99,96 @@ public class WaterSourcesGenerator : CreationStepGenerator
                     {
 
                         case TerrainType.none:
-                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.black, rayDuration );
+                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.black, rayDuration );
                             break;
                         case TerrainType.sea:
-                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.white, rayDuration );
+                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.white, rayDuration );
                             break;
                         case TerrainType.interior:
-                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.yellow, rayDuration );
+                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.yellow, rayDuration );
                             break;
                         case TerrainType.interiorShoreline:
-                            Debug.DrawRay(new Vector3(x,mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.magenta, rayDuration );
-                            MapElement spawned = mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, mapGenerator.mapConfiguration.seaHeightAbsolute, y), Quaternion.identity, waterSourceParent);
+                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.magenta, rayDuration );
+                            MapElement spawned = mapManager.mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute, y), Quaternion.identity, waterSourceParent);
                             //Debug.Log("SPAWN", spawned.gameObject);
                             break;
                         case TerrainType.land:
-                            Debug.DrawRay(new Vector3(x,GetHeightAt(new Vector2(x,y)),y),Vector3.up*rayLength, Color.green, rayDuration );
+                            Debug.DrawRay(new Vector3(x,mapManager.GetHeightAt(new Vector2(x,y)),y),Vector3.up*rayLength, Color.green, rayDuration );
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
                 }
             }
+        }
+        
+        
+                //The given coords must have been defined as sea in the given 'terrainTypes'
+        private TerrainType[,] PropagateSea(TerrainType[,] terrainTypes)
+        {
+            bool waterAddedOnLastPass = true;
+            int maxIterations = 1000;//(mapGenerator.mapConfiguration.mapRadius * 2) * (mapGenerator.mapConfiguration.mapRadius * 2);
+            int currentIterations = 0;
+            while (waterAddedOnLastPass && currentIterations < maxIterations) {
+                waterAddedOnLastPass = false;
+                currentIterations++;
+                //Debug.Log($"ITERATION {currentIterations}");
+                for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
+                {
+                    for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
+                    {
+                        Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
+                        if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
+                            continue;
+                        
+                        bool isAnyNeighbourSea = false;
+
+                        //try {
+                            isAnyNeighbourSea = terrainTypes[arrayCoords.x + 1, arrayCoords.y + 1] == TerrainType.sea;
+                            if (!isAnyNeighbourSea)
+                            {
+                                isAnyNeighbourSea = terrainTypes[arrayCoords.x + 1, arrayCoords.y + 0] == TerrainType.sea;
+                                if (!isAnyNeighbourSea)
+                                {
+                                    isAnyNeighbourSea = terrainTypes[arrayCoords.x + 1, arrayCoords.y - 1] == TerrainType.sea;
+                                    if (!isAnyNeighbourSea)
+                                    {
+                                        isAnyNeighbourSea = terrainTypes[arrayCoords.x + 0, arrayCoords.y - 1] == TerrainType.sea;
+                                        if (!isAnyNeighbourSea)
+                                        {
+                                            isAnyNeighbourSea = terrainTypes[arrayCoords.x + 0, arrayCoords.y + 1] == TerrainType.sea;
+                                            if (!isAnyNeighbourSea)
+                                            {
+                                                isAnyNeighbourSea = terrainTypes[arrayCoords.x - 1, arrayCoords.y + 1] == TerrainType.sea;
+                                                if (!isAnyNeighbourSea)
+                                                {
+                                                    isAnyNeighbourSea = terrainTypes[arrayCoords.x - 1, arrayCoords.y - 0] == TerrainType.sea;
+                                                    if (!isAnyNeighbourSea)
+                                                    {
+                                                        isAnyNeighbourSea = terrainTypes[arrayCoords.x - 1, arrayCoords.y - 1] == TerrainType.sea;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        //} catch (Exception) {  /*ignored*/ }
+
+                        if (isAnyNeighbourSea)
+                        {
+                            terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.sea;
+                            //Debug.Log($"({x},{y}) DOES HAVE SEA NEIGHBOURS");
+                            waterAddedOnLastPass = true;
+                        }
+                    }
+                }
+            } 
+            
+            if (currentIterations >= maxIterations)
+                Debug.LogWarning($"Skipped the search of sea. Total number of iterations: {currentIterations}");
+
+            return terrainTypes;
+        }
     }
 }
