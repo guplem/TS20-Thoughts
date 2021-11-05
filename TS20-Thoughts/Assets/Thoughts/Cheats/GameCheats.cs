@@ -16,6 +16,11 @@ namespace Thoughts.Cheats
         #region CheatDisplayLock
 
         /// <summary>
+        /// Should the cheats be shown/activated the moment play mode is activated in the editor?
+        /// </summary>
+        public bool showOnEnteringPlayModeOnEditor = true;
+        
+        /// <summary>
         /// Activate corner area size by screen width percentage
         /// </summary>
         public float ActivateAreaSize = 0.1f;
@@ -41,6 +46,8 @@ namespace Thoughts.Cheats
             // create clicks array and reset it with float.MinValue
             _clickTimes = new float[ClicksCount];
             ResetClicks();
+            if (Application.isPlaying && Application.isEditor)
+                _active = showOnEnteringPlayModeOnEditor;
         }
 
         private void ResetClicks()
