@@ -174,7 +174,8 @@ PrefabInstance:
       propertyPath: attributesManager._attributeOwnerships.Array.data[0].attribute
       value: 
       objectReference: {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6984347118404179421, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
 --- !u!4 &7784682791663281462 stripped
 Transform:

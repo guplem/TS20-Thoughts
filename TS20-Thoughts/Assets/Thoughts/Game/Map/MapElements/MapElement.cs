@@ -243,12 +243,12 @@ namespace Thoughts.Game.Map.MapElements
           
           #region Movement
 
-               /// <summary>
-               /// A reference to this MapElement's NavMeshAgent. Can be null if the GameObject does not have it as a component.
-               /// </summary>
-               private NavMeshAgent navMeshAgent;
+          /// <summary>
+          /// A reference to this MapElement's NavMeshAgent. Can be null if the GameObject does not have it as a component.
+          /// </summary>
+          public NavMeshAgent navMeshAgent { get; private set; }
 
-               /// <summary>
+          /// <summary>
                /// The last location requested as destination for this MapElement. 
                /// </summary>
                private Vector3 lastRequestedDestination;

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 94902620511562795}
+  - component: {fileID: 952054566505384510}
   - component: {fileID: 6535398359595145751}
   - component: {fileID: 1280299973485331757}
   - component: {fileID: 3189547599324151129}
@@ -33,6 +34,19 @@ Transform:
   m_Father: {fileID: 3967472977184534122}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &952054566505384510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 908640211857340527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d9087d95b74b7448ca2e5ad7f251d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectionDisc: {fileID: 6535398359595145751}
 --- !u!114 &6535398359595145751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,3 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f45c9ab031972f479ee6d4e60ae4007, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useCullingMasks: 0
+  pathElevationAboveTerrain: 0.5
+  selectionSpatialUI: {fileID: 952054566505384510}

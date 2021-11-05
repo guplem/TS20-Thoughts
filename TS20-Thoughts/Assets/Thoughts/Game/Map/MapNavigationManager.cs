@@ -56,6 +56,7 @@ public class MapNavigationManager : MonoBehaviour
         navMeshSurface.size = new Vector3(mapConfiguration.mapRadius*2,walkableAreaHeight + walkableHeightUnderSea*2,mapConfiguration.mapRadius*2);
         navMeshSurface.center = new Vector3(0,mapConfiguration.seaHeightAbsolute + walkableAreaHeight/2,0);
         navMeshSurface.layerMask = usedLayers;
+        navMeshSurface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
         navMeshSurface.BuildNavMesh();
         //navMeshSurface.UpdateNavMesh(navMeshSurface.navMeshData); //To update the whole NavMesh at runtime
         generatedNavMeshSurfaces.Add(navMeshSurface);
