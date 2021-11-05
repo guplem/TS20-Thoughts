@@ -30,7 +30,12 @@ public abstract class CreationStepGenerator : MonoBehaviour
             Debug.LogWarning($"Trying to generate the next step of {this.name}, with no 'nextCreationStepGenerator' defined");
     }
 
-    [ContextMenu("Generate")]
+    [ContextMenu("Regenerate Step")]
+    private void Regenerate()
+    {
+        Generate(true, false);
+    }
+    
     public void Generate(bool clearPrevious, bool generateNextStepOnFinish)
     {
         this.generateNextStepOnFinish = generateNextStepOnFinish;
@@ -44,7 +49,7 @@ public abstract class CreationStepGenerator : MonoBehaviour
         _GenerateStep(clearPrevious);
     }
 
-    [ContextMenu("Delete")]
+    [ContextMenu("Delete Step")]
     public void Delete()
     {
         Debug.Log($"Deleting step {this.name}.", this);

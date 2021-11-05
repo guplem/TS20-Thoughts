@@ -7,23 +7,22 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
     public class WaterSourcesGenerator : CreationStepGenerator
     {
         
-        [SerializeField] private Transform waterSourceParent;
         [SerializeField] private GameObject waterSourcePrefab;
         
         protected override void _DeleteStep()
         {
-            mapManager.mapGenerator.DestroyAllMapElementsChildOf(waterSourceParent.transform);
+            mapManager.mapGenerator.DestroyAllMapElementsChildOf(this.transform);
         }
         
         protected override void _GenerateStep(bool clearPrevious)
         {
-            TerrainType[,] terrainTypes = new TerrainType[mapManager.mapGenerator.mapConfiguration.mapRadius * 2 +1, mapManager.mapGenerator.mapConfiguration.mapRadius * 2 +1];
+            TerrainType[,] terrainTypes = new TerrainType[mapManager.mapConfiguration.mapRadius * 2 +1, mapManager.mapConfiguration.mapRadius * 2 +1];
 
-            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
+            for (int x = -mapManager.mapConfiguration.mapRadius; x <= mapManager.mapConfiguration.mapRadius; x++)
             {
-                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
+                for (int y = -mapManager.mapConfiguration.mapRadius; y <= mapManager.mapConfiguration.mapRadius; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapConfiguration.mapRadius, y + mapManager.mapConfiguration.mapRadius);
                     if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                         continue;
                     if (!mapManager.IsLocationUnderWater(new Vector2(x, y)))
@@ -43,11 +42,11 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
             terrainTypes = PropagateSea(terrainTypes);
             
             // Only interior water sopts should be left
-            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
+            for (int x = -mapManager.mapConfiguration.mapRadius; x <= mapManager.mapConfiguration.mapRadius; x++)
             {
-                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
+                for (int y = -mapManager.mapConfiguration.mapRadius; y <= mapManager.mapConfiguration.mapRadius; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapConfiguration.mapRadius, y + mapManager.mapConfiguration.mapRadius);
                     if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                         continue;
                     terrainTypes[arrayCoords.x, arrayCoords.y] = TerrainType.interior;
@@ -56,11 +55,11 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
             
             //Replace interior with shorelineInterior
             int avoidedEdge = 1;
-            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius+avoidedEdge; x <= mapManager.mapGenerator.mapConfiguration.mapRadius-avoidedEdge; x++)
+            for (int x = -mapManager.mapConfiguration.mapRadius+avoidedEdge; x <= mapManager.mapConfiguration.mapRadius-avoidedEdge; x++)
             {
-                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius+avoidedEdge; y <= mapManager.mapGenerator.mapConfiguration.mapRadius-avoidedEdge; y++)
+                for (int y = -mapManager.mapConfiguration.mapRadius+avoidedEdge; y <= mapManager.mapConfiguration.mapRadius-avoidedEdge; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapConfiguration.mapRadius, y + mapManager.mapConfiguration.mapRadius);
                     if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.interior)
                         continue;
                     
@@ -87,11 +86,11 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
             }
 
             // Do whatever with each type (spawn water sources, ...)
-            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
+            for (int x = -mapManager.mapConfiguration.mapRadius; x <= mapManager.mapConfiguration.mapRadius; x++)
             {
-                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
+                for (int y = -mapManager.mapConfiguration.mapRadius; y <= mapManager.mapConfiguration.mapRadius; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapConfiguration.mapRadius, y + mapManager.mapConfiguration.mapRadius);
 
                     float rayDuration = 1f;
                     float rayLength = 0.3f;
@@ -99,17 +98,17 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
                     {
 
                         case TerrainType.none:
-                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.black, rayDuration );
+                            Debug.DrawRay(new Vector3(x,mapManager.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.black, rayDuration );
                             break;
                         case TerrainType.sea:
-                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.white, rayDuration );
+                            Debug.DrawRay(new Vector3(x,mapManager.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.white, rayDuration );
                             break;
                         case TerrainType.interior:
-                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.yellow, rayDuration );
+                            Debug.DrawRay(new Vector3(x,mapManager.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.yellow, rayDuration );
                             break;
                         case TerrainType.interiorShoreline:
-                            Debug.DrawRay(new Vector3(x,mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.magenta, rayDuration );
-                            MapElement spawned = mapManager.mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, mapManager.mapGenerator.mapConfiguration.seaHeightAbsolute, y), Quaternion.identity, waterSourceParent);
+                            Debug.DrawRay(new Vector3(x,mapManager.mapConfiguration.seaHeightAbsolute,y),Vector3.up*rayLength, Color.magenta, rayDuration );
+                            MapElement spawned = mapManager.mapGenerator.SpawnMapElement(waterSourcePrefab, new Vector3(x, mapManager.mapConfiguration.seaHeightAbsolute, y), Quaternion.identity, this.transform);
                             //Debug.Log("SPAWN", spawned.gameObject);
                             break;
                         case TerrainType.land:
@@ -133,11 +132,11 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
                 waterAddedOnLastPass = false;
                 currentIterations++;
                 //Debug.Log($"ITERATION {currentIterations}");
-                for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
+                for (int x = -mapManager.mapConfiguration.mapRadius; x <= mapManager.mapConfiguration.mapRadius; x++)
                 {
-                    for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
+                    for (int y = -mapManager.mapConfiguration.mapRadius; y <= mapManager.mapConfiguration.mapRadius; y++)
                     {
-                        Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
+                        Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapConfiguration.mapRadius, y + mapManager.mapConfiguration.mapRadius);
                         if (terrainTypes[arrayCoords.x,arrayCoords.y] != TerrainType.none)
                             continue;
                         

@@ -69,9 +69,9 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// How many chunks exist in a single row of the map
         /// </summary>
-        private int totalChunksInMapRow => 1 + Mathf.RoundToInt( mapManager.mapGenerator.mapConfiguration.mapRadius ) * 2 / MapConfiguration.supportedChunkSizes[mapManager.mapGenerator.mapConfiguration.chunkSizeIndex];
+        private int totalChunksInMapRow => 1 + Mathf.RoundToInt( mapManager.mapConfiguration.mapRadius ) * 2 / MapConfiguration.supportedChunkSizes[mapManager.mapConfiguration.chunkSizeIndex];
         
-        public int terrainSeed => _randomNumberToAlterMainSeed + mapManager.mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
+        public int terrainSeed => _randomNumberToAlterMainSeed + mapManager.mapConfiguration.seed; //IT MUST NEVER CHANGE
         private const int _randomNumberToAlterMainSeed = 84624; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
         
         /// <summary>
@@ -140,8 +140,8 @@ namespace Thoughts.Game.Map.Terrain
             loadingChunks = totalChunksInMapRow*totalChunksInMapRow;
             
             terrainFullyLoadCallback += OnTerrainFullyLoad;
-            int currentViewerChunkCordX = Mathf.RoundToInt(viewerPosition.x / mapManager.mapGenerator.mapConfiguration.chunkWorldSize);
-            int currentViewerChunkCordY = Mathf.RoundToInt(viewerPosition.y / mapManager.mapGenerator.mapConfiguration.chunkWorldSize);
+            int currentViewerChunkCordX = Mathf.RoundToInt(viewerPosition.x / mapManager.mapConfiguration.chunkWorldSize);
+            int currentViewerChunkCordY = Mathf.RoundToInt(viewerPosition.y / mapManager.mapConfiguration.chunkWorldSize);
             for (int yOffset = -chunksAtSideOfCentralRow; yOffset <= chunksAtSideOfCentralRow; yOffset ++)
             {
                 for (int xOffset = -chunksAtSideOfCentralRow; xOffset <= chunksAtSideOfCentralRow; xOffset ++)
@@ -158,7 +158,7 @@ namespace Thoughts.Game.Map.Terrain
                     {
                         GameObject chunkGameObject = Instantiate(chunkPrefab);
                         TerrainChunk terrainChunk = chunkGameObject.GetComponentRequired<TerrainChunk>();
-                        terrainChunk.Setup(chunkIndex, detailLevels, this.transform, mapManager.mapGenerator);
+                        terrainChunk.Setup(chunkIndex, detailLevels, this.transform, mapManager);
                         terrainChunks.Add(chunkIndex, terrainChunk);
                         //newChunk.onVisibilityChanged += OnTerrainChunkVisibilityChanged;
                         terrainChunk.Load(CompletionRegisterer);
@@ -192,23 +192,18 @@ namespace Thoughts.Game.Map.Terrain
         {
             terrainFullyLoadCallback -= OnTerrainFullyLoad;
             // Debug.Log($"=========== TERRAIN FULLY LOAD ===========. Next step? {generateNextStepOnFinish}");
-            SpawnWaterSources();
+
             if (generateNextStepOnFinish)
                 base.InvokeOnFinishStepGeneration();
         }
 
-        private void SpawnWaterSources()
-        {
-            Debug.LogError("OLD");
-        }
-
         private Vector2Int GetArrayCoordsOfSea(TerrainType[,] terrainTypes)
         {
-            for (int x = -mapManager.mapGenerator.mapConfiguration.mapRadius; x <= mapManager.mapGenerator.mapConfiguration.mapRadius; x++)
+            for (int x = -mapManager.mapConfiguration.mapRadius; x <= mapManager.mapConfiguration.mapRadius; x++)
             {
-                for (int y = -mapManager.mapGenerator.mapConfiguration.mapRadius; y <= mapManager.mapGenerator.mapConfiguration.mapRadius; y++)
+                for (int y = -mapManager.mapConfiguration.mapRadius; y <= mapManager.mapConfiguration.mapRadius; y++)
                 {
-                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapGenerator.mapConfiguration.mapRadius, y + mapManager.mapGenerator.mapConfiguration.mapRadius);
+                    Vector2Int arrayCoords = new Vector2Int(x + mapManager.mapConfiguration.mapRadius, y + mapManager.mapConfiguration.mapRadius);
                     bool seaFound = terrainTypes[arrayCoords.x, arrayCoords.y] == TerrainType.sea;
                     if (seaFound)
                         return arrayCoords;
@@ -232,7 +227,7 @@ namespace Thoughts.Game.Map.Terrain
             //Debug.Log($"CHECKING HEIGHT AT {heightMapCoordsX}, {heightMapCoordsY}. coords = {coords}, chunkAbsoluteSize = {chunkAbsoluteSize}, absoluteChunkCoords = {absoluteChunkCoords}");
             return chunk.heightMap.values[heightMapCoordsX,heightMapCoordsY];*/
 
-            return TerrainMeshGenerator.GetHeight(chunk.heightMap.values, mapManager.mapGenerator.mapConfiguration,  worldCoords - chunk.transform.position.ToVector2WithoutY());
+            return TerrainMeshGenerator.GetHeight(chunk.heightMap.values, mapManager.mapConfiguration,  worldCoords - chunk.transform.position.ToVector2WithoutY());
         }
 
 

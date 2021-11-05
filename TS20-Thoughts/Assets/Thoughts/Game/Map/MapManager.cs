@@ -18,10 +18,11 @@ namespace Thoughts.Game.Map
     public class MapManager : MonoBehaviour
     {
         /// <summary>
-        /// All the map elements present in the map.
+        /// Reference to the MapConfiguration with he settings to generate a map
         /// </summary>
-        [NonSerialized] public List<MapElement> existentMapElements = new List<MapElement>();
-
+        [Tooltip("Reference to the MapConfiguration with he settings to generate a map")]
+        [SerializeField] public MapConfiguration mapConfiguration;
+        
         /// <summary>
         /// Reference to the MapGenerator component, the manager of the generation of the map
         /// </summary>
@@ -30,6 +31,11 @@ namespace Thoughts.Game.Map
             return _mapGenerator;
         } }
         private MapGenerator _mapGenerator;
+        
+        /// <summary>
+        /// All the map elements present in the map.
+        /// </summary>
+        [NonSerialized] public List<MapElement> existentMapElements = new List<MapElement>();
         
         /// <summary>
         ///  Reference to the manager of the AI navigation
@@ -104,7 +110,7 @@ namespace Thoughts.Game.Map
         
         public bool IsLocationUnderWater(Vector2 worldCoords)
         {
-            return GetHeightAt(worldCoords) < mapGenerator.mapConfiguration.seaHeightAbsolute;
+            return GetHeightAt(worldCoords) < mapConfiguration.seaHeightAbsolute;
         } 
 
         public TerrainType GetTerrainTypeAtLocation(Vector2 location)

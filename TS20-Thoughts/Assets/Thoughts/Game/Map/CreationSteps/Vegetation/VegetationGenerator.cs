@@ -9,7 +9,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// The seed used by the VegetationGenerator to generate vegetation. It is an alteration of the main map's seed. 
         /// </summary>
-        private int vegetationSeed => _randomNumberToAlterMainSeed + mapManager.mapGenerator.mapConfiguration.seed; //IT MUST NEVER CHANGE
+        private int vegetationSeed => _randomNumberToAlterMainSeed + mapManager.mapConfiguration.seed; //IT MUST NEVER CHANGE
         private const int _randomNumberToAlterMainSeed = 5151335; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
         
         private void GenerateVegetation(bool clearPrevious)
@@ -17,16 +17,16 @@ namespace Thoughts.Game.Map
             if (clearPrevious)
                 Delete();
 
-            for (int v = 0; v < mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn.Length; v++)
+            for (int v = 0; v < mapManager.mapConfiguration.vegetationSettings.mapElementsToSpawn.Length; v++)
             {
                 mapManager.mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(
-                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].mapElementPrefab, 
+                    mapManager.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].mapElementPrefab, 
                     vegetationSeed, 
-                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].spawningHeightRange, 
-                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].probability, 
-                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].density, 
+                    mapManager.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].spawningHeightRange, 
+                    mapManager.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].probability, 
+                    mapManager.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].density, 
                     this.transform,
-                    mapManager.mapGenerator.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].noiseSettings,
+                    mapManager.mapConfiguration.vegetationSettings.mapElementsToSpawn[v].noiseSettings,
                     false
                 );
             }

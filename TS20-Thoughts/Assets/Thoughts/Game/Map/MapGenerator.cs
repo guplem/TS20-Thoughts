@@ -25,12 +25,6 @@ namespace Thoughts.Game.Map
                 return _mapManager;
         } }
         private MapManager _mapManager;
-        
-        /// <summary>
-        /// Reference to the MapConfiguration with he settings to generate a map
-        /// </summary>
-        [Tooltip("Reference to the MapConfiguration with he settings to generate a map")]
-        [SerializeField] public MapConfiguration mapConfiguration;
 
         /// <summary>
         /// Reference to the ThreadedDataRequester component in charge doing threaded requests of data
@@ -127,10 +121,10 @@ namespace Thoughts.Game.Map
             Gizmos.color = Color.black;
             Gizmos.DrawLine(new Vector3(-linesHalfSize, 0, 0), new Vector3(linesHalfSize, 0, 0));
             Gizmos.color = Color.blue;
-            float seaHeight = mapConfiguration.seaHeightAbsolute;
+            float seaHeight = mapManager.mapConfiguration.seaHeightAbsolute;
             Gizmos.DrawLine(new Vector3(-linesHalfSize, seaHeight, 0), new Vector3(linesHalfSize, seaHeight, 0));
             Gizmos.color = Color.white;
-            Gizmos.DrawLine(new Vector3(-linesHalfSize, mapConfiguration.terrainHeightSettings.maxHeight, 0), new Vector3(linesHalfSize, mapConfiguration.terrainHeightSettings.maxHeight, 0));
+            Gizmos.DrawLine(new Vector3(-linesHalfSize, mapManager.mapConfiguration.terrainHeightSettings.maxHeight, 0), new Vector3(linesHalfSize, mapManager.mapConfiguration.terrainHeightSettings.maxHeight, 0));
 
         }
     #endif
@@ -139,70 +133,70 @@ namespace Thoughts.Game.Map
         {
             
             //GENERAL
-            if (mapConfiguration != null)
+            if (mapManager.mapConfiguration != null)
             {
-                mapConfiguration.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.OnValuesUpdated += RegenerateFull;
+                mapManager.mapConfiguration.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.OnValuesUpdated += RegenerateFull;
             }
             else
             {
-                Debug.LogWarning($"MapConfiguration in MapGenerator in {gameObject.name} is null.");
+                Debug.LogWarning($"mapManager.MapConfiguration in MapGenerator in {gameObject.name} is null.");
                 return;
             }
 
             //Light
-            if (mapConfiguration.lightSettings != null)
+            if (mapManager.mapConfiguration.lightSettings != null)
             {
-                mapConfiguration.lightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.lightSettings.OnValuesUpdated += RegenerateLight;
+                mapManager.mapConfiguration.lightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.lightSettings.OnValuesUpdated += RegenerateLight;
             }
             
             //Terrain
-            if (mapConfiguration.terrainHeightSettings != null)
+            if (mapManager.mapConfiguration.terrainHeightSettings != null)
             {
-                mapConfiguration.terrainHeightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateTerrain; //RegenerateFull;
+                mapManager.mapConfiguration.terrainHeightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.terrainHeightSettings.OnValuesUpdated += RegenerateTerrain; //RegenerateFull;
             }
 
-            if (mapConfiguration.terrainTextureSettings != null)
+            if (mapManager.mapConfiguration.terrainTextureSettings != null)
             {
-                mapConfiguration.terrainTextureSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.terrainTextureSettings.OnValuesUpdated += RegenerateTerrainTextures;
+                mapManager.mapConfiguration.terrainTextureSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.terrainTextureSettings.OnValuesUpdated += RegenerateTerrainTextures;
             }
 
             //Vegetation
-            if (mapConfiguration.vegetationSettings != null)
+            if (mapManager.mapConfiguration.vegetationSettings != null)
             {
-                mapConfiguration.vegetationSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.vegetationSettings.OnValuesUpdated += RegenerateVegetation;
+                mapManager.mapConfiguration.vegetationSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.vegetationSettings.OnValuesUpdated += RegenerateVegetation;
             }
             
             //Night
-            if (mapConfiguration.nightSettings != null)
+            if (mapManager.mapConfiguration.nightSettings != null)
             {
-                mapConfiguration.nightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.nightSettings.OnValuesUpdated += RegenerateNight;
+                mapManager.mapConfiguration.nightSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.nightSettings.OnValuesUpdated += RegenerateNight;
             }
             
             //FishAndBirds
-            if (mapConfiguration.fishAndBirdsSettings != null)
+            if (mapManager.mapConfiguration.fishAndBirdsSettings != null)
             {
-                mapConfiguration.fishAndBirdsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.fishAndBirdsSettings.OnValuesUpdated += RegenerateFishAndBirds;
+                mapManager.mapConfiguration.fishAndBirdsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.fishAndBirdsSettings.OnValuesUpdated += RegenerateFishAndBirds;
             }
             
             //LandAnimals
-            if (mapConfiguration.landAnimalsSettings != null)
+            if (mapManager.mapConfiguration.landAnimalsSettings != null)
             {
-                mapConfiguration.landAnimalsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.landAnimalsSettings.OnValuesUpdated += RegenerateLandAnimals;
+                mapManager.mapConfiguration.landAnimalsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.landAnimalsSettings.OnValuesUpdated += RegenerateLandAnimals;
             }
             
             //Humanoids
-            if (mapConfiguration.humanoidsSettings != null)
+            if (mapManager.mapConfiguration.humanoidsSettings != null)
             {
-                mapConfiguration.humanoidsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapConfiguration.humanoidsSettings.OnValuesUpdated += RegenerateHumanoids;
+                mapManager.mapConfiguration.humanoidsSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.humanoidsSettings.OnValuesUpdated += RegenerateHumanoids;
             }
 
         }
@@ -212,7 +206,7 @@ namespace Thoughts.Game.Map
         /// </summary>
         void RegenerateTerrainTextures()
         {
-            mapConfiguration.terrainTextureSettings.ApplyToMaterial(mapConfiguration.terrainHeightSettings.minHeight, mapConfiguration.terrainHeightSettings.maxHeight);
+            mapManager.mapConfiguration.terrainTextureSettings.ApplyToMaterial(mapManager.mapConfiguration.terrainHeightSettings.minHeight, mapManager.mapConfiguration.terrainHeightSettings.maxHeight);
         }
 
 
@@ -231,7 +225,12 @@ namespace Thoughts.Game.Map
             mapManager.navigationManager.RemoveAllNavMesh();
         }
 
-
+        public Vector2Int GetChunksCoordsAt(Vector2 coords)
+        {
+            int chunkCordX = Mathf.RoundToInt(coords.x / mapManager.mapGenerator.mapManager.mapConfiguration.chunkWorldSize);
+            int chunkCordY = Mathf.RoundToInt(coords.y / mapManager.mapGenerator.mapManager.mapConfiguration.chunkWorldSize);
+            return new Vector2Int(chunkCordX, chunkCordY);
+        }
 
         public void RegenerateLight(){ Regenerate(CreationStep.Light);}
         public void RegenerateTerrain(){ Regenerate(CreationStep.Terrain); }
@@ -292,9 +291,9 @@ namespace Thoughts.Game.Map
         
         private void ReconfigureSea()
         {
-            float seaHeight = mapConfiguration.seaHeightAbsolute;
+            float seaHeight = mapManager.mapConfiguration.seaHeightAbsolute;
             sea.transform.position = Vector3.zero.WithY(seaHeight);
-            float seaSize = mapConfiguration.mapRadius * 2 * 2;
+            float seaSize = mapManager.mapConfiguration.mapRadius * 2 * 2;
             sea.transform.localScale = new Vector3(seaSize, 1, seaSize);
         }
 
@@ -361,7 +360,7 @@ namespace Thoughts.Game.Map
         {
             RandomEssentials rng = new RandomEssentials(seed);
             
-            float[,] noise = Noise.GenerateNoiseMap((int)mapConfiguration.mapRadius*2, (int)mapConfiguration.mapRadius*2, noiseMapSettings, Vector2.zero, seed);
+            float[,] noise = Noise.GenerateNoiseMap((int)mapManager.mapConfiguration.mapRadius*2, (int)mapManager.mapConfiguration.mapRadius*2, noiseMapSettings, Vector2.zero, seed);
             for (int x = 0; x < noise.GetLength(0); x++)
             {
                 for (int y = 0; y < noise.GetLength(1); y++)
@@ -372,7 +371,7 @@ namespace Thoughts.Game.Map
                     if (rng.GetRandomBool(1-density))
                         continue;
                     
-                    if (IsSpawnablePosition( new Vector2(x - mapConfiguration.mapRadius, y - mapConfiguration.mapRadius), spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
+                    if (IsSpawnablePosition( new Vector2(x - mapManager.mapConfiguration.mapRadius, y - mapManager.mapConfiguration.mapRadius), spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
                         SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent);
                 }
             }
@@ -391,15 +390,15 @@ namespace Thoughts.Game.Map
             spawnablePosition = Vector3.zero;
 
             //float raySecureOffset = 0.5f;
-            float rayOriginHeight = mapConfiguration.terrainHeightSettings.maxHeight;// + raySecureOffset;
+            float rayOriginHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight;// + raySecureOffset;
             float rayDistance = rayOriginHeight;// + raySecureOffset;
             
             RaycastHit hit;
             // Does the ray intersect any objects excluding the player layer
             if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance))
             {
-                float aboveSeaLevelHeight = mapConfiguration.terrainHeightSettings.maxHeight * (1 - mapConfiguration.seaHeight);
-                float underSeaLevelHeight = mapConfiguration.terrainHeightSettings.maxHeight * mapConfiguration.seaHeight;
+                float aboveSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * (1 - mapManager.mapConfiguration.seaHeight);
+                float underSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * mapManager.mapConfiguration.seaHeight;
                 float relativeHitHeight = Single.NegativeInfinity; // [-1,1] once calculated
                 
                 // The impact happened under the sea
@@ -461,7 +460,7 @@ namespace Thoughts.Game.Map
                     break;
                 }
                 
-                Vector2 checkPosition = randomEssentials.GetRandomVector2(-mapConfiguration.mapRadius, mapConfiguration.mapRadius);
+                Vector2 checkPosition = randomEssentials.GetRandomVector2(-mapManager.mapConfiguration.mapRadius, mapManager.mapConfiguration.mapRadius);
 
                 if (IsSpawnablePosition(checkPosition, spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
                 {

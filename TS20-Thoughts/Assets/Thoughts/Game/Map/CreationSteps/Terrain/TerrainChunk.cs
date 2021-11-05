@@ -45,9 +45,9 @@ namespace Thoughts.Game.Map.Terrain
         private MeshCollider meshCollider;
 
         /// <summary>
-        /// Reference to the mapGenerator managing the generation of the map that contains this TerrainChunk.
+        /// Reference to the MapManager managing the map that contains this TerrainChunk.
         /// </summary>
-        private MapGenerator mapGenerator;
+        private MapManager mapManager;
 
         /// <summary>
         /// An ordered list containing the LOD with the information about which one should be used until which distance. The LOD "0", has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.
@@ -62,7 +62,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// The LOD that the collider must use.
         /// </summary>
-        private int colliderLODIndex => mapGenerator.terrainGenerator.colliderLODIndex;
+        private int colliderLODIndex => mapManager.mapGenerator.terrainGenerator.colliderLODIndex;
 
         /// <summary>
         /// The HeightMap of this TerrainChunk
@@ -123,7 +123,7 @@ namespace Thoughts.Game.Map.Terrain
         /// <summary>
         /// A reference to the viewer (typically the player) of the map
         /// </summary>
-        private Transform viewer => mapGenerator.terrainGenerator.viewer;
+        private Transform viewer => mapManager.mapGenerator.terrainGenerator.viewer;
     
         /// <summary>
         /// The maximum distance at which the TerrainChunks should be visible
@@ -141,23 +141,23 @@ namespace Thoughts.Game.Map.Terrain
         /// <param name="chunkIndex">Coords of the chunk relative to the other chunks</param>
         /// <param name="detailLevels">An ordered list containing the LOD with the information about which one should be used until which distance. The LOD "0", has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.</param>
         /// <param name="parent">The parent of this TerrainChunk's GameObject.</param>
-        /// <param name="mapGenerator">Reference to the mapGenerator managing the generation of the map that contains this TerrainChunk.</param>
-        public void Setup(Vector2 chunkIndex, LODInfo[] detailLevels, Transform parent, MapGenerator mapGenerator)
+        /// <param name="mapManager.">Reference to the mapManager of the map that contains this TerrainChunk.</param>
+        public void Setup(Vector2 chunkIndex, LODInfo[] detailLevels, Transform parent, MapManager mapManager)
         {
             this.chunkIndex = chunkIndex;
             this.detailLevels = detailLevels;
-            this.mapGenerator = mapGenerator;
+            this.mapManager = mapManager;
             
-            centerWorldLocation = chunkIndex * mapGenerator.mapConfiguration.chunkWorldSize;
+            centerWorldLocation = chunkIndex * mapManager.mapConfiguration.chunkWorldSize;
         
-            Vector2 position = chunkIndex * mapGenerator.mapConfiguration.chunkWorldSize;
-            bounds = new Bounds(centerWorldLocation, Vector3.one * mapGenerator.mapConfiguration.chunkWorldSize);
+            Vector2 position = chunkIndex * mapManager.mapConfiguration.chunkWorldSize;
+            bounds = new Bounds(centerWorldLocation, Vector3.one * mapManager.mapConfiguration.chunkWorldSize);
         
             meshRenderer = visualMeshObject.GetComponentRequired<MeshRenderer>();
             meshFilter = visualMeshObject.GetComponentRequired<MeshFilter>();
             //Debug.Log($"Mesh Filter added: {meshFilter}", meshFilter);
             meshCollider = gameObject.GetComponentRequired<MeshCollider>();
-            meshRenderer.material = mapGenerator.mapConfiguration.terrainTextureSettings.material;
+            meshRenderer.material = mapManager.mapConfiguration.terrainTextureSettings.material;
 
             Transform transform = this.transform;
             transform.position = new Vector3(position.x, 0, position.y);
@@ -181,9 +181,9 @@ namespace Thoughts.Game.Map.Terrain
         public void Load(Action completionRegisterer)
         {
             //Debug.Log($"Requesting data for {ToString()}");
-            mapGenerator.threadedDataRequester.RequestData(
+            mapManager.mapGenerator.threadedDataRequester.RequestData(
                 // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-                () => HeightMap.GenerateHeightMap(mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.numVertsPerLine, mapGenerator.mapConfiguration.mapRadius, mapGenerator.mapConfiguration.terrainHeightSettings, centerWorldLocation, mapGenerator.terrainGenerator.terrainSeed, mapGenerator.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius), 
+                () => HeightMap.GenerateHeightMap(mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.mapRadius, mapManager.mapConfiguration.terrainHeightSettings, centerWorldLocation, mapManager.mapGenerator.terrainGenerator.terrainSeed, mapManager.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius), 
                 OnHeightMapReceived
             );
             terrainCompletionCallback += completionRegisterer;
@@ -247,7 +247,7 @@ namespace Thoughts.Game.Map.Terrain
 
                     if (!lodMesh.hasRequestedMesh)
                     {
-                        lodMesh.RequestMesh(heightMap, mapGenerator.threadedDataRequester, mapGenerator.mapConfiguration);
+                        lodMesh.RequestMesh(heightMap, mapManager.mapGenerator.threadedDataRequester, mapManager.mapConfiguration);
                     }
                     else if (lodMesh.hasMesh)
                     {
@@ -281,7 +281,7 @@ namespace Thoughts.Game.Map.Terrain
         
             if (!lodMeshes[colliderLODIndex].hasRequestedMesh)
             {
-                lodMeshes[colliderLODIndex].RequestMesh(heightMap, mapGenerator.threadedDataRequester, mapGenerator.mapConfiguration);
+                lodMeshes[colliderLODIndex].RequestMesh(heightMap, mapManager.mapGenerator.threadedDataRequester, mapManager.mapConfiguration);
             }
             else if (lodMeshes[colliderLODIndex].hasMesh)
             {
