@@ -17,8 +17,16 @@ namespace Thoughts.Game.Map
         /// </summary>
         private int humanoidsSeed => _randomNumberToAlterMainSeed + mapManager.mapConfiguration.seed; //IT MUST NEVER CHANGE
         private const int _randomNumberToAlterMainSeed = 345678; //IT MUST NEVER CHANGE and be completely unique per generator (except the mapGenerator and those that do not need randomness)
+        
     
-        private void GenerateHumanoids(bool clearPrevious)
+        
+        protected override void _DeleteStep()
+        {
+            mapManager.mapGenerator.DestroyAllMapElementsChildOf(this.transform);
+            InvokeOnFinishStepDeletion();
+        }
+        
+        protected override void _GenerateStep(bool clearPrevious)
         {
             if (clearPrevious)
                 Delete();
@@ -41,17 +49,6 @@ namespace Thoughts.Game.Map
 
 
             InvokeOnFinishStepGeneration();
-        }
-    
-        
-        protected override void _DeleteStep()
-        {
-            mapManager.mapGenerator.DestroyAllMapElementsChildOf(this.transform);
-        }
-        
-        protected override void _GenerateStep(bool clearPrevious)
-        {
-            GenerateHumanoids(clearPrevious);
         }
     }
 }

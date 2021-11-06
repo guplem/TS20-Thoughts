@@ -193,7 +193,7 @@ namespace Thoughts.Game.Map.Terrain
             terrainFullyLoadCallback -= OnTerrainFullyLoad;
             // Debug.Log($"=========== TERRAIN FULLY LOAD ===========. Next step? {generateNextStepOnFinish}");
 
-            if (generateNextStepOnFinish)
+            if (generateNextStepOnFinishGeneration)
                 base.InvokeOnFinishStepGeneration();
         }
 
@@ -243,6 +243,9 @@ namespace Thoughts.Game.Map.Terrain
                 gameObject.transform.DestroyAllChildren(); 
             else
                 gameObject.transform.DestroyImmediateAllChildren();
+            
+            
+            InvokeOnFinishStepDeletion();
         }
         
         protected override void _GenerateStep(bool clearPrevious)

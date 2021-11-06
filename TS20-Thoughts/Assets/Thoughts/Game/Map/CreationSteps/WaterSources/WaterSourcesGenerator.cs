@@ -12,6 +12,7 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
         protected override void _DeleteStep()
         {
             mapManager.mapGenerator.DestroyAllMapElementsChildOf(this.transform);
+            InvokeOnFinishStepDeletion();
         }
         
         protected override void _GenerateStep(bool clearPrevious)
@@ -119,6 +120,8 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
                     }
                 }
             }
+            
+            InvokeOnFinishStepGeneration();
         }
         
         

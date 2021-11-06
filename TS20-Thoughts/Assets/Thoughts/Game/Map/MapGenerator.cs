@@ -218,11 +218,9 @@ namespace Thoughts.Game.Map
             if (!Application.isPlaying)
                 EditorUtility.SetDirty(mapManager.gameObject);
             
-            terrainGenerator.Delete();
-            vegetationGenerator.Delete();
-            humanoidsGenerator.Delete();
-            
             mapManager.navigationManager.RemoveAllNavMesh();
+            
+            terrainGenerator.Delete(true); // Must be the first one
         }
 
         public Vector2Int GetChunksCoordsAt(Vector2 coords)

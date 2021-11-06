@@ -12,35 +12,49 @@ public abstract class CreationStepGenerator : MonoBehaviour
     [Tooltip("Reference to the MapManager managing the world")]
     [SerializeField] protected MapManager mapManager;
     
-    [SerializeField] private CreationStepGenerator nextCreationStepGenerator;
-    protected bool clearPreviousAtGeneration;
-    protected bool generateNextStepOnFinish = false;
+    [SerializeField] private CreationStepGenerator nextCreationStep;
+    
+    protected bool clearPreviousBeforeGeneration;
+    protected bool generateNextStepOnFinishGeneration = false;
+    protected bool deleteNextStepOnFinishDeletion = false;
 
-    private void GenerateNextStep()
+    private event System.Action OnFinishStepDeletion;
+    private event System.Action OnFinishStepGeneration;
+    
+    
+    
+    [ContextMenu("Delete Step")]
+    private void DeleteStep() // parameter-less method needed for context menu
     {
-        GenerateNextStep(this.clearPreviousAtGeneration, this.generateNextStepOnFinish);
+        Delete(false);
     }
     
-    private void GenerateNextStep(bool clearPrevious, bool generateNextOnFinish)
-    {
-        Debug.Log($"Triggering the generation of the step after {this.name}: {(nextCreationStepGenerator != null? nextCreationStepGenerator.name : "null")}");
-        if (nextCreationStepGenerator != null)
-            nextCreationStepGenerator.Generate(clearPrevious, generateNextOnFinish);
-        else
-            Debug.LogWarning($"Trying to generate the next step of {this.name}, with no 'nextCreationStepGenerator' defined");
-    }
-
     [ContextMenu("Regenerate Step")]
-    private void Regenerate()
+    private void Regenerate() // parameter-less method needed for context menu
     {
         Generate(true, false);
     }
     
-    public void Generate(bool clearPrevious, bool generateNextStepOnFinish)
+    
+    
+    public void Delete(bool deleteNextStepOnFinish = false)
     {
-        this.generateNextStepOnFinish = generateNextStepOnFinish;
-        this.clearPreviousAtGeneration = clearPrevious;
-        if (generateNextStepOnFinish)
+        this.deleteNextStepOnFinishDeletion = deleteNextStepOnFinish;
+        if (deleteNextStepOnFinishDeletion)
+        {
+            OnFinishStepDeletion += DeleteNextStep;
+            //Debug.Log($"{gameObject.name} will generate the next step after finishing", this);
+        }
+        
+        Debug.Log($"Deleting step {this.name}. deleteNextStepOnFinish = {deleteNextStepOnFinish}", this);
+        _DeleteStep();
+    }
+    
+    public void Generate(bool clearPrevious = true, bool generateNextStepOnFinish = false)
+    {
+        this.generateNextStepOnFinishGeneration = generateNextStepOnFinish;
+        this.clearPreviousBeforeGeneration = clearPrevious;
+        if (generateNextStepOnFinishGeneration)
         {
             OnFinishStepGeneration += GenerateNextStep;
             //Debug.Log($"{gameObject.name} will generate the next step after finishing", this);
@@ -48,22 +62,57 @@ public abstract class CreationStepGenerator : MonoBehaviour
         Debug.Log($"Generating step {this.name}. clearPrevious = {clearPrevious}. generateNextStepOnFinish = {generateNextStepOnFinish}", this);
         _GenerateStep(clearPrevious);
     }
-
-    [ContextMenu("Delete Step")]
-    public void Delete()
-    {
-        Debug.Log($"Deleting step {this.name}.", this);
-        _DeleteStep();
-    }
+    
+    
     
     protected abstract void _DeleteStep(); // Do not call directly, instead call "Delete()"
     protected abstract void _GenerateStep(bool clearPrevious); // Do not call directly, instead call "Generate(clearPrevious, generateNextStepOnFinish)"
 
-    private event System.Action OnFinishStepGeneration;
-    protected virtual void InvokeOnFinishStepGeneration()
+    
+    
+    protected void InvokeOnFinishStepDeletion()
+    {
+        Debug.Log($"Step {this.name} finished deletion.", this);
+        OnFinishStepDeletion?.Invoke();
+        OnFinishStepDeletion -= DeleteNextStep;
+    }
+    
+    protected void InvokeOnFinishStepGeneration()
     {
         Debug.Log($"Step {this.name} finished generation.", this);
         OnFinishStepGeneration?.Invoke();
         OnFinishStepGeneration -= GenerateNextStep;
+    }
+    
+    
+    
+    private void DeleteNextStep()
+    {
+        DeleteNextStep(this.deleteNextStepOnFinishDeletion);
+    }
+    
+    private void GenerateNextStep()
+    {
+        GenerateNextStep(this.clearPreviousBeforeGeneration, this.generateNextStepOnFinishGeneration);
+    }
+    
+    
+    
+    private void GenerateNextStep(bool clearPrevious, bool generateNextOnFinish)
+    {
+        Debug.Log($"Triggering the generation of the step after {this.name}: {(nextCreationStep != null? nextCreationStep.name : "null")}", nextCreationStep);
+        if (nextCreationStep != null)
+            nextCreationStep.Generate(clearPrevious, generateNextOnFinish);
+        else
+            Debug.LogWarning($"Trying to generate the next step of {this.name}, with no 'nextCreationStepGenerator' defined", this);
+    }
+    
+    private void DeleteNextStep(bool deleteOnFinish)
+    {
+        Debug.Log($"Triggering the deletion of the step after {this.name}: {(nextCreationStep != null? nextCreationStep.name : "null")}", nextCreationStep);
+        if (nextCreationStep != null)
+            nextCreationStep.Delete(deleteOnFinish);
+        else
+            Debug.LogWarning($"Trying to delete the next step of {this.name}, with no 'nextCreationStepGenerator' defined", this);
     }
 }
