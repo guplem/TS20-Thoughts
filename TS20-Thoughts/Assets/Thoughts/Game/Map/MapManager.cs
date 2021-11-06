@@ -5,6 +5,7 @@ using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Attributes;
 using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
 using Thoughts.Game.Map.Terrain;
+using Thoughts.Utils.Maths;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,7 +27,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Reference to the MapGenerator component, the manager of the generation of the map
         /// </summary>
-        public MapGenerator mapGenerator { get {
+        internal MapGenerator mapGenerator { get {
             if (_mapGenerator == null) _mapGenerator = this.GetComponentRequired<MapGenerator>();
             return _mapGenerator;
         } }
@@ -50,7 +51,7 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void RegenerateFullMap()
         {
-            mapGenerator.RegenerateFull();
+            mapGenerator.RegenerateFullMap();
             existentMapElements.Clear();
         }
         
@@ -67,7 +68,7 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void DeleteMap()
         {
-            mapGenerator.DeleteCurrentMap();
+            mapGenerator.DeleteMap();
             existentMapElements.Clear();
         }
 
@@ -117,7 +118,21 @@ namespace Thoughts.Game.Map
         {
             throw new NotImplementedException();
         }
+
+        public List<MapElement> SpawnMapElementsRandomly(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, int quantity, Transform parent, bool requireNavMesh)
+        {
+            return mapGenerator.SpawnMapElementsRandomly(objectToSpawn, seed, spawningHeightRange, quantity, parent, requireNavMesh);
+        }
         
+        public MapElement SpawnMapElement(GameObject objectToSpawn, Vector3 position, Quaternion rotation, Transform parent)
+        {
+            return mapGenerator.SpawnMapElement(objectToSpawn, position, rotation, parent);
+        }
+
+        public List<MapElement> SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, float probability, float density, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
+        {
+            return mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(objectToSpawn, seed,  spawningHeightRange, probability, density, parent, noiseMapSettings, requireNavMesh);
+        }
     }
 }
 

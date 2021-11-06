@@ -136,7 +136,7 @@ namespace Thoughts.Game.Map
             if (mapManager.mapConfiguration != null)
             {
                 mapManager.mapConfiguration.ClearOnValuesUpdated(); // So the subscription count stays at 1
-                mapManager.mapConfiguration.OnValuesUpdated += RegenerateFull;
+                mapManager.mapConfiguration.OnValuesUpdated += RegenerateFullMap;
             }
             else
             {
@@ -213,7 +213,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// Deletes the currently (generated) existent map
         /// </summary>
-        public void DeleteCurrentMap()
+        public void DeleteMap()
         {
             if (!Application.isPlaying)
                 EditorUtility.SetDirty(mapManager.gameObject);
@@ -225,8 +225,8 @@ namespace Thoughts.Game.Map
 
         public Vector2Int GetChunksCoordsAt(Vector2 coords)
         {
-            int chunkCordX = Mathf.RoundToInt(coords.x / mapManager.mapGenerator.mapManager.mapConfiguration.chunkWorldSize);
-            int chunkCordY = Mathf.RoundToInt(coords.y / mapManager.mapGenerator.mapManager.mapConfiguration.chunkWorldSize);
+            int chunkCordX = Mathf.RoundToInt(coords.x / mapManager.mapConfiguration.chunkWorldSize);
+            int chunkCordY = Mathf.RoundToInt(coords.y / mapManager.mapConfiguration.chunkWorldSize);
             return new Vector2Int(chunkCordX, chunkCordY);
         }
 
@@ -241,7 +241,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// The previously created map is destroyed and a new FULL map (with all the creation steps) is generated.
         /// </summary>
-        public void RegenerateFull()
+        public void RegenerateFullMap()
         {
             Regenerate(CreationStep.Terrain, true);
         } 
@@ -354,8 +354,9 @@ namespace Thoughts.Game.Map
         /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
         /// <param name="noiseMapSettings">The settings to be used for the perlin noise map</param>
         /// <param name="requireNavMesh">Must the locations where the MapElements will spawn require a valid NavMeshSurface?</param>
-        public void SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, float probability, float density, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
+        public List<MapElement> SpawnMapElementsWithPerlinNoiseDistribution(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, float probability, float density, Transform parent, NoiseMapSettings noiseMapSettings, bool requireNavMesh)
         {
+            List<MapElement> spawnedMapElements = new List<MapElement>();
             RandomEssentials rng = new RandomEssentials(seed);
             
             float[,] noise = Noise.GenerateNoiseMap((int)mapManager.mapConfiguration.mapRadius*2, (int)mapManager.mapConfiguration.mapRadius*2, noiseMapSettings, Vector2.zero, seed);
@@ -370,9 +371,10 @@ namespace Thoughts.Game.Map
                         continue;
                     
                     if (IsSpawnablePosition( new Vector2(x - mapManager.mapConfiguration.mapRadius, y - mapManager.mapConfiguration.mapRadius), spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
-                        SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent);
+                        spawnedMapElements.Add(SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent));
                 }
             }
+            return spawnedMapElements;
         }
 
         /// <summary>
@@ -442,8 +444,9 @@ namespace Thoughts.Game.Map
         /// <param name="quantity">The amount of MapElements to spawn</param>
         /// <param name="parent">The transform that must be the parent of the spawned MapElement</param>
         /// <param name="requireNavMesh">Must the locations where the MapElements will spawn require a valid NavMeshSurface?</param>
-        public void SpawnMapElementsRandomly(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, int quantity, Transform parent, bool requireNavMesh)
+        public List<MapElement> SpawnMapElementsRandomly(GameObject objectToSpawn, int seed, Vector2 spawningHeightRange, int quantity, Transform parent, bool requireNavMesh)
         {
+            List<MapElement> spawnedMapElements = new List<MapElement>();
             int totalCountToAvoidInfiniteLoop = 5000*quantity;
             int spawnedCount = 0;
             
@@ -462,10 +465,11 @@ namespace Thoughts.Game.Map
 
                 if (IsSpawnablePosition(checkPosition, spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
                 {
-                    SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent);
+                    spawnedMapElements.Add(SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent));
                     spawnedCount++;
                 }
             }
+            return spawnedMapElements;
         }
 
     }

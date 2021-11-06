@@ -38,7 +38,7 @@ namespace Thoughts.Game.Map
                 Debug.LogWarning("The spawning of more than one type of humanoids has not been implemented");
             }
             
-            mapManager.mapGenerator.SpawnMapElementsRandomly(
+            mapManager.SpawnMapElementsRandomly(
                 mapManager.mapConfiguration.humanoidsSettings.spawnableMapElements[0], 
                 humanoidsSeed, 
                 mapManager.mapConfiguration.humanoidsSettings.spawningHeightRange, 

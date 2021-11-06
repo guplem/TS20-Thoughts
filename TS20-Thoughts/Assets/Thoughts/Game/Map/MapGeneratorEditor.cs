@@ -38,11 +38,11 @@ namespace Thoughts.Game.Map
             GUILayout.BeginHorizontal();
             if (GUILayout.Button("Delete all"))
             {
-                mapGenerator.DeleteCurrentMap();
+                mapGenerator.DeleteMap();
             }
             if (GUILayout.Button("Del. all & regenerate up to terrain"))
             {
-                mapGenerator.DeleteCurrentMap();
+                mapGenerator.DeleteMap();
                 //mapGenerator.RegenerateLight();
                 mapGenerator.RegenerateTerrain();
                 UnityEditor.SceneView.RepaintAll();
@@ -51,7 +51,7 @@ namespace Thoughts.Game.Map
             
             if (GUILayout.Button("Regenerate all"))
             {
-                mapGenerator.RegenerateFull();
+                mapGenerator.RegenerateFullMap();
                 UnityEditor.SceneView.RepaintAll();
                 UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
             }

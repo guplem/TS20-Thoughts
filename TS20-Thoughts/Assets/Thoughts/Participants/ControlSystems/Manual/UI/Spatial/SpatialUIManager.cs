@@ -114,7 +114,7 @@ public class SpatialUIManager : ImmediateModeShapeDrawer
                                 foreach (Vector3 navPoint in navMeshWaypoints)
                                 {
                                         Vector2 pathPoint2D = navPoint.ToVector2WithoutY();
-                                        Vector3 pathPointProperHeight = pathPoint2D.ToVector3NewY(GameManager.instance.mapManager.mapGenerator.terrainGenerator.GetHeightAt(pathPoint2D) + pathElevationAboveTerrain);
+                                        Vector3 pathPointProperHeight = pathPoint2D.ToVector3NewY(GameManager.instance.mapManager.GetHeightAt(pathPoint2D) + pathElevationAboveTerrain);
                                         routePolyLinePath.AddPoint(pathPointProperHeight); 
                                 }
                                         
