@@ -79,26 +79,6 @@ PrefabInstance:
       propertyPath: attributesManager._attributeOwnerships.Array.data[0].attribute
       value: 
       objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
-    - target: {fileID: 6984347118404179421, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
-      propertyPath: m_Shape
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6984347118404179421, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
-      propertyPath: m_Center.y
-      value: 0.85
-      objectReference: {fileID: 0}
-    - target: {fileID: 6984347118404179421, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
-      propertyPath: m_Extents.x
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6984347118404179421, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
-      propertyPath: m_Extents.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6984347118404179421, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
-      propertyPath: m_Extents.z
-      value: 1.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
 --- !u!4 &8113500720870897675 stripped

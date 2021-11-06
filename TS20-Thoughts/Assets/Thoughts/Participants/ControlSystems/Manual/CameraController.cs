@@ -26,6 +26,12 @@ namespace Thoughts.Participants.ControlSystems.Manual
         [SerializeField] private Transform cameraRig;
         
         /// <summary>
+        /// Height adjustment layers to use to check for the height that the camera should have
+        /// </summary>
+        [Tooltip("Height adjustment layers to use to check for the height that the camera should have. Usually just terrain and maybe a few more")]
+        [SerializeField] private LayerMask heightAdjustmentLayers;
+        
+        /// <summary>
         /// Reference to the CinemachineVirtualCamera linked to the overworld view
         /// </summary>
         [Tooltip("Reference to the CinemachineVirtualCamera linked to the overworld view")]
@@ -143,7 +149,7 @@ namespace Thoughts.Participants.ControlSystems.Manual
             float maxRayDistance = 1000;
             RaycastHit hit;
 
-            if (Physics.Raycast(cameraRigNewPosition + Vector3.up * maxRayDistance, Vector3.down, out hit, maxRayDistance))
+            if (Physics.Raycast(cameraRigNewPosition + Vector3.up * maxRayDistance, Vector3.down, out hit, maxRayDistance, heightAdjustmentLayers))
             {
                 if (hit.collider != null)
                 {

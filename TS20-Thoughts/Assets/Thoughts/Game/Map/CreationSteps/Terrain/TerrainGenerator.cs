@@ -43,11 +43,21 @@ namespace Thoughts.Game.Map.Terrain
         [SerializeField] private LayerMask terrainLayerMask;
         
         /// <summary>
-        /// Reference to the viewer (usually the player) of the terrain. If null at Start, it will be set to 'Camera.main' then.
+        /// Reference to the viewer (usually the player) of the terrain. If null, it will be set to 'Camera.main' when requested.
         /// </summary>
         public Transform viewer {
             get
             {
+                if (_viewer == null)
+                {
+                    Camera mainCamera = Camera.main;
+                    if (mainCamera)
+                        _viewer = mainCamera.transform;
+                    else
+                        Debug.LogWarning("The main camera has not been found to be set as the terrain' viewer.", this);
+
+                    Debug.Log($"EndlessTerrain viewer automatically set to '{_viewer}'", _viewer);
+                }
                 return _viewer;
             }
             set
@@ -91,32 +101,13 @@ namespace Thoughts.Game.Map.Terrain
         /// </summary>
         public event System.Action terrainFullyLoadCallback;
         
-        /// <summary>
-        /// Sets the viewer to the mainCamera if it has not been set during the Awake calls
-        /// </summary>
-        private void Start()
-        {
-            if (viewer == null)
-            {
-                Camera mainCamera = Camera.main;
-                if (mainCamera)
-                    viewer = mainCamera.transform;
-                else
-                    Debug.LogWarning("The main camera has not been found to be set as the terrain' viewer.", this);
-
-                Debug.Log($"EndlessTerrain viewer automatically set at Start to '{viewer}'", viewer);
-            }
-
-            // UpdateVisibleChunks();
-        }
 
         /// <summary>
         /// Sends the order to update the TerrainChunk if the viewer has moved a distance bigger than the configured threshold
         /// </summary>
         private void Update()
         {
-            Vector3 currentPosition = viewer.position;
-            viewerPosition = viewer != null ? new Vector2(currentPosition.x, currentPosition.z) : Vector2.zero;
+            viewerPosition = viewer != null ? new Vector2(viewer.position.x, viewer.position.z) : Vector2.zero;
         
             if ((viewerPositionOld - viewerPosition).sqrMagnitude > sqrViewerMoveThresholdForChunkUpdate)
             {
