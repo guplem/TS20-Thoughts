@@ -16,6 +16,12 @@ namespace Thoughts.Participants.ControlSystems.Manual
         private Manual manualControlSystem;
         
         /// <summary>
+        /// Layers that the Map Elements use
+        /// </summary>
+        [Tooltip("Layers that the Map Elements use")]
+        [SerializeField] private LayerMask mapElementLayers;
+        
+        /// <summary>
         /// Initial setup
         /// </summary>
         private void Awake()
@@ -44,7 +50,7 @@ namespace Thoughts.Participants.ControlSystems.Manual
                 Ray ray = manualControlSystem.cameraController.camera.ScreenPointToRay( Input.mousePosition );
                 RaycastHit hit;
          
-                if( Physics.Raycast( ray, out hit, 100 ) )
+                if( Physics.Raycast( ray, out hit, 100 , mapElementLayers) )
                 {
                     Debug.Log( $"Clicked on top of the object '{hit.transform.gameObject.name}'" );
                     manualControlSystem.selectedMapElement = hit.transform.gameObject.GetComponentInParent<MapElement>();
