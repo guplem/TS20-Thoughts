@@ -1,4 +1,5 @@
 using System;
+using Thoughts.Game.Map.CreationSteps.WaterSources;
 using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Inspector;
 using Thoughts.Utils.Maths;
@@ -70,7 +71,7 @@ namespace Thoughts.Game.Map
         /// <summary>
         /// The configuration of the height of the terrain of the map
         /// </summary>
-        [Header("2. Terrain")]
+        [Header("2.a Terrain")]
         [Tooltip("The configuration of the height of the terrain of the map")]
         public TerrainHeightSettings terrainHeightSettings;
         /// <summary>
@@ -79,6 +80,9 @@ namespace Thoughts.Game.Map
         [Tooltip("The configuration of the texture of the terrain of the map")]
         public TerrainTextureSettings terrainTextureSettings;
 
+        [Header("2.b WaterSources")]
+        public WaterSourcesSettings waterSourcesSettings;
+        
         [Header("3. Vegetation")]
         public VegetationSettings vegetationSettings;
         

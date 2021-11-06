@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Thoughts.Game.Map.CreationSteps.WaterSources;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Maths;
@@ -35,27 +36,16 @@ namespace Thoughts.Game.Map
         } }
         private ThreadedDataRequester _threadedDataRequester;
         
-        [SerializeField] private Transform sea;
-
-        /// <summary>
-        /// Reference to the TerrainGenerator component in charge of generating the Terrain
-        /// </summary>
+        #region StepsGenerators
+        
         [Header("Steps Generators")]
-        [Tooltip("Reference to the TerrainGenerator component in charge of generating the Terrain")]
         [SerializeField] public TerrainGenerator terrainGenerator;
-        
-        /// <summary>
-        /// Reference to the VegetationGenerator component in charge of generating the Vegetation
-        /// </summary>
-        [Tooltip("Reference to the VegetationGenerator component in charge of generating the Vegetation")]
+        [SerializeField] public WaterSourcesGenerator waterSourcesGenerator;
         [SerializeField] private VegetationGenerator vegetationGenerator;
-        
-        /// <summary>
-        /// Reference to the HumanoidsGenerator component in charge of generating the Humanoids
-        /// </summary>
-        [Tooltip("Reference to the HumanoidsGenerator component in charge of generating the Humanoids")]
         [SerializeField] private HumanoidsGenerator humanoidsGenerator;
 
+        #endregion
+        
 
     #if UNITY_EDITOR
         /*
@@ -164,6 +154,13 @@ namespace Thoughts.Game.Map
                 mapManager.mapConfiguration.terrainTextureSettings.OnValuesUpdated += RegenerateTerrainTextures;
             }
 
+            //WaterSources
+            if (mapManager.mapConfiguration.waterSourcesSettings != null)
+            {
+                mapManager.mapConfiguration.waterSourcesSettings.ClearOnValuesUpdated(); // So the subscription count stays at 1
+                mapManager.mapConfiguration.waterSourcesSettings.OnValuesUpdated += RegenerateWaterSources;
+            }
+            
             //Vegetation
             if (mapManager.mapConfiguration.vegetationSettings != null)
             {
@@ -232,6 +229,7 @@ namespace Thoughts.Game.Map
 
         public void RegenerateLight(){ Regenerate(CreationStep.Light);}
         public void RegenerateTerrain(){ Regenerate(CreationStep.Terrain); }
+        public void RegenerateWaterSources() { Regenerate(CreationStep.WaterSources);}
         public void RegenerateVegetation(){ Regenerate(CreationStep.Vegetation);}
         public void RegenerateNight(){ Regenerate(CreationStep.Night);}
         public void RegenerateFishAndBirds(){ Regenerate(CreationStep.FishAndBirds);}
@@ -265,7 +263,9 @@ namespace Thoughts.Game.Map
                 case CreationStep.Terrain:
                     terrainGenerator.Generate(true, generateNextStepOnFinish);
                     RegenerateTerrainTextures();
-                    ReconfigureSea();
+                    break;
+                case CreationStep.WaterSources:
+                    waterSourcesGenerator.Generate(true, generateNextStepOnFinish);
                     break;
                 case CreationStep.Vegetation:
                     vegetationGenerator.Generate(true, generateNextStepOnFinish);
@@ -285,14 +285,6 @@ namespace Thoughts.Game.Map
                 default:
                     throw new ArgumentOutOfRangeException(nameof(step), step, $"Trying to generate creation step with no generation process: {Enum.GetName(typeof(CreationStep), step)}");
             }
-        }
-        
-        private void ReconfigureSea()
-        {
-            float seaHeight = mapManager.mapConfiguration.seaHeightAbsolute;
-            sea.transform.position = Vector3.zero.WithY(seaHeight);
-            float seaSize = mapManager.mapConfiguration.mapRadius * 2 * 2;
-            sea.transform.localScale = new Vector3(seaSize, 1, seaSize);
         }
 
 
@@ -482,6 +474,7 @@ namespace Thoughts.Game.Map
         UserName,
         Light,
         Terrain, 
+        WaterSources,
         Vegetation,
         Night,
         FishAndBirds,

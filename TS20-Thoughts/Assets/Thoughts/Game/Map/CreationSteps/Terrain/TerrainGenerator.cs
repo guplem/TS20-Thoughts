@@ -84,6 +84,7 @@ namespace Thoughts.Game.Map.Terrain
         /// </summary>
         private int loadingChunks;
         
+        [SerializeField] private Transform seaVisuals;
 
         /// <summary>
         /// The callback action to do after fully loading the terrain
@@ -250,8 +251,18 @@ namespace Thoughts.Game.Map.Terrain
         
         protected override void _GenerateStep(bool clearPrevious)
         {
+            ReconfigureSea();
             UpdateChunks(clearPrevious);
         }
+        
+        private void ReconfigureSea()
+        {
+            float seaHeight = mapManager.mapConfiguration.seaHeightAbsolute;
+            seaVisuals.transform.position = Vector3.zero.WithY(seaHeight);
+            float seaSize = mapManager.mapConfiguration.mapRadius * 2 * 2;
+            seaVisuals.transform.SetGlobalScale(new Vector3(seaSize, 0.05f, seaSize));
+        }
+        
         
     }
 
