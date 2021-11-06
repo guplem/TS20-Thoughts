@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Thoughts.Game.Map;
+using UnityEditor;
 using UnityEngine;
 
 public abstract class CreationStepGenerator : MonoBehaviour
@@ -48,6 +49,15 @@ public abstract class CreationStepGenerator : MonoBehaviour
         
         Debug.Log($"Deleting step {this.name}. deleteNextStepOnFinish = {deleteNextStepOnFinish}", this);
         _DeleteStep();
+        
+        #if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            UnityEditor.SceneView.RepaintAll();
+            UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+            EditorUtility.SetDirty(mapManager.gameObject);
+        }
+        #endif
     }
     
     public void Generate(bool clearPrevious = true, bool generateNextStepOnFinish = false)
@@ -60,7 +70,17 @@ public abstract class CreationStepGenerator : MonoBehaviour
             //Debug.Log($"{gameObject.name} will generate the next step after finishing", this);
         }
         Debug.Log($"Generating step {this.name}. clearPrevious = {clearPrevious}. generateNextStepOnFinish = {generateNextStepOnFinish}", this);
+        
         _GenerateStep(clearPrevious);
+        
+        #if UNITY_EDITOR
+        if (!Application.isPlaying)
+        {
+            UnityEditor.SceneView.RepaintAll();
+            UnityEditor.EditorApplication.QueuePlayerLoopUpdate();
+            EditorUtility.SetDirty(mapManager.gameObject);
+        }
+        #endif
     }
     
     

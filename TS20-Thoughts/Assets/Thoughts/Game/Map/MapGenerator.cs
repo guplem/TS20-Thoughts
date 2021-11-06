@@ -212,9 +212,6 @@ namespace Thoughts.Game.Map
         /// </summary>
         public void DeleteMap()
         {
-            if (!Application.isPlaying)
-                EditorUtility.SetDirty(mapManager.gameObject);
-            
             mapManager.navigationManager.RemoveAllNavMesh();
             
             terrainGenerator.Delete(true); // Must be the first one
@@ -252,8 +249,7 @@ namespace Thoughts.Game.Map
         {
             // Debug.Log($"Regenerating '{step.ToString()}'");
             
-            if (!Application.isPlaying)
-                EditorUtility.SetDirty(mapManager.gameObject);
+
 
             switch (step)
             {
