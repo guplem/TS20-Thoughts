@@ -1367,7 +1367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   terrainGenerator: {fileID: 1746345165}
-  waterSourcesGenerator: {fileID: 0}
+  waterSourcesGenerator: {fileID: 1793362846}
   vegetationGenerator: {fileID: 1698279735}
   humanoidsGenerator: {fileID: 1620793753}
 --- !u!114 &1198110761
