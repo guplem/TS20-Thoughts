@@ -16,7 +16,8 @@ filters = {
 	settings = true
 }
 scopes = {
-	"last_search.AB59B443" = ""
+	"last_search.AB59B288" = ""
+	"last_search.00000000" = ""
 }
 providers = {
 	asset = {
@@ -57,6 +58,31 @@ providers = {
 	query = {
 		active = true
 		priority = 100
+		defaultAction = null
+	}
+	menu = {
+		active = true
+		priority = 80
+		defaultAction = null
+	}
+	settings = {
+		active = true
+		priority = 100
+		defaultAction = null
+	}
+	help = {
+		active = true
+		priority = -1
+		defaultAction = null
+	}
+	calculator = {
+		active = true
+		priority = 10
+		defaultAction = null
+	}
+	static_methods = {
+		active = true
+		priority = 85
 		defaultAction = null
 	}
 }
