@@ -17,9 +17,9 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
         private MapElement selectedMapElement;
         
         /// <summary>
-        /// Reference to the section of the UI holding the information of the current ExecutionPlans related to the objective Attribute
+        /// Reference to the section of the UI holding the information of the current ExecutionPlans related to the objective Property
         /// </summary>
-        [Tooltip("Reference to the section of the UI holding the information of the execution plans related to the Attribute objective")]
+        [Tooltip("Reference to the section of the UI holding the information of the execution plans related to the Property objective")]
         [SerializeField] private BehaviorUI.BehaviorUI behaviorUI;
         
         /// <summary>
@@ -68,7 +68,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
                 if (selectedMapElement != null)
                 {
                     selectedMapElement.onExecutionPlansUpdated -= behaviorUI.DisplayExecutionPlans;
-                    selectedMapElement.onObjectiveAttributeUpdated -= behaviorUI.DisplayObjectiveAttribute;
+                    selectedMapElement.onObjectivePropertyUpdated -= behaviorUI.DisplayObjectiveProperty;
                 }
                 
                 // Update
@@ -82,7 +82,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game
                 if (selectedMapElement != null)
                 {
                     selectedMapElement.onExecutionPlansUpdated += behaviorUI.DisplayExecutionPlans;
-                    selectedMapElement.onObjectiveAttributeUpdated += behaviorUI.DisplayObjectiveAttribute;
+                    selectedMapElement.onObjectivePropertyUpdated += behaviorUI.DisplayObjectiveProperty;
                 }
             }
         }

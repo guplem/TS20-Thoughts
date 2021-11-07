@@ -1,9 +1,9 @@
 using System;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Map.MapElements.Attributes
+namespace Thoughts.Game.Map.MapElements.Properties
 {
     /// <summary>
     /// Consequence of the execution of a MapEvent
@@ -12,15 +12,16 @@ namespace Thoughts.Game.Map.MapElements.Attributes
     public class Consequence
     {
         /// <summary>
-        /// Attribute that will be updated as a consequence of the execution of the MapEvent
+        /// Property that will be updated as a consequence of the execution of the MapEvent
         /// </summary>
-        [Tooltip("Attribute that will be updated as a consequence of the execution of the MapEvent")]
-        public Attribute attribute;
+        [FormerlySerializedAs("property")]
+        [Tooltip("Property that will be updated as a consequence of the execution of the MapEvent")]
+        public Property property;
         
         /// <summary>
-        /// The difference to apply to the attribute's value of this consequence. Can be positive and negative
+        /// The difference to apply to the property's value of this consequence. Can be positive and negative
         /// </summary>
-        [Tooltip("The difference to apply to the attribute's value of this consequence. Can be positive and negative")]
+        [Tooltip("The difference to apply to the property's value of this consequence. Can be positive and negative")]
         [FormerlySerializedAs("value")]
         public int deltaValue = 1;
         
@@ -42,7 +43,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return $"{attribute} (val={deltaValue})";
+            return $"{property} (val={deltaValue})";
         }
 
     }

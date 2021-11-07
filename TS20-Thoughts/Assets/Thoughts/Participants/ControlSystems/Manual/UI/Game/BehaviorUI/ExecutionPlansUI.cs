@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using UnityEngine;
 
 namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI

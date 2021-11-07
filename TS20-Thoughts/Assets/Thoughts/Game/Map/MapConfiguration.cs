@@ -1,6 +1,12 @@
 using System;
+using Thoughts.Game.Map.CreationSteps.FishAndBirds;
+using Thoughts.Game.Map.CreationSteps.Humanoids;
+using Thoughts.Game.Map.CreationSteps.LandAnimals;
+using Thoughts.Game.Map.CreationSteps.Light;
+using Thoughts.Game.Map.CreationSteps.Night;
+using Thoughts.Game.Map.CreationSteps.Terrain;
+using Thoughts.Game.Map.CreationSteps.Vegetation;
 using Thoughts.Game.Map.CreationSteps.WaterSources;
-using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Inspector;
 using Thoughts.Utils.Maths;
 using UnityEngine;

@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Thoughts.Game.Map.CreationSteps.Humanoids;
+using Thoughts.Game.Map.CreationSteps.Terrain;
+using Thoughts.Game.Map.CreationSteps.Vegetation;
 using Thoughts.Game.Map.CreationSteps.WaterSources;
 using Thoughts.Game.Map.MapElements;
-using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Maths;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEditor;

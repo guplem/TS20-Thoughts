@@ -1,9 +1,9 @@
 using System;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Map.MapElements.Attributes
+namespace Thoughts.Game.Map.MapElements.Properties
 {
     /// <summary>
     /// Requirement for the execution of a MapEvent
@@ -12,15 +12,16 @@ namespace Thoughts.Game.Map.MapElements.Attributes
     public class Requirement
     {
         /// <summary>
-        /// The required attribute
+        /// The required property
         /// </summary>
-        [Tooltip("The required attribute")]
-        public Attribute attribute;
+        [FormerlySerializedAs("property")]
+        [Tooltip("The required property")]
+        public Property property;
         
         /// <summary>
-        /// The minimal value required of the required attribute
+        /// The minimal value required of the required property
         /// </summary>
-        [Tooltip("The minimal value required of the required attribute")]
+        [Tooltip("The minimal value required of the required property")]
         [FormerlySerializedAs("value")]
         public int minValue = 1;
         
@@ -36,7 +37,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return $"{attribute} (val={minValue})";
+            return $"{property} (val={minValue})";
         }
 
     }

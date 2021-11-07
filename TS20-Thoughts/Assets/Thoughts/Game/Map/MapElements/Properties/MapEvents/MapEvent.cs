@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
+namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
 {
 
     /// <summary>
-    /// An event that must be executed by a MapElement. It is part of an attribute.
+    /// An event that must be executed by a MapElement. It is part of an property.
     /// </summary>
     [Serializable]
     public class MapEvent
@@ -30,15 +30,15 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         [SerializeField] public bool executeWithTimeElapse = false;
         
         /// <summary>
-        /// Determines if the executer of the event must own the attribute where this event lives in.
+        /// Determines if the executer of the event must own the property where this event lives in.
         /// </summary>
-        [Tooltip("Determines if the executer of the event must own the attribute where this event lives in.")]
-        [SerializeField] public bool executerMustOwnAttribute = false;
+        [Tooltip("Determines if the executer of the event must own the property where this event lives in.")]
+        [SerializeField] public bool executerMustOwnProperty = false;
         
         /// <summary>
-        /// List of update to attributes that will be triggered as a consequence of the execution of the MapEvent.
+        /// List of update to properties that will be triggered as a consequence of the execution of the MapEvent.
         /// </summary>
-        [Tooltip("List of update to attributes that will be triggered as a consequence of the execution of the MapEvent.")]
+        [Tooltip("List of update to properties that will be triggered as a consequence of the execution of the MapEvent.")]
         [SerializeField] public List<Consequence> consequences = new List<Consequence>();
         
         /// <summary>
@@ -49,9 +49,9 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         [SerializeField] public bool tryToCoverRequirementsIfNotMet = true;
         
         /// <summary>
-        /// List of attributes with specific values that must be met in order to execute the event..
+        /// List of properties with specific values that must be met in order to execute the event..
         /// </summary>
-        [Tooltip("List of attributes with specific values that must be met in order to execute the event.")]
+        [Tooltip("List of properties with specific values that must be met in order to execute the event.")]
         [SerializeField] public List<Requirement> requirements = new List<Requirement>();
 
         /// <summary>
@@ -70,19 +70,19 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
                 switch (consequence.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        owner.attributesManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
+                        owner.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
                         if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
                             owner.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventExecuter:
-                        executer.attributesManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
+                        executer.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
                         if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
                             executer.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventTarget:
-                        target.attributesManager.UpdateAttribute(consequence.attribute, consequence.deltaValue);
+                        target.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
                         if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
                             target.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
@@ -133,36 +133,36 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         /// <param name="owner">The MapElement that owns the event.</param>
         /// <param name="executionTimes">The amount of times that is desired to execute the event.</param>
         /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
-        public Dictionary<AttributeOwnership, int> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes)
+        public Dictionary<PropertyOwnership, int> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes)
         {
-            Dictionary<AttributeOwnership, int> requirementsNotMet = new Dictionary<AttributeOwnership, int>();
+            Dictionary<PropertyOwnership, int> requirementsNotMet = new Dictionary<PropertyOwnership, int>();
             
             foreach (Requirement requirement in requirements)
             {
-                //OwnedAttribute attributeThatMostCloselyMeetsTheRequirement;
+                //OwnedProperty propertyThatMostCloselyMeetsTheRequirement;
                 int remainingValueToCoverRequirementNotMet;
                 bool meets = true;
 
                 switch (requirement.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        meets = owner.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = owner.propertyManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            AttributeOwnership req = (owner.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
+                            PropertyOwnership req = (owner.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.property));
                             requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventExecuter:
-                        meets = executer.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = executer.propertyManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            AttributeOwnership req = (executer.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
+                            PropertyOwnership req = (executer.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.property));
                             requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventTarget:
-                        meets = target.attributesManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = target.propertyManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            AttributeOwnership req = (target.attributesManager.GetOwnedAttributeAndAddItIfNotFound(requirement.attribute));
+                            PropertyOwnership req = (target.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.property));
                             requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
@@ -176,38 +176,38 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         }
 
         /// <summary>
-        /// Indicates if the consequences of the execution of this event will increase the value of an attribute owned by a map element.
+        /// Indicates if the consequences of the execution of this event will increase the value of an property owned by a map element.
         /// </summary>
-        /// <param name="attributeOwnershipToCover">AttributeOwnership to cover.</param>
+        /// <param name="propertyOwnershipToCoverr">PropertyOwnership to cover.</param>
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
-        /// <returns>True, if the execution of this MapEvent with this target, executer and owner would increase the value of the given attribute. False, otherwise.</returns>
-        public bool ConsequencesCover(AttributeOwnership attributeOwnershipToCover, MapElement target, MapElement executer, MapElement owner)
+        /// <returns>True, if the execution of this MapEvent with this target, executer and owner would increase the value of the given property. False, otherwise.</returns>
+        public bool ConsequencesCover(PropertyOwnership propertyOwnershipToCover, MapElement target, MapElement executer, MapElement owner)
         {
-            bool consequenceCoversOwnerOfAttribute = false;
-            // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{ownedAttribute.attribute}'.\n");
+            bool consequenceCoversOwnerOfProperty = false;
+            // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{ownedProperty.property}'.\n");
             foreach (Consequence consequence in consequences)
             {
-                //Debug.Log($"    $$$$$ Current consequence's attribute = '{consequence.attribute}'.\n");
-                if (consequence.attribute == attributeOwnershipToCover.attribute && consequence.deltaValue > 0)
+                //Debug.Log($"    $$$$$ Current consequence's property = '{consequence.property}'.\n");
+                if (consequence.property == propertyOwnershipToCover.property && consequence.deltaValue > 0)
                 {
                     switch (consequence.affectedMapElement)
                     {
                         case AffectedMapElement.eventOwner:
-                            consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == owner;
+                            consequenceCoversOwnerOfProperty = propertyOwnershipToCover.owner == owner;
                             break;
                         case AffectedMapElement.eventExecuter:
-                            consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == executer;
+                            consequenceCoversOwnerOfProperty = propertyOwnershipToCover.owner == executer;
                             break;
                         case AffectedMapElement.eventTarget:
-                            consequenceCoversOwnerOfAttribute = attributeOwnershipToCover.owner == target;
+                            consequenceCoversOwnerOfProperty = propertyOwnershipToCover.owner == target;
                             break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
 
-                    if (consequenceCoversOwnerOfAttribute)
+                    if (consequenceCoversOwnerOfProperty)
                     {
                         if (consequence.affectedMapElement == AffectedMapElement.eventTarget)
                         {

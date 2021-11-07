@@ -1,33 +1,33 @@
 using System;
 using System.Collections.Generic;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.MapElements.Attributes
+namespace Thoughts.Game.Map.MapElements.Properties
 {
     /// <summary>
     /// A quality, characteristic or object ascribed to a MapElement.
     /// </summary>
-    [CreateAssetMenu(fileName = "Attribute", menuName = "Thoughts/Attribute", order = 1)]
-    public class Attribute : ScriptableObject, IEquatable<Attribute>
+    [CreateAssetMenu(fileName = "Property", menuName = "Thoughts/Property", order = 1)]
+    public class Property : ScriptableObject, IEquatable<Property>
     {
         /// <summary>
-        /// The level of priority of the attribute.
+        /// The level of priority of the property.
         /// <para>More than 0 if it is a need. 0 otherwise.</para>
         /// </summary>
         public NeedPriority needPriority { get { return _needPriority; } }
         
         /// <summary>
-        /// The level of priority of the attribute.
+        /// The level of priority of the property.
         /// <para>More than 0 if it is a need. 0 otherwise.</para>
         /// </summary>
         [Tooltip("The level of priority, if it is a need.")]
         [SerializeField] private NeedPriority _needPriority = NeedPriority.None;
         
         /// <summary>
-        /// The MapEvents made available by the Attribute.
+        /// The MapEvents made available by the Property.
         /// </summary>
-        [Tooltip("The MapEvents made available by the Attribute.")]
+        [Tooltip("The MapEvents made available by the Property.")]
         [SerializeField] public List<MapEvent> mapEvents;
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         }
         
         /// <summary>
-        /// The levels of priority an attribute can have.
+        /// The levels of priority an property can have.
         /// </summary>
         public enum NeedPriority
         {
@@ -77,26 +77,26 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         }
         
         /// <summary>
-        /// Indicates if this Attribute is more prioritary than another given Attribute.
+        /// Indicates if this Property is more prioritary than another given Property.
         /// </summary>
-        /// <param name="attribute">The Attribute against which to check the priority.</param>
-        /// <returns>True, if this Attribute is more prioritary than the given Attribute. False, otherwise.</returns>
-        public bool IsMorePrioritaryThan(Attribute attribute)
+        /// <param name="property">The Property against which to check the priority.</param>
+        /// <returns>True, if this Property is more prioritary than the given Property. False, otherwise.</returns>
+        public bool IsMorePrioritaryThan(Property property)
         {
-            if (attribute == null)
+            if (property == null)
                 return true;
             
             if (!this.IsNeed())
                 return false;
 
-            if (!attribute.IsNeed())
+            if (!property.IsNeed())
                 return true;
 
-            return this.needPriority < attribute.needPriority;
+            return this.needPriority < property.needPriority;
         }
 
         /// <summary>
-        /// Indicates if this Attribute is considered a Need.
+        /// Indicates if this Property is considered a Need.
         /// </summary>
         /// <returns>True if the level of priority is > 0 (meaning that it is a need). False, otherwise.</returns>
         public bool IsNeed()
@@ -108,7 +108,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
-        /// <para>The equality is considered checking only the name of the Attributes.</para>
+        /// <para>The equality is considered checking only the name of the Properties.</para>
         /// </summary>
         /// <param name="obj">The object to check against</param>
         /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
@@ -120,16 +120,16 @@ namespace Thoughts.Game.Map.MapElements.Attributes
                 return true;
             if (obj.GetType() != this.GetType())
                 return false;
-            return Equals((Attribute) obj);
+            return Equals((Property) obj);
         }
         
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
-        /// <para>The equality is considered checking only the name of the Attributes.</para>
+        /// <para>The equality is considered checking only the name of the Properties.</para>
         /// </summary>
         /// <param name="other">The object to check against</param>
         /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
-        public bool Equals(Attribute other)
+        public bool Equals(Property other)
         {
             return other != null && other.name.Equals(this.name);
         }
@@ -144,11 +144,11 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         }
         
         /// <summary>
-        /// Override to the equal operator so two Attributes are considered the same if their names are the same.
+        /// Override to the equal operator so two Properties are considered the same if their names are the same.
         /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
         /// </summary>
         /// <returns>True if the left object's name is equal to the right object's name; otherwise, false.</returns>
-        public static bool operator ==(Attribute left, Attribute right)
+        public static bool operator ==(Property left, Property right)
         {
             if (left is null && right is null)
                 return true;
@@ -160,11 +160,11 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         }
         
         /// <summary>
-        /// Override to the mot-equal operator so two Attributes are considered different the same if their names are different.
+        /// Override to the mot-equal operator so two Properties are considered different the same if their names are different.
         /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
         /// </summary>
         /// <returns>True if the left object's name is different to the right object's name; otherwise, false.</returns>
-        public static bool operator !=(Attribute left, Attribute right)
+        public static bool operator !=(Property left, Property right)
         {
             return !(left == right);
         }

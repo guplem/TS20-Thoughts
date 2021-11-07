@@ -1,11 +1,7 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using Thoughts.Game.Map.MapElements;
 using UnityEngine;
-using Console = System.Console;
 
-namespace Thoughts.Game.Map.Terrain
+namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
     /// <summary>
     /// Unity Component in charge of generating a terrain in the scene 

@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
+namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
 {
     /// <summary>
-    /// The execution configuration for a MapEvent. A plan to execute a MapEvent (of an Attribute) owned by a MapElement, executed by a MapElement and with a targeted MapElement.
+    /// The execution configuration for a MapEvent. A plan to execute a MapEvent (of an Property) owned by a MapElement, executed by a MapElement and with a targeted MapElement.
     /// </summary>
     public class ExecutionPlan
     {
@@ -15,7 +15,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         public MapEvent mapEvent { get; private set; }
         
         /// <summary>
-        /// The MapElement that owns the MapEvent to execute (in one of its owned Attributes)
+        /// The MapElement that owns the MapEvent to execute (in one of its owned Properties)
         /// </summary>
         public MapElement eventOwner { get; private set; }
         
@@ -58,7 +58,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         /// <param name="mapEvent">The MapEvent to execute</param>
         /// <param name="executer">The executor MapElement of the MapEvent</param>
         /// <param name="target">The targeted MapElement with the execution of the MapEvent</param>
-        /// <param name="eventOwner">The MapElement that owns the MapEvent to execute (in one of its owned Attributes)</param>
+        /// <param name="eventOwner">The MapElement that owns the MapEvent to execute (in one of its owned Properties)</param>
         /// <param name="executionTimes">The amount of times remaining to execute this plan's MapEvent. 1 by default.</param>
         public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner, int executionTimes = 1)
         {
@@ -103,7 +103,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         /// <returns>True, if the requirements to execute this ExecutionPlan are met. False, otherwise.</returns>
         private bool CanBeExecuted(out string requirementsNotMetMessage)
         {
-            Dictionary<AttributeOwnership, int> requirementsNotMet = GetRequirementsNotMet();
+            Dictionary<PropertyOwnership, int> requirementsNotMet = GetRequirementsNotMet();
             bool allRequirementsMet = requirementsNotMet.IsNullOrEmpty();
             bool isDistanceMet = IsDistanceMet();
 
@@ -129,42 +129,42 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
         /// Returns a list of the requirements that are not met at the moment to execute the event, it and outputs a list of the value missing for each one of the requirements that are not met (in the same order).
         /// </summary>
         /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
-        public Dictionary<AttributeOwnership, int> GetRequirementsNotMet()
+        public Dictionary<PropertyOwnership, int> GetRequirementsNotMet()
         {
             return mapEvent.GetRequirementsNotMet(executer, target, eventOwner, executionTimes);
         }
 
         /// <summary>
-        /// Calculates the amount of times that the execution of this ExecutionPlan's MapElement is needed to cover a given attribute (to increase its value a defined amount).
+        /// Calculates the amount of times that the execution of this ExecutionPlan's MapElement is needed to cover a given property (to increase its value a defined amount).
         /// </summary>
-        /// <param name="attributeOwnershipToCover">AttributeOwnership that is desired to cover (to increase its value in the MapElement's AttributeManager)</param>
-        /// <param name="remainingValueToCover">The remaining value to cover for the given Attribute.</param>
+        /// <param name="propertyOwnershipToCoverr">PropertyOwnership that is desired to cover (to increase its value in the MapElement's PropertyManager)</param>
+        /// <param name="remainingValueToCover">The remaining value to cover for the given Property.</param>
         /// <returns></returns>
-        private int CalculateExecutionsNeededToCover(AttributeOwnership attributeOwnershipToCover, int remainingValueToCover)
+        private int CalculateExecutionsNeededToCover(PropertyOwnership propertyOwnershipToCover, int remainingValueToCover)
         {
             int coveredPerExecution = 0;
 
-            //Debug.LogWarning($"Calculating how many times '{this.mapEvent}' must be executed to cover '{ownedAttributeToCover.attribute}'...");
+            //Debug.LogWarning($"Calculating how many times '{this.mapEvent}' must be executed to cover '{ownedPropertyToCover.property}'...");
 
             foreach (Consequence consequence in mapEvent.consequences)
             {
-                //Debug.Log($"CHECKING {consequence.attribute} against {ownedAttributeToCover.attribute}");
-                if (consequence.attribute == attributeOwnershipToCover.attribute)
+                //Debug.Log($"CHECKING {consequence.property} against {ownedPropertyToCover.property}");
+                if (consequence.property == propertyOwnershipToCover.property)
                 {
                     switch (consequence.affectedMapElement)
                     {
                         case AffectedMapElement.eventOwner:
-                            if (this.eventOwner == attributeOwnershipToCover.owner)
+                            if (this.eventOwner == propertyOwnershipToCover.owner)
                                 coveredPerExecution += consequence.deltaValue;
 
                             break;
                         case AffectedMapElement.eventExecuter:
-                            if (this.executer == attributeOwnershipToCover.owner)
+                            if (this.executer == propertyOwnershipToCover.owner)
                                 coveredPerExecution += consequence.deltaValue;
 
                             break;
                         case AffectedMapElement.eventTarget:
-                            if (this.target == attributeOwnershipToCover.owner)
+                            if (this.target == propertyOwnershipToCover.owner)
                                 coveredPerExecution += consequence.deltaValue;
 
                             break;
@@ -185,18 +185,18 @@ namespace Thoughts.Game.Map.MapElements.Attributes.MapEvents
             if (coveredPerExecution > 0)
                 return result;
 
-            // Debug.LogWarning($"'{this}' can not cover '{ownedAttributeToCover}'.");
+            // Debug.LogWarning($"'{this}' can not cover '{ownedPropertyToCover}'.");
             return -1;
         }
 
         /// <summary>
-        /// Sets the amount of times remaining to execute this plan's MapEvent to the same amount needed to to cover a given attribute (to increase its value a defined amount).
+        /// Sets the amount of times remaining to execute this plan's MapEvent to the same amount needed to to cover a given property (to increase its value a defined amount).
         /// </summary>
-        /// <param name="attributeOwnershipToCover">AttributeOwnership that is desired to cover (to increase its value in the MapElement's AttributeManager)</param>
-        /// <param name="remainingValueToCover">The remaining value to cover for the given Attribute.</param>
-        public void SetExecutionTimesToCover(AttributeOwnership attributeOwnershipToCover, int remainingValueToCover)
+        /// <param name="propertyOwnershipToCoverr">PropertyOwnership that is desired to cover (to increase its value in the MapElement's PropertyManager)</param>
+        /// <param name="remainingValueToCover">The remaining value to cover for the given Property.</param>
+        public void SetExecutionTimesToCover(PropertyOwnership propertyOwnershipToCover, int remainingValueToCover)
         {
-            this.executionTimes = CalculateExecutionsNeededToCover(attributeOwnershipToCover, remainingValueToCover);
+            this.executionTimes = CalculateExecutionsNeededToCover(propertyOwnershipToCover, remainingValueToCover);
         }
 
     }

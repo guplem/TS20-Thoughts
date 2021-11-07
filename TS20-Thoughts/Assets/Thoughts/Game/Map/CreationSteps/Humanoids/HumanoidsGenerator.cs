@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Thoughts.Game.Map
+namespace Thoughts.Game.Map.CreationSteps.Humanoids
 {
     public class HumanoidsGenerator : CreationStepGenerator
     {

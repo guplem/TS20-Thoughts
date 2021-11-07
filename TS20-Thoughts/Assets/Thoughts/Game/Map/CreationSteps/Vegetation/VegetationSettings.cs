@@ -1,8 +1,7 @@
 ﻿using Thoughts.Utils.Inspector;
-using Thoughts.Utils.Maths;
 using UnityEngine;
 
-namespace Thoughts.Game.Map
+namespace Thoughts.Game.Map.CreationSteps.Vegetation
 {
     [CreateAssetMenu(fileName = "VegetationSettings", menuName = "Thoughts/Map/Vegetation Settings", order = 30)]
     public class VegetationSettings : UpdatableData

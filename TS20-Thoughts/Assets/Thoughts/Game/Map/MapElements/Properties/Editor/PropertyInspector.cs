@@ -1,23 +1,23 @@
 #if UNITY_EDITOR
-using Thoughts.Game.Map.MapElements.Attributes;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using UnityEditor;
 using UnityEngine;
 
 namespace Thoughtskk
 {
     [CanEditMultipleObjects]
-    [CustomEditor(typeof(Attribute))]
-    public class AttributeInspector : UnityEditor.Editor
+    [CustomEditor(typeof(Property))]
+    public class PropertyInspector : UnityEditor.Editor
     {
-        private Attribute attribute;
+        private Property property;
         
         public override void OnInspectorGUI()
         {
             // Update the serializedProperty - always do this in the beginning of OnInspectorGUI.
             serializedObject.Update ();
             
-            attribute = target as Attribute;
+            property = target as Property;
             base.OnInspectorGUI();
             //ShowMapEventsArray();
             
@@ -38,7 +38,7 @@ namespace Thoughtskk
                 {
                     SerializedProperty mapEventProperty = mapEventsList.GetArrayElementAtIndex(mapEventIndex);
 
-                    MapEvent mapEvent = attribute.mapEvents[mapEventIndex];
+                    MapEvent mapEvent = property.mapEvents[mapEventIndex];
                     
                     // MapEvent name
                     string eventName = "";
@@ -60,7 +60,7 @@ namespace Thoughtskk
 
 
         /*
-        private Attribute attribute;
+        private Property property;
         private Type[] mapEventsImplementations;
         private int selectedMapEventImplementationIndex = -1;
 
@@ -70,15 +70,15 @@ namespace Thoughtskk
             serializedObject.Update ();
             
             //specify target type
-            attribute = target as Attribute;
-            if (attribute == null) { return; }
+            property = target as Property;
+            if (property == null) { return; }
             
             EditorGUILayout.PropertyField(serializedObject.FindProperty("relatedStats"), new GUIContent("Related Stats"), true);
             
             EditorGUILayout.Space();
             EditorGUILayout.BeginHorizontal();
             
-                GUILayout.Label("Attribute's events", EditorStyles.boldLabel);
+                GUILayout.Label("Property's events", EditorStyles.boldLabel);
                 GUILayout.Label(" ");
                 //select an implementation from all found using an editor popup
                 NewMapEventSection();
@@ -121,27 +121,27 @@ namespace Thoughtskk
                 //record the gameObject state to enable undo and prevent from exiting the scene without saving
                 Undo.RegisterCompleteObjectUndo(target, "Added new event");
                 //add the new mapEvent to the mapEvents' list
-                if (attribute.mapEvents == null)
-                    attribute.mapEvents = new List<MapEvent>();
-                attribute.mapEvents.Add(newEvent);
+                if (property.mapEvents == null)
+                    property.mapEvents = new List<MapEvent>();
+                property.mapEvents.Add(newEvent);
                 //UpdateAllNeedsImplementationIndexes();
             }
         }
         
         private void CheckMapEventsListConfiguration()
         {
-            if (attribute.mapEvents != null)
+            if (property.mapEvents != null)
             {
-                for (int a = 0; a < attribute.mapEvents.Count; a++)
+                for (int a = 0; a < property.mapEvents.Count; a++)
                 {
-                    if (attribute.mapEvents[a] == null)
+                    if (property.mapEvents[a] == null)
                         EditorGUILayout.HelpBox("The MapEvent with index " + a + " is null.\nRecommended to delete the array element by right clicking on it.", MessageType.Warning);
 
-                    if (attribute.mapEvents.Count() != attribute.mapEvents.Distinct().Count())
+                    if (property.mapEvents.Count() != property.mapEvents.Distinct().Count())
                     {
-                        for (int d = a + 1; d < attribute.mapEvents.Count; d++)
+                        for (int d = a + 1; d < property.mapEvents.Count; d++)
                         {
-                            if (attribute.mapEvents[a] != null && (attribute.mapEvents[a] == attribute.mapEvents[d]))
+                            if (property.mapEvents[a] != null && (property.mapEvents[a] == property.mapEvents[d]))
                                 EditorGUILayout.HelpBox("The mapEvents with index " + a + " and " + d + " are the same object.", MessageType.Warning);
                         }
                     }
@@ -174,7 +174,7 @@ namespace Thoughtskk
                 {
                     SerializedProperty mapEventProperty = mapEventsList.GetArrayElementAtIndex(mapEventIndex);
 
-                    MapEvent @event = ((MapEvent) attribute.mapEvents[mapEventIndex]);
+                    MapEvent @event = ((MapEvent) property.mapEvents[mapEventIndex]);
                     
                     // MapEvent name
                     string eventName;

@@ -6,7 +6,7 @@ Preset:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ObjectAttributeStandard
+  m_Name: ObjectPropertyStandard
   m_TargetType:
     m_NativeTypeID: 114
     m_ManagedTypePPtr: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
@@ -45,7 +45,7 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].executerMustOwnAttribute
+    propertyPath: mapEvents.Array.data[0].executerMustOwnProperty
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
@@ -53,7 +53,7 @@ Preset:
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].attribute
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].property
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
@@ -65,7 +65,15 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].attribute
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].stateUpdate.newState
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].stateUpdate.newStateDuration
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].property
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
@@ -77,6 +85,14 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].stateUpdate.newState
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[1].stateUpdate.newStateDuration
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].tryToCoverRequirementsIfNotMet
     value: 0
     objectReference: {fileID: 0}
@@ -85,7 +101,7 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].attribute
+    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].property
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
@@ -109,15 +125,15 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].executerMustOwnAttribute
-    value: 1
+    propertyPath: mapEvents.Array.data[1].executerMustOwnProperty
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].consequences.Array.size
     value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].attribute
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].property
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
@@ -126,10 +142,18 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].affectedMapElement
-    value: 2
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].attribute
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].stateUpdate.newState
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[0].stateUpdate.newStateDuration
+    value: 0.5
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].property
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
@@ -141,6 +165,14 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].stateUpdate.newState
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[1].consequences.Array.data[1].stateUpdate.newStateDuration
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[1].tryToCoverRequirementsIfNotMet
     value: 1
     objectReference: {fileID: 0}
@@ -149,7 +181,7 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].attribute
+    propertyPath: mapEvents.Array.data[1].requirements.Array.data[0].property
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}
@@ -173,15 +205,15 @@ Preset:
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].executerMustOwnAttribute
-    value: 1
+    propertyPath: mapEvents.Array.data[2].executerMustOwnProperty
+    value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[2].consequences.Array.size
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].attribute
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].property
     value: 
     objectReference: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
   - target: {fileID: 0}
@@ -193,6 +225,14 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].stateUpdate.newState
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[2].consequences.Array.data[0].stateUpdate.newStateDuration
+    value: 2
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[2].tryToCoverRequirementsIfNotMet
     value: 1
     objectReference: {fileID: 0}
@@ -201,7 +241,7 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].attribute
+    propertyPath: mapEvents.Array.data[2].requirements.Array.data[0].property
     value: 
     objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
   - target: {fileID: 0}

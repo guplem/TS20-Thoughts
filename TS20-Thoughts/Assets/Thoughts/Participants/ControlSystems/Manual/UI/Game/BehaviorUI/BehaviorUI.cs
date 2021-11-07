@@ -1,22 +1,24 @@
 using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements;
-using Thoughts.Game.Map.MapElements.Attributes;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
 {
     /// <summary>
-    /// Controls the display of the information in the UI related to the behavior of a MapElement (objective Attribute and planned ExecutionPlans)
+    /// Controls the display of the information in the UI related to the behavior of a MapElement (objective Property and planned ExecutionPlans)
     /// </summary>
     public class BehaviorUI : MonoBehaviour
     {
         /// <summary>
-        /// Reference to the visualization of the objective attribute to cover
+        /// Reference to the visualization of the objective property to cover
         /// </summary>
-        [Tooltip("Reference to the visualization of the objective attribute to cover")]
-        [SerializeField] private AttributeUI objectiveAttributeUI;
+        [FormerlySerializedAs("objectivePropertyUI")]
+        [Tooltip("Reference to the visualization of the objective property to cover")]
+        [SerializeField] private PropertyUI objectivePropertyUI;
 
         /// <summary>
         /// Reference to the visualization of all the execution plans
@@ -25,15 +27,15 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
         [SerializeField] private ExecutionPlansUI executionPlansUI;
 
         /// <summary>
-        /// Displays the given Attribute as the objective in the UI
+        /// Displays the given Property as the objective in the UI
         /// </summary>
-        /// <param name="newObjectiveAttribute">The AttributeOwnership that is the objective Attribute to display in the UI.</param>
-        public void DisplayObjectiveAttribute(AttributeOwnership newObjectiveAttribute)
+        /// <param name="newObjectiveProperty">The PropertyOwnership that is the objective Property to display in the UI.</param>
+        public void DisplayObjectiveProperty(PropertyOwnership newObjectiveProperty)
         {
-            bool showObjectiveAttributeUI = newObjectiveAttribute != null;
-            objectiveAttributeUI.gameObject.SetActive(showObjectiveAttributeUI);
-            if (showObjectiveAttributeUI)
-                objectiveAttributeUI.Setup(newObjectiveAttribute);
+            bool showObjectivePropertyUI = newObjectiveProperty != null;
+            objectivePropertyUI.gameObject.SetActive(showObjectivePropertyUI);
+            if (showObjectivePropertyUI)
+                objectivePropertyUI.Setup(newObjectiveProperty);
 
         }
 
@@ -62,7 +64,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
             if (showUI)
             {
                 DisplayExecutionPlans(selectedMapElement.executionPlans);
-                DisplayObjectiveAttribute(selectedMapElement.attributeOwnershipToCover);
+                DisplayObjectiveProperty(selectedMapElement.propertyOwnershipToCover);
             }
         }
     }

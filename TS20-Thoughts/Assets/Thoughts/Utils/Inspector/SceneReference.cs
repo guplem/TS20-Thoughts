@@ -156,9 +156,9 @@ namespace Thoughts.Utils.Inspector// Tymski
     public class SceneReferencePropertyDrawer : PropertyDrawer
     {
         // The exact name of the asset Object variable in the SceneReference object
-        private const string sceneAssetPropertyString = "sceneAsset";
+        private const string sceneAssetPropertiestring = "sceneAsset";
         // The exact name of the scene Path variable in the SceneReference object
-        private const string scenePathPropertyString = "scenePath";
+        private const string scenePathPropertiestring = "scenePath";
 
         private static readonly RectOffset boxPadding = EditorStyles.helpBox.padding;
 
@@ -290,12 +290,12 @@ namespace Thoughts.Utils.Inspector// Tymski
 
         private static SerializedProperty GetSceneAssetProperty(SerializedProperty property)
         {
-            return property.FindPropertyRelative(sceneAssetPropertyString);
+            return property.FindPropertyRelative(sceneAssetPropertiestring);
         }
 
         private static SerializedProperty GetScenePathProperty(SerializedProperty property)
         {
-            return property.FindPropertyRelative(scenePathPropertyString);
+            return property.FindPropertyRelative(scenePathPropertiestring);
         }
 
         private static class DrawUtils

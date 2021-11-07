@@ -2,8 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Thoughts.Game.Map;
 using Thoughts.Game.Map.MapElements;
-using Thoughts.Game.Map.MapElements.Attributes;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using Thoughts.Participants;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -77,47 +77,47 @@ namespace Thoughts.Game
         }
 
         /// <summary>
-        /// Recursively look for all MapEvents available in the game's map that, as consequence of the event, they make a desired attribute value increase for the owner/executer/target (the needed participant).
+        /// Recursively look for all MapEvents available in the game's map that, as consequence of the event, they make a desired property value increase for the owner/executer/target (the needed participant).
         /// </summary>
-        /// <param name="attributeOwnershipToCover">AttributeOwnership to increase the value of.</param>
+        /// <param name="propertyOwnershipToCoverr">PropertyOwnership to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
         /// <param name="executer">Map element that is going to execute the list of ExecutionPlans.</param>
-        /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the attributeToCover.</param>
+        /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the propertyToCover.</param>
         /// <param name="iteration">The iteration number of the this method's recursive execution. Should start as 0.</param>
-        /// <returns>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</returns>
-        public List<ExecutionPlan> GetExecutionPlanToCover(AttributeOwnership attributeOwnershipToCover, int valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
+        /// <returns>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the propertyToCover by valueToCover)</returns>
+        public List<ExecutionPlan> GetExecutionPlanToCover(PropertyOwnership propertyOwnershipToCover, int valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
         {
             if (iteration >= 50)
             {
-                Debug.LogWarning($" ◙ Stopping the search of an execution plan to cover '{valueToCover}' of '{attributeOwnershipToCover.attribute}' after {iteration} iterations.\n");
+                Debug.LogWarning($" ◙ Stopping the search of an execution plan to cover '{valueToCover}' of '{propertyOwnershipToCover.property}' after {iteration} iterations.\n");
                 mapEventsToExecute.DebugLog("\n - ", " ◙ So far, the execution path found was: \n");
                 return null;
             }
             
-            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{attributeOwnershipToCover.attribute}' owned by '{attributeOwnershipToCover.owner}' executed by '{executer}'.    Iteration {iteration}.\n");
+            Debug.Log($" ◌ Searching for an execution plan to cover '{valueToCover}' of '{propertyOwnershipToCover.property}' owned by '{propertyOwnershipToCover.owner}' executed by '{executer}'.    Iteration {iteration}.\n");
             
             if (mapEventsToExecute == null) 
                 mapEventsToExecute = new List<ExecutionPlan>();
 
-            ExecutionPlan lastExecutionPlan = mapManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+            ExecutionPlan lastExecutionPlan = mapManager.GetExecutionPlanToCover(propertyOwnershipToCover, valueToCover, executer);
             
-            //if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' is -> {lastExecutionPlan}\n");
-            //else Debug.LogWarning($" ◍ No execution plan for covering '{ownedAttribute.attribute}' in '{ownedAttribute.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
+            //if (lastExecutionPlan != null) Debug.Log($" ◍ Execution plan for covering '{ownedProperty.property}' in '{ownedProperty.ownerMapElement}' is -> {lastExecutionPlan}\n");
+            //else Debug.LogWarning($" ◍ No execution plan for covering '{ownedProperty.property}' in '{ownedProperty.ownerMapElement}' could be found using the 'Map.GetExecutionPlanToTakeCareOf()'.\n");
             //Debug.Log($" ◍ Found Execution Plan: {lastExecutionPlan}\n");
             if (lastExecutionPlan != null)
             {
                 mapEventsToExecute.Add(lastExecutionPlan);
 
-                Dictionary<AttributeOwnership, int> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet();
+                Dictionary<PropertyOwnership, int> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet();
                 if (!requirementsNotMet.IsNullOrEmpty())
                 {
-                    KeyValuePair<AttributeOwnership, int> reqNotMet = requirementsNotMet.ElementAt(0);
+                    KeyValuePair<PropertyOwnership, int> reqNotMet = requirementsNotMet.ElementAt(0);
                     mapEventsToExecute = GetExecutionPlanToCover(reqNotMet.Key, reqNotMet.Value, executer, mapEventsToExecute, iteration+1);
                 }
             }
             else
             {
-                Debug.LogWarning($" ◙ An execution plan to cover '{valueToCover}' of '{attributeOwnershipToCover.attribute}' was not found (at the iteration: {iteration}).   The previously found execution plans were:\n    ● {mapEventsToExecute.ToStringAllElements("\n    ● ")}\n", gameObject);
+                Debug.LogWarning($" ◙ An execution plan to cover '{valueToCover}' of '{propertyOwnershipToCover.property}' was not found (at the iteration: {iteration}).   The previously found execution plans were:\n    ● {mapEventsToExecute.ToStringAllElements("\n    ● ")}\n", gameObject);
                 return null;
             }
 

@@ -39,7 +39,7 @@ public class SpatialUIManager : ImmediateModeShapeDrawer
                         if (selectedMapElement != null)
                         {
                                 //selectedMapElement.onExecutionPlansUpdated -= behaviorUI.DisplayExecutionPlans;
-                                //selectedMapElement.onObjectiveAttributeUpdated -= behaviorUI.DisplayObjectiveAttribute;
+                                //selectedMapElement.onObjectivePropertyUpdated -= behaviorUI.DisplayObjectiveProperty;
                         }
                 
                         // Update
@@ -52,7 +52,7 @@ public class SpatialUIManager : ImmediateModeShapeDrawer
                         if (selectedMapElement != null)
                         {
                                 //selectedMapElement.onExecutionPlansUpdated += behaviorUI.DisplayExecutionPlans;
-                                //selectedMapElement.onObjectiveAttributeUpdated += behaviorUI.DisplayObjectiveAttribute;
+                                //selectedMapElement.onObjectivePropertyUpdated += behaviorUI.DisplayObjectiveProperty;
                         }
                 }
         }

@@ -2,7 +2,7 @@ using System;
 using Thoughts.Utils.ThreadsManagement;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.Terrain
+namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
     /// <summary>
     /// Manager of a chunk of the terrain of the map

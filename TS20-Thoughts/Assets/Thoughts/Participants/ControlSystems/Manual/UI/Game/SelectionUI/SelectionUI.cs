@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
 {
     /// <summary>
-    /// Controls the display of the information related to a MapElement (needs -Attributes-, name, description, objects -Attributes-, ...)
+    /// Controls the display of the information related to a MapElement (needs -Properties-, name, description, objects -Properties-, ...)
     /// </summary>
     public class SelectionUI : MonoBehaviour
     {

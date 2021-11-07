@@ -327,7 +327,7 @@ GameObject:
   - component: {fileID: 4619377578661176965}
   - component: {fileID: 8097844048677426932}
   m_Layer: 0
-  m_Name: Attributes Area
+  m_Name: Properties Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -523,5 +523,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapElementNameText: {fileID: 6302388138102674429}
-  attributesArea: {fileID: 6637530430551420955}
-  attributeUIPrefab: {fileID: 2339457035083940246, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}
+  propertiesArea: {fileID: 6637530430551420955}
+  propertyUIPrefab: {fileID: 2339457035083940246, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}

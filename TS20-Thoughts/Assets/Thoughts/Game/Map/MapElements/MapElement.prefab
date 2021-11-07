@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6221746790898643788}
   - component: {fileID: 779820118161771095}
+  - component: {fileID: 4588570852671409790}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -50,6 +51,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4588570852671409790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 728958447369969146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193a1744d5c2a56499f5db1ba240eb67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationTriggerConditions: []
 --- !u!1 &1500535632396108025
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,9 +110,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b29b718ae09ad745a7be3d64404727c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attributesManager:
-    _attributeOwnerships: []
-  animator: {fileID: 779820118161771095}
+  animationsManager: {fileID: 4588570852671409790}
+  propertyManager:
+    _propertyOwnerships: []
 --- !u!208 &1355590367019427880
 NavMeshObstacle:
   m_ObjectHideFlags: 0

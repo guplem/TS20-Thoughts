@@ -1,7 +1,7 @@
 using Thoughts.Utils.Inspector;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.Terrain
+namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
     /// <summary>
     /// The configuration of the texture of the terrain of the map

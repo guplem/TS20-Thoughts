@@ -3,7 +3,7 @@ using Thoughts.Utils.Maths;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Map.Terrain
+namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
     /// <summary>
     /// The configuration of the height of the terrain of the map

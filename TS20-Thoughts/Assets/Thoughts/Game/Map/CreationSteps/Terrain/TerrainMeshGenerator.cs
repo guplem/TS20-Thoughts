@@ -1,8 +1,7 @@
 using System;
 using UnityEngine;
-using Console = System.Console;
 
-namespace Thoughts.Game.Map.Terrain
+namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
 	public class TerrainMeshGenerator 
 	{

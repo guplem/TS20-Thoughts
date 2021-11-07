@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements;
-using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
 using UnityEngine;
 
@@ -19,21 +19,21 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
         private MapElement lastShownMapElement;
 
         /// <summary>
-        /// The prefab used to display an attribute
+        /// The prefab used to display an property
         /// </summary>
-        [Tooltip("The prefab used to display an attribute")]
-        [SerializeField] private GameObject attributeUIPrefab;
+        [Tooltip("The prefab used to display an property")]
+        [SerializeField] private GameObject propertyUIPrefab;
 
         /// <summary>
-        /// A list holding a reference to all AttributeUI elements currently existent in this group
+        /// A list holding a reference to all PropertyUI elements currently existent in this group
         /// </summary>
-        private List<AttributeUI> attributeUIs = new List<AttributeUI>();
+        private List<PropertyUI> propertyUIs = new List<PropertyUI>();
         
         /// <summary>
-        /// A reference to the GameObject that will be the parent of the contained AttributeUIs 
+        /// A reference to the GameObject that will be the parent of the contained PropertyUIs 
         /// </summary>
-        [Tooltip("A reference to the GameObject that will be the parent of the contained AttributeUIs")]
-        [SerializeField] private GameObject attributesArea;
+        [Tooltip("A reference to the GameObject that will be the parent of the contained PropertyUIs")]
+        [SerializeField] private GameObject propertiesArea;
         
         /// <summary>
         /// Prepares the NeedUI to be shown
@@ -53,27 +53,27 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
             {
                 lastShownMapElement = selectedMapElement;
 
-                List<AttributeOwnership> needs = selectedMapElement.attributesManager.GetAttributesWithPriority(Attribute.NeedPriority.None);
+                List<PropertyOwnership> needs = selectedMapElement.propertyManager.GetPropertiesWithPriority(Property.NeedPriority.None);
             
                 if (needs == null)
                     return;
 
-                Debug.Log($"Setting up UI for group of needs (Attributes) with length {needs.Count}:\n    ● {needs.ToStringAllElements("\n    ● ")}\n", gameObject);
+                Debug.Log($"Setting up UI for group of needs (Properties) with length {needs.Count}:\n    ● {needs.ToStringAllElements("\n    ● ")}\n", gameObject);
 
                 // Instantiate missing UI elements
-                int missingUIElements = needs.Count - attributeUIs.Count;
+                int missingUIElements = needs.Count - propertyUIs.Count;
                 for (int e = 0; e < missingUIElements; e++)
                 {
-                    GameObject spawnedAttributeUI = Instantiate(attributeUIPrefab, attributesArea.transform);
-                    AttributeUI attributeUI = spawnedAttributeUI.GetComponentRequired<AttributeUI>();
-                    attributeUIs.Add(attributeUI);
+                    GameObject spawnedPropertyUI = Instantiate(propertyUIPrefab, propertiesArea.transform);
+                    PropertyUI propertyUI = spawnedPropertyUI.GetComponentRequired<PropertyUI>();
+                    propertyUIs.Add(propertyUI);
                 }
 
                 // Configure the UI elements
-                for (int e = 0; e < attributeUIs.Count; e++)
+                for (int e = 0; e < propertyUIs.Count; e++)
                 {
-                    AttributeOwnership attributeOwnershipToDisplay = needs.Count > e ? needs[e] : null;
-                    attributeUIs[e].Setup(attributeOwnershipToDisplay);
+                    PropertyOwnership propertyOwnershipToDisplay = needs.Count > e ? needs[e] : null;
+                    propertyUIs[e].Setup(propertyOwnershipToDisplay);
                 }
             }
         }

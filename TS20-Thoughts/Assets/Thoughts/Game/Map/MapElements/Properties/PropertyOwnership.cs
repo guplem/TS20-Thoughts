@@ -1,26 +1,28 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Map.MapElements.Attributes
+namespace Thoughts.Game.Map.MapElements.Properties
 {
     /// <summary>
-    /// A relation between an Attribute and a MapElement that owns it.
+    /// A relation between an Property and a MapElement that owns it.
     /// </summary>
     [Serializable]
-    public class AttributeOwnership
+    public class PropertyOwnership
     {
         /// <summary>
-        /// The MapElement that owns the attribute.
+        /// The MapElement that owns the property.
         /// </summary>
         public MapElement owner { get; private set; }
         
         /// <summary>
-        /// The Attribute that is owned.
+        /// The Property that is owned.
         /// </summary>
-        [SerializeField] public Attribute attribute;
+        [FormerlySerializedAs("property")]
+        [SerializeField] public Property property;
         
         /// <summary>
-        /// The current value this relationship (The value of the Attribute when by the established MapElement).
+        /// The current value this relationship (The value of the Property when by the established MapElement).
         /// </summary>
         [SerializeField] private int _value;
         public int value { get => _value; private set { _value = value; } }
@@ -50,21 +52,21 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         }
 
         /// <summary>
-        /// The class constructor. Creates a relationship between a MapElement and an Attribute that is owned by the first.
+        /// The class constructor. Creates a relationship between a MapElement and an Property that is owned by the first.
         /// </summary>
-        /// <param name="attribute">The attribute that is going to be owned thanks to this relationship.</param>
+        /// <param name="property">The property that is going to be owned thanks to this relationship.</param>
         /// <param name="value">The initial value of this relationship.</param>
         /// <param name="owner">The MapEvent that is going to be set as the owner in this relation.</param>
         /// <param name="takeCare">Should the owner try to keep the value of this relationship higher than 0?</param>
-        public AttributeOwnership(Attributes.Attribute attribute, int value, MapElement owner, bool takeCare = false)
+        public PropertyOwnership(Property property, int value, MapElement owner, bool takeCare = false)
         {
-            this.attribute = attribute;
+            this.property = property;
             this.value = value;
             this.owner = owner;
             this.takeCare = takeCare;
             
             if (value < 0)
-                Debug.LogWarning($"A new AttributeOwnership has been created with a negative value: {this.ToString()}");
+                Debug.LogWarning($"A new PropertyOwnership has been created with a negative value: {this.ToString()}");
         }
 
         /// <summary>
@@ -73,11 +75,11 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return $"{owner}' is owner of an attribute '{attribute}' that has a value of {value}.  TakeCare = {takeCare}.";
+            return $"{owner}' is owner of an property '{property}' that has a value of {value}.  TakeCare = {takeCare}.";
         }
 
         /// <summary>
-        /// Indicates whether the attribute has a value of 0 or less and it has been indicated that it is intended to have the value always higher than 0 (by the takeCare property)
+        /// Indicates whether the property has a value of 0 or less and it has been indicated that it is intended to have the value always higher than 0 (by the takeCare property)
         /// </summary>
         /// <returns>True, if the value is less or equal to 0 and the property takeCare is set to true. Otherwise, false.</returns>
         public bool NeedsCare()

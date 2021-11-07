@@ -1,4 +1,4 @@
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using TMPro;
 using UnityEngine;
 

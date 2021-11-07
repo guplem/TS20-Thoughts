@@ -56,7 +56,7 @@ namespace Thoughts.Game.Map.MapElements
                 remainingStateTime = Mathf.Max(newRemainingTime, 0f);
             }
             
-            Debug.Log($"Executing 'Step' of StateManager. Current State = {this.ToString()}");
+            // Debug.Log($"Executing 'Step' of StateManager. Current State = {this.ToString()}");
         }
 
         /// <summary>
@@ -66,12 +66,12 @@ namespace Thoughts.Game.Map.MapElements
         /// <param name="timeInState">The remaining time in the new State</param>
         public void SetState(State newState, float timeInState)
         {
-            Debug.Log($"Changing state in {owner.ToString()} from {this.ToString()} to '{Enum.GetName(typeof(State), newState)}' with {timeInState} seconds programmed to be elapsed in this step.", owner);
+            // Debug.Log($"Changing state in {owner.ToString()} from {this.ToString()} to '{Enum.GetName(typeof(State), newState)}' with {timeInState} seconds programmed to be elapsed in this step.", owner);
             
             currentState = newState;
             remainingStateTime = timeInState;
             
-            owner.animator.SetTrigger(GetAnimationTriggerId(newState));
+            owner.animationsManager.PlayAnimation(GetAnimationTriggerId(newState));
         }
 
         /// <summary>

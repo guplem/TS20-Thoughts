@@ -1,5 +1,5 @@
 using Thoughts.Game.Map.MapElements;
-using Thoughts.Game.Map.MapElements.Attributes;
+using Thoughts.Game.Map.MapElements.Properties;
 using UnityEngine;
 
 namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
@@ -60,11 +60,11 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
             if (lastShownMapElement != selectedMapElement)
             {
                 lastShownMapElement = selectedMapElement;
-                needGroup5.Setup(selectedMapElement, Attribute.NeedPriority.SelfActualization, nameof(Attribute.NeedPriority.SelfActualization));
-                needGroup4.Setup(selectedMapElement, Attribute.NeedPriority.Esteem, nameof(Attribute.NeedPriority.Esteem));
-                needGroup3.Setup(selectedMapElement, Attribute.NeedPriority.Love, nameof(Attribute.NeedPriority.Love));
-                needGroup2.Setup(selectedMapElement, Attribute.NeedPriority.Safety, nameof(Attribute.NeedPriority.Safety));
-                needGroup1.Setup(selectedMapElement, Attribute.NeedPriority.Physiological, nameof(Attribute.NeedPriority.Physiological));
+                needGroup5.Setup(selectedMapElement, Property.NeedPriority.SelfActualization, nameof(Property.NeedPriority.SelfActualization));
+                needGroup4.Setup(selectedMapElement, Property.NeedPriority.Esteem, nameof(Property.NeedPriority.Esteem));
+                needGroup3.Setup(selectedMapElement, Property.NeedPriority.Love, nameof(Property.NeedPriority.Love));
+                needGroup2.Setup(selectedMapElement, Property.NeedPriority.Safety, nameof(Property.NeedPriority.Safety));
+                needGroup1.Setup(selectedMapElement, Property.NeedPriority.Physiological, nameof(Property.NeedPriority.Physiological));
             }
         }
 

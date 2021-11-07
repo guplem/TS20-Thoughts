@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 530a2dfd3d98ab8499698d4fe44441c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectiveAttributeUI: {fileID: 1726296295545106490}
+  objectivePropertyUI: {fileID: 1726296295545106490}
   executionPlansUI: {fileID: 8386958590694367379}
 --- !u!1001 &7838259172774001008
 PrefabInstance:
@@ -273,7 +273,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2339457035083940246, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}
       propertyPath: m_Name
-      value: AttributeUI
+      value: PropertyUI
       objectReference: {fileID: 0}
     - target: {fileID: 2905880225441178971, guid: 0914942e7eda85347af7a35e2ad2e738, type: 3}
       propertyPath: m_fontSize

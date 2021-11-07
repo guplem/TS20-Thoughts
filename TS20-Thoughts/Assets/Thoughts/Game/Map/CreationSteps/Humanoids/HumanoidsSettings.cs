@@ -2,7 +2,7 @@
 using Thoughts.Utils.Inspector;
 using UnityEngine;
 
-namespace Thoughts.Game.Map
+namespace Thoughts.Game.Map.CreationSteps.Humanoids
 {
     [CreateAssetMenu(fileName = "HumanoidsSettings", menuName = "Thoughts/Map/Humanoids Settings", order = 70)]
     public class HumanoidsSettings: UpdatableData

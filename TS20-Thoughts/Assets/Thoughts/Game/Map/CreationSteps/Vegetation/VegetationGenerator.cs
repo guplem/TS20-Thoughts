@@ -1,7 +1,4 @@
-﻿using Thoughts.Utils.Maths;
-using UnityEngine;
-
-namespace Thoughts.Game.Map
+﻿namespace Thoughts.Game.Map.CreationSteps.Vegetation
 {
     public class VegetationGenerator : CreationStepGenerator
     {

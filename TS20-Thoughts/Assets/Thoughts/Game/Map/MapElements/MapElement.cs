@@ -2,9 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using JetBrains.Annotations;
-using Thoughts.Game.Map.MapElements.Attributes;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
+using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;
@@ -17,19 +18,16 @@ namespace Thoughts.Game.Map.MapElements
      [SelectionBase]
      public class MapElement : MonoBehaviour
      {
+          [Header("Animations")]
+          [SerializeField] internal AnimationsManager animationsManager;
           
           /// <summary>
-          /// Collection (and manager) of the owned attributes of this MapElement.
+          /// Collection (and manager) of the owned properties of this MapElement.
           /// </summary>
-          [FormerlySerializedAs("attributeManager")]
-          [Tooltip("Collection (and manager) of the owned attributes of this 'MapElement'")]
-          [SerializeField] public AttributesManager attributesManager = new AttributesManager();
-
-          /// <summary>
-          /// Reference to the Animator handling the animations of this MapElement.
-          /// </summary>
-          [Tooltip("Reference to the Animator handling the animations of this MapElement")]
-          [SerializeField] public Animator animator;
+          
+          [Header("Properties")]
+          [Tooltip("Collection (and manager) of the owned properties of this 'MapElement'")]
+          [SerializeField] public PropertyManager propertyManager = new PropertyManager();
 
           /// <summary>
           /// The manager of the current state of this MapElement
@@ -40,12 +38,12 @@ namespace Thoughts.Game.Map.MapElements
           
                /// <summary>
                /// Sets up and the MapElement
-               /// <para>Initializes its attribute manager and looks up for its NavMeshAgent (initializes the variable).</para>
+               /// <para>Initializes its property manager and looks up for its NavMeshAgent (initializes the variable).</para>
                /// </summary>
                private void Awake()
                {
                     stateManager = new StateManager(this);
-                    attributesManager.Initialize(this);
+                    propertyManager.Initialize(this);
                     navMeshAgent = GetComponent<NavMeshAgent>();
                }
                
@@ -73,7 +71,7 @@ namespace Thoughts.Game.Map.MapElements
                
                /// <summary>
                /// Controls the internal clock of the MapElement.
-               /// <para>Executes the map events with "execute with time elapse" enabled, updates the objective attribute to cover and tries to execute the next planned event.</para>
+               /// <para>Executes the map events with "execute with time elapse" enabled, updates the objective property to cover and tries to execute the next planned event.</para>
                /// </summary>
                private IEnumerator UpdateCoroutine()
                {
@@ -82,16 +80,17 @@ namespace Thoughts.Game.Map.MapElements
                          yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
                          
                          // Order of 2 following lines is impotant:
-                         attributesManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         propertyManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         animationsManager.UpdateAnimationsUpdates(this);
                          stateManager.Step(GameManager.instance.gameClockInterval);
                          
                          if (stateManager.currentState == State.None)
                          {
-                              UpdateObjectiveAttributeToCover();
+                              UpdateObjectivePropertyToCover();
                               if (!DoNextPlanedMapEvents())
                               {
-                                   Debug.LogWarning("The next planned event could not be executed. Updating the execution plans to cover the objective attribute");
-                                   UpdateExecutionPlansToCoverObjectiveAttribute();
+                                   Debug.LogWarning("The next planned event could not be executed. Updating the execution plans to cover the objective property");
+                                   UpdateExecutionPlansToCoverObjectiveProperty();
                               }
                          }
                     }
@@ -101,10 +100,10 @@ namespace Thoughts.Game.Map.MapElements
 
           #endregion
           
-          #region Objective Attribute
+          #region Objective Property
 
                /// <summary>
-               /// Remaining execution plans to cover the objective attribute to cover
+               /// Remaining execution plans to cover the objective property to cover
                /// </summary>
                public List<ExecutionPlan> executionPlans { get => _executionPlans; private set { _executionPlans = value; /*Debug.Log("*** UPDATE ORIGIN - New execution plan"); */onExecutionPlansUpdated?.Invoke(_executionPlans); } }
                private List<ExecutionPlan> _executionPlans = new List<ExecutionPlan>();
@@ -112,71 +111,71 @@ namespace Thoughts.Game.Map.MapElements
 
                /// <summary>
                /// The current MAIN goal of the MapElement. After setting it, an overwrite of the executionPlans is going to be done.
-               /// <para>Attribute whose value is to be increased. The attribute's value that is going to be increased must be owned by this MapElement.</para>
+               /// <para>Property whose value is to be increased. The property's value that is going to be increased must be owned by this MapElement.</para>
                /// </summary>
-               public AttributeOwnership attributeOwnershipToCover
+               public PropertyOwnership propertyOwnershipToCover
                {
-                    get => _attributeOwnershipToCover;
+                    get => _propertyOwnershipToCover;
                     private set
                     {
-                         if (_attributeOwnershipToCover == value)
+                         if (_propertyOwnershipToCover == value)
                               return;
-                         _attributeOwnershipToCover = value;
+                         _propertyOwnershipToCover = value;
                          
-                         Debug.Log($"► Updating current objective attribute for '{this.ToString()}' to '{(value!=null?value.attribute.name:"null")}'.");
+                         Debug.Log($"► Updating current objective property for '{this.ToString()}' to '{(value!=null?value.property.name:"null")}'.");
 
-                         onObjectiveAttributeUpdated?.Invoke(_attributeOwnershipToCover);
+                         onObjectivePropertyUpdated?.Invoke(_propertyOwnershipToCover);
 
-                         UpdateExecutionPlansToCoverObjectiveAttribute();
+                         UpdateExecutionPlansToCoverObjectiveProperty();
                     }
                }
-               [CanBeNull] private AttributeOwnership _attributeOwnershipToCover;
-               public Action<AttributeOwnership> onObjectiveAttributeUpdated;
+               [CanBeNull] private PropertyOwnership _propertyOwnershipToCover;
+               public Action<PropertyOwnership> onObjectivePropertyUpdated;
                
                /// <summary>
-               /// Overwrites the executionPlans with a plan to cover (at least increasing the value by 1) of the current objectiveAttributeToCover (in this MapElement).
+               /// Overwrites the executionPlans with a plan to cover (at least increasing the value by 1) of the current objectivePropertyToCover (in this MapElement).
                /// </summary>
-               private void UpdateExecutionPlansToCoverObjectiveAttribute()
+               private void UpdateExecutionPlansToCoverObjectiveProperty()
                {
-                    if (attributeOwnershipToCover == null)
+                    if (propertyOwnershipToCover == null)
                     {
                          executionPlans = null;
                     }
                     else
                     {
-                         executionPlans = GameManager.instance.GetExecutionPlanToCover(attributeOwnershipToCover, 1, this);
+                         executionPlans = GameManager.instance.GetExecutionPlanToCover(propertyOwnershipToCover, 1, this);
                     
                          if (executionPlans.IsNullOrEmpty())
-                              Debug.LogWarning($"└> An action path to cover the attribute '{attributeOwnershipToCover.attribute}' was not found.\n");
+                              Debug.LogWarning($"└> An action path to cover the property '{propertyOwnershipToCover.property}' was not found.\n");
                          else
-                              Debug.Log($"└> Map Events to execute to cover '{attributeOwnershipToCover.attribute}':\n    ● {executionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
+                              Debug.Log($"└> Map Events to execute to cover '{propertyOwnershipToCover.property}':\n    ● {executionPlans.ToStringAllElements("\n    ● ")}\n", gameObject);
                     }
                }
                
                /// <summary>
-               /// Sets the objectiveAttributeToCover to the most needy attribute owned by this MapElement.
+               /// Sets the objectivePropertyToCover to the most needy property owned by this MapElement.
                /// </summary>
-               private void UpdateObjectiveAttributeToCover()
+               private void UpdateObjectivePropertyToCover()
                {
-                    List<AttributeOwnership> attributesThatNeedCare = attributesManager.GetAttributesThatNeedCare();
+                    List<PropertyOwnership> propertiesThatNeedCare = propertyManager.GetPropertiesThatNeedCare();
                     
-                    if (attributesThatNeedCare.IsNullOrEmpty())
+                    if (propertiesThatNeedCare.IsNullOrEmpty())
                     {
-                         attributeOwnershipToCover = null;      
+                         propertyOwnershipToCover = null;      
                     }
                     else
                     {
-                         foreach (AttributeOwnership needyAttribute in attributesThatNeedCare)
+                         foreach (PropertyOwnership needyProperty in propertiesThatNeedCare)
                          {
-                              AttributeOwnership mostPrioritaryAttributeOwnership = attributeOwnershipToCover;
+                              PropertyOwnership mostPrioritaryPropertyOwnership = propertyOwnershipToCover;
 
-                              if (mostPrioritaryAttributeOwnership == null)
-                                   mostPrioritaryAttributeOwnership = needyAttribute;
+                              if (mostPrioritaryPropertyOwnership == null)
+                                   mostPrioritaryPropertyOwnership = needyProperty;
                               
-                              else if (!mostPrioritaryAttributeOwnership.NeedsCare() || needyAttribute.attribute.IsMorePrioritaryThan(mostPrioritaryAttributeOwnership.attribute))
-                                   mostPrioritaryAttributeOwnership = needyAttribute;
+                              else if (!mostPrioritaryPropertyOwnership.NeedsCare() || needyProperty.property.IsMorePrioritaryThan(mostPrioritaryPropertyOwnership.property))
+                                   mostPrioritaryPropertyOwnership = needyProperty;
 
-                              attributeOwnershipToCover = mostPrioritaryAttributeOwnership;
+                              propertyOwnershipToCover = mostPrioritaryPropertyOwnership;
                          }
                     }
                }
@@ -214,7 +213,7 @@ namespace Thoughts.Game.Map.MapElements
 
                     RemoveExecutionPlanElement(indexNextAction);
                     
-                    //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveAttribute.attribute}':\n    ● ", gameObject);
+                    //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveProperty.property}':\n    ● ", gameObject);
                     return DoNextPlanedMapEvents(); // To enable chain of actions automatically done like "drop and use (before the materials are consumed)"
                }
           
@@ -252,46 +251,46 @@ namespace Thoughts.Game.Map.MapElements
           public NavMeshAgent navMeshAgent { get; private set; }
 
           /// <summary>
-               /// The last location requested as destination for this MapElement. 
-               /// </summary>
-               private Vector3 lastRequestedDestination;
-               
-               /// <summary>
-               /// Id of the trigger for the animation 'Move' used in the Animator 
-               /// </summary>
-               private static readonly int moveAnimTriggerId = Animator.StringToHash("Move");
+          /// The last location requested as destination for this MapElement. 
+          /// </summary>
+          private Vector3 lastRequestedDestination;
+          
+          /// <summary>
+          /// Id of the trigger for the animation 'Move' used in the Animator 
+          /// </summary>
+          private static readonly int moveAnimTriggerId = Animator.StringToHash("Move");
 
-               /// <summary>
-               /// Sets the destination of this object's NavMeshAgent, resumes its movement and plays the 'Move' animation.
-               /// </summary>
-               /// <param name="location">The location to move to.</param>
-               /// <returns>True if the destination was requested successfully. Otherwise, false.</returns>
-               private bool MoveTo(Vector3 location)
+          /// <summary>
+          /// Sets the destination of this object's NavMeshAgent, resumes its movement and plays the 'Move' animation.
+          /// </summary>
+          /// <param name="location">The location to move to.</param>
+          /// <returns>True if the destination was requested successfully. Otherwise, false.</returns>
+          private bool MoveTo(Vector3 location)
+          {
+               if (location == lastRequestedDestination && !navMeshAgent.isStopped)
+                    return true;
+               
+               Debug.Log($"Moving MapElement ({this.ToString()}) to {location}. Previous destination = {navMeshAgent.destination}");;
+               if (navMeshAgent == null)
                {
-                    if (location == lastRequestedDestination && !navMeshAgent.isStopped)
-                         return true;
-                    
-                    Debug.Log($"Moving MapElement ({this.ToString()}) to {location}. Previous destination = {navMeshAgent.destination}");;
-                    if (navMeshAgent == null)
-                    {
-                         Debug.LogWarning($"Trying to move a MapElement ({this.ToString()}) that can not be moved (NavMeshAgent == null).");
-                         return false;
-                    }
-                    
-                    if (navMeshAgent.SetDestination(location))
-                    {
-                         lastRequestedDestination = location;
-                         navMeshAgent.isStopped = false;
-                         animator.SetTrigger(moveAnimTriggerId);
-                         return true;
-                    }
-                    else
-                    {
-                         Debug.LogWarning($"The location {location} could not be requested successfully as a destination for {this.ToString()}");
-                         return false;
-                    }
-                    
+                    Debug.LogWarning($"Trying to move a MapElement ({this.ToString()}) that can not be moved (NavMeshAgent == null).");
+                    return false;
                }
+               
+               if (navMeshAgent.SetDestination(location))
+               {
+                    lastRequestedDestination = location;
+                    navMeshAgent.isStopped = false;
+                    animationsManager.PlayAnimation(moveAnimTriggerId);
+                    return true;
+               }
+               else
+               {
+                    Debug.LogWarning($"The location {location} could not be requested successfully as a destination for {this.ToString()}");
+                    return false;
+               }
+               
+          }
 
           #endregion
           

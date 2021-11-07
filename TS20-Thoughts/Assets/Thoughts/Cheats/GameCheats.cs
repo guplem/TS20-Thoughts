@@ -4,6 +4,7 @@
 using System;
 using Thoughts.Game;
 using Thoughts.Game.Map;
+using Thoughts.Game.Map.CreationSteps.Humanoids;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Participants.ControlSystems.Manual;
 using UnityEngine;

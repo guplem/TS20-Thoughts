@@ -155,6 +155,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: attributesManager._attributeOwnerships.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -163,7 +167,15 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[0]._value
+      value: 999999
+      objectReference: {fileID: 0}
+    - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0].attribute
+      value: 
+      objectReference: {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}
+    - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[0].property
       value: 
       objectReference: {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}
     - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}

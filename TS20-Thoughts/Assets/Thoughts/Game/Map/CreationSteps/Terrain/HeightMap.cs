@@ -1,7 +1,7 @@
 using Thoughts.Utils.Maths;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.Terrain
+namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
     /// <summary>
     /// Contains values relative to the height of a terrain

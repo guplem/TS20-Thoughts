@@ -1,4 +1,4 @@
-using Thoughts.Game.Map.Terrain;
+using Thoughts.Game.Map.CreationSteps.Terrain;
 using UnityEngine;
 
 namespace Thoughts.Utils

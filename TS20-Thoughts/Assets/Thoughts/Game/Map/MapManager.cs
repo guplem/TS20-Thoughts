@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Thoughts.Game.Map.MapElements;
-using Thoughts.Game.Map.MapElements.Attributes;
-using Thoughts.Game.Map.MapElements.Attributes.MapEvents;
-using Thoughts.Game.Map.Terrain;
+using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using Thoughts.Utils.Maths;
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +12,6 @@ using UnityEngine.UIElements;
 
 namespace Thoughts.Game.Map
 {
-
     /// <summary>
     /// The map of the game.
     /// </summary>
@@ -77,31 +75,31 @@ namespace Thoughts.Game.Map
     #endregion
 
         /// <summary>
-        /// Look for all MapEvents available in the map that, as consequence of a MapEvent in an Attribute they own, they make a desired AttributeOwnership's value increase for the owner/executer/target (the needed participant).
+        /// Look for all MapEvents available in the map that, as consequence of a MapEvent in an Property they own, they make a desired PropertyOwnership's value increase for the owner/executer/target (the needed participant).
         /// </summary>
-        /// <param name="attributeOwnershipToCover"> The AttributeOwnership to increase the value of.</param>
+        /// <param name="propertyOwnershipToCoverr"> The PropertyOwnership to increase the value of.</param>
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
         /// <param name="executer">Map element that is going to execute the ExecutionPlan.</param>
-        /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the attributeToCover by valueToCover)</returns>
-        public ExecutionPlan GetExecutionPlanToCover([NotNull] AttributeOwnership attributeOwnershipToCover, int valueToCover, MapElement executer)
+        /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the propertyToCover by valueToCover)</returns>
+        public ExecutionPlan GetExecutionPlanToCover([NotNull] PropertyOwnership propertyOwnershipToCover, int valueToCover, MapElement executer)
         {
             ExecutionPlan foundExecutionPlan = null;
             
-            //Trying to cover with an attribute/mapEvent in the target
-            foundExecutionPlan = attributeOwnershipToCover.owner.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+            //Trying to cover with an property/mapEvent in the target
+            foundExecutionPlan = propertyOwnershipToCover.owner.propertyManager.GetExecutionPlanToCover(propertyOwnershipToCover, valueToCover, executer);
                 
-            //Trying to cover with an attribute/mapEvent in the caregiver/executer
+            //Trying to cover with an property/mapEvent in the caregiver/executer
             if (foundExecutionPlan == null)
-                foundExecutionPlan = executer.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+                foundExecutionPlan = executer.propertyManager.GetExecutionPlanToCover(propertyOwnershipToCover, valueToCover, executer);
             
-            //Trying to cover with an attribute/mapEvent in any map element
+            //Trying to cover with an property/mapEvent in any map element
             if (foundExecutionPlan == null)
             {
                 List<MapElement> alreadyScanned = new List<MapElement>();
                 while (alreadyScanned.Count < existentMapElements.Count)
                 {
-                    MapElement scanning = GetClosestMapElementTo(attributeOwnershipToCover.owner.transform.position, alreadyScanned);
-                    ExecutionPlan foundMapEvent = scanning.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+                    MapElement scanning = GetClosestMapElementTo(propertyOwnershipToCover.owner.transform.position, alreadyScanned);
+                    ExecutionPlan foundMapEvent = scanning.propertyManager.GetExecutionPlanToCover(propertyOwnershipToCover, valueToCover, executer);
                     if (foundMapEvent != null)
                     {
                         return foundMapEvent;
@@ -169,13 +167,13 @@ namespace Thoughts.Game.Map
             return mapGenerator.SpawnMapElementsWithPerlinNoiseDistribution(objectToSpawn, seed,  spawningHeightRange, probability, density, parent, noiseMapSettings, requireNavMesh);
         }
     }
-}
 
-public enum TerrainType
-{
-    none = 0,
-    sea,
-    interior,
-    interiorShoreline,
-    land,
+    public enum TerrainType
+    {
+        none = 0,
+        sea,
+        interior,
+        interiorShoreline,
+        land,
+    }
 }
