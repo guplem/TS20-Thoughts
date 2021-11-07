@@ -88,7 +88,8 @@ namespace Thoughts.Game.Map.MapElements
                               UpdateObjectiveAttributeToCover();
                               if (!DoNextPlanedMapEvents())
                               {
-                                   Debug.LogError("The next planned event could not be executed for unexpected reasons.");
+                                   Debug.LogWarning("The next planned event could not be executed. Updating the execution plans to cover the objective attribute");
+                                   UpdateExecutionPlansToCoverObjectiveAttribute();
                               }
                          }
                     }
