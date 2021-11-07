@@ -61,6 +61,6 @@ namespace Thoughts.Game.Map.MapElements.Attributes
         /// <summary>
         /// The duration of the new state of the affected MapElement
         /// </summary>
-        public float newStateDuration;
+        public float newStateDuration = 1;
     }
 }

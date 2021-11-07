@@ -34,6 +34,7 @@ namespace Thoughts.Game.Map.MapElements
             this.owner = owner;
             this.currentState = currentState;
             this.remainingStateTime = remainingStateTime;
+            SetState(State.None, 0f);
         }
 
         /// <summary>
@@ -46,7 +47,7 @@ namespace Thoughts.Game.Map.MapElements
                 return;
             
             float newRemainingTime = remainingStateTime - deltaTime;
-            if (newRemainingTime <= 0)
+            if (newRemainingTime < 0)
             {
                 SetState(State.None, 0f);
             }
@@ -65,7 +66,7 @@ namespace Thoughts.Game.Map.MapElements
         /// <param name="timeInState">The remaining time in the new State</param>
         public void SetState(State newState, float timeInState)
         {
-            Debug.Log($"Changing state from {this.ToString()} to '{Enum.GetName(typeof(State), newState)}' with {timeInState} seconds remaining.");
+            Debug.Log($"Changing state in {owner.ToString()} from {this.ToString()} to '{Enum.GetName(typeof(State), newState)}' with {timeInState} seconds programmed to be elapsed in this step.", owner);
             
             currentState = newState;
             remainingStateTime = timeInState;
@@ -91,11 +92,12 @@ namespace Thoughts.Game.Map.MapElements
         /// <summary>
         /// Id of the trigger for the animation 'Work' used in the Animator 
         /// </summary>
-        private static readonly int workAnimTriggerId = Animator.StringToHash("Work");
+        private static readonly int inactiveAnimTriggerId = Animator.StringToHash("Inactive");
         /// <summary>
         /// Id of the trigger for the animation 'Work' used in the Animator 
         /// </summary>
-        private static readonly int restAnimTriggerId = Animator.StringToHash("Rest");
+        private static readonly int activeAnimTriggerId = Animator.StringToHash("Active");
+
 
         /// <summary>
         /// Returns the id of the trigger for the animation of the given state
@@ -106,8 +108,9 @@ namespace Thoughts.Game.Map.MapElements
         {
             switch (state)
             {
-                case State.Resting: return restAnimTriggerId;
-                case State.Working: return workAnimTriggerId;
+                case State.None: return idleAnimTriggerId; // Waiting
+                case State.Inactive: return inactiveAnimTriggerId; // Resting
+                case State.Active: return activeAnimTriggerId; // Doing something
             }
             return idleAnimTriggerId;
         }
@@ -126,12 +129,13 @@ namespace Thoughts.Game.Map.MapElements
         /// </summary>
         None, 
         /// <summary>
-        /// The MapElement is stopped, in one place waiting comfortably.
+        /// The MapElement is inactive/stopped/resting, in one place waiting comfortably, turned off, ...
         /// </summary>
-        Resting,
+        Inactive,
         /// <summary>
-        /// The MapElement is doing an active task to (usually) obtain an object.
+        /// The MapElement is doing an active/working task to (usually) obtain an object, being turn on (bonfire...).
         /// </summary>
-        Working
+        Active,
+        
     }
 }

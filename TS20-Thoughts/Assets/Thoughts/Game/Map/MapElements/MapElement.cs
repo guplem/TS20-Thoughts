@@ -81,8 +81,10 @@ namespace Thoughts.Game.Map.MapElements
                     {
                          yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
                          
-                         stateManager.Step(GameManager.instance.gameClockInterval);
+                         // Order of 2 following lines is impotant:
                          attributesManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         stateManager.Step(GameManager.instance.gameClockInterval);
+                         
                          if (stateManager.currentState == State.None)
                          {
                               UpdateObjectiveAttributeToCover();
