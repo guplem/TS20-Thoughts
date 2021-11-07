@@ -222,8 +222,7 @@ namespace Thoughts.Game.Map.MapElements.Attributes
 
                 }
             }
-
-
+            
             return null;
         }
         

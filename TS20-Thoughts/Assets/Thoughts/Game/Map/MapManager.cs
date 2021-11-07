@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using Thoughts.Game.Map.MapElements;
@@ -8,6 +9,7 @@ using Thoughts.Game.Map.Terrain;
 using Thoughts.Utils.Maths;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace Thoughts.Game.Map
 {
@@ -94,16 +96,49 @@ namespace Thoughts.Game.Map
             
             //Trying to cover with an attribute/mapEvent in any map element
             if (foundExecutionPlan == null)
-                foreach (MapElement mapElement in existentMapElements)
+            {
+                List<MapElement> alreadyScanned = new List<MapElement>();
+                while (alreadyScanned.Count < existentMapElements.Count)
                 {
-                    ExecutionPlan foundMapEvent = mapElement.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
+                    MapElement scanning = GetClosestMapElementTo(attributeOwnershipToCover.owner.transform.position, alreadyScanned);
+                    ExecutionPlan foundMapEvent = scanning.attributesManager.GetExecutionPlanToCover(attributeOwnershipToCover, valueToCover, executer);
                     if (foundMapEvent != null)
+                    {
                         return foundMapEvent;
+                    }
+                    else
+                    {
+                        alreadyScanned.Add(scanning);
+                        // Todo: Do something to delay the process and reduce the load on the CPU due to the search with sorting by proximity
+                        //Wait(30f/existentMapElements.Count); // Para que siempre, si tuviera que pensar en TODOS los MapELements del mapa, tardaria 30s en pensarselo indiferentemente de la cantidad de MapElements existentes
+                    }
+                    
                 }
-
+            }
+            
             return foundExecutionPlan;
         }
-        
+
+        private MapElement GetClosestMapElementTo(Vector3 position, List<MapElement> exceptions = null)
+        {
+            MapElement bestTarget = null;
+            float closestDistanceSqr = Mathf.Infinity;
+            foreach(MapElement mapElement in existentMapElements)
+            {
+                if (exceptions != null && exceptions.Contains(mapElement))
+                    continue;
+                Vector3 directionToTarget = mapElement.transform.position - position;
+                float dSqrToTarget = directionToTarget.sqrMagnitude;
+                if(dSqrToTarget < closestDistanceSqr)
+                {
+                    closestDistanceSqr = dSqrToTarget;
+                    bestTarget = mapElement;
+                }
+            }
+     
+            return bestTarget;
+        }
+
         public float GetHeightAt(Vector2 location)
         {
             return mapGenerator.terrainGenerator.GetHeightAt(location);

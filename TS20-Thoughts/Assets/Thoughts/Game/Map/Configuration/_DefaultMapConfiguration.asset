@@ -16,7 +16,7 @@ MonoBehaviour:
   seed: 420
   chunkSizeIndex: 1
   seaHeight: 0.1
-  mapRadius: 75
+  mapRadius: 115
   lightSettings: {fileID: 0}
   terrainHeightSettings: {fileID: 11400000, guid: 0d8502f7698fcf948a85fe46971900b8, type: 2}
   terrainTextureSettings: {fileID: 11400000, guid: 5a29cb4a392b9604fbbe25b2a13b56bb, type: 2}
