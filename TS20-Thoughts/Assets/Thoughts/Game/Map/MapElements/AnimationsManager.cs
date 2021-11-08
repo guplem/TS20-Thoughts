@@ -29,10 +29,13 @@ namespace Thoughts.Game.Map.MapElements
             PlayAnimation(Animator.StringToHash(trigger));
         
         }
+        
         public void PlayAnimation(int triggerHash)
         {
             if (animator.runtimeAnimatorController != null)
+            {
                 animator.SetTrigger(triggerHash);
+            }
             //else Debug.LogWarning($"The MapElement {this.transform.parent.name} doesn't have an AnimatorController set in the animator.", animator);
         }
 

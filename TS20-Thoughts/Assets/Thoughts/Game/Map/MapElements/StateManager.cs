@@ -34,7 +34,6 @@ namespace Thoughts.Game.Map.MapElements
             this.owner = owner;
             this.currentState = currentState;
             this.remainingStateTime = remainingStateTime;
-            SetState(State.None, 0f);
         }
 
         /// <summary>
@@ -85,19 +84,6 @@ namespace Thoughts.Game.Map.MapElements
 
         #region Animations
 
-        /// <summary>
-        /// Id of the trigger for the animation 'Move' used in the Animator 
-        /// </summary>
-        private static readonly int idleAnimTriggerId = Animator.StringToHash("Idle");
-        /// <summary>
-        /// Id of the trigger for the animation 'Work' used in the Animator 
-        /// </summary>
-        private static readonly int inactiveAnimTriggerId = Animator.StringToHash("Inactive");
-        /// <summary>
-        /// Id of the trigger for the animation 'Work' used in the Animator 
-        /// </summary>
-        private static readonly int activeAnimTriggerId = Animator.StringToHash("Active");
-
 
         /// <summary>
         /// Returns the id of the trigger for the animation of the given state
@@ -108,11 +94,11 @@ namespace Thoughts.Game.Map.MapElements
         {
             switch (state)
             {
-                case State.None: return idleAnimTriggerId; // Waiting
-                case State.Inactive: return inactiveAnimTriggerId; // Resting
-                case State.Active: return activeAnimTriggerId; // Doing something
+                case State.None: return Animator.StringToHash("Idle"); // Id of the trigger for the animation 'Idle' used in the Animator  // Waiting, 
+                case State.Inactive: return Animator.StringToHash("Inactive"); // Id of the trigger for the animation 'Inactive' used in the Animator // Resting
+                case State.Active: return Animator.StringToHash("Active"); // Id of the trigger for the animation 'Active' used in the Animator // Doing something
             }
-            return idleAnimTriggerId;
+            return Animator.StringToHash("Idle"); ;
         }
 
         #endregion
@@ -125,7 +111,7 @@ namespace Thoughts.Game.Map.MapElements
     public enum State
     {
         /// <summary>
-        /// Can be interrupted. The MapElement is moving, looking for something to do, ...
+        /// Can be interrupted. The MapElement is moving, looking for something to do, chilling, ...
         /// </summary>
         None, 
         /// <summary>

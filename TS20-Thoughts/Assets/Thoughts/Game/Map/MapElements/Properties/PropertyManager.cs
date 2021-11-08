@@ -149,12 +149,15 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <returns>Returns an PropertyOwnership of the given Property.</returns>
         public PropertyOwnership GetOwnedPropertyAndAddItIfNotFound(Property property)
         {
+            if (property == null)
+                Debug.LogError($"Trying to find a null or empty property in {owner}.");
+            
             foreach (PropertyOwnership ownedProperty in propertyOwnerships)
             {
                 if (ownedProperty.property == property)
                     return ownedProperty;
             }
-            Debug.Log($"   Property '{property}' not found in '{owner}' owned properties. Adding the property with a value of 0.\n", owner);
+            Debug.Log($"   Property '{property.ToString()}' not found in '{owner}' owned properties. Adding the property with a value of 0.\n", owner);
             return AddProperty(property);
         }
         

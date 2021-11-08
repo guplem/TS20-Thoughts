@@ -139,6 +139,8 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
             
             foreach (Requirement requirement in requirements)
             {
+                if (requirement.property == null)
+                    Debug.LogWarning($"Found a requirement without a property linked to it. Requirement: {requirement.ToString()}");
                 //OwnedProperty propertyThatMostCloselyMeetsTheRequirement;
                 int remainingValueToCoverRequirementNotMet;
                 bool meets = true;

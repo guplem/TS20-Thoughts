@@ -37,7 +37,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return $"{property} (val={minValue})";
+            return $"Property: '{property}', minValue = {minValue}, affectedMapElement = {(AffectedMapElement)affectedMapElement}";
         }
 
     }

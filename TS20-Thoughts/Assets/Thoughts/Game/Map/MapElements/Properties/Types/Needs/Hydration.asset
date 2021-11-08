@@ -17,13 +17,16 @@ MonoBehaviour:
   - name: Get Thirsty
     maxDistance: -1
     executeWithTimeElapse: 1
-    executerMustOwnAttribute: 0
+    executerMustOwnProperty: 0
     consequences:
-    - attribute: {fileID: 11400000}
-      value: -1
-      affected: 0
-    requirements:
-    - attribute: {fileID: 11400000}
-      value: 1
-      affected: 0
+    - property: {fileID: 11400000}
+      deltaValue: -1
+      affectedMapElement: 0
+      stateUpdate:
+        newState: 0
+        newStateDuration: 1
     tryToCoverRequirementsIfNotMet: 1
+    requirements:
+    - property: {fileID: 11400000}
+      minValue: 1
+      affectedMapElement: 0
