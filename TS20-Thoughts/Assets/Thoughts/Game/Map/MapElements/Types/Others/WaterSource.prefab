@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3627923338006388644}
   - component: {fileID: 6205753836012825054}
   - component: {fileID: 786713367099694117}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,9 +102,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 343881167244628321, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2994566452184276680, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3549707093388651290, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3981719456449971147, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: m_Name
       value: WaterSource
+      objectReference: {fileID: 0}
+    - target: {fileID: 3981719456449971147, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4329339775212638338, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: m_RootOrder
@@ -188,6 +204,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}
     m_RemovedComponents:
     - {fileID: 6984347118404179421, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+    - {fileID: 3549707093388651290, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
 --- !u!4 &7784682791663281462 stripped
 Transform:
@@ -201,9 +218,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7784682791663281462}
     m_Modifications:
+    - target: {fileID: 1404714186194738, guid: 5d5da19b06b71d74baef1d8c22f634e1, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1497628649277390, guid: 5d5da19b06b71d74baef1d8c22f634e1, type: 3}
       propertyPath: m_Name
       value: FX_Water_Ripple_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1497628649277390, guid: 5d5da19b06b71d74baef1d8c22f634e1, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4556773208972270, guid: 5d5da19b06b71d74baef1d8c22f634e1, type: 3}
       propertyPath: m_RootOrder

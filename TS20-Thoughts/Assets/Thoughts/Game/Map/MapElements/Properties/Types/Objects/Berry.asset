@@ -70,6 +70,13 @@ MonoBehaviour:
     - property: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
       deltaValue: 30
       affectedMapElement: 1
+      setNewState: 1
+      stateUpdate:
+        newState: 2
+        newStateDuration: 2
+    - property: {fileID: 11400000}
+      deltaValue: -1
+      affectedMapElement: 1
       setNewState: 0
       stateUpdate:
         newState: 2

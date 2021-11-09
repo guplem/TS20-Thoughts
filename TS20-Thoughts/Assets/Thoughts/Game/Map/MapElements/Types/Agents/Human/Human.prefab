@@ -887,7 +887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.size
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: attributeManager._attributeOwnerships.Array.size
@@ -923,6 +923,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[3]._value
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[4]._value
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[5]._value
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
@@ -978,6 +986,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: afc8d75b44a64024fbcfc475f6fcd05d, type: 2}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[4].property
+      value: 
+      objectReference: {fileID: 11400000, guid: bef8e0850eed54343946c46e8dbfc89f, type: 2}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[5].property
+      value: 
+      objectReference: {fileID: 11400000, guid: 2d73e5aef8f0b9e48a1f08b5eaf10bb3, type: 2}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: attributesManager._attributeOwnerships.Array.data[0]._value
       value: 1
       objectReference: {fileID: 0}
@@ -1003,6 +1019,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[3]._takeCare
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[4]._takeCare
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[5]._takeCare
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}

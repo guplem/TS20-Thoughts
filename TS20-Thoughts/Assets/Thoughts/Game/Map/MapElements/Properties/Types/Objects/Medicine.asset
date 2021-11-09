@@ -10,55 +10,79 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
-  m_Name: Water
+  m_Name: Medicine
   m_EditorClassIdentifier: 
   _needPriority: 0
   mapEvents:
-  - name: Drink
+  - name: Pick Up
     maxDistance: 2
     executeWithTimeElapse: 0
     executerMustOwnProperty: 0
     consequences:
-    - property: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
-      deltaValue: 30
-      affectedMapElement: 1
-      setNewState: 1
-      stateUpdate:
-        newState: 2
-        newStateDuration: 10
     - property: {fileID: 11400000}
-      deltaValue: -1
-      affectedMapElement: 0
-      setNewState: 0
-      stateUpdate:
-        newState: 0
-        newStateDuration: 1
-    tryToCoverRequirementsIfNotMet: 1
-    requirements:
-    - property: {fileID: 11400000}
-      minValue: 1
-      affectedMapElement: 0
-  - name: Wash up
-    maxDistance: 1
-    executeWithTimeElapse: 0
-    executerMustOwnProperty: 0
-    consequences:
-    - property: {fileID: 11400000, guid: bef8e0850eed54343946c46e8dbfc89f, type: 2}
-      deltaValue: 500
+      deltaValue: 1
       affectedMapElement: 1
       setNewState: 1
       stateUpdate:
         newState: 2
         newStateDuration: 2
     - property: {fileID: 11400000}
-      deltaValue: -4
+      deltaValue: -1
       affectedMapElement: 0
       setNewState: 0
       stateUpdate:
         newState: 0
-        newStateDuration: 1
+        newStateDuration: 0
     tryToCoverRequirementsIfNotMet: 1
     requirements:
     - property: {fileID: 11400000}
-      minValue: 4
+      minValue: 1
       affectedMapElement: 0
+  - name: Drop
+    maxDistance: 2
+    executeWithTimeElapse: 0
+    executerMustOwnProperty: 0
+    consequences:
+    - property: {fileID: 11400000}
+      deltaValue: -1
+      affectedMapElement: 1
+      setNewState: 1
+      stateUpdate:
+        newState: 2
+        newStateDuration: 2
+    - property: {fileID: 11400000}
+      deltaValue: 1
+      affectedMapElement: 2
+      setNewState: 0
+      stateUpdate:
+        newState: 0
+        newStateDuration: 0
+    tryToCoverRequirementsIfNotMet: 1
+    requirements:
+    - property: {fileID: 11400000}
+      minValue: 1
+      affectedMapElement: 1
+  - name: Consume
+    maxDistance: -1
+    executeWithTimeElapse: 0
+    executerMustOwnProperty: 0
+    consequences:
+    - property: {fileID: 11400000, guid: 2d73e5aef8f0b9e48a1f08b5eaf10bb3, type: 2}
+      deltaValue: 500
+      affectedMapElement: 1
+      setNewState: 1
+      stateUpdate:
+        newState: 1
+        newStateDuration: 10
+    - property: {fileID: 11400000}
+      deltaValue: -1
+      affectedMapElement: 1
+      setNewState: 0
+      stateUpdate:
+        newState: 1
+        newStateDuration: 10
+    tryToCoverRequirementsIfNotMet: 1
+    requirements:
+    - property: {fileID: 11400000}
+      minValue: 1
+      affectedMapElement: 1

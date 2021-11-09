@@ -54,3 +54,13 @@ MonoBehaviour:
     spawningHeightRange: {x: 0.52502954, y: 0.75}
     probability: 0.463
     density: 0.1
+  - mapElementPrefab: {fileID: 3607978565810473918, guid: 3d4fdb23cd205a848affb3e48250b560, type: 3}
+    noiseSettings:
+      scale: 54.29
+      octaves: 5
+      lacunarity: 0.6
+      persistance: 0.216
+      offset: {x: 0, y: 0}
+    spawningHeightRange: {x: 0.1, y: 0.7}
+    probability: 0.35
+    density: 0.01
