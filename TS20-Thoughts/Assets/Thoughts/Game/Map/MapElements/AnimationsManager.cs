@@ -24,20 +24,21 @@ namespace Thoughts.Game.Map.MapElements
         [SerializeField] private List<AnimationTriggerCondition> animationTriggerConditions = new List<AnimationTriggerCondition>();
 
 
-        public void PlayAnimation(string trigger)
-        {
-            PlayAnimation(Animator.StringToHash(trigger));
-        
-        }
-        
-        public void PlayAnimation(int triggerHash)
+        private void PlayAnimation(string trigger)
         {
             if (animator.runtimeAnimatorController != null)
-            {
-                animator.SetTrigger(triggerHash);
-            }
-            //else Debug.LogWarning($"The MapElement {this.transform.parent.name} doesn't have an AnimatorController set in the animator.", animator);
+                animator.SetTrigger(trigger);
         }
+        
+        /*private void PlayAnimation(int triggerHash)
+        {
+            if (animator.runtimeAnimatorController != null)
+                if (animator.runtimeAnimatorController != null)
+                {
+                    animator.SetTrigger(triggerHash);
+                }
+                //else Debug.LogWarning($"The MapElement {this.transform.parent.name} doesn't have an AnimatorController set in the animator.", animator);
+        }*/
 
         internal void UpdateAnimationsUpdates(MapElement owner)
         {
@@ -69,6 +70,32 @@ namespace Thoughts.Game.Map.MapElements
                 if (triggerAnimation)
                     PlayAnimation(condition.animationTrigger);
             }
+        }
+        
+        /// <summary>
+        /// Returns the id of the trigger for the animation of the given state
+        /// </summary>
+        /// <param name="state">The state for which it is wanted to know the trigger id of its animation</param>
+        /// <returns>The id of the trigger for the animation of the given state</returns>
+        private string GetAnimationTriggerId(State state, MapElement owner)
+        {
+            switch (state)
+            {
+                case State.None: 
+                    if (owner.navMeshAgent == null || owner.navMeshAgent.velocity.magnitude < 0.15f)
+                        return "Idle"; // Id of the trigger for the animation 'Idle' used in the Animator  // Waiting
+                    return "Move"; // Id of the trigger for the animation 'Move' used in the Animator  // Walking //Todo: chang animation for 'walk'
+                case State.Inactive: return "Inactive"; // Id of the trigger for the animation 'Inactive' used in the Animator // Resting
+                case State.Active: return "Active"; // Id of the trigger for the animation 'Active' used in the Animator // Doing something
+            }
+
+            Debug.LogWarning($"Unknown state '{(State)state}'");
+            return null;
+        }
+        public void PlayStateAnimation(State state, MapElement owner)
+        {
+            //Debug.Log($"Playing animation for the state {state} in MapElement {owner}");
+            PlayAnimation(GetAnimationTriggerId(state, owner));
         }
     }
 

@@ -78,12 +78,7 @@ namespace Thoughts.Game.Map.MapElements
                     while (true)
                     {
                          yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
-                         
-                         // Order of 2 following lines is impotant:
-                         propertyManager.ExecuteMapEventsWithTimeElapseEnabled();
-                         animationsManager.UpdateAnimationsUpdates(this);
-                         stateManager.Step(GameManager.instance.gameClockInterval);
-                         
+
                          if (stateManager.currentState == State.None)
                          {
                               UpdateObjectivePropertyToCover();
@@ -93,6 +88,12 @@ namespace Thoughts.Game.Map.MapElements
                                    UpdateExecutionPlansToCoverObjectiveProperty();
                               }
                          }
+                         
+                         // Order is important:
+                         propertyManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         animationsManager.UpdateAnimationsUpdates(this);
+                         stateManager.Step(GameManager.instance.gameClockInterval);
+                         animationsManager.PlayStateAnimation(stateManager.currentState, this);
                     }
                     
                     // ReSharper disable once IteratorNeverReturns
@@ -189,6 +190,9 @@ namespace Thoughts.Game.Map.MapElements
                /// <returns>True if the behaviour was expected (the planned event was executed successfully, the distance was not met so the object was moved, ...). False if the planned event could not be executed due to unexpected reasons.</returns>
                private bool DoNextPlanedMapEvents()
                {
+                    if (stateManager.currentState != State.None)
+                         return true;
+                    
                     if (executionPlans.IsNullOrEmpty())
                     {
                          // Debug.LogError($"Trying to execute the next map event in the execution plan of '{this}', but it does not exist. The Execution Plan is null or empty.");
@@ -254,11 +258,6 @@ namespace Thoughts.Game.Map.MapElements
           /// The last location requested as destination for this MapElement. 
           /// </summary>
           private Vector3 lastRequestedDestination;
-          
-          /// <summary>
-          /// Id of the trigger for the animation 'Move' used in the Animator 
-          /// </summary>
-          private static readonly int moveAnimTriggerId = Animator.StringToHash("Move");
 
           /// <summary>
           /// Sets the destination of this object's NavMeshAgent, resumes its movement and plays the 'Move' animation.
@@ -281,7 +280,6 @@ namespace Thoughts.Game.Map.MapElements
                {
                     lastRequestedDestination = location;
                     navMeshAgent.isStopped = false;
-                    animationsManager.PlayAnimation(moveAnimTriggerId);
                     return true;
                }
                else

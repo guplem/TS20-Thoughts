@@ -72,7 +72,6 @@ namespace Thoughts.Game.Map.MapElements
             currentState = newState;
             remainingStateTime = timeInState;
             
-            owner.animationsManager.PlayAnimation(GetAnimationTriggerId(newState));
         }
 
         /// <summary>
@@ -84,26 +83,7 @@ namespace Thoughts.Game.Map.MapElements
             return $"State '{Enum.GetName(typeof(State), currentState)}' with {remainingStateTime} seconds remaining";
         }
 
-        #region Animations
 
-
-        /// <summary>
-        /// Returns the id of the trigger for the animation of the given state
-        /// </summary>
-        /// <param name="state">The state for which it is wanted to know the trigger id of its animation</param>
-        /// <returns>The id of the trigger for the animation of the given state</returns>
-        private int GetAnimationTriggerId(State state)
-        {
-            switch (state)
-            {
-                case State.None: return Animator.StringToHash("Idle"); // Id of the trigger for the animation 'Idle' used in the Animator  // Waiting, 
-                case State.Inactive: return Animator.StringToHash("Inactive"); // Id of the trigger for the animation 'Inactive' used in the Animator // Resting
-                case State.Active: return Animator.StringToHash("Active"); // Id of the trigger for the animation 'Active' used in the Animator // Doing something
-            }
-            return Animator.StringToHash("Idle"); ;
-        }
-
-        #endregion
 
     }
 
