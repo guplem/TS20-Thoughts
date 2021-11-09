@@ -297,6 +297,7 @@ namespace Thoughts.Game.Map
         public MapElement SpawnMapElement(GameObject objectToSpawn, Vector3 position, Quaternion rotation, Transform parent)
         {
             GameObject spawnedMapElement = Instantiate(objectToSpawn, position, rotation, parent);
+            spawnedMapElement.name = objectToSpawn.name;
             MapElement spawnedElement =  spawnedMapElement.GetComponentRequired<MapElement>();
             mapManager.existentMapElements.Add(spawnedElement);
             return spawnedElement;
