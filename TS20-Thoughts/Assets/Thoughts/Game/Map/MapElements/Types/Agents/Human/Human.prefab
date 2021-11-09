@@ -915,11 +915,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[1]._value
-      value: 65
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[2]._value
-      value: 125
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0]._takeCare
