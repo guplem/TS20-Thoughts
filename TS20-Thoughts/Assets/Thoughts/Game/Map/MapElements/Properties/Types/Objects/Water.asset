@@ -22,12 +22,14 @@ MonoBehaviour:
     - property: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
       deltaValue: 30
       affectedMapElement: 1
+      setNewState: 1
       stateUpdate:
-        newState: 0
-        newStateDuration: 1
+        newState: 2
+        newStateDuration: 2
     - property: {fileID: 11400000}
       deltaValue: -1
       affectedMapElement: 0
+      setNewState: 0
       stateUpdate:
         newState: 0
         newStateDuration: 1

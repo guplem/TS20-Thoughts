@@ -34,7 +34,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].name
-    value: Get Hungry
+    value: Satiety
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].maxDistance
@@ -62,6 +62,10 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].affectedMapElement
+    value: 0
+    objectReference: {fileID: 0}
+  - target: {fileID: 0}
+    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].setNewState
     value: 0
     objectReference: {fileID: 0}
   - target: {fileID: 0}

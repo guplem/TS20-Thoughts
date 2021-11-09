@@ -63,7 +63,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         public void Execute(MapElement executer, MapElement target, MapElement owner)
         {
             if (!executeWithTimeElapse)
-                Debug.Log($"        · MapElement '{executer}' is executing '{name}' of '{owner}' with target '{target}'.");
+                Debug.Log($"        · MapElement '{executer}' is executing '{name}' using a property in '{owner}' with target '{target}'.\n         \\_Their properties are: {owner.propertyManager.ToString()}");
 
             foreach (Consequence consequence in consequences)
             {
@@ -71,19 +71,19 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
                 {
                     case AffectedMapElement.eventOwner:
                         owner.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
-                        if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
+                        if (consequence.setNewState)
                             owner.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventExecuter:
                         executer.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
-                        if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
+                        if (consequence.setNewState)
                             executer.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventTarget:
                         target.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
-                        if (consequence.stateUpdate.newState != State.None || consequence.stateUpdate.newStateDuration > 0)
+                        if (consequence.setNewState)
                             target.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     default:
@@ -133,16 +133,16 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// <param name="owner">The MapElement that owns the event.</param>
         /// <param name="executionTimes">The amount of times that is desired to execute the event.</param>
         /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
-        public Dictionary<PropertyOwnership, int> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes)
+        public Dictionary<PropertyOwnership, float> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes)
         {
-            Dictionary<PropertyOwnership, int> requirementsNotMet = new Dictionary<PropertyOwnership, int>();
+            Dictionary<PropertyOwnership, float> requirementsNotMet = new Dictionary<PropertyOwnership, float>();
             
             foreach (Requirement requirement in requirements)
             {
                 if (requirement.property == null)
                     Debug.LogWarning($"Found a requirement without a property linked to it. Requirement: {requirement.ToString()}");
                 //OwnedProperty propertyThatMostCloselyMeetsTheRequirement;
-                int remainingValueToCoverRequirementNotMet;
+                float remainingValueToCoverRequirementNotMet;
                 bool meets = true;
 
                 switch (requirement.affectedMapElement)

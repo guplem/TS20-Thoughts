@@ -18,6 +18,7 @@ filters = {
 scopes = {
 	"last_search.AB59B288" = ""
 	"last_search.00000000" = ""
+	"last_search.AB59B443" = "conseque"
 }
 providers = {
 	asset = {

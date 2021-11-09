@@ -23,7 +23,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// </summary>
         [Tooltip("The minimal value required of the required property")]
         [FormerlySerializedAs("value")]
-        public int minValue = 1;
+        public float minValue = 1;
         
         /// <summary>
         /// The MapElement that must fulfill the requirement so the MapEvent can be executed

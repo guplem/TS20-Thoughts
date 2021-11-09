@@ -23,7 +23,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// </summary>
         [Tooltip("The difference to apply to the property's value of this consequence. Can be positive and negative")]
         [FormerlySerializedAs("value")]
-        public int deltaValue = 1;
+        public float deltaValue = 1;
         
         /// <summary>
         /// The MapElement that will get the effects of this consequence
@@ -31,6 +31,12 @@ namespace Thoughts.Game.Map.MapElements.Properties
         [Tooltip("The MapElement that will get the effects of this consequence")]
         public AffectedMapElement affectedMapElement = AffectedMapElement.eventOwner;
 
+        /// <summary>
+        /// Should a new state be set in the affected MapElement?
+        /// </summary>
+        [Tooltip("Should a new state be set in the affected MapElement?")]
+        public bool setNewState = false;
+        
         /// <summary>
         /// The new State and duration of it for the affected MapElement
         /// </summary>
@@ -57,11 +63,11 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <summary>
         /// The new state of the affected MapElement
         /// </summary>
-        public State newState;
+        public State newState = State.Active;
         
         /// <summary>
         /// The duration of the new state of the affected MapElement
         /// </summary>
-        public float newStateDuration = 1;
+        public float newStateDuration = 2;
     }
 }

@@ -103,7 +103,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// <returns>True, if the requirements to execute this ExecutionPlan are met. False, otherwise.</returns>
         private bool CanBeExecuted(out string requirementsNotMetMessage)
         {
-            Dictionary<PropertyOwnership, int> requirementsNotMet = GetRequirementsNotMet();
+            Dictionary<PropertyOwnership, float> requirementsNotMet = GetRequirementsNotMet();
             bool allRequirementsMet = requirementsNotMet.IsNullOrEmpty();
             bool isDistanceMet = IsDistanceMet();
 
@@ -129,7 +129,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// Returns a list of the requirements that are not met at the moment to execute the event, it and outputs a list of the value missing for each one of the requirements that are not met (in the same order).
         /// </summary>
         /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
-        public Dictionary<PropertyOwnership, int> GetRequirementsNotMet()
+        public Dictionary<PropertyOwnership, float> GetRequirementsNotMet()
         {
             return mapEvent.GetRequirementsNotMet(executer, target, eventOwner, executionTimes);
         }
@@ -140,9 +140,9 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// <param name="propertyOwnershipToCoverr">PropertyOwnership that is desired to cover (to increase its value in the MapElement's PropertyManager)</param>
         /// <param name="remainingValueToCover">The remaining value to cover for the given Property.</param>
         /// <returns></returns>
-        private int CalculateExecutionsNeededToCover(PropertyOwnership propertyOwnershipToCover, int remainingValueToCover)
+        private int CalculateExecutionsNeededToCover(PropertyOwnership propertyOwnershipToCover, float remainingValueToCover)
         {
-            int coveredPerExecution = 0;
+            float coveredPerExecution = 0;
 
             //Debug.LogWarning($"Calculating how many times '{this.mapEvent}' must be executed to cover '{ownedPropertyToCover.property}'...");
 
@@ -194,7 +194,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// </summary>
         /// <param name="propertyOwnershipToCoverr">PropertyOwnership that is desired to cover (to increase its value in the MapElement's PropertyManager)</param>
         /// <param name="remainingValueToCover">The remaining value to cover for the given Property.</param>
-        public void SetExecutionTimesToCover(PropertyOwnership propertyOwnershipToCover, int remainingValueToCover)
+        public void SetExecutionTimesToCover(PropertyOwnership propertyOwnershipToCover, float remainingValueToCover)
         {
             this.executionTimes = CalculateExecutionsNeededToCover(propertyOwnershipToCover, remainingValueToCover);
         }

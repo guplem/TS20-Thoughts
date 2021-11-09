@@ -46,7 +46,7 @@ namespace Thoughts.Game.Map.MapElements
                 return;
             
             float newRemainingTime = remainingStateTime - deltaTime;
-            if (newRemainingTime < 0)
+            if (newRemainingTime <= 0)
             {
                 SetState(State.None, 0f);
             }
@@ -65,7 +65,9 @@ namespace Thoughts.Game.Map.MapElements
         /// <param name="timeInState">The remaining time in the new State</param>
         public void SetState(State newState, float timeInState)
         {
-            // Debug.Log($"Changing state in {owner.ToString()} from {this.ToString()} to '{Enum.GetName(typeof(State), newState)}' with {timeInState} seconds programmed to be elapsed in this step.", owner);
+            if (newState == currentState)
+                Debug.LogWarning($"Resetting state from {currentState} to {newState} while it had {remainingStateTime}s remaining (new time to be set is {timeInState})", owner);
+            Debug.Log($"Changing state in {owner.ToString()} from {this.ToString()} to '{Enum.GetName(typeof(State), newState)}' with {timeInState} seconds programmed to be elapsed in this step.", owner);
             
             currentState = newState;
             remainingStateTime = timeInState;

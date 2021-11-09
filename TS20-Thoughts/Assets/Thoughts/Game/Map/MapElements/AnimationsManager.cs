@@ -44,7 +44,7 @@ namespace Thoughts.Game.Map.MapElements
             foreach (AnimationTriggerCondition condition in animationTriggerConditions)
             {
                 bool triggerAnimation = false;
-                int valueInOwner = owner.propertyManager.GetValueOf(condition.property);
+                float valueInOwner = owner.propertyManager.GetValueOf(condition.property);
                 switch (condition.triggerOptions)
                 {
 

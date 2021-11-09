@@ -85,7 +85,7 @@ namespace Thoughts.Game
         /// <param name="mapEventsToExecute">Execution plans wanted to be executed previously to the ones to cover the propertyToCover.</param>
         /// <param name="iteration">The iteration number of the this method's recursive execution. Should start as 0.</param>
         /// <returns>An ordered list of the Execution Plans needed to achieve the goal (to increase the value of the propertyToCover by valueToCover)</returns>
-        public List<ExecutionPlan> GetExecutionPlanToCover(PropertyOwnership propertyOwnershipToCover, int valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
+        public List<ExecutionPlan> GetExecutionPlanToCover(PropertyOwnership propertyOwnershipToCover, float valueToCover, MapElement executer, List<ExecutionPlan> mapEventsToExecute = null, int iteration = 0)
         {
             if (iteration >= 50)
             {
@@ -108,10 +108,10 @@ namespace Thoughts.Game
             {
                 mapEventsToExecute.Add(lastExecutionPlan);
 
-                Dictionary<PropertyOwnership, int> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet();
+                Dictionary<PropertyOwnership, float> requirementsNotMet = lastExecutionPlan.GetRequirementsNotMet();
                 if (!requirementsNotMet.IsNullOrEmpty())
                 {
-                    KeyValuePair<PropertyOwnership, int> reqNotMet = requirementsNotMet.ElementAt(0);
+                    KeyValuePair<PropertyOwnership, float> reqNotMet = requirementsNotMet.ElementAt(0);
                     mapEventsToExecute = GetExecutionPlanToCover(reqNotMet.Key, reqNotMet.Value, executer, mapEventsToExecute, iteration+1);
                 }
             }

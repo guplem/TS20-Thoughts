@@ -75,7 +75,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// </summary>
         /// <param name="propertyToUpdate">The Property that the updated PropertyOwnership must have.</param>
         /// <param name="deltaValue">The difference that is wanted to apply to the current value of the PropertyOwnership. Can be positive and negative.</param>
-        public void UpdateProperty(Property propertyToUpdate, int deltaValue)
+        public void UpdateProperty(Property propertyToUpdate, float deltaValue)
         {
             bool found = false;
             foreach (PropertyOwnership managerProperty in propertyOwnerships)
@@ -115,7 +115,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <param name="times">The amount of times the requirement will have to be met.</param>
         /// <param name="remainingValueToCover">The remaining value of the Requirement that can not be currently covered by this PropertyManager.</param>
         /// <returns>True if it contains an property with a value higher or equal than the one in the requirement/PropertyUpdate n times</returns>
-        public bool CanCover(Requirement requirement, int times, out int remainingValueToCover)
+        public bool CanCover(Requirement requirement, int times, out float remainingValueToCover)
         {
             remainingValueToCover = requirement.minValue * times;
 
@@ -161,7 +161,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
             return AddProperty(property);
         }
         
-        private PropertyOwnership AddProperty(Property property, int value = 0, bool takeCare = false)
+        private PropertyOwnership AddProperty(Property property, float value = 0, bool takeCare = false)
         {
             PropertyOwnership newPropertyOwnership = new PropertyOwnership(property, value, owner, false);
             propertyOwnerships.Add(newPropertyOwnership);
@@ -175,7 +175,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <param name="remainingValueToCover">The amount of value that is desired to increase with the obtained ExecutionPlan</param>
         /// <param name="executer">The MapElement that will execute the ExecutionPlan</param>
         /// <returns></returns>
-        public ExecutionPlan GetExecutionPlanToCover(PropertyOwnership propertyOwnershipToCover, int remainingValueToCover, MapElement executer)
+        public ExecutionPlan GetExecutionPlanToCover(PropertyOwnership propertyOwnershipToCover, float remainingValueToCover, MapElement executer)
         {
             MapElement target = propertyOwnershipToCover.owner;
 
@@ -195,7 +195,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
                         if (executionsToCover < 0) // The executionPlan can not cover the property
                             continue;
 
-                        Dictionary<PropertyOwnership, int> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(executer, target, owner, executionPlan.executionTimes);
+                        Dictionary<PropertyOwnership, float> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(executer, target, owner, executionPlan.executionTimes);
 
                         if (mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()))
                         {
@@ -245,7 +245,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
             return matchingPropertyOwnerships;
         }
         
-        public int GetValueOf(Property property)
+        public float GetValueOf(Property property)
         {
             PropertyOwnership foundProperty = GetOwnedPropertyAndAddItIfNotFound(property);
             return foundProperty.value;

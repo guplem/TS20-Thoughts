@@ -81,7 +81,7 @@ namespace Thoughts.Game.Map
         /// <param name="valueToCover">The amount of value needed to be covered (increased).</param>
         /// <param name="executer">Map element that is going to execute the ExecutionPlan.</param>
         /// <returns>The Execution Plan needed to achieve the goal (to increase the value of the propertyToCover by valueToCover)</returns>
-        public ExecutionPlan GetExecutionPlanToCover([NotNull] PropertyOwnership propertyOwnershipToCover, int valueToCover, MapElement executer)
+        public ExecutionPlan GetExecutionPlanToCover([NotNull] PropertyOwnership propertyOwnershipToCover, float valueToCover, MapElement executer)
         {
             ExecutionPlan foundExecutionPlan = null;
             

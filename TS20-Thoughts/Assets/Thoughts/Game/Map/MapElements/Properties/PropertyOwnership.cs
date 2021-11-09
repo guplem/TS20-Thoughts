@@ -24,8 +24,8 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <summary>
         /// The current value this relationship (The value of the Property when by the established MapElement).
         /// </summary>
-        [SerializeField] private int _value;
-        public int value { get => _value; private set { _value = value; } }
+        [SerializeField] private float _value;
+        public float value { get => _value; private set { _value = value; } }
         
         /// <summary>
         /// Indicates whether or not the owner should try to keep the value of this relationship with higher than 0.
@@ -46,7 +46,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// Updates the value of this relationship.
         /// </summary>
         /// <param name="deltaValue">The difference that is wanted to apply to the current value of the relationship. Can be positive and negative.</param>
-        public void UpdateValue(int deltaValue)
+        public void UpdateValue(float deltaValue)
         {
             this.value += deltaValue;
         }
@@ -58,7 +58,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <param name="value">The initial value of this relationship.</param>
         /// <param name="owner">The MapEvent that is going to be set as the owner in this relation.</param>
         /// <param name="takeCare">Should the owner try to keep the value of this relationship higher than 0?</param>
-        public PropertyOwnership(Property property, int value, MapElement owner, bool takeCare = false)
+        public PropertyOwnership(Property property, float value, MapElement owner, bool takeCare = false)
         {
             this.property = property;
             this.value = value;
