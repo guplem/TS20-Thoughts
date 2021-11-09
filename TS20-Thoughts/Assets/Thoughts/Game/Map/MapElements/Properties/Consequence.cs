@@ -26,9 +26,9 @@ namespace Thoughts.Game.Map.MapElements.Properties
         public float deltaValue = 1;
         
         /// <summary>
-        /// The MapElement that will get the effects of this consequence
+        /// The MapElement that will get the effects of this consequence. Be aware that if chosen 'target', it can not be the 'executer' neither the 'owner' of the event.
         /// </summary>
-        [Tooltip("The MapElement that will get the effects of this consequence")]
+        [Tooltip("The MapElement that will get the effects of this consequence. Be aware that if chosen 'target', it can not be the 'executer' neither the 'owner' of the event")]
         public AffectedMapElement affectedMapElement = AffectedMapElement.eventOwner;
 
         /// <summary>

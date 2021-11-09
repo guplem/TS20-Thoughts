@@ -171,7 +171,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <summary>
         /// Looks for an ExecutionPlan to cover the Property in the given PropertyOwnership relation using the Properties this PropertyManager.
         /// </summary>
-        /// <param name="propertyOwnershipToCoverr">The PropertyOwnership to which it is wanted to increase the value.</param>
+        /// <param name="propertyOwnershipToCover">The PropertyOwnership to which it is wanted to increase the value.</param>
         /// <param name="remainingValueToCover">The amount of value that is desired to increase with the obtained ExecutionPlan</param>
         /// <param name="executer">The MapElement that will execute the ExecutionPlan</param>
         /// <returns></returns>
@@ -179,13 +179,13 @@ namespace Thoughts.Game.Map.MapElements.Properties
         {
             MapElement target = propertyOwnershipToCover.owner;
 
-            // Debug.Log($" >>> Searching for an execution plan to cover '{remainingValueToCover}' of '{propertyToCover.property}' owned by '{propertyToCover.ownerMapElement}' executed by '{executer}'.\n");
+            // Debug.Log($" >>> Searching for an execution plan to cover '{remainingValueToCover}' of '{propertyOwnershipToCover.property}' owned by '{propertyOwnershipToCover.owner}' executed by '{executer}'.\n");
 
             foreach (PropertyOwnership ownedProperty in propertyOwnerships)
             {
                 foreach (MapEvent mapEvent in ownedProperty.property.mapEvents)
                 {
-                    // Debug.Log($" >>> In '{ownerMapElement}', checking if mapEvent '{mapEvent}' in property '{currentOwnedProperty.property}' can cover {remainingValueToCover} missing of the property '{ownedPropertyToCover.property}'.\nTarget: {target}, Executer: {executer}, EventOwner still unknown.\n");
+                    // Debug.Log($" >>> In '{ownedProperty.owner}', checking if mapEvent '{mapEvent}' in property '{ownedProperty.property}' can cover {remainingValueToCover} missing of the property '{propertyOwnershipToCover.property}'.\nTarget: {target}, Executer: {executer}, EventOwner still unknown.\n");
                     if (!mapEvent.executerMustOwnProperty || (mapEvent.executerMustOwnProperty && ownedProperty.owner == executer))
                     {
                         MapElement eventOwner = ownedProperty.owner;
@@ -200,7 +200,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
                         if (mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()))
                         {
                             // If reached here, the mapEvent can be executed - Now choose if it is the appropriate one
-                            Debug.Log($"   > The mapEvent '{mapEvent}' can be executed ({mapEventRequirementsNotMet.Count} requirements must be covered before):\n    - {mapEventRequirementsNotMet.ToStringAllElements("\n    - ")}\n");
+                            // Debug.Log($"   > The mapEvent '{mapEvent}' can be executed ({mapEventRequirementsNotMet.Count} requirements must be covered before):\n    - {mapEventRequirementsNotMet.ToStringAllElements("\n    - ")}\n");
 
                             if (mapEvent.ConsequencesCover(propertyOwnershipToCover, target, executer, eventOwner))
                             {

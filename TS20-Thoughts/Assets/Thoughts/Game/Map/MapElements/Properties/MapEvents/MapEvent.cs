@@ -180,7 +180,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// <summary>
         /// Indicates if the consequences of the execution of this event will increase the value of an property owned by a map element.
         /// </summary>
-        /// <param name="propertyOwnershipToCoverr">PropertyOwnership to cover.</param>
+        /// <param name="propertyOwnershipToCover">PropertyOwnership to cover.</param>
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
@@ -188,10 +188,10 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         public bool ConsequencesCover(PropertyOwnership propertyOwnershipToCover, MapElement target, MapElement executer, MapElement owner)
         {
             bool consequenceCoversOwnerOfProperty = false;
-            // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{ownedProperty.property}'.\n");
+            // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{propertyOwnershipToCover.property}'. target = {target}, executer = {executer}, owner = {owner}\n");
             foreach (Consequence consequence in consequences)
             {
-                //Debug.Log($"    $$$$$ Current consequence's property = '{consequence.property}'.\n");
+                // Debug.Log($"    $$$$$ Current consequence's property = '{consequence.property}'. Delta value = {consequence.deltaValue}. Covers desired property? {(consequence.property == propertyOwnershipToCover.property && consequence.deltaValue > 0)}\n");
                 if (consequence.property == propertyOwnershipToCover.property && consequence.deltaValue > 0)
                 {
                     switch (consequence.affectedMapElement)
