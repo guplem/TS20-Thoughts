@@ -887,7 +887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: attributeManager._attributeOwnerships.Array.size
@@ -911,15 +911,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[0]._value
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[1]._value
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[2]._value
-      value: 15
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[3]._value
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0]._takeCare
@@ -970,6 +974,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[3].property
+      value: 
+      objectReference: {fileID: 11400000, guid: afc8d75b44a64024fbcfc475f6fcd05d, type: 2}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: attributesManager._attributeOwnerships.Array.data[0]._value
       value: 1
       objectReference: {fileID: 0}
@@ -991,6 +999,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[2]._takeCare
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}
+      propertyPath: propertyManager._propertyOwnerships.Array.data[3]._takeCare
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5449455492451677232, guid: d11a04ba10f08f344bb871915e94c7bd, type: 3}

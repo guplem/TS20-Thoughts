@@ -34,7 +34,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].name
-    value: Satiety
+    value: Get hungry
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].maxDistance
@@ -78,7 +78,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].tryToCoverRequirementsIfNotMet
-    value: 0
+    value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: mapEvents.Array.data[0].requirements.Array.size

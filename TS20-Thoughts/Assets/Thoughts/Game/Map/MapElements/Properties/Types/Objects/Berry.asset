@@ -33,7 +33,7 @@ MonoBehaviour:
       stateUpdate:
         newState: 0
         newStateDuration: 0
-    tryToCoverRequirementsIfNotMet: 0
+    tryToCoverRequirementsIfNotMet: 1
     requirements:
     - property: {fileID: 11400000}
       minValue: 1
