@@ -56,7 +56,7 @@ namespace Thoughts.Game.Map.MapElements
                         triggerAnimation = valueInOwner <= condition.quantity;
                         break;
                     case AnimationTriggerCondition.TriggerOptions.equal:
-                        triggerAnimation = valueInOwner == condition.quantity;
+                        triggerAnimation = Math.Abs(valueInOwner - condition.quantity) < 0.001f;
                         break;
                     case AnimationTriggerCondition.TriggerOptions.moreThanOrEqual:
                         triggerAnimation = valueInOwner >= condition.quantity;
