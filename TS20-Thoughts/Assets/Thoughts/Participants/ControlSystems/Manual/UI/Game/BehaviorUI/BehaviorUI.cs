@@ -1,8 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -25,6 +27,17 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
         /// </summary>
         [Tooltip("Reference to the visualization of all the execution plans")]
         [SerializeField] private ExecutionPlansUI executionPlansUI;
+        
+        /// <summary>
+        /// Reference to the TMP component that will display the status of the selected MapElement
+        /// </summary>
+        [Tooltip("Reference to the TMP component that will display the status of the selected MapElement")]
+        [SerializeField] private TMP_Text statusText;
+        
+        /// <summary>
+        /// The MapElement that is selected and the information of which is being displayed
+        /// </summary>
+        private MapElement selectedMapElement;
 
         /// <summary>
         /// Displays the given Property as the objective in the UI
@@ -58,7 +71,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
         public void Setup(MapElement selectedMapElement)
         {
             bool showUI = selectedMapElement != null;
-
+            this.selectedMapElement = selectedMapElement;
             gameObject.SetActive(showUI);
 
             if (showUI)
@@ -66,6 +79,14 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
                 DisplayExecutionPlans(selectedMapElement.executionPlans);
                 DisplayObjectiveProperty(selectedMapElement.propertyOwnershipToCover);
             }
+        }
+
+        private void Update()
+        {
+            if (selectedMapElement != null)
+                statusText.text = selectedMapElement.GetStatus();
+            else
+                statusText.text = $"";
         }
     }
 }

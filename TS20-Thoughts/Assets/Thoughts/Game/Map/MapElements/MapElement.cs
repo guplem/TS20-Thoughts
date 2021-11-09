@@ -291,6 +291,23 @@ namespace Thoughts.Game.Map.MapElements
           }
 
           #endregion
-          
+
+          public string GetStatus()
+          {
+               if (IsMoving())
+               {
+                    ExecutionPlan executionPlan = executionPlans.ElementAt(executionPlans.Count-1);
+                    return $"Moving towards '{executionPlan.eventOwner}' to '{executionPlan.mapEvent}' and end up covering '{propertyOwnershipToCover.property}'";
+               }
+               else
+               {
+                    return $"Status: {stateManager.currentState} ({stateManager.remainingStateTime}s)";
+               }
+          }
+
+          public bool IsMoving()
+          {
+               return navMeshAgent.velocity.magnitude > 0.15f;
+          }
      }
 }

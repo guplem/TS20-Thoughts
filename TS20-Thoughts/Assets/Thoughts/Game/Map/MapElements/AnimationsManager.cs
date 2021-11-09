@@ -82,7 +82,7 @@ namespace Thoughts.Game.Map.MapElements
             switch (state)
             {
                 case State.None: 
-                    if (owner.navMeshAgent == null || owner.navMeshAgent.velocity.magnitude < 0.15f)
+                    if (owner.navMeshAgent == null || !owner.IsMoving())
                         return "Idle"; // Id of the trigger for the animation 'Idle' used in the Animator  // Waiting
                     return "Move"; // Id of the trigger for the animation 'Move' used in the Animator  // Walking //Todo: chang animation for 'walk'
                 case State.Inactive: return "Inactive"; // Id of the trigger for the animation 'Inactive' used in the Animator // Resting
