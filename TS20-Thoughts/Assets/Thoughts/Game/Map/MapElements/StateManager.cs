@@ -46,15 +46,12 @@ namespace Thoughts.Game.Map.MapElements
                 return;
             
             float newRemainingTime = remainingStateTime - deltaTime;
+            remainingStateTime = Mathf.Max(newRemainingTime, 0f);
             if (newRemainingTime <= 0)
             {
                 SetState(State.None, 0f);
             }
-            else
-            {
-                remainingStateTime = Mathf.Max(newRemainingTime, 0f);
-            }
-            
+
             // Debug.Log($"Executing 'Step' of StateManager. Current State = {this.ToString()}");
         }
 
@@ -65,9 +62,8 @@ namespace Thoughts.Game.Map.MapElements
         /// <param name="timeInState">The remaining time in the new State</param>
         public void SetState(State newState, float timeInState)
         {
-            if (newState == currentState)
-                Debug.LogWarning($"Resetting state from {currentState} to {newState} while it had {remainingStateTime}s remaining (new time to be set is {timeInState})", owner);
-            Debug.Log($"Changing state in {owner.ToString()} from {this.ToString()} to '{Enum.GetName(typeof(State), newState)}' with {timeInState} seconds programmed to be elapsed in this step.", owner);
+            //if (newState == currentState) Debug.LogWarning($"Resetting state from {currentState} to {newState} while it had {remainingStateTime}s remaining (new time to be set is {timeInState})", owner);
+            Debug.Log($"Changing state in {owner.ToString()} to '{Enum.GetName(typeof(State), newState)}' from '{Enum.GetName(typeof(State), currentState)}' (with {remainingStateTime}s remaining). New state programmed to last {timeInState} seconds.", owner);
             
             currentState = newState;
             remainingStateTime = timeInState;

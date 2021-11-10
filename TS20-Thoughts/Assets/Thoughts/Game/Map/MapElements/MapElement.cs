@@ -307,7 +307,8 @@ namespace Thoughts.Game.Map.MapElements
 
           public bool IsMoving()
           {
-               return navMeshAgent.velocity.magnitude > 0.15f;
+               
+               return navMeshAgent != null && navMeshAgent.velocity.magnitude > 0.15f;
           }
      }
 }
