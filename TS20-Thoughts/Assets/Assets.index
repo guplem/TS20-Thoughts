@@ -1,7 +1,9 @@
 {
-    "name": "Assets",
+    "name": "",
     "type": "asset",
-    "roots": [],
+    "roots": [
+        "Assets/Thoughts"
+    ],
     "includes": [],
     "excludes": [
         "Temp/",

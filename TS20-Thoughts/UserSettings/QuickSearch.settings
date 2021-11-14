@@ -4,9 +4,9 @@ wantsMore = true
 dockable = false
 debug = false
 itemIconSize = 1
-queryFolder = "Assets/Editor/Queries"
+queryFolder = "Assets/QuickSearch/Queries"
 onBoardingDoNotAskAgain = true
-showPackageIndexes = false
+showPackageIndexes = true
 debounceMs = 250
 filters = {
 	asset = true
@@ -18,7 +18,7 @@ filters = {
 scopes = {
 	"last_search.AB59B288" = ""
 	"last_search.00000000" = ""
-	"last_search.AB59B443" = "flower"
+	"last_search.AB59B443" = "Pick U"
 }
 providers = {
 	asset = {
@@ -59,31 +59,6 @@ providers = {
 	query = {
 		active = true
 		priority = 100
-		defaultAction = null
-	}
-	menu = {
-		active = true
-		priority = 80
-		defaultAction = null
-	}
-	settings = {
-		active = true
-		priority = 100
-		defaultAction = null
-	}
-	help = {
-		active = true
-		priority = -1
-		defaultAction = null
-	}
-	calculator = {
-		active = true
-		priority = 10
-		defaultAction = null
-	}
-	static_methods = {
-		active = true
-		priority = 85
 		defaultAction = null
 	}
 }

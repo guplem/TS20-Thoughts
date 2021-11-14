@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Properties;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
+namespace Thoughts.Game.Map.MapEvents
 {
 
     /// <summary>
     /// An event that must be executed by a MapElement. It is part of an property.
     /// </summary>
     [Serializable]
-    public class MapEvent
+    [CreateAssetMenu(fileName = "MapEvent", menuName = "Thoughts/Map Event", order = 1)]
+    public class MapEvent : ScriptableObject, IEquatable<MapEvent>
     {
-        /// <summary>
-        /// The name of the event
-        /// </summary>
-        [Tooltip("The name of the event")]
-        [SerializeField] public string name = "";
-        
+
         /// <summary>
         /// The maximum distance allowed to execute the event. The distance is checked between the executer and the target, and between the executer and the event owner. Ignored if it is less than 0 or if executeWithTimeElapse is true.
         /// </summary>
@@ -229,6 +227,72 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
             
             return false;
         }
+        
+        #region EqualityComparer
+        
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// <para>The equality is considered checking only the name of the MapEvents.</para>
+        /// </summary>
+        /// <param name="obj">The object to check against</param>
+        /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj))
+                return false;
+            if (ReferenceEquals(this, obj))
+                return true;
+            if (obj.GetType() != this.GetType())
+                return false;
+            return Equals((MapEvent) obj);
+        }
+        
+        /// <summary>
+        /// Indicates whether the current object is equal to another object of the same type.
+        /// <para>The equality is considered checking only the name of the MapEvents.</para>
+        /// </summary>
+        /// <param name="other">The object to check against</param>
+        /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
+        public bool Equals(MapEvent other)
+        {
+            return other != null && other.name.Equals(this.name);
+        }
+        
+        /// <summary>
+        /// Returns the hash code for the object (given by its name).
+        /// </summary>
+        /// <returns>The hash code for the object.</returns>
+        public override int GetHashCode()
+        {
+            return name.GetHashCode();
+        }
+        
+        /// <summary>
+        /// Override to the equal operator so two MapEvents are considered the same if their names are the same.
+        /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
+        /// </summary>
+        /// <returns>True if the left object's name is equal to the right object's name; otherwise, false.</returns>
+        public static bool operator ==(MapEvent left, MapEvent right)
+        {
+            if (left is null && right is null)
+                return true;
+            if ((left is null) && !(right is null))
+                return false;
+            if (!(left is null) && (right is null))
+                return false;
+            return left.Equals(right);
+        }
+        
+        /// <summary>
+        /// Override to the mot-equal operator so two MapEvents are considered different the same if their names are different.
+        /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
+        /// </summary>
+        /// <returns>True if the left object's name is different to the right object's name; otherwise, false.</returns>
+        public static bool operator !=(MapEvent left, MapEvent right)
+        {
+            return !(left == right);
+        }
+    #endregion
         
     }
     

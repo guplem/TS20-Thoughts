@@ -1,9 +1,10 @@
 using System;
-using Thoughts.Game.Map.MapElements.Properties.MapEvents;
+using Thoughts.Game.Map.MapElements;
+using Thoughts.Game.Map.MapElements.Properties;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Map.MapElements.Properties
+namespace Thoughts.Game.Map.MapEvents
 {
     /// <summary>
     /// Consequence of the execution of a MapEvent

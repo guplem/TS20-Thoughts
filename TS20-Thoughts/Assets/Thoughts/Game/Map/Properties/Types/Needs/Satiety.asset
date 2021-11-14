@@ -14,20 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _needPriority: 1
   mapEvents:
-  - name: Get Hungry
-    maxDistance: -1
-    executeWithTimeElapse: 1
-    executerMustOwnProperty: 0
-    consequences:
-    - property: {fileID: 11400000}
-      deltaValue: -1
-      affectedMapElement: 0
-      setNewState: 0
-      stateUpdate:
-        newState: 0
-        newStateDuration: 0
-    tryToCoverRequirementsIfNotMet: 0
-    requirements:
-    - property: {fileID: 11400000}
-      minValue: 1
-      affectedMapElement: 0
+  - {fileID: 11400000, guid: b5ec70653f73bfe40a76ae0affc544ce, type: 2}

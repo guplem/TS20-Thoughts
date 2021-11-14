@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
+using Thoughts.Game.Map.MapEvents;
 using UnityEditor;
 using UnityEngine;
 

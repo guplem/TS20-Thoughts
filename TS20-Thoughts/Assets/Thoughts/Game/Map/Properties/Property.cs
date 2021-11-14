@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
+using Thoughts.Game.Map.MapEvents;
 using UnityEngine;
 
 namespace Thoughts.Game.Map.MapElements.Properties
