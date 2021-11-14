@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
 using UnityEngine;
@@ -41,6 +42,7 @@ namespace Thoughts.Game.Map.MapEvents
         /// <summary>
         /// The new State and duration of it for the affected MapElement
         /// </summary>
+        [ShowIf("setNewState")]
         [Tooltip("The new State and duration of it for the affected MapElement")]
         public StateUpdate stateUpdate;
 
