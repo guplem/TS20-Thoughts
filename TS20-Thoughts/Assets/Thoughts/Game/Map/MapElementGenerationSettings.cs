@@ -1,5 +1,5 @@
 ﻿using System;
-using GD.MinMaxSlider;
+using Sirenix.OdinInspector;
 using Thoughts.Utils.Maths;
 using UnityEngine;
 
@@ -12,6 +12,7 @@ namespace Thoughts.Game.Map
         /// The prefab of the mapElement that this object's spawning settings is for
         /// </summary>
         [Tooltip("The prefab of the mapElement that this object's spawning settings is for")]
+        [AssetsOnly]
         public GameObject mapElementPrefab;
         
         /// <summary>
@@ -24,7 +25,8 @@ namespace Thoughts.Game.Map
         /// In which area of the map this is wanted to spawn. -1 means the bottom of the sea. 1 means the highest points in the world. 0 is the shoreline.
         /// </summary>
         [Tooltip("In which area of the map this is wanted to spawn. -1 means the bottom of the sea. 1 means the highest points in the world. 0 is the shoreline.")]
-        [MinMaxSlider(-1,1)]
+        [GD.MinMaxSlider.MinMaxSlider(-1,1)]
+        //[MinMaxSlider(-1f, 1f, true)] // Odin. It is not working, IDK why // ToDo: fix Odin --> https://odininspector.com/tutorials/using-attributes/how-to-use-odin-inspector-with-scriptable-objects
         public Vector2 spawningHeightRange;
         
         /// <summary>

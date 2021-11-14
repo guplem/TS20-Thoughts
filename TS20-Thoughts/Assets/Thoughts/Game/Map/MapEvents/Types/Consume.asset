@@ -15,6 +15,16 @@ MonoBehaviour:
   maxDistance: 5
   executeWithTimeElapse: 0
   executerMustOwnProperty: 0
-  consequences: []
+  consequences:
+  - property: {fileID: 0}
+    deltaValue: 1
+    affectedMapElement: 0
+    setNewState: 0
+    stateUpdate:
+      newState: 2
+      newStateDuration: 2
   tryToCoverRequirementsIfNotMet: 1
-  requirements: []
+  requirements:
+  - property: {fileID: 0}
+    minValue: 1
+    affectedMapElement: 1

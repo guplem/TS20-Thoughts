@@ -18,6 +18,7 @@ namespace Thoughts.Game.Map.MapEvents
         /// </summary>
         [FormerlySerializedAs("property")]
         [Tooltip("Property that will be updated as a consequence of the execution of the MapEvent")]
+        [AssetsOnly]
         public Property property;
         
         /// <summary>

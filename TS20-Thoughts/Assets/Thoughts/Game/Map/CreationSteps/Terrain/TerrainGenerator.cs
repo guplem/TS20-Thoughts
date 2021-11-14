@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Thoughts.Game.Map.CreationSteps.Terrain
@@ -13,6 +14,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         /// </summary>
         [SerializeField]
         [Tooltip("An specific prefab that will be cloned as needed to display the terrain.")]
+        [AssetsOnly]
         private GameObject chunkPrefab;
     
         /// <summary>

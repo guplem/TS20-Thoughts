@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapElements;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Thoughts.Game.Map.CreationSteps.WaterSources
     public class WaterSourcesGenerator : CreationStepGenerator
     {
         
+        [AssetsOnly]
         [SerializeField] private GameObject waterSourcePrefab;
         
         protected override void _DeleteStep()

@@ -1,4 +1,5 @@
 using System;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapElements.Properties;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -16,6 +17,7 @@ namespace Thoughts.Game.Map.MapEvents
         /// </summary>
         [FormerlySerializedAs("property")]
         [Tooltip("The required property")]
+        [AssetsOnly]
         public Property property;
         
         /// <summary>

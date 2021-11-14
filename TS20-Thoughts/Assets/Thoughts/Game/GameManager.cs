@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
@@ -25,6 +26,7 @@ namespace Thoughts.Game
         /// The GameObject prefab of the local human (manual) control system for a participant.
         /// </summary>
         [Header("Control Systems")]
+        [AssetsOnly]
         [SerializeField] private GameObject manualControlSystemPrefab;
         
         /// <summary>

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
@@ -22,6 +23,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
         /// The prefab used to display an property
         /// </summary>
         [Tooltip("The prefab used to display an property")]
+        [AssetsOnly]
         [SerializeField] private GameObject propertyUIPrefab;
 
         /// <summary>

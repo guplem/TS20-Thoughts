@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.BehaviorUI
         /// The prefab used to display an execution plan
         /// </summary>
         [Tooltip("The prefab used to display an execution plan")]
+        [AssetsOnly]
         [SerializeField] private GameObject executionPlanUIPrefab;
 
         /// <summary>
