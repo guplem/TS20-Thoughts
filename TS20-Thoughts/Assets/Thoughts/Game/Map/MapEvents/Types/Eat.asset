@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 003304fbbaa99f948b625b51d8bae075, type: 3}
-  m_Name: Consume
+  m_Name: Eat
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -27,7 +28,7 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 7
       Data: 1|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
@@ -39,7 +40,7 @@ MonoBehaviour:
       Data: 
     - Name: deltaValue
       Entry: 4
-      Data: 1
+      Data: -1
     - Name: affectedMapElement
       Entry: 3
       Data: 0
@@ -47,7 +48,49 @@ MonoBehaviour:
       Entry: 5
       Data: false
     - Name: stateUpdate
-      Entry: 6
+      Entry: 7
+      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
+    - Name: newState
+      Entry: 3
+      Data: 2
+    - Name: newStateDuration
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 2|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
+    - Name: propertyType
+      Entry: 3
+      Data: 1
+    - Name: property
+      Entry: 10
+      Data: 0
+    - Name: deltaValue
+      Entry: 4
+      Data: 50
+    - Name: affectedMapElement
+      Entry: 3
+      Data: 1
+    - Name: setNewState
+      Entry: 5
+      Data: true
+    - Name: stateUpdate
+      Entry: 7
+      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
+    - Name: newState
+      Entry: 3
+      Data: 2
+    - Name: newStateDuration
+      Entry: 4
+      Data: 2
+    - Name: 
+      Entry: 8
       Data: 
     - Name: 
       Entry: 8
@@ -60,11 +103,29 @@ MonoBehaviour:
       Data: 
     - Name: requirements
       Entry: 7
-      Data: 2|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Requirement,
+      Data: 3|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Requirement,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 4|Thoughts.Game.Map.MapEvents.Requirement, Assembly-CSharp
+    - Name: propertyType
+      Entry: 3
       Data: 0
+    - Name: property
+      Entry: 6
+      Data: 
+    - Name: minValue
+      Entry: 4
+      Data: 1
+    - Name: affectedMapElement
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 13
       Data: 

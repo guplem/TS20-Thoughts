@@ -33,67 +33,7 @@ Preset:
     value: 1
     objectReference: {fileID: 0}
   - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].name
-    value: Get hungry
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].maxDistance
-    value: -1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].executeWithTimeElapse
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].executerMustOwnProperty
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.size
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].property
+    propertyPath: mapEvents.Array.data[0]
     value: 
-    objectReference: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].deltaValue
-    value: -1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].affectedMapElement
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].setNewState
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].stateUpdate.newState
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].consequences.Array.data[0].stateUpdate.newStateDuration
-    value: 0
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].tryToCoverRequirementsIfNotMet
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].requirements.Array.size
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].property
-    value: 
-    objectReference: {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].minValue
-    value: 1
-    objectReference: {fileID: 0}
-  - target: {fileID: 0}
-    propertyPath: mapEvents.Array.data[0].requirements.Array.data[0].affectedMapElement
-    value: 0
-    objectReference: {fileID: 0}
+    objectReference: {fileID: 11400000, guid: b5ec70653f73bfe40a76ae0affc544ce, type: 2}
   m_ExcludedProperties: []

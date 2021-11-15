@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 003304fbbaa99f948b625b51d8bae075, type: 3}
-  m_Name: Pick Up
+  m_Name: Get Warm
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 58e38d4c97a034a4ab8d28113ceb69bb, type: 2}
+    - {fileID: 11400000, guid: 58b27d8180ef93f478028745e7aa7c2a, type: 2}
+    - {fileID: 11400000, guid: b0861c2e84fcf5f4da7bbf8938c6031b, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -33,13 +36,13 @@ MonoBehaviour:
       Data: 1|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
     - Name: propertyType
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: property
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: deltaValue
       Entry: 4
-      Data: 1
+      Data: 50
     - Name: affectedMapElement
       Entry: 3
       Data: 1
@@ -51,10 +54,10 @@ MonoBehaviour:
       Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
     - Name: newState
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: newStateDuration
       Entry: 4
-      Data: 1
+      Data: 5
     - Name: 
       Entry: 8
       Data: 
@@ -66,13 +69,13 @@ MonoBehaviour:
       Data: 2|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
     - Name: propertyType
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: property
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 1
     - Name: deltaValue
       Entry: 4
-      Data: -1
+      Data: 10
     - Name: affectedMapElement
       Entry: 3
       Data: 0
@@ -112,13 +115,13 @@ MonoBehaviour:
       Data: 4|Thoughts.Game.Map.MapEvents.Requirement, Assembly-CSharp
     - Name: propertyType
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: property
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 2
     - Name: minValue
       Entry: 4
-      Data: 1
+      Data: 10
     - Name: affectedMapElement
       Entry: 3
       Data: 0

@@ -12,9 +12,95 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003304fbbaa99f948b625b51d8bae075, type: 3}
   m_Name: Wash Up
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: bef8e0850eed54343946c46e8dbfc89f, type: 2}
+    - {fileID: 11400000, guid: 0ea00d242f7e9a94db2238c5dd196eb7, type: 2}
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: consequences
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Consequence,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
+    - Name: propertyType
+      Entry: 3
+      Data: 1
+    - Name: property
+      Entry: 10
+      Data: 0
+    - Name: deltaValue
+      Entry: 4
+      Data: 69
+    - Name: affectedMapElement
+      Entry: 3
+      Data: 1
+    - Name: setNewState
+      Entry: 5
+      Data: true
+    - Name: stateUpdate
+      Entry: 7
+      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
+    - Name: newState
+      Entry: 3
+      Data: 2
+    - Name: newStateDuration
+      Entry: 4
+      Data: 5
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: requirements
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Requirement,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 3|Thoughts.Game.Map.MapEvents.Requirement, Assembly-CSharp
+    - Name: propertyType
+      Entry: 3
+      Data: 1
+    - Name: property
+      Entry: 10
+      Data: 1
+    - Name: minValue
+      Entry: 4
+      Data: 10
+    - Name: affectedMapElement
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   maxDistance: 5
   executeWithTimeElapse: 0
   executerMustOwnProperty: 0
-  consequences: []
   tryToCoverRequirementsIfNotMet: 1
-  requirements: []

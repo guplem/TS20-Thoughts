@@ -296,8 +296,13 @@ namespace Thoughts.Game.Map.MapElements
           {
                if (IsMoving())
                {
-                    ExecutionPlan executionPlan = executionPlans.ElementAt(executionPlans.Count-1);
-                    return $"Moving towards '{executionPlan.eventOwner}' to '{executionPlan.mapEvent}' and end up covering '{propertyOwnershipToCover.property}'";
+                    if (executionPlans.Count - 1 >= 0)
+                    {
+                         ExecutionPlan executionPlan = executionPlans.ElementAt(executionPlans.Count-1);
+                         return $"Moving towards '{executionPlan.eventOwner}' to '{executionPlan.mapEvent}' and end up covering '{propertyOwnershipToCover.property}'";
+                    }
+                    Debug.LogError($"The map element '{this.ToString()}' is moving but it has no execution plan. Current property to cover: '{propertyOwnershipToCover.property}'");
+                    return $"Moving towards '{navMeshAgent.destination}'. Current property to cover: '{propertyOwnershipToCover.property}'";
                }
                else
                {

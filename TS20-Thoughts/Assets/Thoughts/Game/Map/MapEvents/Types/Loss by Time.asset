@@ -12,9 +12,93 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 003304fbbaa99f948b625b51d8bae075, type: 3}
   m_Name: Loss by Time
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: consequences
+      Entry: 7
+      Data: 0|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Consequence,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 1|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
+    - Name: propertyType
+      Entry: 3
+      Data: 0
+    - Name: property
+      Entry: 6
+      Data: 
+    - Name: deltaValue
+      Entry: 4
+      Data: -1
+    - Name: affectedMapElement
+      Entry: 3
+      Data: 0
+    - Name: setNewState
+      Entry: 5
+      Data: false
+    - Name: stateUpdate
+      Entry: 7
+      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
+    - Name: newState
+      Entry: 3
+      Data: 0
+    - Name: newStateDuration
+      Entry: 4
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: requirements
+      Entry: 7
+      Data: 2|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Requirement,
+        Assembly-CSharp]], mscorlib
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 3|Thoughts.Game.Map.MapEvents.Requirement, Assembly-CSharp
+    - Name: propertyType
+      Entry: 3
+      Data: 0
+    - Name: property
+      Entry: 6
+      Data: 
+    - Name: minValue
+      Entry: 4
+      Data: 1
+    - Name: affectedMapElement
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
   maxDistance: 5
   executeWithTimeElapse: 1
-  executerMustOwnProperty: 0
-  consequences: []
+  executerMustOwnProperty: 1
   tryToCoverRequirementsIfNotMet: 1
-  requirements: []

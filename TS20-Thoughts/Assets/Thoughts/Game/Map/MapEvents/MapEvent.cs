@@ -69,7 +69,7 @@ namespace Thoughts.Game.Map.MapEvents
         {
             if (SirenixEditorGUI.ToolbarButton(EditorIcons.Plus))
             {
-                this.consequences.Add(new Consequence());
+                this.requirements.Add(new Requirement());
             }
         }
         #endif

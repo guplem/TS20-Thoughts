@@ -36,7 +36,7 @@ namespace Thoughts.Game.Map.MapEvents
         /// </summary>
         [ShowIf("setNewState")]
         [Tooltip("The new State and duration of it for the affected MapElement")]
-        public StateUpdate stateUpdate;
+        public StateUpdate stateUpdate = new StateUpdate();
 
         /// <summary>
         /// Returns a string that represents the current object.
@@ -53,16 +53,16 @@ namespace Thoughts.Game.Map.MapEvents
     /// An update of the State of a MapElement
     /// </summary>
     [Serializable]
-    public class StateUpdate
+    public struct StateUpdate
     {
         /// <summary>
         /// The new state of the affected MapElement
         /// </summary>
-        public State newState = State.Active;
+        public State newState;
         
         /// <summary>
         /// The duration of the new state of the affected MapElement
         /// </summary>
-        public float newStateDuration = 2;
+        public float newStateDuration;
     }
 }

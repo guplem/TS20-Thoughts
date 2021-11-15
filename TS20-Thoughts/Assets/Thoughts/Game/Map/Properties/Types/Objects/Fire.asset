@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _needPriority: 0
   mapEvents:
-  - {fileID: 11400000, guid: ce072115ba2411a4892d86f14a497f53, type: 2}
-  - {fileID: 11400000, guid: 19658bcfa8813d948bf9b5bdebaa31cd, type: 2}
+  - {fileID: 11400000, guid: ad791e0f9d4b5534780986cfc566e23d, type: 2}
