@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
+using Sirenix.Utilities.Editor;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
 using UnityEngine;
@@ -38,7 +39,17 @@ namespace Thoughts.Game.Map.MapEvents
         /// List of update to properties that will be triggered as a consequence of the execution of the MapEvent.
         /// </summary>
         [Tooltip("List of update to properties that will be triggered as a consequence of the execution of the MapEvent.")]
+        [ListDrawerSettings(HideAddButton = true, OnTitleBarGUI = "DrawTitleBarConsequencesListGUI")]
         [SerializeField] public List<Consequence> consequences = new List<Consequence>();
+        #if UNITY_EDITOR
+            private void DrawTitleBarConsequencesListGUI()
+        {
+            if (SirenixEditorGUI.ToolbarButton(EditorIcons.Plus))
+            {
+                this.consequences.Add(new Consequence());
+            }
+        }
+        #endif
         
         /// <summary>
         /// Determines whether a plan should be made to cover requirements that are not met at the time of attempting to execute the event.
@@ -51,7 +62,17 @@ namespace Thoughts.Game.Map.MapEvents
         /// List of properties with specific values that must be met in order to execute the event..
         /// </summary>
         [Tooltip("List of properties with specific values that must be met in order to execute the event.")]
+        [ListDrawerSettings(HideAddButton = true, OnTitleBarGUI = "DrawTitleBarRequirementsListGUI")]
         [SerializeField] public List<Requirement> requirements = new List<Requirement>();
+        #if UNITY_EDITOR
+            private void DrawTitleBarRequirementsListGUI()
+        {
+            if (SirenixEditorGUI.ToolbarButton(EditorIcons.Plus))
+            {
+                this.consequences.Add(new Consequence());
+            }
+        }
+        #endif
 
         /// <summary>
         /// Executes the event applying the consequences of it.
