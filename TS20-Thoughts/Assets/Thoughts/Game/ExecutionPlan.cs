@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
 {
     /// <summary>
-    /// The execution configuration for a MapEvent. A plan to execute a MapEvent (of an Property) owned by a MapElement, executed by a MapElement and with a targeted MapElement.
+    /// The execution configuration for a MapEvent. A plan to execute a MapEvent (of a Property) owned by a MapElement, executed by a MapElement and with a targeted MapElement.
     /// </summary>
     public class ExecutionPlan
     {
@@ -14,6 +14,11 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// The MapEvent to execute
         /// </summary>
         public MapEvent mapEvent { get; private set; }
+        
+        /// <summary>
+        /// The Property containing the MapEvent to execute
+        /// </summary>
+        public Property property { get; private set; }
         
         /// <summary>
         /// The MapElement that owns the MapEvent to execute (in one of its owned Properties)
@@ -60,13 +65,15 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// <param name="executer">The executor MapElement of the MapEvent</param>
         /// <param name="target">The targeted MapElement with the execution of the MapEvent</param>
         /// <param name="eventOwner">The MapElement that owns the MapEvent to execute (in one of its owned Properties)</param>
+        /// <param name="property">The Property containing the MapEvent to execute</param>
         /// <param name="executionTimes">The amount of times remaining to execute this plan's MapEvent. 1 by default.</param>
-        public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner, int executionTimes = 1)
+        public ExecutionPlan(MapEvent mapEvent, MapElement executer, MapElement target, MapElement eventOwner, Property property, int executionTimes = 1)
         {
             this.mapEvent = mapEvent;
             this.executer = executer;
             this.target = target;
             this.eventOwner = eventOwner;
+            this.property = property;
             this.executionTimes = executionTimes;
         }
 
@@ -84,7 +91,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
             string requirementsNotMetMessage;
             if (CanBeExecuted(out requirementsNotMetMessage))
             {
-                mapEvent.Execute(executer, target, eventOwner);
+                mapEvent.Execute(executer, target, eventOwner, property);
                 executionTimes--;
                 
                 if (executionTimes > 0)
@@ -132,13 +139,13 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
         /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
         public Dictionary<PropertyOwnership, float> GetRequirementsNotMet()
         {
-            return mapEvent.GetRequirementsNotMet(executer, target, eventOwner, executionTimes);
+            return mapEvent.GetRequirementsNotMet(property, executer, target, eventOwner, executionTimes);
         }
 
         /// <summary>
         /// Calculates the amount of times that the execution of this ExecutionPlan's MapElement is needed to cover a given property (to increase its value a defined amount).
         /// </summary>
-        /// <param name="propertyOwnershipToCoverr">PropertyOwnership that is desired to cover (to increase its value in the MapElement's PropertyManager)</param>
+        /// <param name="propertyOwnershipToCover">PropertyOwnership that is desired to cover (to increase its value in the MapElement's PropertyManager)</param>
         /// <param name="remainingValueToCover">The remaining value to cover for the given Property.</param>
         /// <returns></returns>
         private int CalculateExecutionsNeededToCover(PropertyOwnership propertyOwnershipToCover, float remainingValueToCover)
@@ -150,7 +157,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
             foreach (Consequence consequence in mapEvent.consequences)
             {
                 //Debug.Log($"CHECKING {consequence.property} against {ownedPropertyToCover.property}");
-                if (consequence.property == propertyOwnershipToCover.property)
+                if (consequence.GetProperty(this.property) == propertyOwnershipToCover.property)
                 {
                     switch (consequence.affectedMapElement)
                     {

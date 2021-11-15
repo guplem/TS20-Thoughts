@@ -9,17 +9,8 @@ namespace Thoughts.Game.Map.MapEvents
     /// <summary>
     /// Requirement for the execution of a MapEvent
     /// </summary>
-    [Serializable]
-    public class Requirement
+    public class Requirement : PropertyEvaluator
     {
-        /// <summary>
-        /// The required property
-        /// </summary>
-        [FormerlySerializedAs("property")]
-        [Tooltip("The required property")]
-        [AssetsOnly]
-        public Property property;
-        
         /// <summary>
         /// The minimal value required of the required property
         /// </summary>

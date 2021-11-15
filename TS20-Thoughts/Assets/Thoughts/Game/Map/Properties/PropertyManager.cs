@@ -62,10 +62,10 @@ namespace Thoughts.Game.Map.MapElements.Properties
                 foreach (MapEvent propertyMapEvent in propertyOwnership.property.mapEvents)
                 {
                     if (propertyMapEvent.executeWithTimeElapse &&
-                        propertyMapEvent.GetRequirementsNotMet(owner, owner, owner, 1).IsNullOrEmpty())
+                        propertyMapEvent.GetRequirementsNotMet(propertyOwnership.property, owner, owner, owner, 1).IsNullOrEmpty())
                     {
                         //Debug.Log($"        · Executing mapEvent '{propertyMapEvent}' of '{property}' in '{mapElement}'.");
-                        propertyMapEvent.Execute(owner, owner, owner);
+                        propertyMapEvent.Execute(owner, owner, owner, propertyOwnership.property);
                     }
                 }
             }
@@ -112,11 +112,12 @@ namespace Thoughts.Game.Map.MapElements.Properties
         /// <summary>
         /// Indicates if this PropertyManager can cover the Requirement a given amount of times. 
         /// </summary>
+        /// <param name="containerProperty">The Property containing the given requirement to check</param>
         /// <param name="requirement">The Requirement to check if can be covered.</param>
         /// <param name="times">The amount of times the requirement will have to be met.</param>
         /// <param name="remainingValueToCover">The remaining value of the Requirement that can not be currently covered by this PropertyManager.</param>
         /// <returns>True if it contains an property with a value higher or equal than the one in the requirement/PropertyUpdate n times</returns>
-        public bool CanCover(Requirement requirement, int times, out float remainingValueToCover)
+        public bool CanCover(Property containerProperty, Requirement requirement, int times, out float remainingValueToCover)
         {
             remainingValueToCover = requirement.minValue * times;
 
@@ -127,7 +128,7 @@ namespace Thoughts.Game.Map.MapElements.Properties
 
             foreach (PropertyOwnership ownedProperty in propertyOwnerships)
             {
-                if (requirement.property != ownedProperty.property)
+                if (requirement.GetProperty(containerProperty) != ownedProperty.property)
                     continue;
 
                 remainingValueToCover -= ownedProperty.value;
@@ -190,20 +191,20 @@ namespace Thoughts.Game.Map.MapElements.Properties
                     if (!mapEvent.executerMustOwnProperty || (mapEvent.executerMustOwnProperty && ownedProperty.owner == executer))
                     {
                         MapElement eventOwner = ownedProperty.owner;
-                        ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner);
+                        ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, eventOwner, ownedProperty.property);
                         executionPlan.SetExecutionTimesToCover(propertyOwnershipToCover, remainingValueToCover);
                         int executionsToCover = executionPlan.executionTimes;
                         if (executionsToCover < 0) // The executionPlan can not cover the property
                             continue;
 
-                        Dictionary<PropertyOwnership, float> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(executer, target, owner, executionPlan.executionTimes);
+                        Dictionary<PropertyOwnership, float> mapEventRequirementsNotMet = mapEvent.GetRequirementsNotMet(ownedProperty.property, executer, target, owner, executionPlan.executionTimes);
 
                         if (mapEvent.tryToCoverRequirementsIfNotMet || (!mapEvent.tryToCoverRequirementsIfNotMet && mapEventRequirementsNotMet.IsNullOrEmpty()))
                         {
                             // If reached here, the mapEvent can be executed - Now choose if it is the appropriate one
                             // Debug.Log($"   > The mapEvent '{mapEvent}' can be executed ({mapEventRequirementsNotMet.Count} requirements must be covered before):\n    - {mapEventRequirementsNotMet.ToStringAllElements("\n    - ")}\n");
 
-                            if (mapEvent.ConsequencesCover(propertyOwnershipToCover, target, executer, eventOwner))
+                            if (mapEvent.ConsequencesCover(propertyOwnershipToCover, target, executer, eventOwner, ownedProperty.property))
                             {
                                 Debug.Log($" ● Found Execution Plan: {executionPlan}\n");
                                 return executionPlan;
@@ -214,9 +215,9 @@ namespace Thoughts.Game.Map.MapElements.Properties
                     else
                     {
                         // Debug.Log($"    The executer ({executer}) must own the property '{currentOwnedProperty.property}' to execute '{mapEvent}' but it does not. MapEvent owned by '{currentOwnedProperty.ownerMapElement}'.\n");
-                        if (mapEvent.ConsequencesCover(propertyOwnershipToCover, target, executer, executer))
+                        if (mapEvent.ConsequencesCover(propertyOwnershipToCover, target, executer, executer, ownedProperty.property))
                         {
-                            ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer);
+                            ExecutionPlan executionPlan = new ExecutionPlan(mapEvent, executer, target, executer, ownedProperty.property);
                             executionPlan.SetExecutionTimesToCover(propertyOwnershipToCover, remainingValueToCover);
                             Debug.Log($" ● Found 'forced' Execution Plan: {executionPlan}\n");
                             return executionPlan;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
 using UnityEngine;
@@ -12,7 +13,7 @@ namespace Thoughts.Game.Map.MapEvents
     /// </summary>
     [Serializable]
     [CreateAssetMenu(fileName = "MapEvent", menuName = "Thoughts/Map Event", order = 1)]
-    public class MapEvent : ScriptableObject, IEquatable<MapEvent>
+    public class MapEvent : SerializedScriptableObject, IEquatable<MapEvent>
     {
 
         /// <summary>
@@ -58,7 +59,8 @@ namespace Thoughts.Game.Map.MapEvents
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
-        public void Execute(MapElement executer, MapElement target, MapElement owner)
+        /// <param name="containingProperty">The property that contains this MapEvent</param>
+        public void Execute(MapElement executer, MapElement target, MapElement owner, Property containingProperty)
         {
             if (!executeWithTimeElapse)
                 Debug.Log($"        · MapElement '{executer}' is executing '{name}' using a property in '{owner}' with target '{target}'.\n         \\_Their properties are: {owner.propertyManager.ToString()}");
@@ -68,19 +70,19 @@ namespace Thoughts.Game.Map.MapEvents
                 switch (consequence.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        owner.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
+                        owner.propertyManager.UpdateProperty(consequence.GetProperty(containingProperty), consequence.deltaValue);
                         if (consequence.setNewState)
                             owner.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventExecuter:
-                        executer.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
+                        executer.propertyManager.UpdateProperty(consequence.GetProperty(containingProperty), consequence.deltaValue);
                         if (consequence.setNewState)
                             executer.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
                     
                     case AffectedMapElement.eventTarget:
-                        target.propertyManager.UpdateProperty(consequence.property, consequence.deltaValue);
+                        target.propertyManager.UpdateProperty(consequence.GetProperty(containingProperty), consequence.deltaValue);
                         if (consequence.setNewState)
                             target.stateManager.SetState(consequence.stateUpdate.newState, consequence.stateUpdate.newStateDuration);
                         break;
@@ -126,19 +128,20 @@ namespace Thoughts.Game.Map.MapEvents
         /// <summary>
         /// Returns a list of the requirements that are not met at the moment to execute the event, it and outputs a list of the value missing for each one of the requirements that are not met (in the same order).
         /// </summary>
+        /// <param name="containerProperty">The Property containing the MapEvent</param>
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
         /// <param name="executionTimes">The amount of times that is desired to execute the event.</param>
         /// <returns>A list of the requirements that are not met at the moment to execute the event (the keys), each one of them related to the value missing (value to cover)</returns>
-        public Dictionary<PropertyOwnership, float> GetRequirementsNotMet(MapElement executer, MapElement target, MapElement owner, int executionTimes)
+        public Dictionary<PropertyOwnership, float> GetRequirementsNotMet(Property containerProperty, MapElement executer, MapElement target, MapElement owner, int executionTimes)
         {
             Dictionary<PropertyOwnership, float> requirementsNotMet = new Dictionary<PropertyOwnership, float>();
             
             foreach (Requirement requirement in requirements)
             {
-                if (requirement.property == null)
-                    Debug.LogWarning($"Found a requirement without a property linked to it. Requirement: {requirement.ToString()}");
+                //if (requirement.property == null)
+                //    Debug.LogWarning($"Found a requirement without a property linked to it. Requirement: {requirement.ToString()}");
                 //OwnedProperty propertyThatMostCloselyMeetsTheRequirement;
                 float remainingValueToCoverRequirementNotMet;
                 bool meets = true;
@@ -146,23 +149,23 @@ namespace Thoughts.Game.Map.MapEvents
                 switch (requirement.affectedMapElement)
                 {
                     case AffectedMapElement.eventOwner:
-                        meets = owner.propertyManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = owner.propertyManager.CanCover(containerProperty, requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            PropertyOwnership req = (owner.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.property));
+                            PropertyOwnership req = (owner.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.GetProperty(containerProperty)));
                             requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventExecuter:
-                        meets = executer.propertyManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = executer.propertyManager.CanCover(containerProperty, requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            PropertyOwnership req = (executer.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.property));
+                            PropertyOwnership req = (executer.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.GetProperty(containerProperty)));
                             requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
                     case AffectedMapElement.eventTarget:
-                        meets = target.propertyManager.CanCover(requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
+                        meets = target.propertyManager.CanCover(containerProperty, requirement, executionTimes, out remainingValueToCoverRequirementNotMet);
                         if (!meets) {
-                            PropertyOwnership req = (target.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.property));
+                            PropertyOwnership req = (target.propertyManager.GetOwnedPropertyAndAddItIfNotFound(requirement.GetProperty(containerProperty)));
                             requirementsNotMet.Add(req, remainingValueToCoverRequirementNotMet);
                         }
                         break;
@@ -182,15 +185,16 @@ namespace Thoughts.Game.Map.MapEvents
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
+        /// <param name="containerProperty">The Property containing the MapEvent</param>
         /// <returns>True, if the execution of this MapEvent with this target, executer and owner would increase the value of the given property. False, otherwise.</returns>
-        public bool ConsequencesCover(PropertyOwnership propertyOwnershipToCover, MapElement target, MapElement executer, MapElement owner)
+        public bool ConsequencesCover(PropertyOwnership propertyOwnershipToCover, MapElement target, MapElement executer, MapElement owner, Property containerProperty)
         {
             bool consequenceCoversOwnerOfProperty = false;
             // Debug.Log($"$$$$$ Checking if consequences of '{name}' cover '{propertyOwnershipToCover.property}'. target = {target}, executer = {executer}, owner = {owner}\n");
             foreach (Consequence consequence in consequences)
             {
                 // Debug.Log($"    $$$$$ Current consequence's property = '{consequence.property}'. Delta value = {consequence.deltaValue}. Covers desired property? {(consequence.property == propertyOwnershipToCover.property && consequence.deltaValue > 0)}\n");
-                if (consequence.property == propertyOwnershipToCover.property && consequence.deltaValue > 0)
+                if (consequence.GetProperty(containerProperty) == propertyOwnershipToCover.property && consequence.deltaValue > 0)
                 {
                     switch (consequence.affectedMapElement)
                     {
@@ -257,16 +261,7 @@ namespace Thoughts.Game.Map.MapEvents
         {
             return other != null && other.name.Equals(this.name);
         }
-        
-        /// <summary>
-        /// Returns the hash code for the object (given by its name).
-        /// </summary>
-        /// <returns>The hash code for the object.</returns>
-        public override int GetHashCode()
-        {
-            return name.GetHashCode();
-        }
-        
+
         /// <summary>
         /// Override to the equal operator so two MapEvents are considered the same if their names are the same.
         /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
@@ -293,7 +288,6 @@ namespace Thoughts.Game.Map.MapEvents
             return !(left == right);
         }
     #endregion
-        
     }
     
     /// <summary>
@@ -313,6 +307,25 @@ namespace Thoughts.Game.Map.MapEvents
         /// The target of the event
         /// </summary>
         eventTarget
+    }
+    
+    /// <summary>
+    /// If the Property affected/required/etc must be the same as the property where the MapEvent lives or another one (defined by the user)
+    /// </summary>
+    public enum PropertyType
+    {
+        /// <summary>
+        /// If the Property affected/required/etc must be the same as the property where the MapEvent lives
+        /// </summary>
+        Self,
+        /// <summary>
+        /// If the Property affected/required/etc must be another one (defined by the user) to the one where the MapEvent lives
+        /// </summary>
+        Other,
+        /// <summary>
+        /// If there is no property affected/required/etc
+        /// </summary>
+        None
     }
     
 }

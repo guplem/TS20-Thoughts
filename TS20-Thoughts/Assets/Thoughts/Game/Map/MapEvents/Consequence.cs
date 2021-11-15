@@ -10,17 +10,8 @@ namespace Thoughts.Game.Map.MapEvents
     /// <summary>
     /// Consequence of the execution of a MapEvent
     /// </summary>
-    [Serializable]
-    public class Consequence
+    public class Consequence : PropertyEvaluator
     {
-        /// <summary>
-        /// Property that will be updated as a consequence of the execution of the MapEvent
-        /// </summary>
-        [FormerlySerializedAs("property")]
-        [Tooltip("Property that will be updated as a consequence of the execution of the MapEvent")]
-        [AssetsOnly]
-        public Property property;
-        
         /// <summary>
         /// The difference to apply to the property's value of this consequence. Can be positive and negative
         /// </summary>
@@ -55,7 +46,7 @@ namespace Thoughts.Game.Map.MapEvents
         {
             return $"{property} (val={deltaValue})";
         }
-
+        
     }
 
     /// <summary>

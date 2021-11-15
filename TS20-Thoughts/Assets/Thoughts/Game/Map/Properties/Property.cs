@@ -136,15 +136,6 @@ namespace Thoughts.Game.Map.MapElements.Properties
         }
         
         /// <summary>
-        /// Returns the hash code for the object (given by its name).
-        /// </summary>
-        /// <returns>The hash code for the object.</returns>
-        public override int GetHashCode()
-        {
-            return name.GetHashCode();
-        }
-        
-        /// <summary>
         /// Override to the equal operator so two Properties are considered the same if their names are the same.
         /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
         /// </summary>
