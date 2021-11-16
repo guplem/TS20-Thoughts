@@ -2,6 +2,7 @@
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using Thoughts.Game.Map.MapEvents;
+using Thoughts.Game.Map.Properties;
 using UnityEditor;
 using UnityEngine;
 

@@ -5,6 +5,7 @@ using JetBrains.Annotations;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
+using Thoughts.Game.Map.Properties;
 using Thoughts.Utils.Maths;
 using UnityEngine;
 using UnityEngine.AI;

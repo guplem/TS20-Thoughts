@@ -1,5 +1,6 @@
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.Properties;
 using UnityEngine;
 
 namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI

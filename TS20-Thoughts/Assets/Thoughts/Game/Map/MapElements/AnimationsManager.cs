@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.Properties;
 using UnityEngine;
 
 namespace Thoughts.Game.Map.MapElements

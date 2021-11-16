@@ -18,7 +18,7 @@ filters = {
 scopes = {
 	"last_search.AB59B288" = ""
 	"last_search.00000000" = ""
-	"last_search.AB59B443" = "Time"
+	"last_search.AB59B443" = "Property"
 }
 providers = {
 	asset = {

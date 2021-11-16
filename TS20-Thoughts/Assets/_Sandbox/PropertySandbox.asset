@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdd28c2cfb7da9a49a0bdf44844ecac7, type: 3}
-  m_Name: Energy
+  m_Script: {fileID: 11500000, guid: 5cfa0e19bbc51ac40b002980daea7e3c, type: 3}
+  m_Name: PropertySandbox
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,8 +21,6 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  _behaviourWhenEmpty: 1
-  _needPriority: 1
-  mapEvents:
-  - {fileID: 11400000, guid: b5ec70653f73bfe40a76ae0affc544ce, type: 2}
-  - {fileID: 11400000, guid: 461f246121eeb9e4f8691f5cf782be54, type: 2}
+  _behaviourWhenEmpty: 0
+  _needPriority: 0
+  mapEvents: []

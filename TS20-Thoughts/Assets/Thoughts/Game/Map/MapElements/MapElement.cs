@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using JetBrains.Annotations;
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
+using Thoughts.Game.Map.Properties;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Serialization;

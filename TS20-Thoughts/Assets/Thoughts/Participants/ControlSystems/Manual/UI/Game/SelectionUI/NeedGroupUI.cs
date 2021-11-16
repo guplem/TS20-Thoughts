@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.Properties;
 using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
 using TMPro;
 using UnityEngine;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
+using Thoughts.Game.Map.Properties;
 using Thoughts.Participants.ControlSystems.Manual.UI.Game.Shared;
 using TMPro;
 using UnityEngine;

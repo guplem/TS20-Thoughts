@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties.MapEvents;
 using Thoughts.Game.Map.MapEvents;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Map.MapElements.Properties
+namespace Thoughts.Game.Map.Properties
 {
     /// <summary>
     /// Manages a set of PropertyOwnerships all owned by the same MapElement

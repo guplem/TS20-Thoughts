@@ -4,6 +4,7 @@ using Sirenix.OdinInspector;
 using Sirenix.Utilities.Editor;
 using Thoughts.Game.Map.MapElements;
 using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.Properties;
 using UnityEngine;
 
 namespace Thoughts.Game.Map.MapEvents
@@ -55,8 +56,8 @@ namespace Thoughts.Game.Map.MapEvents
         /// Determines whether a plan should be made to cover requirements that are not met at the time of attempting to execute the event.
         /// <para>If false, in case the requirements are not met and the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed).</para>
         /// </summary>
-        [Tooltip("If false, in case the requirements are not met and the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed).")]
-        [SerializeField] public bool tryToCoverRequirementsIfNotMet = true;
+        //[Tooltip("If false, in case the requirements are not met and the event can not be executed, this event is going to be ignored (so no map element is going to 'try' to fix the requirements so it can be executed).")]
+        public bool tryToCoverRequirementsIfNotMet => true;
         
         /// <summary>
         /// List of properties with specific values that must be met in order to execute the event..
@@ -333,16 +334,16 @@ namespace Thoughts.Game.Map.MapEvents
     /// <summary>
     /// If the Property affected/required/etc must be the same as the property where the MapEvent lives or another one (defined by the user)
     /// </summary>
-    public enum PropertyType
+    public enum PropertyType //TODO: change for PropertyReferenced
     {
         /// <summary>
         /// If the Property affected/required/etc must be the same as the property where the MapEvent lives
         /// </summary>
-        Self,
+        Self, //Todo: change for owner
         /// <summary>
         /// If the Property affected/required/etc must be another one (defined by the user) to the one where the MapEvent lives
         /// </summary>
-        Other,
+        Other, //Todo: change for custom
         /// <summary>
         /// If there is no property affected/required/etc
         /// </summary>

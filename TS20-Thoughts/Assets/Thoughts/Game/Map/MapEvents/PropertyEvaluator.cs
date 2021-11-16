@@ -5,10 +5,11 @@ using Sirenix.OdinInspector;
 using Sirenix.Serialization;
 using Thoughts.Game.Map.MapElements.Properties;
 using Thoughts.Game.Map.MapEvents;
+using Thoughts.Game.Map.Properties;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class PropertyEvaluator
+public class PropertyEvaluator //todo: change for PropertyReferencer
 {
     /// <summary>
     /// Property that will be required for the execution of the MapEvent

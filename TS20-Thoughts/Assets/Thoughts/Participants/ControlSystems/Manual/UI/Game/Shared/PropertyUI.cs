@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.Properties;
 using TMPro;
 using UnityEngine;
 

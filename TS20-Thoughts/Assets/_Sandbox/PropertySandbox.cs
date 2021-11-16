@@ -4,33 +4,33 @@ using Sirenix.OdinInspector;
 using Thoughts.Game.Map.MapEvents;
 using UnityEngine;
 
-namespace Thoughts.Game.Map.Properties
+namespace _Sandbox
 {
     /// <summary>
     /// A quality, characteristic or object ascribed to a MapElement.
     /// </summary>
-    [CreateAssetMenu(fileName = "Property", menuName = "Thoughts/Property", order = 1)]
-    public class Property : SerializedScriptableObject, IEquatable<Property>
+    [CreateAssetMenu(fileName = "PropertySandbox", menuName = "Thoughts/Sandbox/PropertySandbox", order = 1)]
+    public class PropertySandbox : SerializedScriptableObject, IEquatable<PropertySandbox>
     {
         /// <summary>
-        /// What should be done when the value of this property is 0 in a MapElement
+        /// What should be done when the value of this propertySandbox is 0 in a MapElement
         /// </summary>
         public BehaviourWhenEmpty behaviourWhenEmpty { get { return _behaviourWhenEmpty; } }
         
         /// <summary>
-        /// What should be done when the value of this property is 0 in a MapElement
+        /// What should be done when the value of this propertySandbox is 0 in a MapElement
         /// </summary>
-        [Tooltip("What should be done when the value of this property is 0 in a MapElement")]
+        [Tooltip("What should be done when the value of this propertySandbox is 0 in a MapElement")]
         [SerializeField] private BehaviourWhenEmpty _behaviourWhenEmpty = BehaviourWhenEmpty.Remove;
         
         /// <summary>
-        /// The level of priority of the property.
+        /// The level of priority of the propertySandbox.
         /// <para>More than 0 if it is a need. 0 otherwise.</para>
         /// </summary>
         public NeedPriority needPriority { get { return _needPriority; } }
         
         /// <summary>
-        /// The level of priority of the property.
+        /// The level of priority of the propertySandbox.
         /// <para>More than 0 if it is a need. 0 otherwise.</para>
         /// </summary>
         [Tooltip("The level of priority, if it is a need.")]
@@ -38,9 +38,9 @@ namespace Thoughts.Game.Map.Properties
         [SerializeField] private NeedPriority _needPriority = NeedPriority.None;
         
         /// <summary>
-        /// The MapEvents made available by the Property.
+        /// The MapEvents made available by the PropertySandbox.
         /// </summary>
-        [Tooltip("The MapEvents made available by the Property.")]
+        [Tooltip("The MapEvents made available by the PropertySandbox.")]
         [SerializeField] public List<MapEvent> mapEvents;
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace Thoughts.Game.Map.Properties
         }
         
         /// <summary>
-        /// The levels of priority an property can have.
+        /// The levels of priority an propertySandbox can have.
         /// </summary>
         public enum NeedPriority
         {
@@ -74,7 +74,7 @@ namespace Thoughts.Game.Map.Properties
             Love = 3,
             /// <summary>
             /// Level of priority = 2.
-            /// <para>Examples: Personal security, employment, resources, heath, property, ...</para>
+            /// <para>Examples: Personal security, employment, resources, heath, propertySandbox, ...</para>
             /// </summary>
             Safety = 2,
             /// <summary>
@@ -90,26 +90,26 @@ namespace Thoughts.Game.Map.Properties
         }
         
         /// <summary>
-        /// Indicates if this Property is more prioritary than another given Property.
+        /// Indicates if this PropertySandbox is more prioritary than another given PropertySandbox.
         /// </summary>
-        /// <param name="property">The Property against which to check the priority.</param>
-        /// <returns>True, if this Property is more prioritary than the given Property. False, otherwise.</returns>
-        public bool IsMorePrioritaryThan(Property property)
+        /// <param name="propertySandbox">The PropertySandbox against which to check the priority.</param>
+        /// <returns>True, if this PropertySandbox is more prioritary than the given PropertySandbox. False, otherwise.</returns>
+        public bool IsMorePrioritaryThan(PropertySandbox propertySandbox)
         {
-            if (property == null)
+            if (propertySandbox == null)
                 return true;
             
             if (!this.IsNeed())
                 return false;
 
-            if (!property.IsNeed())
+            if (!propertySandbox.IsNeed())
                 return true;
 
-            return this.needPriority < property.needPriority;
+            return this.needPriority < propertySandbox.needPriority;
         }
 
         /// <summary>
-        /// Indicates if this Property is considered a Need.
+        /// Indicates if this PropertySandbox is considered a Need.
         /// </summary>
         /// <returns>True if the level of priority is > 0 (meaning that it is a need). False, otherwise.</returns>
         public bool IsNeed()
@@ -133,7 +133,7 @@ namespace Thoughts.Game.Map.Properties
                 return true;
             if (obj.GetType() != this.GetType())
                 return false;
-            return Equals((Property) obj);
+            return Equals((PropertySandbox) obj);
         }
         
         /// <summary>
@@ -142,7 +142,7 @@ namespace Thoughts.Game.Map.Properties
         /// </summary>
         /// <param name="other">The object to check against</param>
         /// <returns>True if the specified object is equal to the current object; otherwise, false.</returns>
-        public bool Equals(Property other)
+        public bool Equals(PropertySandbox other)
         {
             return other != null && other.name.Equals(this.name);
         }
@@ -152,7 +152,7 @@ namespace Thoughts.Game.Map.Properties
         /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
         /// </summary>
         /// <returns>True if the left object's name is equal to the right object's name; otherwise, false.</returns>
-        public static bool operator ==(Property left, Property right)
+        public static bool operator ==(PropertySandbox left, PropertySandbox right)
         {
             if (left is null && right is null)
                 return true;
@@ -168,7 +168,7 @@ namespace Thoughts.Game.Map.Properties
         /// <para>This is because the Equals method is used, and it uses the GetHasCode method to compare equality while it uses the name to obtain it. </para>
         /// </summary>
         /// <returns>True if the left object's name is different to the right object's name; otherwise, false.</returns>
-        public static bool operator !=(Property left, Property right)
+        public static bool operator !=(PropertySandbox left, PropertySandbox right)
         {
             return !(left == right);
         }
@@ -177,16 +177,16 @@ namespace Thoughts.Game.Map.Properties
     }
 
     /// <summary>
-    /// What should be done when the value of this property is 0 in a MapElement
+    /// What should be done when the value of this propertySandbox is 0 in a MapElement
     /// </summary>
     public enum BehaviourWhenEmpty
     {
         /// <summary>
-        /// Remove the PropertyOwnership from the MapElement 
+        /// Remove the PropertySandboxOwnership from the MapElement 
         /// </summary>
         Remove = 0,
         /// <summary>
-        /// Try to increase the value of the PropertyOwnership from the MapElement
+        /// Try to increase the value of the PropertySandboxOwnership from the MapElement
         /// </summary>
         TakeCare = 1,
         /// <summary>

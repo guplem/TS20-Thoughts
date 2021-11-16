@@ -1,8 +1,9 @@
 using System;
+using Thoughts.Game.Map.MapElements;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Thoughts.Game.Map.MapElements.Properties
+namespace Thoughts.Game.Map.Properties
 {
     /// <summary>
     /// A relation between an Property and a MapElement that owns it.
