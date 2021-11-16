@@ -301,7 +301,7 @@ namespace Thoughts.Game.Map.MapElements
                          ExecutionPlan executionPlan = executionPlans.ElementAt(executionPlans.Count-1);
                          return $"Moving towards '{executionPlan.eventOwner}' to '{executionPlan.mapEvent}' and end up covering '{propertyOwnershipToCover.property}'";
                     }
-                    Debug.LogError($"The map element '{this.ToString()}' is moving but it has no execution plan. Current property to cover: '{propertyOwnershipToCover.property}'");
+                    Debug.LogError($"The map element '{this.ToString()}' is moving towards '{navMeshAgent.destination}' (closest MapElement: '{GameManager.instance.mapManager.GetClosestMapElementTo(navMeshAgent.destination)}') but it has no execution plan. Current property to cover: '{propertyOwnershipToCover.property}'");
                     return $"Moving towards '{navMeshAgent.destination}'. Current property to cover: '{propertyOwnershipToCover.property}'";
                }
                else

@@ -117,7 +117,7 @@ namespace Thoughts.Game.Map
             return foundExecutionPlan;
         }
 
-        private MapElement GetClosestMapElementTo(Vector3 position, List<MapElement> exceptions = null)
+        public MapElement GetClosestMapElementTo(Vector3 position, List<MapElement> exceptions = null)
         {
             MapElement bestTarget = null;
             float closestDistanceSqr = Mathf.Infinity;

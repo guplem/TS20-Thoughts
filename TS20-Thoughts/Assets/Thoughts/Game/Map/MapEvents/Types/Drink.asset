@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 003304fbbaa99f948b625b51d8bae075, type: 3}
-  m_Name: Eat
+  m_Name: Drink
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 11400000, guid: d7c253c38e5ad994eb25bb22ef5f73bd, type: 2}
+    - {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -73,7 +73,7 @@ MonoBehaviour:
       Data: 0
     - Name: deltaValue
       Entry: 4
-      Data: 50
+      Data: 100
     - Name: affectedMapElement
       Entry: 3
       Data: 1
@@ -134,5 +134,5 @@ MonoBehaviour:
       Data: 
   maxDistance: 5
   executeWithTimeElapse: 0
-  executerMustOwnProperty: 1
+  executerMustOwnProperty: 0
   tryToCoverRequirementsIfNotMet: 1

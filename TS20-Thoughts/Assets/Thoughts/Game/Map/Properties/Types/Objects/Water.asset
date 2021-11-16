@@ -16,3 +16,5 @@ MonoBehaviour:
   mapEvents:
   - {fileID: 11400000, guid: ce072115ba2411a4892d86f14a497f53, type: 2}
   - {fileID: 11400000, guid: 19658bcfa8813d948bf9b5bdebaa31cd, type: 2}
+  - {fileID: 11400000, guid: 079b5069b724a5044be7d205d835989e, type: 2}
+  - {fileID: 11400000, guid: 04b530989b7e6c54cb9aeaec42cbaf39, type: 2}
