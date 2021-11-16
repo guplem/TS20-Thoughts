@@ -23,4 +23,5 @@ MonoBehaviour:
     SerializationNodes: []
   _behaviourWhenEmpty: 0
   _needPriority: 0
-  mapEvents: []
+  mapEvents:
+  - {fileID: 11400000, guid: 03f9ef31d5e34e948aaa68245d6fade4, type: 2}
