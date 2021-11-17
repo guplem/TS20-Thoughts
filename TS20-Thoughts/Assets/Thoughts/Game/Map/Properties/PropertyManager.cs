@@ -78,19 +78,39 @@ namespace Thoughts.Game.Map.Properties
         /// <param name="deltaValue">The difference that is wanted to apply to the current value of the PropertyOwnership. Can be positive and negative.</param>
         public void UpdateProperty(Property propertyToUpdate, float deltaValue)
         {
-            bool found = false;
-            foreach (PropertyOwnership managerProperty in propertyOwnerships)
+            PropertyOwnership foundPropertyOwnership = null;
+            foreach (PropertyOwnership propertyOwnership in propertyOwnerships)
             {
-                if (managerProperty.property == propertyToUpdate)
-                {
-                    managerProperty.UpdateValue(deltaValue);
-                    //Debug.Log($"         > The new value for the property '{managerProperty}' in '{ownerMapElement}' is = {managerProperty.value}");
-                    found = true;
-                }
+                if (propertyOwnership.property != propertyToUpdate)
+                    continue;
+                
+                propertyOwnership.UpdateValue(deltaValue);
+                //Debug.Log($"         > The new value for the property '{managerProperty}' in '{ownerMapElement}' is = {managerProperty.value}");
+                foundPropertyOwnership = propertyOwnership;
+
             }
-            if (!found)
+            
+            if (foundPropertyOwnership == null)
             {
                 AddProperty(propertyToUpdate, deltaValue, false);
+            }
+            else
+            {
+                if (foundPropertyOwnership.value == 0)
+                {
+                    switch (foundPropertyOwnership.property.behaviourWhenEmpty)
+                    {
+                        case BehaviourWhenEmpty.Remove:
+                            RemoveProperty(foundPropertyOwnership);
+                            break;
+                        case BehaviourWhenEmpty.TakeCare: // The care should be taken somewhere else
+                            break;
+                        case BehaviourWhenEmpty.DoNothing:
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
+                    }
+                }
             }
         }
         
@@ -168,6 +188,31 @@ namespace Thoughts.Game.Map.Properties
             PropertyOwnership newPropertyOwnership = new PropertyOwnership(property, value, owner, false);
             propertyOwnerships.Add(newPropertyOwnership);
             return newPropertyOwnership;
+        }
+        
+        private bool RemoveProperty(Property property)
+        {
+            foreach (PropertyOwnership propertyOwnership in propertyOwnerships)
+            {
+                if (propertyOwnership.property != property)
+                    continue;
+                
+                return RemoveProperty(propertyOwnership);
+            }
+            Debug.LogWarning($"Trying to remove a property ({property.ToString()}) from '{owner}' that doesn't exist.");
+            return false;
+        }
+        
+        private bool RemoveProperty(PropertyOwnership propertyOwnership)
+        {
+            bool found = propertyOwnerships.Remove(propertyOwnership);
+            if (found)
+            {
+                Debug.Log($"Removing property ownership ({propertyOwnership.ToString()}) from {owner}");
+                return true;
+            }
+            Debug.LogWarning($"Trying to remove a property ({propertyOwnership.ToString()}) from '{owner}' that doesn't exist.");
+            return false;
         }
 
         /// <summary>

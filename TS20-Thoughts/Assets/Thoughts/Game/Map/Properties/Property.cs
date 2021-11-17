@@ -27,7 +27,11 @@ namespace Thoughts.Game.Map.Properties
         /// The level of priority of the property.
         /// <para>More than 0 if it is a need. 0 otherwise.</para>
         /// </summary>
-        public NeedPriority needPriority { get { return _needPriority; } }
+        public NeedPriority needPriority { get {
+                if (_behaviourWhenEmpty == BehaviourWhenEmpty.TakeCare)
+                    return _needPriority;
+                return NeedPriority.None;
+        }  }
         
         /// <summary>
         /// The level of priority of the property.

@@ -19,7 +19,6 @@ namespace Thoughts.Game.Map.Properties
         /// <summary>
         /// The Property that is owned.
         /// </summary>
-        [FormerlySerializedAs("property")]
         [SerializeField] public Property property;
         
         /// <summary>
@@ -76,7 +75,7 @@ namespace Thoughts.Game.Map.Properties
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return $"{owner}' is owner of an property '{property}' that has a value of {value}.  TakeCare = {takeCare}.";
+            return $"PO: '{property}' owned by '{owner}' - value={value}, TakeCare={takeCare}";
         }
 
         /// <summary>
