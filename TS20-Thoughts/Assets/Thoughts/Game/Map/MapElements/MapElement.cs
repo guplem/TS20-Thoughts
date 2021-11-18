@@ -50,7 +50,7 @@ namespace Thoughts.Game.Map.MapElements
                
                /// <summary>
                /// Starts running the MapElement's clock.
-               /// <para>Starts the "UpdateCoroutine" coroutine.</para>
+               /// <para>Starts the "ClockCoroutine" coroutine.</para>
                /// </summary>
                private void Start()
                {
@@ -60,13 +60,13 @@ namespace Thoughts.Game.Map.MapElements
                          StopCoroutine(updateCoroutineHolder);
 
                     //Assign the coroutine to the holder
-                    updateCoroutineHolder = UpdateCoroutine();
+                    updateCoroutineHolder = ClockCoroutine();
                     //Run the coroutine
                     StartCoroutine(updateCoroutineHolder);
                }
                
                /// <summary>
-               /// Holder of the UpdateCoroutine of this MapElement
+               /// Holder of the ClockCoroutine of this MapElement
                /// </summary>
                private IEnumerator updateCoroutineHolder;
                
@@ -74,8 +74,11 @@ namespace Thoughts.Game.Map.MapElements
                /// Controls the internal clock of the MapElement.
                /// <para>Executes the map events with "execute with time elapse" enabled, updates the objective property to cover and tries to execute the next planned event.</para>
                /// </summary>
-               private IEnumerator UpdateCoroutine()
+               private IEnumerator ClockCoroutine()
                {
+                    // Initial delay so not all of them start at the same time
+                    yield return new WaitForSeconds(new RandomEssentials(transform.position.GetHashCode()).GetRandomFloat(5f)); // Maximum 5 seconds of delay to start the clock
+                    
                     while (true)
                     {
                          yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
