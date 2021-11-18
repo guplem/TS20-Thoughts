@@ -33,6 +33,8 @@ namespace Thoughts.Game.Map.Properties
         /// </summary>
         [Tooltip("The level of priority, if it is a need.")]
         [ShowIf("_behaviourWhenEmpty", BehaviourWhenEmpty.TakeCare)]
+        [LabelText("        Need Priority")]
+        [LabelWidth(125)]
         [SerializeField] private NeedPriority _needPriority = NeedPriority.None;
         
         /// <summary>
