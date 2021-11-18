@@ -6,7 +6,8 @@ using UnityEngine.Serialization;
 namespace Thoughts.Game.Map.Properties
 {
     /// <summary>
-    /// A relation between an Property and a MapElement that owns it.
+    /// A relation between an Property and a MapElement that owns it and a value of that property.
+    /// The owner can be null if it is not owned by anybody but it is only treated as a property-value relationship.
     /// </summary>
     [Serializable]
     public class PropertyOwnership
@@ -30,8 +31,7 @@ namespace Thoughts.Game.Map.Properties
         /// <summary>
         /// Indicates whether or not the owner should try to keep the value of this relationship with higher than 0.
         /// </summary>
-        [SerializeField] private bool _takeCare;
-        public bool takeCare { get => _takeCare; private set { _takeCare = value; } }
+        public bool takeCare => property.behaviourWhenEmpty == BehaviourWhenEmpty.TakeCare;
 
         /// <summary>
         /// Sets up a new owner for this relationship.
@@ -57,13 +57,11 @@ namespace Thoughts.Game.Map.Properties
         /// <param name="property">The property that is going to be owned thanks to this relationship.</param>
         /// <param name="value">The initial value of this relationship.</param>
         /// <param name="owner">The MapEvent that is going to be set as the owner in this relation.</param>
-        /// <param name="takeCare">Should the owner try to keep the value of this relationship higher than 0?</param>
-        public PropertyOwnership(Property property, float value, MapElement owner, bool takeCare = false)
+        public PropertyOwnership(Property property, float value, MapElement owner)
         {
             this.property = property;
             this.value = value;
             this.owner = owner;
-            this.takeCare = takeCare;
             
             if (value < 0)
                 Debug.LogWarning($"A new PropertyOwnership has been created with a negative value: {this.ToString()}");

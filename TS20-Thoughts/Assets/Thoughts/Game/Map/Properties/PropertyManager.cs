@@ -107,6 +107,11 @@ namespace Thoughts.Game.Map.Properties
                             break;
                         case BehaviourWhenEmpty.DoNothing:
                             break;
+                        case BehaviourWhenEmpty.Transform:
+                            foreach (PropertyOwnership inheritanceProperty in foundPropertyOwnership.property.inheritanceProperties)
+                                AddProperty(inheritanceProperty.property, inheritanceProperty.value);
+                            RemoveProperty(foundPropertyOwnership);
+                            break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }
@@ -185,7 +190,7 @@ namespace Thoughts.Game.Map.Properties
         
         private PropertyOwnership AddProperty(Property property, float value = 0, bool takeCare = false)
         {
-            PropertyOwnership newPropertyOwnership = new PropertyOwnership(property, value, owner, false);
+            PropertyOwnership newPropertyOwnership = new PropertyOwnership(property, value, owner);
             propertyOwnerships.Add(newPropertyOwnership);
             return newPropertyOwnership;
         }

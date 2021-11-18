@@ -16,7 +16,6 @@ namespace Thoughts.Game.Map.Properties
         /// What should be done when the value of this property is 0 in a MapElement
         /// </summary>
         public BehaviourWhenEmpty behaviourWhenEmpty { get { return _behaviourWhenEmpty; } }
-        
         /// <summary>
         /// What should be done when the value of this property is 0 in a MapElement
         /// </summary>
@@ -27,12 +26,7 @@ namespace Thoughts.Game.Map.Properties
         /// The level of priority of the property.
         /// <para>More than 0 if it is a need. 0 otherwise.</para>
         /// </summary>
-        public NeedPriority needPriority { get {
-                if (_behaviourWhenEmpty == BehaviourWhenEmpty.TakeCare)
-                    return _needPriority;
-                return NeedPriority.None;
-        }  }
-        
+        public NeedPriority needPriority => _behaviourWhenEmpty == BehaviourWhenEmpty.TakeCare ? _needPriority : NeedPriority.None;
         /// <summary>
         /// The level of priority of the property.
         /// <para>More than 0 if it is a need. 0 otherwise.</para>
@@ -42,8 +36,20 @@ namespace Thoughts.Game.Map.Properties
         [SerializeField] private NeedPriority _needPriority = NeedPriority.None;
         
         /// <summary>
+        /// List of properties that will be inherited (or transformed to) once the property reaches a value of 0 in the property value
+        /// </summary>
+        public List<PropertyOwnership> inheritanceProperties => _behaviourWhenEmpty == BehaviourWhenEmpty.Transform ? _inheritanceProperties : null;
+        /// <summary>
+        /// List of properties that will be inherited (or transformed to) once the property reaches a value of 0 in the property value
+        /// </summary>
+        [ShowIf("_behaviourWhenEmpty", BehaviourWhenEmpty.Transform)]
+        [SerializeField] private List<PropertyOwnership> _inheritanceProperties = new List<PropertyOwnership>();
+        
+        
+        /// <summary>
         /// The MapEvents made available by the Property.
         /// </summary>
+        [PropertySpace(50)]
         [Tooltip("The MapEvents made available by the Property.")]
         [SerializeField] public List<MapEvent> mapEvents;
 
@@ -196,7 +202,11 @@ namespace Thoughts.Game.Map.Properties
         /// <summary>
         /// Do nothing, leave it with a value of 0
         /// </summary>
-        DoNothing = 2
+        DoNothing = 2,
+        /// <summary>
+        /// Remove the property and add the inherited ones
+        /// </summary>
+        Transform = 3
     }
     
 }

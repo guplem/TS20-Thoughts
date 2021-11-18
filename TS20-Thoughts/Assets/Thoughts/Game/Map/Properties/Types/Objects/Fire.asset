@@ -23,5 +23,8 @@ MonoBehaviour:
     SerializationNodes: []
   _behaviourWhenEmpty: 2
   _needPriority: 0
+  _inheritanceProperties:
+  - property: {fileID: 0}
+    _value: 0
   mapEvents:
   - {fileID: 11400000, guid: ad791e0f9d4b5534780986cfc566e23d, type: 2}
