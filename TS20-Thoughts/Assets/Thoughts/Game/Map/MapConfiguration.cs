@@ -54,9 +54,9 @@ namespace Thoughts.Game.Map
         public float chunkWorldSize => (numVertsPerLine - 3);
 
         /// <summary>
-        /// The absolute height at which the sea starts
+        /// The absolute [0,1] height at which the sea starts
         /// </summary>
-        [Tooltip("The absolute height at which the sea starts")]
+        [Tooltip("The absolute [0,1] height at which the sea starts")]
         [Range(0,1)]
         public float seaHeight = 0.15f;
         public float seaHeightAbsolute => seaHeight * terrainHeightSettings.maxHeight;

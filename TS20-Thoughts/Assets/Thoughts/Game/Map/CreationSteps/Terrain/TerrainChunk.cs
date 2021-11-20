@@ -133,7 +133,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         /// <summary>
         /// The current position of the viewer
         /// </summary>
-        private Vector2 viewerPosition => viewer? viewer.transform.position.ToVector2WithoutY() : Vector2.zero;
+        private Vector2 viewerPosition => Application.isPlaying && viewer? viewer.transform.position.ToVector2WithoutY() : Vector2.zero;
 
         /// <summary>
         /// Stores all the needed data and sets up the managing of the LOD meshes
@@ -183,7 +183,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
             //Debug.Log($"Requesting data for {ToString()}");
             mapManager.mapGenerator.threadedDataRequester.RequestData(
                 // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-                () => HeightMap.GenerateHeightMap(mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.mapRadius, mapManager.mapConfiguration.terrainHeightSettings, centerWorldLocation, mapManager.mapGenerator.terrainGenerator.terrainSeed, mapManager.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius), 
+                () => HeightMap.GenerateHeightMap(mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.mapRadius, mapManager.mapConfiguration.terrainHeightSettings, centerWorldLocation, mapManager.mapGenerator.terrainGenerator.terrainSeed, mapManager.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius, mapManager.mapConfiguration.seaHeight), 
                 OnHeightMapReceived
             );
             terrainCompletionCallback += completionRegisterer;

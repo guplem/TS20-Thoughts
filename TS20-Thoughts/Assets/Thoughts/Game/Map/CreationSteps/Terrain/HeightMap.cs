@@ -45,8 +45,9 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         /// <param name="sampleCenter">The cords at the center of this HeightMap relative to the center of the whole (scene) map</param>
         /// <param name="generalMapSeed">The seed used for the general map generation</param>
         /// <param name="freeFalloffAreaRadius">The area compared to the radius of the map in which the falloff will not be applied (starting from the center)</param>
+        /// <param name="seaHight">The absolute [0,1] height at which the sea starts</param>
         /// <returns></returns>
-        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int generalMapSeed, float freeFalloffAreaRadius)
+        public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int generalMapSeed, float freeFalloffAreaRadius, float seaHight)
         {
             int heightSeed = generalMapSeed + 546132;
             //Debug.Log($"Generating height map for {sampleCenter}");
@@ -54,7 +55,8 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
             int falloffSeed = generalMapSeed + 7;
             float[,] falloffNoiseMap = Noise.GenerateNoiseMap(width, height, settings.falloffNoiseMapSettings, sampleCenter, falloffSeed);
 
-            AnimationCurve heigtCurve_threadSafe = new AnimationCurve(settings.heightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
+            AnimationCurve aboveWaterHeigtCurve_threadSafe = new AnimationCurve(settings.aboveWaterHeightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
+            AnimationCurve underWaterHeigtCurve_threadSafe = new AnimationCurve(settings.underWaterHeightCurve.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
             AnimationCurve falloffIntensity_threadSafe = new AnimationCurve(settings.falloffIntensity.keys); // Accessing an AnimationCurve in multiple threads at the same time can lead to wrong evaluations. A copy is done to ensure evaluating it is safe. 
 
             
@@ -74,7 +76,11 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
                     }
 
                     float original01Value = heightNoiseMap[i, j];
-                    float curveMultiplication = heigtCurve_threadSafe.Evaluate(original01Value);
+                    float curveMultiplication = -1;
+                    if (original01Value >= seaHight)
+                        curveMultiplication = seaHight + (1-seaHight) * aboveWaterHeigtCurve_threadSafe.Evaluate((original01Value-seaHight)/(1-seaHight));
+                    else
+                        curveMultiplication = underWaterHeigtCurve_threadSafe.Evaluate(original01Value/seaHight) * seaHight;
                     float heightValue = curveMultiplication * settings.heightMultiplier;
                     heightNoiseMap [i, j] = heightValue * (1-falloffValue);
 

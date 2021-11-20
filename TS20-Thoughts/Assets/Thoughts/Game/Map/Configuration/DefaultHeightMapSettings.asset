@@ -70,18 +70,18 @@ MonoBehaviour:
     persistance: 0.634
     offset: {x: 0, y: 0}
   heightMultiplier: 15
-  heightCurve:
+  aboveWaterHeightCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0.7615632
-      outSlope: 0.7615632
+      inSlope: 0.21090177
+      outSlope: 0.21090177
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.24268857
+      outWeight: 0.22607103
     - serializedVersion: 3
       time: 0.5
       value: 0.15
@@ -99,6 +99,48 @@ MonoBehaviour:
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.070236444
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  underWaterHeightCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0.5485969
+      outSlope: 0.5485969
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.13474064
+    - serializedVersion: 3
+      time: 0.6191509
+      value: 0.5187651
+      inSlope: 0.81711763
+      outSlope: 0.81711763
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.8696392
+      value: 0.82656914
+      inSlope: 3.0059874
+      outSlope: 3.0059874
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.017592901
+      outSlope: 0.017592901
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 1
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2

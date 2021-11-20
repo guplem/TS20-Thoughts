@@ -36,7 +36,6 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         //[SerializeField] public float percentageOfMapWithoutMaxFalloff = 1;
         [SerializeField] public AnimationCurve falloffIntensity;
         [SerializeField] public NoiseMapSettings falloffNoiseMapSettings;
-    
 
         /// <summary>
         /// For how much each cell height will be multiplied.
@@ -44,18 +43,27 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         /// </summary>
         [Header("Height")]
         public float heightMultiplier = 30f;
+        
         /// <summary>
-        /// How much the height of the mesh should be affected by the maxHeight (AKA: "height multiplier")
+        /// How much the height of the mesh (that is above water) should be affected by the maxHeight (AKA: "height multiplier for terrain")
         /// </summary>
-        public AnimationCurve heightCurve;
+        [Tooltip("How much the height of the mesh (that is above water) should be affected by the maxHeight (AKA: 'height multiplier for terrain')")]
+        [FormerlySerializedAs("heightCurve")]
+        public AnimationCurve aboveWaterHeightCurve;
+        
+        /// <summary>
+        /// How much the height of the mesh (that is under water) should be affected by the maxHeight (AKA: "height multiplier for sea floor")
+        /// </summary>
+        [Tooltip("How much the height of the mesh (that is under water) should be affected by the maxHeight (AKA: 'height multiplier for sea floor')")]
+        public AnimationCurve underWaterHeightCurve = AnimationCurve.EaseInOut(0,0,1,1);
     
         /// <summary>   
-        /// The minimum height of the terrain
+        /// The minimum height of the terrain (including under-water terrain)
         /// </summary>
         public float minHeight{
             get
             {
-                float ret = heightMultiplier * heightCurve.Evaluate(0);
+                float ret = heightMultiplier * underWaterHeightCurve.Evaluate(0);
                 //Debug.Log($"MIN: {ret}");
                 return ret;
             }
@@ -65,7 +73,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         /// </summary>
         public float maxHeight{
             get {
-                float ret = heightMultiplier * heightCurve.Evaluate(1);
+                float ret = heightMultiplier * aboveWaterHeightCurve.Evaluate(1);
                 //Debug.Log($"MAX: {ret}");
                 return ret;
             }
