@@ -361,7 +361,7 @@ namespace Thoughts.Game.Map
                     if (rng.GetRandomBool(1-density))
                         continue;
                     
-                    if (IsSpawnablePosition( new Vector2(x - mapManager.mapConfiguration.mapRadius, y - mapManager.mapConfiguration.mapRadius), spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
+                    if (IsSpawnablePositionOnTerrain( new Vector2(x - mapManager.mapConfiguration.mapRadius, y - mapManager.mapConfiguration.mapRadius), spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
                         spawnedMapElements.Add(SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent));
                 }
             }
@@ -372,11 +372,11 @@ namespace Thoughts.Game.Map
         /// Checks if a MapElement can be spawned or not in a given position.
         /// </summary>
         /// <param name="positionCheck">The 2D position to check if a Map</param>
-        /// <param name="spawningHeightRange">The minimum height at which the object can be spawned (0 means that can spawn on the sea)</param>
+        /// <param name="spawningHeightRange">The normalized height at which the object can be spawned (-1 means the bottom of the sea. 1 means the highest points in the world. 0 is the shoreline.)</param>
         /// <param name="requireNavMesh">Must the location require a valid NavMeshSurface?</param>
         /// <param name="spawnablePosition">If the given position allows an spawn, this is the 3D position (including the height at which it can be spawned) so there is no need to recalculate it again.</param>
         /// <returns>True if the location allows the spawn of the MapElement, false otherwise.</returns>
-        private bool IsSpawnablePosition(Vector2 positionCheck, Vector2 spawningHeightRange, bool requireNavMesh, out Vector3 spawnablePosition)
+        private bool IsSpawnablePositionOnTerrain(Vector2 positionCheck, Vector2 spawningHeightRange, bool requireNavMesh, out Vector3 spawnablePosition)
         {
             spawnablePosition = Vector3.zero;
 
@@ -388,6 +388,11 @@ namespace Thoughts.Game.Map
             // Does the ray intersect any objects excluding the player layer
             if (Physics.Raycast(positionCheck.ToVector3NewY(rayOriginHeight), Vector3.down, out hit, rayDistance))
             {
+                if (((1<<hit.collider.gameObject.layer) & terrainGenerator.terrainLayerMask) == 0) // To compare Layer with LayerMaks //Todo: add this as extensions http://answers.unity.com/answers/422476/view.html
+                {
+                    return false; // The hit object does not have a terrain LayerMask
+                }
+               
                 float aboveSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * (1 - mapManager.mapConfiguration.seaHeight);
                 float underSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * mapManager.mapConfiguration.seaHeight;
                 float relativeHitHeight = Single.NegativeInfinity; // [-1,1] once calculated
@@ -454,7 +459,7 @@ namespace Thoughts.Game.Map
                 
                 Vector2 checkPosition = randomEssentials.GetRandomVector2(-mapManager.mapConfiguration.mapRadius, mapManager.mapConfiguration.mapRadius);
 
-                if (IsSpawnablePosition(checkPosition, spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
+                if (IsSpawnablePositionOnTerrain(checkPosition, spawningHeightRange, requireNavMesh, out Vector3 spawnablePosition))
                 {
                     spawnedMapElements.Add(SpawnMapElement(objectToSpawn, spawnablePosition, Quaternion.identity, parent));
                     spawnedCount++;

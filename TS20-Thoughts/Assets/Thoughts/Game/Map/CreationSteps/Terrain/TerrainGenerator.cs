@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
@@ -38,7 +39,12 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         [Tooltip("What LOD should be used until which distance. The LOD '0', has the maximum level of detail. The last threshold/distance in the list will be considered as the maximum view distance from the viewer's perspective.")]
         [SerializeField] public LODInfo[] detailLevels;
 
-        [SerializeField] private LayerMask terrainLayerMask;
+        /// <summary>
+        /// The layer mask of the terrain
+        /// </summary>
+        [Tooltip("The layer mask of the terrain")]
+        [SerializeField] private LayerMask _terrainLayerMask;
+        public LayerMask terrainLayerMask => _terrainLayerMask;
         
         /// <summary>
         /// Reference to the viewer (usually the player) of the terrain. If null, it will be set to 'Camera.main' when requested.

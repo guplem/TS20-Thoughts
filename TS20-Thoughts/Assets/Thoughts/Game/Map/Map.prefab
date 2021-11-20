@@ -1667,7 +1667,7 @@ MonoBehaviour:
     visibleDistanceThreshold: 500
   - lod: 4
     visibleDistanceThreshold: 600
-  terrainLayerMask:
+  _terrainLayerMask:
     serializedVersion: 2
     m_Bits: 8
   _viewer: {fileID: 0}
