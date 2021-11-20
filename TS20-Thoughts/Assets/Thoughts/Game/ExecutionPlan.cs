@@ -80,7 +80,7 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
 
         public override string ToString()
         {
-            return $"'{mapEvent}' (x{executionTimes} times by '{executer}' to target '{target}' at/owned by '{eventOwner}')";
+            return $"x{executionTimes} '{mapEvent}' of property '{property}'. Executed by '{executer}' to target '{target}' at/owned by '{eventOwner}'.";
         }
 
         /// <summary>

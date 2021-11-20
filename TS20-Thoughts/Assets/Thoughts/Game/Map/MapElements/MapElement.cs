@@ -54,6 +54,12 @@ namespace Thoughts.Game.Map.MapElements
                /// </summary>
                private void Start()
                {
+                    // To ensure that all properties follow the expected behaviour/settings
+                    foreach (Property property in propertyManager.GetListOfAllCurrentProperties())
+                    {
+                         propertyManager.UpdateProperty(property,0);
+                    }
+                    
                     // Ensure that we are not going to lose the track of a previous coroutine 
                     // if we lose it, we'll not be able to stop it.
                     if (updateCoroutineHolder != null)

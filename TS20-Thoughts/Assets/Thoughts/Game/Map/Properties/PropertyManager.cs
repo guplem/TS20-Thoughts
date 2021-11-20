@@ -302,5 +302,14 @@ namespace Thoughts.Game.Map.Properties
             PropertyOwnership foundProperty = GetOwnedPropertyAndAddItIfNotFound(property);
             return foundProperty.value;
         }
+        public List<Property> GetListOfAllCurrentProperties()
+        {
+            List<Property> returnList = new List<Property>();
+            foreach (PropertyOwnership propertyOwnership in propertyOwnerships)
+            {
+                returnList.Add(propertyOwnership.property);
+            }
+            return returnList;
+        }
     }
 }
