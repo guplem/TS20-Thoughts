@@ -65,12 +65,12 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         private int colliderLODIndex => mapManager.mapGenerator.terrainGenerator.colliderLODIndex;
 
         /// <summary>
-        /// The HeightMap of this TerrainChunk
+        /// The HeightMap of this TerrainChunk in absolute values (usually [0, TerrainMaxHeight])
         /// </summary>
-        public HeightMap heightMap { get; private set; }
+        public HeightMap heightMapAbsolute { get; private set; }
 
         /// <summary>
-        /// If the data of the HeightMap has been recieved or not.
+        /// If the data of the HeightMap has been received or not.
         /// </summary>
         private bool heightMapReceived = false;
     
@@ -183,7 +183,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
             //Debug.Log($"Requesting data for {ToString()}");
             mapManager.mapGenerator.threadedDataRequester.RequestData(
                 // () => ... // Creates a method with no parameters that calls the method with parameters. This is done because RequestData expect a method with no parameters
-                () => HeightMap.GenerateHeightMap(mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.mapRadius, mapManager.mapConfiguration.terrainHeightSettings, centerWorldLocation, mapManager.mapGenerator.terrainGenerator.terrainSeed, mapManager.mapConfiguration.terrainHeightSettings.freeFalloffAreaRadius, mapManager.mapConfiguration.seaHeight), 
+                () => HeightMap.GenerateHeightMap(mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.numVertsPerLine, mapManager.mapConfiguration.mapRadius, mapManager.mapConfiguration.terrainHeightSettings, centerWorldLocation, mapManager.mapGenerator.terrainGenerator.terrainSeed, mapManager.mapConfiguration.terrainHeightSettings.freeOfFalloffAreaNormalized, mapManager.mapConfiguration.seaHeightNormalized), 
                 OnHeightMapReceived
             );
             terrainCompletionCallback += completionRegisterer;
@@ -197,7 +197,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         {
             //Debug.Log($"Received height data for {ToString()}");
             //terrainGenerator.RequestMeshData(mapData, mapConfiguration, OnMeshDataRecieved);
-            this.heightMap = (HeightMap)heightMap;
+            this.heightMapAbsolute = (HeightMap)heightMap;
             heightMapReceived = true;
 
             UpdateChunk();
@@ -247,7 +247,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
 
                     if (!lodMesh.hasRequestedMesh)
                     {
-                        lodMesh.RequestMesh(heightMap, mapManager.mapGenerator.threadedDataRequester, mapManager.mapConfiguration);
+                        lodMesh.RequestMesh(heightMapAbsolute, mapManager.mapGenerator.threadedDataRequester, mapManager.mapConfiguration);
                     }
                     else if (lodMesh.hasMesh)
                     {
@@ -281,7 +281,7 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         
             if (!lodMeshes[colliderLODIndex].hasRequestedMesh)
             {
-                lodMeshes[colliderLODIndex].RequestMesh(heightMap, mapManager.mapGenerator.threadedDataRequester, mapManager.mapConfiguration);
+                lodMeshes[colliderLODIndex].RequestMesh(heightMapAbsolute, mapManager.mapGenerator.threadedDataRequester, mapManager.mapConfiguration);
             }
             else if (lodMeshes[colliderLODIndex].hasMesh)
             {

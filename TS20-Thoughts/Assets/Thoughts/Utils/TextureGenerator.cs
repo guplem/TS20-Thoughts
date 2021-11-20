@@ -15,7 +15,7 @@ namespace Thoughts.Utils
             return texture;
         }
 
-        public static Texture2D TextureFromHeightMap(float[,] heightMap) // All values in the 2D array heightMap must be in the range [0,1]
+        public static Texture2D TextureFromHeightMap(float[,] heightMap) // All values in the 2D array heightMapAbsolute must be in the range [0,1]
         {
             int width = heightMap.GetLength(0);
             int height = heightMap.GetLength(1);

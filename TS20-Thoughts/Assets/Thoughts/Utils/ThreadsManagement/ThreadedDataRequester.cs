@@ -47,26 +47,26 @@ namespace Thoughts.Utils.ThreadsManagement
         private void DataThread(Func<object> generateDataMethod, Action<object> callback/*, MapConfiguration mapConfiguration*/)
         {
             object data = generateDataMethod();
-            //HeightMap heightMap = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, centre);
+            //HeightMap heightMapAbsolute = HeightMapGenerator.GenerateHeightMap( mapConfiguration.chunkSize, mapConfiguration.chunkSize, mapConfiguration.terrainData.heightMapSettings, centre);
             lock (dataQueue)
             {
                 dataQueue.Enqueue(new ThreadInfo(callback, data));
             }
         }
     
-        /*public void RequestMeshData(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
+        /*public void RequestMeshData(HeightMap heightMapAbsolute, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
         ThreadStart threadStart = delegate
         {
-            HeightMapThread(heightMap, mapConfiguration, LOD, callback);
+            HeightMapThread(heightMapAbsolute, mapConfiguration, LOD, callback);
         };
         
         new Thread(threadStart).Start();
     }*/
     
-        /*public void HeightMapThread(HeightMap heightMap, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
+        /*public void HeightMapThread(HeightMap heightMapAbsolute, MapConfiguration mapConfiguration, int LOD, Action<MeshData> callback)
     {
-        MeshData meshData = MapDisplay.GenerateTerrainMesh(heightMap.values, mapConfiguration, LOD);
+        MeshData meshData = MapDisplay.GenerateTerrainMesh(heightMapAbsolute.values, mapConfiguration, LOD);
         lock (terrainDataThreadInfoQueue)
         {
             meshDataThreadInfoQueue.Enqueue(new ThreadInfo<MeshData>(callback, meshData));

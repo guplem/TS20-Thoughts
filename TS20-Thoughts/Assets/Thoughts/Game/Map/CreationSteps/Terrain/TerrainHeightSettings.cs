@@ -28,11 +28,11 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         [Header("Falloff")]
         [SerializeField] public bool useFalloff;
         /// <summary>
-        /// The area compared to the radius of the map in which the falloff will not be applied (starting from the center)
+        /// The area compared to the radius of the map (normalized) in which the falloff will not be applied (starting from the center)
         /// </summary>
-        [Tooltip("The area compared to the radius of the map in which the falloff will not be applied (starting from the center)")]
+        [Tooltip("The area compared to the radius of the map (normalized: [0,1]) in which the falloff will not be applied (starting from the center)")]
         [Range(0.01f, 0.99f)]
-        [SerializeField] public float freeFalloffAreaRadius = 0.3f;
+        [SerializeField] public float freeOfFalloffAreaNormalized = 0.75f;
         //[SerializeField] public float percentageOfMapWithoutMaxFalloff = 1;
         [SerializeField] public AnimationCurve falloffIntensity;
         [SerializeField] public NoiseMapSettings falloffNoiseMapSettings;

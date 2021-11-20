@@ -4,12 +4,12 @@ using UnityEngine;
 namespace Thoughts.Game.Map.CreationSteps.Terrain
 {
     /// <summary>
-    /// Contains values relative to the height of a terrain
+    /// Contains values related to the height of a terrain
     /// </summary>
     public struct HeightMap
     {
         /// <summary>
-        /// The main data stored in the HeightMap (should be relative to the height of a terrain).
+        /// The main data stored in the HeightMap (should be related to the height of a terrain).
         /// </summary>
         public readonly float[,] values;
         /// <summary>
@@ -22,9 +22,9 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         public readonly float maxValue;
     
         /// <summary>
-        /// Constructor of a HeightMap that contains values relative to the height of a terrain
+        /// Constructor of a HeightMap that contains values related to the height of a terrain
         /// </summary>
-        /// <param name="values">The main data stored in the HeightMap relative to the height of a terrain</param>
+        /// <param name="values">The main data stored in the HeightMap related to the height of a terrain</param>
         /// <param name="minValue">The pre calculated minimum value contained within the main data</param>
         /// <param name="maxValue">The pre calculated maximum value contained within the main data</param>
         private HeightMap(float[,] values, float minValue, float maxValue)
@@ -36,16 +36,16 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         }
 
         /// <summary>
-        /// Generates HeightMap that contains values relative to the height of a terrain
+        /// Generates HeightMap that contains values related to the height of a terrain
         /// </summary>
         /// <param name="width">The desired width for the generated HeightMap</param>
         /// <param name="height">The desired height for the generated HeightMap</param>
         /// <param name="mapRadius">The theoretical radius of the map containing this terrain</param>
         /// <param name="settings">The HeightMapSettings for this HeightMap's pattern</param>
-        /// <param name="sampleCenter">The cords at the center of this HeightMap relative to the center of the whole (scene) map</param>
+        /// <param name="sampleCenter">The cords at the center of this HeightMap in absolute values (relative to the center of the center of the scene)</param>
         /// <param name="generalMapSeed">The seed used for the general map generation</param>
         /// <param name="freeFalloffAreaRadius">The area compared to the radius of the map in which the falloff will not be applied (starting from the center)</param>
-        /// <param name="seaHight">The absolute [0,1] height at which the sea starts</param>
+        /// <param name="seaHight">The normalized [0,1] height at which the sea starts</param>
         /// <returns></returns>
         public static HeightMap GenerateHeightMap(int width, int height, float mapRadius, TerrainHeightSettings settings, Vector2 sampleCenter, int generalMapSeed, float freeFalloffAreaRadius, float seaHight)
         {
@@ -97,20 +97,20 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         /// Returns a [0,1] value containing the intensity of the falloff at a given coords of the terrain 
         /// </summary>
         /// <param name="coords">The coords of the map to calculate the intensity of the falloff in that location</param>
-        /// <param name="falloffIntensity">The AnimationCurve that defines the intensity of the falloff relative to the radius of the center of the map</param>
+        /// <param name="falloffIntensity">The AnimationCurve that defines the intensity of the falloff relative to the radius of the map from its center</param>
         /// <param name="mapRadius">The radius of the center of the map</param>
         /// <param name="freeFalloffAreaRadius">An area in which the falloff will not be applied starting from the center</param>
         /// <param name="noiseInstensityAtCoords">The intensity of the falloff noise map at the given coords. Used to generate irregularities</param>
         /// <returns></returns>
         private static float GetFalloffValue(Vector2 coords, AnimationCurve falloffIntensity, float mapRadius, float freeFalloffAreaRadius, float noiseInstensityAtCoords)
         {
-            float absoluteFreeFalloffAreaRadius = (mapRadius * freeFalloffAreaRadius);
+            float normalizedFreeFalloffAreaRadius = (mapRadius * freeFalloffAreaRadius);
             float distanceToCenter = Mathf.Sqrt(coords.x*coords.x + coords.y*coords.y);
-            if (distanceToCenter < absoluteFreeFalloffAreaRadius)
+            if (distanceToCenter < normalizedFreeFalloffAreaRadius)
                 return 0;
-            distanceToCenter -= absoluteFreeFalloffAreaRadius;
+            distanceToCenter -= normalizedFreeFalloffAreaRadius;
             //float falloffValue = ((distanceToCenter*distanceToCenter)/(mapRadius*mapRadius*percentageOfMapWithoutMaxFalloff)); // Old method, with formula
-            float normalizedDistanceToCenter = distanceToCenter / (mapRadius-absoluteFreeFalloffAreaRadius);
+            float normalizedDistanceToCenter = distanceToCenter / (mapRadius-normalizedFreeFalloffAreaRadius);
             float falloffIntensityAtCoords = falloffIntensity.Evaluate(normalizedDistanceToCenter);
             float falloffValue = falloffIntensityAtCoords + noiseInstensityAtCoords * falloffIntensityAtCoords;
             return Mathf.Clamp01(falloffValue);

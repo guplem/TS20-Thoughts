@@ -211,19 +211,19 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
 
         public float GetHeightAt(Vector2 worldCoords)
         {
-            TerrainChunk chunk = terrainChunks[mapManager.mapGenerator.GetChunksCoordsAt(worldCoords)];
+            TerrainChunk chunk = terrainChunks[mapManager.mapGenerator.GetRelativeChunksCoordsAt(worldCoords)];
             
             /*Vector2 absoluteChunkCoords = chunk.transform.position.ToVector2WithoutY();
             float chunkAbsoluteSize = mapGenerator.mapConfiguration.chunkWorldSize;
             Vector2 distanceFromChunkCenter = new Vector2(worldCoords.x - absoluteChunkCoords.x, worldCoords.y - absoluteChunkCoords.y);
             float chunkAbsoluteWidth = mapGenerator.mapConfiguration.chunkWorldSize;
-            int heightMapWidth = chunk.heightMap.values.GetLength(0);
+            int heightMapWidth = chunk.heightMapAbsolute.values.GetLength(0);
             int heightMapCoordsX = Mathf.RoundToInt(chunkAbsoluteWidth / heightMapWidth * distanceFromChunkCenter.x + heightMapWidth / 2f);//(int)(coords.x * chunkAbsoluteSize / 2f / absoluteChunkCoords.x);
             int heightMapCoordsY = Mathf.RoundToInt(heightMapWidth - (chunkAbsoluteWidth / heightMapWidth * distanceFromChunkCenter.y + heightMapWidth / 2f));//(int)(coords.y * chunkAbsoluteSize / 2f / absoluteChunkCoords.y);
             //Debug.Log($"CHECKING HEIGHT AT {heightMapCoordsX}, {heightMapCoordsY}. coords = {coords}, chunkAbsoluteSize = {chunkAbsoluteSize}, absoluteChunkCoords = {absoluteChunkCoords}");
-            return chunk.heightMap.values[heightMapCoordsX,heightMapCoordsY];*/
+            return chunk.heightMapAbsolute.values[heightMapCoordsX,heightMapCoordsY];*/
 
-            return TerrainMeshGenerator.GetHeight(chunk.heightMap.values, mapManager.mapConfiguration,  worldCoords - chunk.transform.position.ToVector2WithoutY());
+            return TerrainMeshGenerator.GetHeight(chunk.heightMapAbsolute.values, mapManager.mapConfiguration,  worldCoords - chunk.transform.position.ToVector2WithoutY());
         }
 
 

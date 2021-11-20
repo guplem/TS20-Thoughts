@@ -219,10 +219,10 @@ namespace Thoughts.Game.Map
             terrainGenerator.Delete(true); // Must be the first one
         }
 
-        public Vector2Int GetChunksCoordsAt(Vector2 coords)
+        public Vector2Int GetRelativeChunksCoordsAt(Vector2 absoluteCoords)
         {
-            int chunkCordX = Mathf.RoundToInt(coords.x / mapManager.mapConfiguration.chunkWorldSize);
-            int chunkCordY = Mathf.RoundToInt(coords.y / mapManager.mapConfiguration.chunkWorldSize);
+            int chunkCordX = Mathf.RoundToInt(absoluteCoords.x / mapManager.mapConfiguration.chunkWorldSize);
+            int chunkCordY = Mathf.RoundToInt(absoluteCoords.y / mapManager.mapConfiguration.chunkWorldSize);
             return new Vector2Int(chunkCordX, chunkCordY);
         }
 
@@ -393,8 +393,8 @@ namespace Thoughts.Game.Map
                     return false; // The hit object does not have a terrain LayerMask
                 }
                
-                float aboveSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * (1 - mapManager.mapConfiguration.seaHeight);
-                float underSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * mapManager.mapConfiguration.seaHeight;
+                float aboveSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * (1 - mapManager.mapConfiguration.seaHeightNormalized);
+                float underSeaLevelHeight = mapManager.mapConfiguration.terrainHeightSettings.maxHeight * mapManager.mapConfiguration.seaHeightNormalized;
                 float relativeHitHeight = Single.NegativeInfinity; // [-1,1] once calculated
                 
                 // The impact happened under the sea

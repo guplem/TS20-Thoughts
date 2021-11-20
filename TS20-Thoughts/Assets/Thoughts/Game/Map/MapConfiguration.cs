@@ -10,6 +10,7 @@ using Thoughts.Game.Map.CreationSteps.WaterSources;
 using Thoughts.Utils.Inspector;
 using Thoughts.Utils.Maths;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Thoughts.Game.Map
 {
@@ -54,12 +55,12 @@ namespace Thoughts.Game.Map
         public float chunkWorldSize => (numVertsPerLine - 3);
 
         /// <summary>
-        /// The absolute [0,1] height at which the sea starts
+        /// The normalized [0,1] height at which the sea starts
         /// </summary>
-        [Tooltip("The absolute [0,1] height at which the sea starts")]
+        [Tooltip("The normalized [0,1] height at which the sea starts")]
         [Range(0,1)]
-        public float seaHeight = 0.15f;
-        public float seaHeightAbsolute => seaHeight * terrainHeightSettings.maxHeight;
+        public float seaHeightNormalized = 0.15f;
+        public float seaHeightAbsolute => seaHeightNormalized * terrainHeightSettings.maxHeight;
 
         /// <summary>
         /// The radius of the map from the center of the scene in Unity's units
