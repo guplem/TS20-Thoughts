@@ -92,7 +92,7 @@ namespace Thoughts.Game.Map.Properties
             
             if (foundPropertyOwnership == null)
             {
-                AddProperty(propertyToUpdate, deltaValue, false);
+                AddProperty(propertyToUpdate, deltaValue);
             }
             else
             {
@@ -184,11 +184,11 @@ namespace Thoughts.Game.Map.Properties
                 if (ownedProperty.property == property)
                     return ownedProperty;
             }
-            Debug.Log($"   Property '{property.ToString()}' not found in '{owner}' owned properties. Adding the property with a value of 0.\n", owner);
-            return AddProperty(property);
+            Debug.Log($"   Property '{property.ToString()}' not found in '{owner}' owned properties. Creating a temporal property ownership (that is not be part of the actual owned properties by the MapElement {owner}). It will be used to calculate the execution path.\n", owner);
+            return new PropertyOwnership(property, 0, owner);
         }
         
-        private PropertyOwnership AddProperty(Property property, float value = 0, bool takeCare = false)
+        private PropertyOwnership AddProperty(Property property, float value = 0)
         {
             PropertyOwnership newPropertyOwnership = new PropertyOwnership(property, value, owner);
             propertyOwnerships.Add(newPropertyOwnership);
