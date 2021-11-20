@@ -279,7 +279,7 @@ namespace Thoughts.Game.Map.MapElements
                if (location == lastRequestedDestination && !navMeshAgent.isStopped)
                     return true;
                
-               Debug.Log($"Moving MapElement ({this.ToString()}) to {location}. Previous destination = {navMeshAgent.destination}");;
+               Debug.Log($"Moving MapElement ({this.ToString()}) to {location} (closes ME: {GameManager.instance.mapManager.GetClosestMapElementTo(location)}). Previous destination = {navMeshAgent.destination}");;
                if (navMeshAgent == null)
                {
                     Debug.LogWarning($"Trying to move a MapElement ({this.ToString()}) that can not be moved (NavMeshAgent == null).");
