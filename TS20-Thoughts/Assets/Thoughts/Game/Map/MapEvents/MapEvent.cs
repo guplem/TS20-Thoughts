@@ -96,20 +96,20 @@ namespace Thoughts.Game.Map.MapEvents
                     case AffectedMapElement.eventOwner:
                         owner.propertyManager.UpdateProperty(consequence.GetProperty(containingProperty), consequence.deltaValue);
                         if (consequence.setNewState)
-                            owner.stateManager.GetUpdatedState(consequence.stateUpdate);
+                            owner.stateManager.UpdatedState(consequence.stateUpdate);
                         break;
                     
                     case AffectedMapElement.eventExecuter:
                         executer.propertyManager.UpdateProperty(consequence.GetProperty(containingProperty), consequence.deltaValue);
                         if (consequence.setNewState)
-                            executer.stateManager.GetUpdatedState(consequence.stateUpdate);
+                            executer.stateManager.UpdatedState(consequence.stateUpdate);
                         executer.animationsManager.PlayAnimationOfEventExecuter(this, consequence);
                         break;
                     
                     case AffectedMapElement.eventTarget:
                         target.propertyManager.UpdateProperty(consequence.GetProperty(containingProperty), consequence.deltaValue);
                         if (consequence.setNewState)
-                            target.stateManager.GetUpdatedState(consequence.stateUpdate);
+                            target.stateManager.UpdatedState(consequence.stateUpdate);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

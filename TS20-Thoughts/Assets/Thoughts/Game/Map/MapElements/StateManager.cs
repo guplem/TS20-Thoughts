@@ -40,9 +40,9 @@ namespace Thoughts.Game.Map.MapElements
             if (currentState.stateType == StateType.None)
                 return;
 
-            GetUpdatedState(currentState.UpdateRemainingTime(-deltaTime));
+            UpdatedState(currentState.UpdateRemainingTime(-deltaTime));
             if (currentState.remainingTime <= 0f)
-                GetUpdatedState(new MapElementState(StateType.None));
+                UpdatedState(new MapElementState(StateType.None));
 
             // Debug.Log($"Executing 'Step' of StateManager. Current StateType = {this.ToString()}");
         }
@@ -51,7 +51,7 @@ namespace Thoughts.Game.Map.MapElements
         /// Sets a new StateType with a remaining time to finish it and plays the animation of the given StateType at this StateManager owner MapElement
         /// </summary>
         /// <param name="newState">The new state of the StateManager's MapElement</param>
-        public void GetUpdatedState(MapElementState newState)
+        public void UpdatedState(MapElementState newState)
         {
             currentState = newState;
         }

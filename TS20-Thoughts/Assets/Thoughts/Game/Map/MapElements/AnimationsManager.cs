@@ -36,11 +36,20 @@ namespace Thoughts.Game.Map.MapElements
         
         private void PlayAnimation(AnimationClip animationClip)
         {
-            animancer.Play(animationClip);
+            if (animationClip != null)
+            {
+                //Todo: loop and play with ease, not cut
+                animancer.Play(animationClip);
+            }
+            else
+            {
+                animancer.Stop();
+            }
         }
 
-        public void UpdateAnimationsByTrigger()
+        public bool UpdateAnimationsByTrigger()
         {
+            bool animationUpdated = false;
             foreach (AnimationTriggerCondition condition in animationsTriggers)
             {
                 bool triggerAnimation = false;
@@ -72,7 +81,9 @@ namespace Thoughts.Game.Map.MapElements
                         Debug.LogWarning($"Starting to play animation clip triggered by '{condition}' while the state of the MapElement is '{owner.stateManager.currentStateName}'");
                     PlayAnimation(condition.animationClip);
                 }
+                animationUpdated = triggerAnimation;
             }
+            return animationUpdated;
         }
 
         public void PlayAnimationOfEventExecuter(MapEvent mapEvent, Consequence consequence = null)
@@ -96,7 +107,12 @@ namespace Thoughts.Game.Map.MapElements
                     }
                 }
                 
-            switch (consequence.stateUpdate.stateType)
+            PlayAnimationOfStateType(consequence.stateUpdate.stateType);
+        }
+        
+        private void PlayAnimationOfStateType(StateType stateType)
+        {
+            switch (stateType)
             {
                 case StateType.None:
                     if (owner.navMeshAgent == null || !owner.IsMoving())
@@ -110,11 +126,17 @@ namespace Thoughts.Game.Map.MapElements
                     PlayAnimation(animationClipActive);
                     break;
                 default:
-                    Debug.LogWarning($"Unknown default animation for state type '{consequence.stateUpdate.stateTypeName}'");
+                    Debug.LogWarning($"Unknown default animation for state type '{Enum.GetName(typeof(StateType), stateType)}'");
                     break;
             }
         }
-        
+
+        public void UpdateAnimation()
+        {
+            if (owner.stateManager.currentState.stateType == StateType.None)
+                PlayAnimationOfStateType(owner.stateManager.currentState.stateType);
+        }
+
         /*
         /// <summary>
         /// Returns the id of the animationClip for the animation of the given StateType

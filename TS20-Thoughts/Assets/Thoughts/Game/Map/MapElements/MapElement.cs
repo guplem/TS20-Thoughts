@@ -101,7 +101,8 @@ namespace Thoughts.Game.Map.MapElements
                          
                          // Order is important:
                          propertyManager.ExecuteMapEventsWithTimeElapseEnabled();
-                         animationsManager.UpdateAnimationsByTrigger();
+                         if (!animationsManager.UpdateAnimationsByTrigger())
+                              animationsManager.UpdateAnimation();
                          stateManager.Step(GameManager.instance.gameClockInterval);
                     }
                     
