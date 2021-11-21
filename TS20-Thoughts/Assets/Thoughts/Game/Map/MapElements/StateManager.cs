@@ -34,17 +34,16 @@ namespace Thoughts.Game.Map.MapElements
         /// <summary>
         /// Updates the remaining time in the current State and, if the remaining time is less than 0, the State becomes StateType 'None'
         /// </summary>
-        /// <param name="deltaTime"></param>
+        /// <param name="deltaTime">The elapsed time from the previous step</param>
         public void Step(float deltaTime)
         {
             if (currentState.stateType == StateType.None)
                 return;
 
-            float newRemainingTime = currentState.UpdateRemainingTime(deltaTime);
-            if (newRemainingTime <= 0)
-            {
-                SetState(new MapElementState(StateType.None));
-            }
+            UpdateState(currentState.UpdateRemainingTime(-deltaTime));
+            Debug.Log($"OFFICIAL REMAINING TIME of '{currentStateName}' = '{currentState.remainingTime}'");
+            if (currentState.remainingTime <= 0f)
+                UpdateState(new MapElementState(StateType.None));
 
             // Debug.Log($"Executing 'Step' of StateManager. Current StateType = {this.ToString()}");
         }
@@ -53,10 +52,9 @@ namespace Thoughts.Game.Map.MapElements
         /// Sets a new StateType with a remaining time to finish it and plays the animation of the given StateType at this StateManager owner MapElement
         /// </summary>
         /// <param name="newState">The new state of the StateManager's MapElement</param>
-        public void SetState(MapElementState newState)
+        public void UpdateState(MapElementState newState)
         {
             currentState = newState;
-            Debug.LogWarning("Animation should be played here. Not implemented yet.");
         }
 
         /// <summary>
@@ -87,11 +85,17 @@ namespace Thoughts.Game.Map.MapElements
         public float remainingTime => duration;
         public string stateTypeName => Enum.GetName(typeof(StateType), stateType);
 
-        public float UpdateRemainingTime(float deltaTime)
+        /// <summary>
+        /// Updates (increasing or decreasing) the remaining duration of this state
+        /// </summary>
+        /// <param name="deltaTime">The time to increase or decrease from the remaining time of this state</param>
+        /// <returns></returns>
+        public MapElementState UpdateRemainingTime(float deltaTime)
         {
-            float newRemainingTime = duration - deltaTime;
-            duration = Mathf.Max(newRemainingTime, 0f);
-            return duration;
+            Debug.Log($"UpdateRemainingTime by '{deltaTime}'. Before execution the remaining time was = '{duration}'");
+            float newRemainingTime = duration + deltaTime;
+            Debug.Log($"New calculated remaining time = '{newRemainingTime}'");
+            return new MapElementState(this.stateType, newRemainingTime);
         }
 
         private bool IsDurationZero()

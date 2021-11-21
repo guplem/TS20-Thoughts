@@ -7,6 +7,30 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationClipIdle
+      value: 
+      objectReference: {fileID: 7400000, guid: 91879087be2fac14fa0a1490cae9e000, type: 2}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].property
+      value: 
+      objectReference: {fileID: 11400000, guid: 58b27d8180ef93f478028745e7aa7c2a, type: 2}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: e88848df8ac09204e83360d74bce9424, type: 2}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].triggerOptions
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2972775765617363301, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: m_Controller
       value: 
@@ -89,7 +113,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: propertyManager._propertyOwnerships.Array.data[0]._value
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6866824654480904566, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: attributeManager._ownedAttributes.Array.data[0].attribute
