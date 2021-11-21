@@ -89,6 +89,8 @@ namespace Thoughts.Game.Map.MapElements
                     {
                          yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
 
+                         propertyManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         
                          if (stateManager.currentState.stateType == StateType.None)
                          {
                               UpdateObjectivePropertyToCover();
@@ -99,11 +101,10 @@ namespace Thoughts.Game.Map.MapElements
                               }
                          }
                          
-                         // Order is important:
-                         propertyManager.ExecuteMapEventsWithTimeElapseEnabled();
+                         stateManager.Step(GameManager.instance.gameClockInterval);
+                         
                          if (!animationsManager.UpdateAnimationsByTrigger())
                               animationsManager.UpdateAnimation();
-                         stateManager.Step(GameManager.instance.gameClockInterval);
                     }
                     
                     // ReSharper disable once IteratorNeverReturns
@@ -223,6 +224,10 @@ namespace Thoughts.Game.Map.MapElements
                               executionPlan.executer.MoveTo(executionPlan.executionLocation);
                          return true;
                     }
+                    else
+                    {
+                         movingToMatchRequiredDistance = false;
+                    }
 
                     if (!IsMoving()) // So the actions are only done once the destination has been reached
                     {
@@ -297,6 +302,7 @@ namespace Thoughts.Game.Map.MapElements
                {
                     lastRequestedDestination = location;
                     navMeshAgent.isStopped = false;
+                    movingToMatchRequiredDistance = true;
                     return true;
                }
                else
@@ -327,10 +333,10 @@ namespace Thoughts.Game.Map.MapElements
                }
           }
 
+          private bool movingToMatchRequiredDistance = false;
           public bool IsMoving()
           {
-               
-               return navMeshAgent != null && navMeshAgent.velocity.magnitude > 0.15f;
+               return navMeshAgent != null && (navMeshAgent.velocity.magnitude > 0.15f || movingToMatchRequiredDistance);
           }
      }
 }

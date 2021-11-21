@@ -115,9 +115,10 @@ namespace Thoughts.Game.Map.MapElements
             switch (stateType)
             {
                 case StateType.None:
-                    if (owner.navMeshAgent == null || !owner.IsMoving())
+                    if (!owner.IsMoving())
                         PlayAnimation(animationClipIdle);
-                    PlayAnimation(animationClipWalk);
+                    else
+                        PlayAnimation(animationClipWalk);
                     break;
                 case StateType.Resting:
                     PlayAnimation(animationClipResting);
