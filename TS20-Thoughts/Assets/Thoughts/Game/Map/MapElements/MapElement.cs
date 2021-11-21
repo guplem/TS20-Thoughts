@@ -196,11 +196,14 @@ namespace Thoughts.Game.Map.MapElements
                /// <para>After executing the next planned event, an order to execute the next one is going to be given immediately.</para>
                /// <para>It is considered the "next" map event the last one added in the list.</para>
                /// </summary>
-               /// <returns>True if the behaviour was expected (the planned event was executed successfully, the distance was not met so the object was moved, ...). False if the planned event could not be executed due to unexpected reasons.</returns>
+               /// <returns>True if the behaviour was expected (the planned event was executed successfully, the distance was not met so the object was moved, the MapElement was busy...). False if the planned event could not be executed due to unexpected reasons.</returns>
                private bool DoNextPlanedMapEvents()
                {
                     if (stateManager.currentState.stateType != StateType.None)
+                    {
+                         //Debug.Log($"The NextPlannedEvent was not executed because the state of the MapElement {this.name} was {stateManager.currentStateName} with {stateManager.currentState.remainingTime}s remaining");
                          return true;
+                    }
                     
                     if (executionPlans.IsNullOrEmpty())
                     {
@@ -214,20 +217,24 @@ namespace Thoughts.Game.Map.MapElements
                     
                     if (!executionPlan.IsDistanceMet())
                     {
-                         // Debug.Log($"Moving '{this}' to '{executionPlan.executionLocation}' to execute '{executionPlan.mapEvent}'");
-                         executionPlan.executer.MoveTo(executionPlan.executionLocation);
+                         if (executionPlan.executionLocation != executionPlan.executer.navMeshAgent.destination)
+                              // Debug.Log($"Moving '{this}' to '{executionPlan.executionLocation}' to execute '{executionPlan.mapEvent}'");
+                              executionPlan.executer.MoveTo(executionPlan.executionLocation);
                          return true;
                     }
-                    
-                    Debug.Log($"        ◯ Executing next planed map event: {executionPlan}.", gameObject);
-                         
-                    if (!executionPlan.Execute())
-                         return false;
 
-                    RemoveExecutionPlanElement(indexNextAction);
+                    if (!IsMoving()) // So the actions are only done once the destination has been reached
+                    {
+                         Debug.Log($"        ◯ Executing next planed map event: {executionPlan}.", gameObject);
+                         if (!executionPlan.Execute())
+                              return false;
+                         RemoveExecutionPlanElement(indexNextAction);
                     
-                    //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveProperty.property}':\n    ● ", gameObject);
-                    return DoNextPlanedMapEvents(); // To enable chain of actions automatically done like "drop and use (before the materials are consumed)"
+                         //currentExecutionPlans.DebugLog("\n    ● ", $"└> Remaining Map Events to execute to cover '{currentObjectiveProperty.property}':\n    ● ", gameObject);
+                         return DoNextPlanedMapEvents(); // To enable chain of actions automatically done like "drop and use (before the materials are consumed)"
+                    }
+
+                    return true;
                }
           
                /// <summary>

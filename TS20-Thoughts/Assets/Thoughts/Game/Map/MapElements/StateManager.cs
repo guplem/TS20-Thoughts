@@ -73,7 +73,7 @@ namespace Thoughts.Game.Map.MapElements
         public StateType stateType;
         [HideIf("stateType", StateType.None)]
         [Range(0f,30f)]
-        [SerializeField] private float duration; //In seconds
+        [SerializeField] public float duration; //In seconds
 
         public MapElementState(StateType stateType, float duration = 0)
         {
