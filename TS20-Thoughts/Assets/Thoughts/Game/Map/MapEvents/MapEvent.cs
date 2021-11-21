@@ -103,6 +103,7 @@ namespace Thoughts.Game.Map.MapEvents
                         executer.propertyManager.UpdateProperty(consequence.GetProperty(containingProperty), consequence.deltaValue);
                         if (consequence.setNewState)
                             executer.stateManager.SetState(consequence.stateUpdate);
+                        executer.animationsManager.PlayAnimationOfEventExecuter(this, consequence);
                         break;
                     
                     case AffectedMapElement.eventTarget:

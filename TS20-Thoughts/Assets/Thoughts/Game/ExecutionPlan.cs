@@ -94,9 +94,12 @@ namespace Thoughts.Game.Map.MapElements.Properties.MapEvents
             {
                 mapEvent.Execute(executer, target, eventOwner, property);
                 executionTimes--;
-                
+
                 if (executionTimes > 0)
+                {
+                    //Debug.LogWarning("Executing multiple times an action without waiting for the previous one to finish."); //Todo: fix
                     return this.Execute();
+                }
                 
                 return true;
             }

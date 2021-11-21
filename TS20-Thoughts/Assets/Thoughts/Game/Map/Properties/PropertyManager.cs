@@ -67,11 +67,9 @@ namespace Thoughts.Game.Map.Properties
                         //Debug.Log($"        · Executing mapEvent '{propertyMapEvent}' of '{property}' in '{mapElement}'.");
                         mapEvent.Execute(owner, owner, owner, propertyOwnership.property);
                     }
-                    else if (mapEvent.executeWithTimeElapse &&
-                             !mapEvent.GetRequirementsNotMet(propertyOwnership.property, owner, owner, owner, 1).IsNullOrEmpty())
-                    {
-                        Debug.LogWarning($"Trying to execute {mapEvent} with time elapse but requirements are not met");
-                    }
+                    //else if (mapEvent.executeWithTimeElapse && !mapEvent.GetRequirementsNotMet(propertyOwnership.property, owner, owner, owner, 1).IsNullOrEmpty())
+                    //    Debug.LogWarning($"Trying to execute {mapEvent} with time elapse but requirements are not met");
+                    
                 }
             }
         }

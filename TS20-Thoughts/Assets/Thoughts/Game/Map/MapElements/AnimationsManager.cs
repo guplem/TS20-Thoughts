@@ -75,7 +75,7 @@ namespace Thoughts.Game.Map.MapElements
             }
         }
 
-        public void PlayAnimationOfEventExecuter(MapEvent mapEvent)
+        public void PlayAnimationOfEventExecuter(MapEvent mapEvent, Consequence consequence = null)
         {
             foreach (AnimationPerEvent animationPerEvent in animationsAsEventExecuter)
             {
@@ -86,31 +86,33 @@ namespace Thoughts.Game.Map.MapElements
                 return;
             }
 
-            foreach (Consequence mapEventConsequence in mapEvent.consequences)
-            {
-                if (mapEventConsequence.affectedMapElement != AffectedMapElement.eventExecuter)
-                    continue;
-                
-                switch (mapEventConsequence.stateUpdate.stateType)
+            if (consequence == null)
+                foreach (Consequence mapEventConsequence in mapEvent.consequences)
                 {
-                    case StateType.None:
-                        if (owner.navMeshAgent == null || !owner.IsMoving())
-                            PlayAnimation(animationClipIdle);
-                        PlayAnimation(animationClipWalk);
+                    if (mapEventConsequence.affectedMapElement == AffectedMapElement.eventExecuter)
+                    {
+                        consequence = mapEventConsequence;
                         break;
-                    case StateType.Resting:
-                        PlayAnimation(animationClipResting);
-                        break;
-                    case StateType.Active:
-                        PlayAnimation(animationClipActive);
-                        break;
-                    default:
-                        Debug.LogWarning($"Unknown default animation for state type '{mapEventConsequence.stateUpdate.stateTypeName}'");
-                        break;
+                    }
                 }
-                return;
+                
+            switch (consequence.stateUpdate.stateType)
+            {
+                case StateType.None:
+                    if (owner.navMeshAgent == null || !owner.IsMoving())
+                        PlayAnimation(animationClipIdle);
+                    PlayAnimation(animationClipWalk);
+                    break;
+                case StateType.Resting:
+                    PlayAnimation(animationClipResting);
+                    break;
+                case StateType.Active:
+                    PlayAnimation(animationClipActive);
+                    break;
+                default:
+                    Debug.LogWarning($"Unknown default animation for state type '{consequence.stateUpdate.stateTypeName}'");
+                    break;
             }
-
         }
         
         /*
