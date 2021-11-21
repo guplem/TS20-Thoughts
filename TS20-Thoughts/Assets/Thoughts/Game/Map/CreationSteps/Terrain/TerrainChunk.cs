@@ -291,9 +291,9 @@ namespace Thoughts.Game.Map.CreationSteps.Terrain
         }
 
         /// <summary>
-        /// Sets a new state for the visibility of the Mesh
+        /// Sets a new StateType for the visibility of the Mesh
         /// </summary>
-        /// <param name="state">True if the new state is "visible", false if it is "not visible."</param>
+        /// <param name="state">True if the new StateType is "visible", false if it is "not visible."</param>
         public void SetMeshVisible(bool state)
         {
             visualMeshObject.SetActive(state);

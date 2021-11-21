@@ -22,7 +22,7 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
         private SimpleAnimationsManager _simpleAnimationsManager;
         
         /// <summary>
-        /// Controls the current state of the AnimationUIElement
+        /// Controls the current StateType of the AnimationUIElement
         /// </summary>
         protected FlipFlop flipFlop;
         
@@ -42,14 +42,14 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
         }
 
         /// <summary>
-        /// The current state of the UI Element.
+        /// The current StateType of the UI Element.
         /// </summary>
         public VisualizationState state { get; private set; }
 
         /// <summary>
-        /// Plays the Show or the Hide animation depending on the current state of the UI Element. If state is Show, it plays the Hide animation and vice-versa.
+        /// Plays the Show or the Hide animation depending on the current StateType of the UI Element. If StateType is Show, it plays the Hide animation and vice-versa.
         /// </summary>
-        /// <param name="initialStateIsShowing">Should the fist call set the UI Element to the state "hide"?</param>
+        /// <param name="initialStateIsShowing">Should the fist call set the UI Element to the StateType "hide"?</param>
         public void SwitchState(bool initialStateIsShowing = false)
         {
             if (flipFlop == null)

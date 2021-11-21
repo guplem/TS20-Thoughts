@@ -15,9 +15,12 @@ namespace Thoughts.Game.Map.MapEvents
         /// <summary>
         /// The difference to apply to the property's value of this consequence. Can be positive and negative
         /// </summary>
+        [HideIf("propertyType", PropertyType.None)]
+        public float deltaValue => propertyType == PropertyType.None ? 0 : _deltaValue;
+
         [Tooltip("The difference to apply to the property's value of this consequence. Can be positive and negative")]
         [FormerlySerializedAs("value")]
-        public float deltaValue = 1;
+        private float _deltaValue = 1;
         
         /// <summary>
         /// The MapElement that will get the effects of this consequence. Be aware that if chosen 'target', it can not be the 'executer' neither the 'owner' of the event.
@@ -26,17 +29,17 @@ namespace Thoughts.Game.Map.MapEvents
         public AffectedMapElement affectedMapElement = AffectedMapElement.eventOwner;
 
         /// <summary>
-        /// Should a new state be set in the affected MapElement?
+        /// Should a new StateType be set in the affected MapElement?
         /// </summary>
-        [Tooltip("Should a new state be set in the affected MapElement?")]
+        [Tooltip("Should a new StateType be set in the affected MapElement?")]
         public bool setNewState = false;
         
         /// <summary>
-        /// The new State and duration of it for the affected MapElement
+        /// The new StateType and duration of it for the affected MapElement
         /// </summary>
         [ShowIf("setNewState")]
-        [Tooltip("The new State and duration of it for the affected MapElement")]
-        public StateUpdate stateUpdate = new StateUpdate();
+        [Tooltip("The new StateType and duration of it for the affected MapElement")]
+        public MapElementState stateUpdate = new MapElementState();
 
         /// <summary>
         /// Returns a string that represents the current object.
@@ -48,21 +51,5 @@ namespace Thoughts.Game.Map.MapEvents
         }
         
     }
-
-    /// <summary>
-    /// An update of the State of a MapElement
-    /// </summary>
-    [Serializable]
-    public struct StateUpdate
-    {
-        /// <summary>
-        /// The new state of the affected MapElement
-        /// </summary>
-        public State newState;
-        
-        /// <summary>
-        /// The duration of the new state of the affected MapElement
-        /// </summary>
-        public float newStateDuration;
-    }
+    
 }

@@ -18,7 +18,7 @@ filters = {
 scopes = {
 	"last_search.AB59B288" = ""
 	"last_search.00000000" = ""
-	"last_search.AB59B443" = "MapElement"
+	"last_search.AB59B443" = "pick"
 }
 providers = {
 	asset = {

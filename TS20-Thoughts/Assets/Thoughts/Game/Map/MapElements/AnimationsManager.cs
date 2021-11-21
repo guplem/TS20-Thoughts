@@ -1,49 +1,47 @@
 using System;
 using System.Collections.Generic;
+using Animancer;
 using Thoughts.Game.Map.MapElements.Properties;
+using Thoughts.Game.Map.MapEvents;
 using Thoughts.Game.Map.Properties;
 using UnityEngine;
 
 namespace Thoughts.Game.Map.MapElements
 {
-    [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AnimancerComponent))]
     public class AnimationsManager : MonoBehaviour
     {
         /// <summary>
         /// Reference to the Animator handling the animations of this MapElement.
         /// </summary>
-        private Animator animator
+        private AnimancerComponent animancer
         {
             get
             {
-                if (_animator == null)
-                    _animator = this.GetComponentRequired<Animator>();
-                return _animator;
+                if (_animancer == null)
+                    _animancer = this.GetComponentRequired<AnimancerComponent>();
+                return _animancer;
             }
         }
-        private Animator _animator;
-        [SerializeField] private List<AnimationTriggerCondition> animationTriggerConditions = new List<AnimationTriggerCondition>();
-
-
-        private void PlayAnimation(string trigger)
-        {
-            if (animator.runtimeAnimatorController != null)
-                animator.SetTrigger(trigger);
-        }
+        private AnimancerComponent _animancer;
+        [SerializeField] private MapElement owner;
+        [Header("Standard animations")]
+        [SerializeField] private AnimationClip animationClipIdle;
+        [SerializeField] private AnimationClip animationClipWalk;
+        [SerializeField] private AnimationClip animationClipResting;
+        [SerializeField] private AnimationClip animationClipActive;
+        [Header("Dedicated animations")]
+        [SerializeField] private List<AnimationPerEvent> animationsAsEventExecuter;
+        [SerializeField] private List<AnimationTriggerCondition> animationsTriggers = new List<AnimationTriggerCondition>();
         
-        /*private void PlayAnimation(int triggerHash)
+        private void PlayAnimation(AnimationClip animationClip)
         {
-            if (animator.runtimeAnimatorController != null)
-                if (animator.runtimeAnimatorController != null)
-                {
-                    animator.SetTrigger(triggerHash);
-                }
-                //else Debug.LogWarning($"The MapElement {this.transform.parent.name} doesn't have an AnimatorController set in the animator.", animator);
-        }*/
+            animancer.Play(animationClip);
+        }
 
-        internal void UpdateAnimationsUpdates(MapElement owner)
+        public void UpdateAnimationsByTrigger()
         {
-            foreach (AnimationTriggerCondition condition in animationTriggerConditions)
+            foreach (AnimationTriggerCondition condition in animationsTriggers)
             {
                 bool triggerAnimation = false;
                 float valueInOwner = owner.propertyManager.GetValueOf(condition.property);
@@ -69,35 +67,80 @@ namespace Thoughts.Game.Map.MapElements
                         throw new ArgumentOutOfRangeException();
                 }
                 if (triggerAnimation)
-                    PlayAnimation(condition.animationTrigger);
+                {
+                    if (owner.stateManager.currentState.stateType != StateType.None)
+                        Debug.LogWarning($"Starting to play animation clip triggered by '{condition}' while the state of the MapElement is '{owner.stateManager.currentStateName}'");
+                    PlayAnimation(condition.animationClip);
+                }
             }
         }
-        
-        /// <summary>
-        /// Returns the id of the trigger for the animation of the given state
-        /// </summary>
-        /// <param name="state">The state for which it is wanted to know the trigger id of its animation</param>
-        /// <returns>The id of the trigger for the animation of the given state</returns>
-        private string GetAnimationTriggerId(State state, MapElement owner)
+
+        public void PlayAnimationOfEventExecuter(MapEvent mapEvent)
         {
-            switch (state)
+            foreach (AnimationPerEvent animationPerEvent in animationsAsEventExecuter)
             {
-                case State.None: 
-                    if (owner.navMeshAgent == null || !owner.IsMoving())
-                        return "Idle"; // Id of the trigger for the animation 'Idle' used in the Animator  // Waiting
-                    return "Move"; // Id of the trigger for the animation 'Move' used in the Animator  // Walking //Todo: chang animation for 'walk'
-                case State.Inactive: return "Inactive"; // Id of the trigger for the animation 'Inactive' used in the Animator // Resting
-                case State.Active: return "Active"; // Id of the trigger for the animation 'Active' used in the Animator // Doing something
+                if (animationPerEvent.mapEvent != mapEvent)
+                    continue;
+                    
+                PlayAnimation(animationPerEvent.animationClip);
+                return;
             }
 
-            Debug.LogWarning($"Unknown state '{(State)state}'");
-            return null;
+            foreach (Consequence mapEventConsequence in mapEvent.consequences)
+            {
+                if (mapEventConsequence.affectedMapElement != AffectedMapElement.eventExecuter)
+                    continue;
+                
+                switch (mapEventConsequence.stateUpdate.stateType)
+                {
+                    case StateType.None:
+                        if (owner.navMeshAgent == null || !owner.IsMoving())
+                            PlayAnimation(animationClipIdle);
+                        PlayAnimation(animationClipWalk);
+                        break;
+                    case StateType.Resting:
+                        PlayAnimation(animationClipResting);
+                        break;
+                    case StateType.Active:
+                        PlayAnimation(animationClipActive);
+                        break;
+                    default:
+                        Debug.LogWarning($"Unknown default animation for state type '{mapEventConsequence.stateUpdate.stateTypeName}'");
+                        break;
+                }
+                return;
+            }
+
         }
-        public void PlayStateAnimation(State state, MapElement owner)
+        
+        /*
+        /// <summary>
+        /// Returns the id of the animationClip for the animation of the given StateType
+        /// </summary>
+        /// <param name="StateType">The StateType for which it is wanted to know the animationClip id of its animation</param>
+        /// <returns>The id of the animationClip for the animation of the given StateType</returns>
+        private string GetAnimationTriggerId(StateType StateType, MapElement owner)
         {
-            //Debug.Log($"Playing animation for the state {state} in MapElement {owner}");
-            PlayAnimation(GetAnimationTriggerId(state, owner));
+            switch (StateType)
+            {
+                case StateType.None: 
+                    if (owner.navMeshAgent == null || !owner.IsMoving())
+                        return "Idle"; // Id of the animationClip for the animation 'Idle' used in the Animator  // Waiting
+                    return "Move"; // Id of the animationClip for the animation 'Move' used in the Animator  // Walking //Todo: chang animation for 'walk'
+                case StateType.Resting: return "Inactive"; // Id of the animationClip for the animation 'Inactive' used in the Animator // Resting
+                case StateType.Active: return "Active"; // Id of the animationClip for the animation 'Active' used in the Animator // Doing something
+            }
+
+            Debug.LogWarning($"Unknown StateType '{(StateType)StateType}'");
+            return null;
+            
         }
+        public void PlayStateAnimation(StateType StateType, MapElement owner)
+        {
+            //Debug.Log($"Playing animation for the StateType {StateType} in MapElement {owner}");
+            PlayAnimation(GetAnimationTriggerId(StateType, owner));
+        }
+        */
     }
 
     
@@ -110,7 +153,7 @@ namespace Thoughts.Game.Map.MapElements
         [SerializeField] internal Property property;
         [SerializeField] internal  TriggerOptions triggerOptions;
         [SerializeField] internal  int quantity;
-        [SerializeField] internal  string animationTrigger;
+        [SerializeField] internal  AnimationClip animationClip;
         
         internal enum TriggerOptions
         {
@@ -121,5 +164,18 @@ namespace Thoughts.Game.Map.MapElements
             moreThan
             
         }
+
+        public override string ToString()
+        {
+            return $"AnimationTriggerCondition [property={property.name}, triggerOptions={Enum.GetName(typeof(TriggerOptions), triggerOptions)}, quantity={quantity}, animationClip={animationClip.name}]";
+        }
+        
+    }
+
+    [Serializable]
+    public class AnimationPerEvent
+    {
+        public MapEvent mapEvent;
+        public AnimationClip animationClip;
     }
 }

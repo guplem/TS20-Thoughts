@@ -27,34 +27,31 @@ MonoBehaviour:
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 1|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
     - Name: propertyType
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: property
       Entry: 6
       Data: 
-    - Name: deltaValue
-      Entry: 4
-      Data: -1
     - Name: affectedMapElement
       Entry: 3
-      Data: 0
+      Data: 1
     - Name: setNewState
       Entry: 5
       Data: true
     - Name: stateUpdate
       Entry: 7
-      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
-    - Name: newState
+      Data: Thoughts.Game.Map.MapElements.MapElementState, Assembly-CSharp
+    - Name: stateType
       Entry: 3
       Data: 2
-    - Name: newStateDuration
+    - Name: duration
       Entry: 4
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -70,9 +67,36 @@ MonoBehaviour:
     - Name: property
       Entry: 6
       Data: 
-    - Name: deltaValue
+    - Name: affectedMapElement
+      Entry: 3
+      Data: 0
+    - Name: setNewState
+      Entry: 5
+      Data: true
+    - Name: stateUpdate
+      Entry: 7
+      Data: Thoughts.Game.Map.MapElements.MapElementState, Assembly-CSharp
+    - Name: stateType
+      Entry: 3
+      Data: 0
+    - Name: duration
       Entry: 4
-      Data: 1
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 3|Thoughts.Game.Map.MapEvents.Consequence, Assembly-CSharp
+    - Name: propertyType
+      Entry: 3
+      Data: 0
+    - Name: property
+      Entry: 6
+      Data: 
     - Name: affectedMapElement
       Entry: 3
       Data: 2
@@ -81,11 +105,11 @@ MonoBehaviour:
       Data: false
     - Name: stateUpdate
       Entry: 7
-      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
-    - Name: newState
+      Data: Thoughts.Game.Map.MapElements.MapElementState, Assembly-CSharp
+    - Name: stateType
       Entry: 3
       Data: 0
-    - Name: newStateDuration
+    - Name: duration
       Entry: 4
       Data: 0
     - Name: 
@@ -102,14 +126,14 @@ MonoBehaviour:
       Data: 
     - Name: requirements
       Entry: 7
-      Data: 3|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Requirement,
+      Data: 4|System.Collections.Generic.List`1[[Thoughts.Game.Map.MapEvents.Requirement,
         Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 4|Thoughts.Game.Map.MapEvents.Requirement, Assembly-CSharp
+      Data: 5|Thoughts.Game.Map.MapEvents.Requirement, Assembly-CSharp
     - Name: propertyType
       Entry: 3
       Data: 0
@@ -134,4 +158,3 @@ MonoBehaviour:
   maxDistance: 5
   executeWithTimeElapse: 0
   executerMustOwnProperty: 1
-  tryToCoverRequirementsIfNotMet: 1

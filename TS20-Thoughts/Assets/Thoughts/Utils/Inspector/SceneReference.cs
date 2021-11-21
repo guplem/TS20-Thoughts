@@ -21,12 +21,12 @@ namespace Thoughts.Utils.Inspector// Tymski
     // the scene was added to the build settings means it can be loaded.
     //
     // It is up to the user to ensure the scene exists in the build settings so it is loadable at runtime.
-    // To help with this, a custom PropertyDrawer displays the scene build settings state.
+    // To help with this, a custom PropertyDrawer displays the scene build settings StateType.
     //
     //  Known issues:
     // - When reverting back to a prefab which has the asset stored as null, Unity will show the property 
     // as modified despite having just reverted. This only happens on the fist time, and reverting again fix it. 
-    // Under the hood the state is still always valid and serialized correctly regardless.
+    // Under the hood the StateType is still always valid and serialized correctly regardless.
 
     /// <summary>
     /// A wrapper that provides the means to safely serialize Scene Asset References.
@@ -356,7 +356,7 @@ namespace Thoughts.Utils.Inspector// Tymski
 
             /// <summary>
             /// Check if the build settings asset is readonly.
-            /// Caches value and only queries state a max of every 'minCheckWait' seconds.
+            /// Caches value and only queries StateType a max of every 'minCheckWait' seconds.
             /// </summary>
             public static bool IsReadOnly()
             {

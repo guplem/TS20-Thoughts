@@ -1,23 +1,20 @@
 using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Thoughts.Game.Map.MapElements
 {
     /// <summary>
-    /// Manages the current state of a MapElement
+    /// Manages the current State of a MapElement
     /// </summary>
     public class StateManager
     {
         /// <summary>
-        /// The current state of the owner of this StateManager
+        /// The current State of the owner of this StateManager
         /// </summary>
-        public State currentState { get; private set; }
-        
-        /// <summary>
-        /// The remaining time (in seconds) of the current state. When the remining time is 0, the state switches to "None". 
-        /// </summary>
-        public float remainingStateTime { get; private set; }
-        
+        public MapElementState currentState { get; private set; }
+        public string currentStateName => currentState.stateTypeName;
+
         /// <summary>
         /// The MapElement hosting this StateManager. 
         /// </summary>
@@ -27,47 +24,39 @@ namespace Thoughts.Game.Map.MapElements
         /// The constructor of the class
         /// </summary>
         /// <param name="owner">The MapElement hosting this StateManager</param>
-        /// <param name="currentState">The initial state of the owner of this StateManager</param>
-        /// <param name="remainingStateTime">The initial remaining time of the initial state of this StateManager</param>
-        public StateManager(MapElement owner, State currentState = State.None, float remainingStateTime = 0)
+        /// <param name="currentState">The initial State of the owner of this StateManager</param>
+        public StateManager(MapElement owner, MapElementState currentState)
         {
             this.owner = owner;
             this.currentState = currentState;
-            this.remainingStateTime = remainingStateTime;
         }
 
         /// <summary>
-        /// Updates the remaining time in the current State and, if the remaining time is less than 0, the state becomes State.None
+        /// Updates the remaining time in the current State and, if the remaining time is less than 0, the State becomes StateType 'None'
         /// </summary>
         /// <param name="deltaTime"></param>
         public void Step(float deltaTime)
         {
-            if (currentState == State.None)
+            if (currentState.stateType == StateType.None)
                 return;
-            
-            float newRemainingTime = remainingStateTime - deltaTime;
-            remainingStateTime = Mathf.Max(newRemainingTime, 0f);
+
+            float newRemainingTime = currentState.UpdateRemainingTime(deltaTime);
             if (newRemainingTime <= 0)
             {
-                SetState(State.None, 0f);
+                SetState(new MapElementState(StateType.None));
             }
 
-            // Debug.Log($"Executing 'Step' of StateManager. Current State = {this.ToString()}");
+            // Debug.Log($"Executing 'Step' of StateManager. Current StateType = {this.ToString()}");
         }
 
         /// <summary>
-        /// Sets a new State with a remaining time to finish it and plays the animation of the given state at this StateManager owner MapElement
+        /// Sets a new StateType with a remaining time to finish it and plays the animation of the given StateType at this StateManager owner MapElement
         /// </summary>
-        /// <param name="newState">The new State of the StateManager</param>
-        /// <param name="timeInState">The remaining time in the new State</param>
-        public void SetState(State newState, float timeInState)
+        /// <param name="newState">The new state of the StateManager's MapElement</param>
+        public void SetState(MapElementState newState)
         {
-            //if (newState == currentState) Debug.LogWarning($"Resetting state from {currentState} to {newState} while it had {remainingStateTime}s remaining (new time to be set is {timeInState})", owner);
-            Debug.Log($"Changing state in {owner.ToString()} to '{Enum.GetName(typeof(State), newState)}' from '{Enum.GetName(typeof(State), currentState)}' (with {remainingStateTime}s remaining). New state programmed to last {timeInState} seconds.", owner);
-            
             currentState = newState;
-            remainingStateTime = timeInState;
-            
+            Debug.LogWarning("Animation should be played here. Not implemented yet.");
         }
 
         /// <summary>
@@ -76,30 +65,64 @@ namespace Thoughts.Game.Map.MapElements
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return $"State '{Enum.GetName(typeof(State), currentState)}' with {remainingStateTime} seconds remaining";
+            return currentState.ToString();
         }
-
-
 
     }
 
+    [Serializable]
+    public struct MapElementState
+    {
+        public StateType stateType;
+        [HideIf("stateType", StateType.None)]
+        [Range(0f,30f)]
+        [SerializeField] private float duration; //In seconds
+
+        public MapElementState(StateType stateType, float duration = 0)
+        {
+            this.stateType = stateType;
+            this.duration = duration;
+        }
+        
+        public float remainingTime => duration;
+        public string stateTypeName => Enum.GetName(typeof(StateType), stateType);
+
+        public float UpdateRemainingTime(float deltaTime)
+        {
+            float newRemainingTime = duration - deltaTime;
+            duration = Mathf.Max(newRemainingTime, 0f);
+            return duration;
+        }
+
+        private bool IsDurationZero()
+        {
+            return duration == 0f;
+        }
+        
+        public override string ToString()
+        {
+            return $"State of type '{Enum.GetName(typeof(StateType), stateType)}' with {duration}s remaining.";
+        }
+        
+    }
+    
     /// <summary>
     /// The current condition of a MapElement.
     /// </summary>
-    public enum State
+    public enum StateType
     {
         /// <summary>
         /// Can be interrupted. The MapElement is moving, looking for something to do, chilling, ...
         /// </summary>
-        None, 
+        None = 0, 
         /// <summary>
         /// The MapElement is inactive/stopped/resting, in one place waiting comfortably, turned off, ...
         /// </summary>
-        Inactive,
+        Resting = 1,
         /// <summary>
         /// The MapElement is doing an active/working task to (usually) obtain an object, being turn on (bonfire...).
         /// </summary>
-        Active,
-        
+        Active = 2,
     }
+
 }

@@ -37,9 +37,6 @@ MonoBehaviour:
     - Name: property
       Entry: 6
       Data: 
-    - Name: deltaValue
-      Entry: 4
-      Data: 1
     - Name: affectedMapElement
       Entry: 3
       Data: 1
@@ -48,13 +45,13 @@ MonoBehaviour:
       Data: true
     - Name: stateUpdate
       Entry: 7
-      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
-    - Name: newState
+      Data: Thoughts.Game.Map.MapElements.MapElementState, Assembly-CSharp
+    - Name: stateType
       Entry: 3
       Data: 2
-    - Name: newStateDuration
+    - Name: duration
       Entry: 4
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -70,9 +67,6 @@ MonoBehaviour:
     - Name: property
       Entry: 6
       Data: 
-    - Name: deltaValue
-      Entry: 4
-      Data: -1
     - Name: affectedMapElement
       Entry: 3
       Data: 0
@@ -81,11 +75,11 @@ MonoBehaviour:
       Data: false
     - Name: stateUpdate
       Entry: 7
-      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
-    - Name: newState
+      Data: Thoughts.Game.Map.MapElements.MapElementState, Assembly-CSharp
+    - Name: stateType
       Entry: 3
       Data: 0
-    - Name: newStateDuration
+    - Name: duration
       Entry: 4
       Data: 0
     - Name: 
@@ -134,4 +128,3 @@ MonoBehaviour:
   maxDistance: 5
   executeWithTimeElapse: 0
   executerMustOwnProperty: 0
-  tryToCoverRequirementsIfNotMet: 1

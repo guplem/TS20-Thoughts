@@ -31,7 +31,7 @@ namespace Thoughts.Game.Map.MapElements
           [SerializeField] public PropertyManager propertyManager = new PropertyManager();
 
           /// <summary>
-          /// The manager of the current state of this MapElement
+          /// The manager of the current StateType of this MapElement
           /// </summary>
           public StateManager stateManager { get; private set; }
 
@@ -43,7 +43,7 @@ namespace Thoughts.Game.Map.MapElements
                /// </summary>
                private void Awake()
                {
-                    stateManager = new StateManager(this);
+                    stateManager = new StateManager(this, new MapElementState(StateType.None));
                     propertyManager.Initialize(this);
                     navMeshAgent = GetComponent<NavMeshAgent>();
                }
@@ -89,7 +89,7 @@ namespace Thoughts.Game.Map.MapElements
                     {
                          yield return new WaitForSeconds(GameManager.instance.gameClockInterval);
 
-                         if (stateManager.currentState == State.None)
+                         if (stateManager.currentState.stateType == StateType.None)
                          {
                               UpdateObjectivePropertyToCover();
                               if (!DoNextPlanedMapEvents())
@@ -101,9 +101,8 @@ namespace Thoughts.Game.Map.MapElements
                          
                          // Order is important:
                          propertyManager.ExecuteMapEventsWithTimeElapseEnabled();
-                         animationsManager.UpdateAnimationsUpdates(this);
+                         animationsManager.UpdateAnimationsByTrigger();
                          stateManager.Step(GameManager.instance.gameClockInterval);
-                         animationsManager.PlayStateAnimation(stateManager.currentState, this);
                     }
                     
                     // ReSharper disable once IteratorNeverReturns
@@ -200,7 +199,7 @@ namespace Thoughts.Game.Map.MapElements
                /// <returns>True if the behaviour was expected (the planned event was executed successfully, the distance was not met so the object was moved, ...). False if the planned event could not be executed due to unexpected reasons.</returns>
                private bool DoNextPlanedMapEvents()
                {
-                    if (stateManager.currentState != State.None)
+                    if (stateManager.currentState.stateType != StateType.None)
                          return true;
                     
                     if (executionPlans.IsNullOrEmpty())
@@ -316,7 +315,7 @@ namespace Thoughts.Game.Map.MapElements
                }
                else
                {
-                    return $"Status: {stateManager.currentState} ({stateManager.remainingStateTime}s)";
+                    return $"Status: {stateManager.currentState} ({stateManager.currentState.remainingTime}s)";
                }
           }
 

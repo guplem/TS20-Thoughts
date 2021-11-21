@@ -82,9 +82,9 @@ namespace Thoughts.Participants.ControlSystems.Manual.UI.Game.SelectionUI
         }
 
         /// <summary>
-        /// Plays the Show or the Hide animation depending on the current state of the UI Element. If state is Show, it plays the Hide animation and vice-versa.
+        /// Plays the Show or the Hide animation depending on the current StateType of the UI Element. If StateType is Show, it plays the Hide animation and vice-versa.
         /// </summary>
-        /// <param name="initialStateIsShowing">Should the fist call set the UI Element to the state "hide"?</param>
+        /// <param name="initialStateIsShowing">Should the fist call set the UI Element to the StateType "hide"?</param>
         public new void SwitchState(bool initialStateIsShowing = false)
         {
             base.SwitchState(initialStateIsShowing);
