@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using Thoughts.Game.Map.CreationSteps.Humanoids;
 using Thoughts.Game.Map.CreationSteps.Terrain;
 using Thoughts.Game.Map.CreationSteps.Vegetation;
@@ -22,7 +23,7 @@ namespace Thoughts.Game.Map
     [RequireComponent(typeof(ThreadedDataRequester))]
     public class MapGenerator : MonoBehaviour
     {
-
+        
         private MapManager mapManager { get {
                 if (_mapManager == null) _mapManager = this.GetComponentRequired<MapManager>();
                 return _mapManager;
@@ -39,13 +40,77 @@ namespace Thoughts.Game.Map
         private ThreadedDataRequester _threadedDataRequester;
         
         #region StepsGenerators
-        
-        [Header("Steps Generators")]
+        [TitleGroup("Steps Generators")]
         [SerializeField] public TerrainGenerator terrainGenerator;
+        [TitleGroup("Steps Generators")]
         [SerializeField] public WaterSourcesGenerator waterSourcesGenerator;
+        [TitleGroup("Steps Generators")]
         [SerializeField] private VegetationGenerator vegetationGenerator;
+        [TitleGroup("Steps Generators")]
         [SerializeField] private HumanoidsGenerator humanoidsGenerator;
 
+        #endregion
+
+        #region Generation in Editor Generation
+        [TitleGroup("Editor Generators")]
+        
+        [HorizontalGroup("Editor Generators/EditorStep")]
+        [ShowInInspector] private CreationStep editorRegenerationStep;
+        
+        [HorizontalGroup("Editor Generators/EditorStep")]
+        [Button("Regenerate step")]
+        private void EditorRegenerate()
+        {
+            Regenerate(editorRegenerationStep);
+        }
+
+        [HorizontalGroup("Editor Generators/Regeneration")]
+        [Button("Delete all")] 
+        private void EditorDelete() {
+            DeleteMap();
+        }
+        [HorizontalGroup("Editor Generators/Regeneration")]
+        [Button("Del. all & regenerate terrain")] 
+        private void EditorDeleteAndRegenerate() {
+            DeleteMap();
+            RegenerateTerrain();
+        }
+        [HorizontalGroup("Editor Generators/Regeneration")]
+        [Button("Regenerate all")] 
+        private void EditorRegenerateAll() {
+            RegenerateFullMap();
+        }
+        
+        [PropertySpace] // Todo: why is this necessary? If it is removed, the space between the buttons is 'negative' (they overlap)
+        [Button("Refresh Auto Update (UpdatableData links)")] 
+        private void ForceOnValidate()
+        {
+            OnValidate();
+        }
+        
+        /*
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("Delete all"))
+        {
+            mapGenerator.DeleteMap();
+        }
+        if (GUILayout.Button("Del. all & regenerate terrain"))
+        {
+        mapGenerator.DeleteMap();
+        mapGenerator.RegenerateTerrain();
+        }
+                
+        if (GUILayout.Button("Regenerate all"))
+        {
+        mapGenerator.RegenerateFullMap();
+        }
+        GUILayout.EndHorizontal();
+                
+        if (GUILayout.Button("Refresh Auto Update (UpdatableData links)"))
+        {
+        mapGenerator.OnValidate();
+        }
+        */
         #endregion
         
 
