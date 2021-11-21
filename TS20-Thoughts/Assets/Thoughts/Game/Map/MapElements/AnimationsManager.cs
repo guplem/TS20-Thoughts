@@ -25,6 +25,7 @@ namespace Thoughts.Game.Map.MapElements
         }
         private AnimancerComponent _animancer;
         [SerializeField] private MapElement owner;
+        [SerializeField] private float animationsFadeDuration = 0.25f;
         [Header("Standard animations")]
         [SerializeField] private AnimationClip animationClipIdle;
         [SerializeField] private AnimationClip animationClipWalk;
@@ -39,7 +40,7 @@ namespace Thoughts.Game.Map.MapElements
             if (animationClip != null)
             {
                 //Todo: loop and play with ease, not cut
-                animancer.Play(animationClip);
+                animancer.Play(animationClip, animationsFadeDuration, FadeMode.FromStart); // https://kybernetik.com.au/animancer/docs/examples/basics/playing-and-fading/#:~:text=very%20useful%20either.-,Good%20CrossFade%20from%20Start,-Fortunately%2C%20the%20optional
             }
             else
             {
