@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193a1744d5c2a56499f5db1ba240eb67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: {fileID: 0}
+  owner: {fileID: 8996165856614781508}
   animationClipIdle: {fileID: 0}
   animationClipWalk: {fileID: 0}
   animationClipResting: {fileID: 0}
