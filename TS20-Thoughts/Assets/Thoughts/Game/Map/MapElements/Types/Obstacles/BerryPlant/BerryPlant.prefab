@@ -806,8 +806,40 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: animationTriggerConditions.Array.size
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].property
+      value: 
+      objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].quantity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[1].property
+      value: 
+      objectReference: {fileID: 11400000, guid: bdb9c33266cb5f74e95ebe094ff6f07d, type: 2}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 41ab5497d976cfb4da9656a8309e630e, type: 2}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[1].animationClip
+      value: 
+      objectReference: {fileID: 7400000, guid: 68188e2feff9ad841829ed6b8bda3e8a, type: 2}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[0].triggerOptions
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
+      propertyPath: animationsTriggers.Array.data[1].triggerOptions
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2035329527459073356, guid: ce67f8d60df1406488f168e602a021dc, type: 3}
       propertyPath: animationTriggerConditions.Array.data[0].property
