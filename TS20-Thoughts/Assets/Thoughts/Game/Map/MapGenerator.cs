@@ -64,24 +64,23 @@ namespace Thoughts.Game.Map
             Regenerate(editorRegenerationStep);
         }
 
-        [HorizontalGroup("Editor Generators/Regeneration")]
+        [ButtonGroup("Editor Generators/Regeneration")]
         [Button("Delete all")] 
         private void EditorDelete() {
             DeleteMap();
         }
-        [HorizontalGroup("Editor Generators/Regeneration")]
+        [ButtonGroup("Editor Generators/Regeneration")]
         [Button("Del. all & regenerate terrain")] 
         private void EditorDeleteAndRegenerate() {
             DeleteMap();
             RegenerateTerrain();
         }
-        [HorizontalGroup("Editor Generators/Regeneration")]
+        [ButtonGroup("Editor Generators/Regeneration")]
         [Button("Regenerate all")] 
         private void EditorRegenerateAll() {
             RegenerateFullMap();
         }
         
-        [PropertySpace] // Todo: why is this necessary? If it is removed, the space between the buttons is 'negative' (they overlap)
         [Button("Refresh Auto Update (UpdatableData links)")] 
         private void ForceOnValidate()
         {
