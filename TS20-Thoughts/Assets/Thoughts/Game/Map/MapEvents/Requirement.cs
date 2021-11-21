@@ -15,12 +15,17 @@ namespace Thoughts.Game.Map.MapEvents
         /// The minimal value required of the required property
         /// </summary>
         [Tooltip("The minimal value required of the required property")]
-        [FormerlySerializedAs("value")]
+        [HideIf("propertyType", PropertyType.None)]
         public float minValue = 1;
+        
+
         
         /// <summary>
         /// The MapElement that must fulfill the requirement so the MapEvent can be executed
         /// </summary>
+        
+        // The InfoBox must be after the XML comment of the field even tough it is not related to it... \0.0/
+        [InfoBox("It makes no sense to have a PropertyType of 'None' in a requirement. You should require something... Either the holding property (self) or another (other) property.", InfoMessageType.Warning, "IsPropertyTypeNone")]
         [Tooltip("The MapElement that must fulfill the requirement so the MapEvent can be executed")]
         public AffectedMapElement affectedMapElement = AffectedMapElement.eventOwner;
 

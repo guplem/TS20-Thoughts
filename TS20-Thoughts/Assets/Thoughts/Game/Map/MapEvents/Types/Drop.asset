@@ -37,6 +37,9 @@ MonoBehaviour:
     - Name: property
       Entry: 6
       Data: 
+    - Name: _deltaValue
+      Entry: 4
+      Data: 0
     - Name: affectedMapElement
       Entry: 3
       Data: 1
@@ -67,6 +70,9 @@ MonoBehaviour:
     - Name: property
       Entry: 6
       Data: 
+    - Name: _deltaValue
+      Entry: 4
+      Data: -1
     - Name: affectedMapElement
       Entry: 3
       Data: 0
@@ -97,6 +103,9 @@ MonoBehaviour:
     - Name: property
       Entry: 6
       Data: 
+    - Name: _deltaValue
+      Entry: 4
+      Data: 1
     - Name: affectedMapElement
       Entry: 3
       Data: 2

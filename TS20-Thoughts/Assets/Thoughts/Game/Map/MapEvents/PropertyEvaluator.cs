@@ -49,4 +49,10 @@ public class PropertyEvaluator //todo: change for PropertyReferencer
                 throw new ArgumentOutOfRangeException();
         }
     }
+
+    public bool IsPropertyTypeNone() // Used in inspector for warnings
+    {
+        return propertyType == PropertyType.None;
+    }
+
 }

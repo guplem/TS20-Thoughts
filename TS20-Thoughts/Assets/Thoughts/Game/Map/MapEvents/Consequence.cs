@@ -15,12 +15,11 @@ namespace Thoughts.Game.Map.MapEvents
         /// <summary>
         /// The difference to apply to the property's value of this consequence. Can be positive and negative
         /// </summary>
-        [HideIf("propertyType", PropertyType.None)]
         public float deltaValue => propertyType == PropertyType.None ? 0 : _deltaValue;
 
         [Tooltip("The difference to apply to the property's value of this consequence. Can be positive and negative")]
-        [FormerlySerializedAs("value")]
-        private float _deltaValue = 1;
+        [HideIf("propertyType", PropertyType.None)]
+        [SerializeField] private float _deltaValue = 1;
         
         /// <summary>
         /// The MapElement that will get the effects of this consequence. Be aware that if chosen 'target', it can not be the 'executer' neither the 'owner' of the event.

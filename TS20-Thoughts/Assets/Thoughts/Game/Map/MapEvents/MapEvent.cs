@@ -40,6 +40,7 @@ namespace Thoughts.Game.Map.MapEvents
         /// List of update to properties that will be triggered as a consequence of the execution of the MapEvent.
         /// </summary>
         [Tooltip("List of update to properties that will be triggered as a consequence of the execution of the MapEvent.")]
+        [Space(30)]
         [ListDrawerSettings(HideAddButton = true, OnTitleBarGUI = "DrawTitleBarConsequencesListGUI")]
         [SerializeField] public List<Consequence> consequences = new List<Consequence>();
         #if UNITY_EDITOR
@@ -63,6 +64,7 @@ namespace Thoughts.Game.Map.MapEvents
         /// List of properties with specific values that must be met in order to execute the event..
         /// </summary>
         [Tooltip("List of properties with specific values that must be met in order to execute the event.")]
+        [Space(30)]
         [ListDrawerSettings(HideAddButton = true, OnTitleBarGUI = "DrawTitleBarRequirementsListGUI")]
         [SerializeField] public List<Requirement> requirements = new List<Requirement>();
         #if UNITY_EDITOR
@@ -81,12 +83,12 @@ namespace Thoughts.Game.Map.MapEvents
         /// <param name="executer">The MapElement that is going to execute/trigger the event.</param>
         /// <param name="target">The MapElement target of the execution of the event.</param>
         /// <param name="owner">The MapElement that owns the event.</param>
-        /// <param name="containingProperty">The property that contains this MapEvent</param>
+        /// <param name="containingProperty">The property that contains/holds this MapEvent</param>
         public void Execute(MapElement executer, MapElement target, MapElement owner, Property containingProperty)
         {
-            if (!executeWithTimeElapse)
-                Debug.Log($"        · MapElement '{executer}' is executing '{name}' using a property in '{owner}' with target '{target}'.\n         \\_Their properties are: {owner.propertyManager.ToString()}");
-
+            if (!executeWithTimeElapse) Debug.Log($"        · MapElement '{executer}' is executing '{name}' using a property in '{owner}' with target '{target}'.\n         \\_Their properties are: {owner.propertyManager.ToString()}");
+            //else Debug.Log($"        · Time forces the execution of '{name}' in property '{containingProperty}' of '{owner}'");
+            
             foreach (Consequence consequence in consequences)
             {
                 switch (consequence.affectedMapElement)

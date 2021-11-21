@@ -59,13 +59,18 @@ namespace Thoughts.Game.Map.Properties
             
             foreach (PropertyOwnership propertyOwnership in propertyOwnerships)
             {
-                foreach (MapEvent propertyMapEvent in propertyOwnership.property.mapEvents)
+                foreach (MapEvent mapEvent in propertyOwnership.property.mapEvents)
                 {
-                    if (propertyMapEvent.executeWithTimeElapse &&
-                        propertyMapEvent.GetRequirementsNotMet(propertyOwnership.property, owner, owner, owner, 1).IsNullOrEmpty())
+                    if (mapEvent.executeWithTimeElapse &&
+                        mapEvent.GetRequirementsNotMet(propertyOwnership.property, owner, owner, owner, 1).IsNullOrEmpty())
                     {
                         //Debug.Log($"        · Executing mapEvent '{propertyMapEvent}' of '{property}' in '{mapElement}'.");
-                        propertyMapEvent.Execute(owner, owner, owner, propertyOwnership.property);
+                        mapEvent.Execute(owner, owner, owner, propertyOwnership.property);
+                    }
+                    else if (mapEvent.executeWithTimeElapse &&
+                             !mapEvent.GetRequirementsNotMet(propertyOwnership.property, owner, owner, owner, 1).IsNullOrEmpty())
+                    {
+                        Debug.LogWarning($"Trying to execute {mapEvent} with time elapse but requirements are not met");
                     }
                 }
             }

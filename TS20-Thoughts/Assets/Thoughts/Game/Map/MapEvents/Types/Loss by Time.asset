@@ -15,7 +15,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 11400000, guid: 28da8360c4e85224eaa1105765127647, type: 2}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -35,9 +36,9 @@ MonoBehaviour:
       Entry: 3
       Data: 0
     - Name: property
-      Entry: 6
-      Data: 
-    - Name: deltaValue
+      Entry: 10
+      Data: 0
+    - Name: _deltaValue
       Entry: 4
       Data: -1
     - Name: affectedMapElement
@@ -48,11 +49,11 @@ MonoBehaviour:
       Data: false
     - Name: stateUpdate
       Entry: 7
-      Data: Thoughts.Game.Map.MapEvents.StateUpdate, Assembly-CSharp
-    - Name: newState
+      Data: Thoughts.Game.Map.MapElements.MapElementState, Assembly-CSharp
+    - Name: stateType
       Entry: 3
       Data: 0
-    - Name: newStateDuration
+    - Name: duration
       Entry: 4
       Data: 0
     - Name: 
@@ -101,4 +102,3 @@ MonoBehaviour:
   maxDistance: 5
   executeWithTimeElapse: 1
   executerMustOwnProperty: 1
-  tryToCoverRequirementsIfNotMet: 1
