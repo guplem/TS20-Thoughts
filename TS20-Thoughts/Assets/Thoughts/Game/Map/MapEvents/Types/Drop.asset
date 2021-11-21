@@ -39,7 +39,7 @@ MonoBehaviour:
       Data: 
     - Name: _deltaValue
       Entry: 4
-      Data: 0
+      Data: 1
     - Name: affectedMapElement
       Entry: 3
       Data: 1
@@ -78,7 +78,7 @@ MonoBehaviour:
       Data: 0
     - Name: setNewState
       Entry: 5
-      Data: true
+      Data: false
     - Name: stateUpdate
       Entry: 7
       Data: Thoughts.Game.Map.MapElements.MapElementState, Assembly-CSharp
@@ -87,7 +87,7 @@ MonoBehaviour:
       Data: 0
     - Name: duration
       Entry: 4
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 8
       Data: 

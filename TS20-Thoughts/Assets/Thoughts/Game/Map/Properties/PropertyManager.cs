@@ -81,42 +81,51 @@ namespace Thoughts.Game.Map.Properties
         /// <param name="deltaValue">The difference that is wanted to apply to the current value of the PropertyOwnership. Can be positive and negative.</param>
         public void UpdateProperty(Property propertyToUpdate, float deltaValue)
         {
+            if (propertyToUpdate == null)
+                return;
+            
             PropertyOwnership foundPropertyOwnership = null;
             foreach (PropertyOwnership propertyOwnership in propertyOwnerships)
             {
                 if (propertyOwnership.property != propertyToUpdate)
                     continue;
                 
-                propertyOwnership.UpdateValue(deltaValue);
-                //Debug.Log($"         > The new value for the property '{managerProperty}' in '{ownerMapElement}' is = {managerProperty.value}");
                 foundPropertyOwnership = propertyOwnership;
-
+                foundPropertyOwnership.UpdateValue(deltaValue);
+                //Debug.Log($"         > The new value for the property '{managerProperty}' in '{ownerMapElement}' is = {managerProperty.value}");
             }
             
             if (foundPropertyOwnership == null)
             {
-                AddProperty(propertyToUpdate, deltaValue);
+                AddProperty(propertyToUpdate, deltaValue); // So, if the update was to add a new property
             }
             else
             {
                 if (foundPropertyOwnership.value == 0)
                 {
-                    switch (foundPropertyOwnership.property.behaviourWhenEmpty)
+                    if (foundPropertyOwnership.property == null)
                     {
-                        case BehaviourWhenEmpty.Remove:
-                            RemoveProperty(foundPropertyOwnership);
-                            break;
-                        case BehaviourWhenEmpty.TakeCare: // The care should be taken somewhere else
-                            break;
-                        case BehaviourWhenEmpty.DoNothing:
-                            break;
-                        case BehaviourWhenEmpty.Transform:
-                            foreach (PropertyOwnership inheritanceProperty in foundPropertyOwnership.property.inheritanceProperties)
-                                AddProperty(inheritanceProperty.property, inheritanceProperty.value);
-                            RemoveProperty(foundPropertyOwnership);
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        Debug.LogError($"NULL PROPERTY IN {foundPropertyOwnership}. Error happened while trying to update the property {propertyToUpdate} with a delta value of {deltaValue}.");
+                    }
+                    else
+                    {
+                        switch (foundPropertyOwnership.property.behaviourWhenEmpty)
+                        {
+                            case BehaviourWhenEmpty.Remove:
+                                RemoveProperty(foundPropertyOwnership);
+                                break;
+                            case BehaviourWhenEmpty.TakeCare: // The care should be taken somewhere else
+                                break;
+                            case BehaviourWhenEmpty.DoNothing:
+                                break;
+                            case BehaviourWhenEmpty.Transform:
+                                foreach (PropertyOwnership inheritanceProperty in foundPropertyOwnership.property.inheritanceProperties)
+                                    AddProperty(inheritanceProperty.property, inheritanceProperty.value);
+                                RemoveProperty(foundPropertyOwnership);
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
                     }
                 }
             }

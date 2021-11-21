@@ -73,7 +73,7 @@ namespace Thoughts.Game.Map.Properties
         /// <returns>A string that represents the current object.</returns>
         public override string ToString()
         {
-            return $"PO: '{property}' owned by '{owner}' - value={value}, TakeCare={takeCare}";
+            return $"PO: '{(property!=null?property.ToString():"null")}' owned by '{(owner!=null?owner.ToString():"null")}' - value={value}, TakeCare={takeCare}";
         }
 
         /// <summary>
