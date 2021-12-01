@@ -110,10 +110,10 @@ VertexOutput vert (VertexInput v) {
     o.IP_pxPerMeter = widthData.pxPerMeter;
 
     // thinness fade
-    o.color.a *= saturate(widthData.thicknessPixelsTarget);
+    if(PROP(_Hollow) > 0)
+        o.color.a *= saturate(widthData.thicknessPixelsTarget);
     o.IP_inradius = incircle.r;
     o.IP_HALF_THICKNESS = 0.5*widthData.thicknessMeters/(incircle.r*scaleThickness);
-    bool hollow = PROP(_Hollow) > 0;
 
     half padding = 0;//hollow ? thickness/2 : 0;
 

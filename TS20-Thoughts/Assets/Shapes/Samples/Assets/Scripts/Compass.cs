@@ -34,7 +34,7 @@ namespace Shapes {
 			Vector2 labelPos = compArcOrigin + Vector2.up * ( bendRadius ) + lookAngLabelOffset * 0.1f;
 			string lookLabel = Mathf.RoundToInt( -lookAng * Mathf.Rad2Deg + 180f ) + "°";
 
-			// prepare draw StateType
+			// prepare draw state
 			Draw.LineEndCaps = LineEndCap.Square;
 			Draw.Thickness = lineThickness;
 

@@ -24,7 +24,7 @@ namespace Shapes {
 			// Draw.Command enqueues a set of draw commands to render in the given camera
 			using( Draw.Command( cam ) ) { // all immediate mode drawing should happen within these using-statements
 
-				// Set up draw StateType
+				// Set up draw state
 				Draw.ResetAllDrawStates(); // ensure everything is set to their defaults
 				Draw.BlendMode = ShapesBlendMode.Additive;
 				Draw.Thickness = lineThickness;
@@ -32,7 +32,7 @@ namespace Shapes {
 				Draw.ThicknessSpace = ThicknessSpace.Meters;
 				Draw.Color = lineColor;
 
-				Random.InitState( seed ); // initialize random StateType, so we get the same values every frame
+				Random.InitState( seed ); // initialize random state, so we get the same values every frame
 				currentLineCount = 0;
 
 				// Draw a branch at the current location. this function is recursive, so all other branches will follow
@@ -57,7 +57,7 @@ namespace Shapes {
 			// create a random number of branches from the current position
 			int branchCount = Random.Range( branchesMin, branchesMax + 1 );
 			for( int i = 0; i < branchCount; i++ ) {
-				using( Draw.MatrixScope ) { // saves the current matrix StateType, and restores it at the end of this scope
+				using( Draw.MatrixScope ) { // saves the current matrix state, and restores it at the end of this scope
 					float angDeviation = Mathf.Lerp( -maxAngDeviation, maxAngDeviation, ShapesMath.RandomGaussian() ); // random angular deviation
 					if( use3D )
 						Draw.Rotate( angDeviation, ShapesMath.GetRandomPerpendicularVector( Vector3.up ) ); // rotates the current drawing matrix on a random axis

@@ -38,6 +38,22 @@ namespace Shapes {
 			#endif
 		}
 
+		public static void DestroyEndOfFrameEmulated( this Object obj ) {
+			#if UNITY_EDITOR
+			if( EditorApplication.isPlaying == false ) {
+				EditorApplication.delayCall += () => {
+					if( Application.isPlaying == false )
+						Object.DestroyImmediate( obj );
+					else
+						Object.Destroy( obj );
+				};
+			} else
+				Object.Destroy( obj );
+			#else
+				Object.Destroy( obj );
+			#endif
+		}
+
 		// based on https://answers.unity.com/questions/420772/how-to-destroy-linked-components-when-object-is-de.html
 		public static void TryDestroyInOnDestroy( this Object caller, Object obj ) {
 			if( obj == null ) return;

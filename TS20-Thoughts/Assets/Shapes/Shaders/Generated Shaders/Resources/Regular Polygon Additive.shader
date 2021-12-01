@@ -19,7 +19,7 @@ Shader "Shapes/Regular Polygon Additive" {
 		}
 		Pass {
 			Name "Pass"
-			Tags { "LightMode" = "UniversalForward" }
+			Tags { "LightMode" = "SRPDefaultUnlit" }
 			Stencil {
 				Comp [_StencilComp]
 				Pass [_StencilOpPass]

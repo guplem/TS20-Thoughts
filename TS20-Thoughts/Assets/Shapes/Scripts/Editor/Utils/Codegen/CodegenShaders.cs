@@ -57,11 +57,11 @@ namespace Shapes {
 
 		static int blendModeCount = System.Enum.GetNames( typeof(ShapesBlendMode) ).Length;
 
-		public static void GenerateShadersAndMaterials() {
-			RenderPipeline currentRP = UnityInfo.GetCurrentRenderPipelineInUse();
+		internal static void GenerateShadersAndMaterials( RenderPipeline targetRP ) {
+			Debug.Log( $"Regenerating shaders for {targetRP.PrettyName()}" );
 
 			// check if we need to update rp state
-			bool writeCurrentRpToImportState = ShapesImportState.Instance.currentShaderRP != currentRP;
+			bool writeTargetRpToImportState = ShapesImportState.Instance.currentShaderRP != targetRP;
 
 			// generate all shader paths & content
 			List<PathContent> shaderPathContents = GetShaderPathContents();
@@ -69,7 +69,7 @@ namespace Shapes {
 
 			// tally up all files we need to edit to make version control happy
 			List<string> filesToUnlock = new List<string>();
-			if( writeCurrentRpToImportState ) filesToUnlock.Add( AssetDatabase.GetAssetPath( ShapesImportState.Instance ) );
+			if( writeTargetRpToImportState ) filesToUnlock.Add( AssetDatabase.GetAssetPath( ShapesImportState.Instance ) );
 			filesToUnlock.AddRange( shaderPathContents.Select( x => x.path ) );
 			filesToUnlock.AddRange( pathMaterials.Where( x => x.mat != null ).Select( x => x.path ) );
 
@@ -78,8 +78,8 @@ namespace Shapes {
 				shaderPathContents.ForEach( pc => File.WriteAllText( pc.path, pc.content ) ); // write all shaders
 				AssetDatabase.Refresh( ImportAssetOptions.Default ); // reimport all assets to load newly generated shaders
 				pathMaterials.ForEach( x => x.GenerateOrUpdate() ); // generate all materials
-				if( writeCurrentRpToImportState ) { // update the current shader state
-					ShapesImportState.Instance.currentShaderRP = currentRP;
+				if( writeTargetRpToImportState ) { // update the current shader state
+					ShapesImportState.Instance.currentShaderRP = targetRP;
 					EditorUtility.SetDirty( ShapesImportState.Instance );
 				}
 

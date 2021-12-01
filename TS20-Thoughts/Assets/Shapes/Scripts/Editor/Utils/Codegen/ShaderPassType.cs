@@ -18,7 +18,7 @@ namespace Shapes {
 			switch( pass ) {
 				case ShaderPassType.Render:
 					switch( rp ) {
-						case RenderPipeline.URP:  return ( "Pass", "UniversalForward" );
+						case RenderPipeline.URP:  return ( "Pass", "SRPDefaultUnlit" );
 						case RenderPipeline.HDRP: return ( "ForwardOnly", "ForwardOnly" );
 						default:                  throw new ArgumentOutOfRangeException( nameof(rp), rp, null );
 					}

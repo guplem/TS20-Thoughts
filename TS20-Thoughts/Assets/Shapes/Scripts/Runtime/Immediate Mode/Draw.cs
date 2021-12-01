@@ -378,6 +378,17 @@ namespace Shapes {
 			using( new IMDrawer( mpbText, font.material, tmp.mesh, drawType: IMDrawer.DrawType.Text, allowInstancing: false ) ) {
 				// will draw on dispose
 			}
+
+			// ;-;
+			if( tmp.textInfo.materialCount > 1 ) {
+				// we have fallback fonts so GreaT!! let's just draw everything because fuck me
+				for( int i = 0; i < tmp.transform.childCount; i++ ) {
+					TMP_SubMesh sm = tmp.transform.GetChild( i ).GetComponent<TMP_SubMesh>();
+					using( new IMDrawer( mpbText, sm.material, sm.mesh, drawType: IMDrawer.DrawType.Text, allowInstancing: false ) ) {
+						// will draw on dispose
+					}
+				}
+			}
 		}
 
 		static MpbTexture mpbTexture = new MpbTexture();

@@ -46,6 +46,7 @@ namespace Shapes {
 			set {
 				joins = value;
 				meshOutOfDate = true;
+				UpdateMaterial();
 			}
 		}
 

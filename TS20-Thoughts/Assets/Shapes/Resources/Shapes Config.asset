@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shapes Config
   m_EditorClassIdentifier: 
   useHdrColorPickers: 0
+  autoConfigureRenderPipeline: 1
   useImmediateModeInstancing: 1
   polylineDefaultPointsPerTurn: 64
   polylineBezierAngularSumAccuracy: 2

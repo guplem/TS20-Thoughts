@@ -218,7 +218,7 @@ MonoBehaviour:
   lineThickness: 0.0118
   lineColor: {r: 0.16862746, g: 0.42745098, b: 1, a: 0.50980395}
   seed: 2353
-  lineCount: 840
+  lineCount: 300
   branchesMin: 1
   branchesMax: 3
   branchLengthMin: 0.233

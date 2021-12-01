@@ -19,7 +19,7 @@ Shader "Shapes/Disc LinearBurn" {
 		}
 		Pass {
 			Name "Pass"
-			Tags { "LightMode" = "UniversalForward" }
+			Tags { "LightMode" = "SRPDefaultUnlit" }
 			Stencil {
 				Comp [_StencilComp]
 				Pass [_StencilOpPass]

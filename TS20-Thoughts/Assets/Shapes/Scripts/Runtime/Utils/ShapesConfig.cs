@@ -36,6 +36,9 @@ namespace Shapes {
 		[Tooltip( "Whether or not to use HDR color pickers throughout Shapes (This does not affect performance in any way)" )]
 		public bool useHdrColorPickers = false;
 
+		[Tooltip( "Whether or not to auto-detect and set up render pipeline" )]
+		public bool autoConfigureRenderPipeline = true;
+
 		[Tooltip( "GPU Instancing in immediate mode drawing means if you render lots of similar shapes consecutively, they will get batched into a single draw call. " +
 				  "Generally you'll want this on, but there may be cases where the CPU and memory overhead of instancing isn't worth it, " +
 				  "which might be the case if you never draw shapes of the same type consecutively" )]

@@ -15,7 +15,7 @@ namespace Shapes {
 				default:                    throw new ArgumentOutOfRangeException();
 			}
 		}
-		
+
 		public static string PreprocessorDefineName( this RenderPipeline rp ) {
 			switch( rp ) {
 				case RenderPipeline.Legacy: return "SHAPES_BIRP";
@@ -24,10 +24,19 @@ namespace Shapes {
 				default:                    throw new ArgumentOutOfRangeException();
 			}
 		}
-		
+
 		public static string PrettyName( this RenderPipeline rp ) {
 			switch( rp ) {
 				case RenderPipeline.Legacy: return "the built-in render pipeline";
+				case RenderPipeline.URP:    return "URP";
+				case RenderPipeline.HDRP:   return "HDRP";
+				default:                    throw new ArgumentOutOfRangeException();
+			}
+		}
+
+		public static string ShortName( this RenderPipeline rp ) {
+			switch( rp ) {
+				case RenderPipeline.Legacy: return "Built-in RP";
 				case RenderPipeline.URP:    return "URP";
 				case RenderPipeline.HDRP:   return "HDRP";
 				default:                    throw new ArgumentOutOfRangeException();

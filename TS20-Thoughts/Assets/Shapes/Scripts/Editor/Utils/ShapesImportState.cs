@@ -4,17 +4,25 @@ using UnityEditor;
 using UnityEditor.Callbacks;
 using System.Linq;
 #if SHAPES_URP
-using System;
 using UnityEditor.Rendering.Universal;
+#if UNITY_2021_2_OR_NEWER
+using URP_RND_DATA_EDITOR = UnityEditor.Rendering.Universal.UniversalRendererDataEditor;
+#else
+using URP_RND_DATA_EDITOR = UnityEditor.Rendering.Universal.ForwardRendererDataEditor;
+#endif
 #endif
 #endif
 using UnityEngine;
 using UnityEngine.Rendering;
-
 #if SHAPES_URP
 using System.Reflection;
 using UnityEngine.Rendering.Universal;
+#if UNITY_2021_2_OR_NEWER
+using URP_RND_DATA = UnityEngine.Rendering.Universal.UniversalRendererData;
 
+#else
+using URP_RND_DATA = UnityEngine.Rendering.Universal.ForwardRendererData;
+#endif
 #endif
 
 // Shapes © Freya Holmér - https://twitter.com/FreyaHolmer/
@@ -32,9 +40,12 @@ namespace Shapes {
 
 		#if UNITY_EDITOR
 		[DidReloadScripts( 1 )]
-		public static void CheckRenderPipelineSoon() => EditorApplication.delayCall += CheckRenderPipeline;
+		public static void CheckRenderPipelineSoon() {
+			if( ShapesConfig.Instance != null && ShapesConfig.Instance.autoConfigureRenderPipeline )
+				EditorApplication.delayCall += AutoCheckRenderPipeline;
+		}
 
-		static void CheckRenderPipeline() {
+		static void AutoCheckRenderPipeline() {
 			RenderPipeline rpInUnity = UnityInfo.GetCurrentRenderPipelineInUse();
 			ShapesImportState inst = Instance;
 			if( inst == null ) {
@@ -42,24 +53,62 @@ namespace Shapes {
 				return; // I guess some weird import order shenan happened? :c
 			}
 
-			// set up preprocessor defines, this will also indirectly trigger a second pass of this whole method
-			EnsurePreprocessorsAreDefined( rpInUnity );
-
-			// makes sure all shaders are compiled to a specific render pipeline
-			RenderPipeline rpShapesShaders = inst.currentShaderRP;
-			if( rpInUnity != rpShapesShaders ) {
-				string rpStr = rpInUnity.ToString();
-				if( rpInUnity == RenderPipeline.Legacy )
-					rpStr = "the built-in render pipeline";
-				string desc = $"Looks like you're using {rpStr}!\nShapes will now regenerate all shaders, it might take a lil while~";
-				EditorUtility.DisplayDialog( "Shapes", desc, "ok" );
-				CodegenShaders.GenerateShadersAndMaterials();
+			// make sure we have a valid RP state
+			bool valid = true;
+			string error = "";
+			RenderPipeline rpShaders = Instance.currentShaderRP;
+			if( rpInUnity != rpShaders ) {
+				valid = false;
+				error += $" • Shape's shaders are compiled for {rpShaders.PrettyName()}\n";
 			}
 
-			// second pass check - make sure URP forward renderer has the custom Shapes pass in it
-			#if SHAPES_URP
-			EnsureShapesPassExistsInTheUrpRenderer();
-			#endif
+			if( TryGetPreprocessorRP( out RenderPipeline rpPreproc ) ) {
+				if( rpInUnity != rpPreproc ) {
+					valid = false;
+					error += $" • The project keywords are set up for {rpPreproc.PrettyName()}\n";
+				}
+			} else {
+				valid = false;
+				error += $" • The project keywords are incorrectly set to both HDRP and URP\n";
+			}
+
+			if( valid == false ) {
+				string desc = $"Shapes detected a mismatch in render pipeline state.\n" +
+							  $"It looks like you are using {rpInUnity.PrettyName()}, but:\n{error}" +
+							  $"Would you like to recompile Shapes for your render pipeline?\n(Shapes may not work if you don't)\n\n" +
+							  $"Note: You disable this auto-checker in the Shapes settings";
+
+				if( EditorUtility.DisplayDialog( "Render pipeline mismatch", desc, $"Recompile for {rpInUnity.PrettyName()}", "cancel" ) ) {
+					ForceSetRP( rpInUnity );
+				}
+			}
+		}
+
+		internal static void ForceSetRP( RenderPipeline targetRP ) {
+			Debug.Log( $"Shapes is recompiling for {targetRP.PrettyName()}..." );
+			ForceSetRpFirstPass( targetRP );
+			EditorApplication.delayCall += () => {
+				ForceSetRpSecondPass( targetRP );
+				Debug.Log( $"Shapes is done recompiling" );
+			};
+		}
+
+		static void ForceSetRpFirstPass( RenderPipeline targetRP ) {
+			// set up preprocessor defines, this will also require a second pass of this whole method
+			SetPreprocessorRpSymbols( targetRP );
+		}
+
+		static void ForceSetRpSecondPass( RenderPipeline targetRP ) {
+			// makes sure all shaders are compiled to a specific render pipeline
+			RenderPipeline rpShapesShaders = Instance.currentShaderRP;
+			if( rpShapesShaders != targetRP )
+				CodegenShaders.GenerateShadersAndMaterials( targetRP );
+
+			if( targetRP == RenderPipeline.URP ) {
+				string msg = "In order for immediate mode drawing to work, URP render data needs the shapes render features. Would you like to open Shapes settings to make sure immediate mode drawing is supported?";
+				if( EditorUtility.DisplayDialog( "URP render features", msg, "yes", "no, I don't need IM drawing" ) )
+					MenuItems.OpenCsharpSettings();
+			}
 
 			// also on second pass
 			MakeSureSampleMaterialsAreValid();
@@ -87,7 +136,7 @@ namespace Shapes {
 						Color color = GetMainColor( mat );
 						mat.shader = targetShader;
 						#if SHAPES_URP || SHAPES_HDRP
-							mat.SetColor( ShapesMaterialUtils.propBaseColor, color );
+						mat.SetColor( ShapesMaterialUtils.propBaseColor, color );
 						#else
 							mat.SetColor( ShapesMaterialUtils.propColor, color );
 						#endif
@@ -108,6 +157,7 @@ namespace Shapes {
 
 
 		#if SHAPES_URP
+		/* this is pretty cursed, I'm commenting this out for now.
 		static class UrpRndFuncs {
 			const BindingFlags bfs = BindingFlags.Instance | BindingFlags.NonPublic;
 			public static readonly FieldInfo fRndDataList = typeof(UniversalRenderPipelineAsset).GetField( "m_RendererDataList", bfs );
@@ -125,11 +175,11 @@ namespace Shapes {
 			if( UrpRndFuncs.successfullyLoaded ) { // if our reflected members failed to load, we're kinda screwed :c
 				if( GraphicsSettings.renderPipelineAsset is UniversalRenderPipelineAsset urpa ) { // find the URP asset
 					ScriptableRendererData[] srd = (ScriptableRendererData[])UrpRndFuncs.fRndDataList.GetValue( urpa );
-					foreach( var rndd in srd.Where( x => x is ForwardRendererData ) ) { // only add to forward renderer
+					foreach( var rndd in srd.Where( x => x is URP_RND_DATA ) ) { // only add to forward renderer
 						if( rndd.rendererFeatures.Any( x => x is ShapesRenderFeature ) == false ) { // does it have Shapes?
 							// does not contain the Shapes render feature, so, oh boy, here we go~
 							if( ShapesIO.TryMakeAssetsEditable( urpa ) ) {
-								ForwardRendererDataEditor fwEditor = (ForwardRendererDataEditor)Editor.CreateEditor( rndd );
+								URP_RND_DATA_EDITOR fwEditor = (URP_RND_DATA_EDITOR)Editor.CreateEditor( rndd );
 								UrpRndFuncs.fOnEnable.Invoke( fwEditor, null ); // you ever just call OnEnable manually
 								UrpRndFuncs.fAddComponent.Invoke( fwEditor, new[] { (object)nameof(ShapesRenderFeature) } );
 								DestroyImmediate( fwEditor ); // luv 2 create temporary editors
@@ -142,13 +192,33 @@ namespace Shapes {
 									  $"You might have to add {nameof(ShapesRenderFeature)} to your renderer asset manually" );
 			} else
 				Debug.LogError( UrpRndFuncs.failMessage );
-		}
+		}*/
 
 		#endif
 
-		static void EnsurePreprocessorsAreDefined( RenderPipeline rpTarget ) {
-			BuildTargetGroup buildTargetGroup = EditorUserBuildSettings.selectedBuildTargetGroup;
-			List<string> symbols = PlayerSettings.GetScriptingDefineSymbolsForGroup( buildTargetGroup ).Split( ';' ).ToList();
+		public static List<string> GetCurrentKeywords() => PlayerSettings.GetScriptingDefineSymbolsForGroup( EditorUserBuildSettings.selectedBuildTargetGroup ).Split( ';' ).ToList();
+		static void SetCurrentKeywords( IEnumerable<string> keywords ) => PlayerSettings.SetScriptingDefineSymbolsForGroup( EditorUserBuildSettings.selectedBuildTargetGroup, string.Join( ";", keywords ) );
+
+		internal static bool TryGetPreprocessorRP( out RenderPipeline rp ) {
+			List<string> keywords = GetCurrentKeywords();
+			bool kwURP = keywords.Contains( RenderPipeline.URP.PreprocessorDefineName() );
+			bool kwHDRP = keywords.Contains( RenderPipeline.HDRP.PreprocessorDefineName() );
+			rp = default;
+			if( kwURP && !kwHDRP )
+				rp = RenderPipeline.URP;
+			else if( kwHDRP && !kwURP )
+				rp = RenderPipeline.HDRP;
+			else if( !kwHDRP && !kwURP )
+				rp = RenderPipeline.Legacy;
+			else
+				return false;
+			return true;
+		}
+
+
+		static void SetPreprocessorRpSymbols( RenderPipeline rpTarget ) {
+			Debug.Log( $"Setting preprocessor symbols for {rpTarget.PrettyName()}" );
+			List<string> symbols = GetCurrentKeywords();
 
 			bool changed = false;
 
@@ -166,13 +236,12 @@ namespace Shapes {
 			CheckRpSymbol( RenderPipeline.HDRP );
 
 			if( changed && ShapesIO.TryMakeAssetsEditable( ShapesIO.projectSettingsPath ) ) {
-				Debug.Log( $"Shapes updated your project scripting define symbols since you seem to be using {rpTarget.PrettyName()}, I hope that's okay~" );
-				PlayerSettings.SetScriptingDefineSymbolsForGroup( buildTargetGroup, string.Join( ";", symbols ) );
+				//Debug.Log( $"Shapes updated your project scripting define symbols since you seem to be using {rpTarget.PrettyName()}, I hope that's okay~" );
+				SetCurrentKeywords( symbols );
 			}
 		}
 
 		#endif
-
 	}
 
 }
