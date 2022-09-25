@@ -12,18 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  version: 1
+  version: 5
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PolygonNature_Water
-  m_Shader: {fileID: -6465566751694194690, guid: 02c51bbb44295274f87bc75642326b9f,
-    type: 3}
-  m_ShaderKeywords: 
+  m_Shader: {fileID: -6465566751694194690, guid: 02c51bbb44295274f87bc75642326b9f, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -93,6 +93,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - Vector1_5E6E1535: 0.2
     - Vector1_B2FA92CE: 1
@@ -138,3 +139,4 @@ Material:
     - _deepColor: {r: 0, g: 0.15204044, b: 0.5943396, a: 0.9215686}
     - _edgeFoamColor: {r: 0.7454045, g: 0.7454045, b: 0.7454045, a: 1}
     - _shallowColor: {r: 0.05126947, g: 0.1912017, b: 0.4341537, a: 0.4823529}
+  m_BuildTextureStacks: []
